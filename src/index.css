@@ -46,10 +46,8 @@
   --color-pnp-black: #02080d;
 }
 
-@layer utilities {
-  .pnp-shadow {
-    @apply shadow-[0px_4px_17.6px_-3px_rgba(0,_0,_0,_0.25)];
-  }
+@utility pnp-shadow {
+  box-shadow: 0px 4px 17.6px -3px rgba(0, 0, 0, 0.25);
 }
 
 @layer base {
