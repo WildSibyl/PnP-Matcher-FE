@@ -7,8 +7,8 @@ const GroupCard = ({
   image,
   country,
   zipCode,
-  system,
-  playstyle,
+  systems,
+  playstyles,
   days,
   frequencyPerMonth,
   maxMembers,
@@ -32,10 +32,10 @@ const GroupCard = ({
             <strong>Zip Code:</strong> {zipCode}
           </li>
           <li>
-            <strong>System:</strong> {system}
+            <strong>System:</strong> {systems}
           </li>
           <li>
-            <strong>Playstyle:</strong> {playstyle}
+            <strong>Playstyle:</strong> {playstyles}
           </li>
           <li>
             <strong>Days:</strong> {days?.join(", ")}

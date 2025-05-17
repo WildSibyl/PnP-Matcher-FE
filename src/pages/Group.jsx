@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { deleteGroup, getSingleGroup } from "../data/groups";
-import GroupSkeleton from "../components/GroupSkeleton";
+import GroupSkeleton from "../components/group-comp/GroupSkeleton";
 import { AuthContext } from "../context/AuthContextProvider";
 
 const Group = () => {
@@ -60,10 +60,10 @@ const Group = () => {
           <strong>Zip Code:</strong> {group.zipCode}
         </li>
         <li>
-          <strong>System:</strong> {group.system}
+          <strong>System:</strong> {group.systems}
         </li>
         <li>
-          <strong>Playstyle:</strong> {group.playstyle}
+          <strong>Playstyle:</strong> {group.playstyles}
         </li>
         <li>
           <strong>Days:</strong> {group.days.join(", ")}
