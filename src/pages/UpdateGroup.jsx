@@ -12,11 +12,12 @@ const UpdateGroup = () => {
     description: "",
     country: "",
     zipCode: "",
-    system: "",
-    playstyle: "",
+    systems: [],
+    playstyles: [],
     days: [],
-    frequencyPerMonth: "",
-    maxMembers: "",
+    frequencyPerMonth: 1,
+    likes: [],
+    dislikes: [],
   });
   const [loading, setLoading] = useState(false);
 
@@ -30,11 +31,11 @@ const UpdateGroup = () => {
           description: group.description || "",
           country: group.country || "",
           zipCode: group.zipCode || "",
-          system: group.system || "",
-          playstyle: group.playstyle || "",
+          systems: group.systems || [],
+          playstyles: group.playstyles || [],
           days: group.days || [],
           frequencyPerMonth: group.frequencyPerMonth || "",
-          maxMembers: group.maxMembers || "",
+          maxMembers: group.maxMembers || [],
         });
       } catch (error) {
         toast.error("Failed to load group data.");
@@ -76,8 +77,8 @@ const UpdateGroup = () => {
         ["description", "Description"],
         ["country", "Country"],
         ["zipCode", "ZIP Code"],
-        ["system", "System (e.g. D&D 5e)"],
-        ["playstyle", "Playstyle (e.g. Casual, Hardcore)"],
+        ["systems", "System (e.g. D&D 5e)"],
+        ["playstyles", "Playstyle (e.g. Casual, Hardcore)"],
         ["frequencyPerMonth", "Sessions per Month"],
         ["maxMembers", "Maximum Members"],
       ].map(([field, label]) => (

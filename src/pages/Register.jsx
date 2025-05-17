@@ -1,8 +1,22 @@
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { signUp } from "../data/auth"; // Assuming you have a signup function in utils/auth
-import { useAuth } from "../hooks/useAuth"; // Assuming you have an AuthContextProvider
+import { signUp } from "../data/auth";
+import { useAuth } from "../hooks/useAuth";
+import {
+  systemsPreference,
+  playstylesPreference,
+  likesPreference,
+  dislikesPreference,
+  experienceLevel,
+} from "../data/dropdowns/preferences";
+import Select from "react-select";
+
+import Step1UserInfo from "../components/register-comp/Step1UserInfo";
+import Step2GameExperience from "../components/register-comp/Step2GameExperience";
+import Step3Preferences from "../components/register-comp/Step3Preferences";
+import Step4Schedule from "../components/register-comp/Step4Schedule";
+import Step5Profile from "../components/register-comp/Step5Profile";
 
 const daysOfWeek = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
@@ -13,19 +27,25 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     birthday: "",
-    about: "",
     zipCode: "",
     country: "",
-    system: "",
-    playstyle: "",
+    experience: "",
+    systems: [],
+    playstyles: [],
+    likes: [],
+    dislikes: [],
     days: [],
     frequencyPerMonth: 1,
-    likes: "",
-    dislikes: "",
+    tagline: "",
+    description: "",
   });
+  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  if (user) return <Navigate to="/" />;
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -44,57 +64,98 @@ const Register = () => {
     }
   };
 
+  // Helpers for react-select multi-select updates
+  const setMultiSelect = (name, selectedOptions) => {
+    setForm((prev) => ({
+      ...prev,
+      [name]: selectedOptions ? selectedOptions.map((s) => s.value) : [],
+    }));
+  };
+
+  const validateStep = () => {
+    // Minimal validation per step
+    switch (step) {
+      case 1:
+        if (
+          !form.userName ||
+          !form.email ||
+          !form.password ||
+          !form.confirmPassword ||
+          !form.birthday ||
+          !form.zipCode ||
+          !form.country
+        )
+          return "Please fill all required fields in Step 1.";
+        if (form.password !== form.confirmPassword)
+          return "Passwords do not match.";
+        break;
+      case 2:
+        if (!form.experience) return "Please select your experience.";
+        if (form.systems.length === 0)
+          return "Please select at least one system.";
+        break;
+      case 3:
+        // Preferences can be optional; no validation required
+        break;
+      case 4:
+        if (form.days.length === 0)
+          return "Please select at least one day you play.";
+        if (form.frequencyPerMonth < 1)
+          return "Frequency per month must be at least 1.";
+        break;
+      case 5:
+        if (!form.tagline || !form.description)
+          return "Please fill out your tagline and description.";
+        break;
+      default:
+        return null;
+    }
+    return null;
+  };
+
+  const handleNext = () => {
+    const error = validateStep();
+    if (error) {
+      toast.error(error);
+      return;
+    }
+    setStep((prev) => Math.min(prev + 1, 5));
+  };
+
+  const handleBack = () => {
+    setStep((prev) => Math.max(prev - 1, 1));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate last step again
+    const error = validateStep();
+    if (error) {
+      toast.error(error);
+      return;
+    }
+
+    setLoading(true);
     try {
-      // Basic frontend validation
-      if (
-        !form.userName ||
-        !form.email ||
-        !form.password ||
-        !form.confirmPassword ||
-        !form.birthday ||
-        !form.about ||
-        !form.zipCode ||
-        !form.country ||
-        !form.system ||
-        !form.playstyle ||
-        form.days.length === 0 ||
-        !form.frequencyPerMonth
-      ) {
-        throw new Error("Please fill out all required fields.");
-      }
-      if (form.password !== form.confirmPassword) {
-        throw new Error("Passwords do not match.");
-      }
-      setLoading(true);
-
-      // Convert likes and dislikes from comma-separated string to arrays
-      const likesArray = form.likes
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean);
-      const dislikesArray = form.dislikes
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean);
-
-      // Prepare data for backend
+      // Prepare payload
       const payload = {
         userName: form.userName,
         email: form.email,
         password: form.password,
         birthday: new Date(form.birthday),
-        about: form.about,
         zipCode: form.zipCode,
         country: form.country,
-        system: form.system,
-        playstyle: form.playstyle,
+        experience: form.experience,
+        systems: form.systems,
+        playstyles: form.playstyles,
+        likes: form.likes,
+        dislikes: form.dislikes,
         days: form.days,
         frequencyPerMonth: form.frequencyPerMonth,
-        likes: likesArray,
-        dislikes: dislikesArray,
-        groups: [], // optional, empty for now
+        tagline: form.tagline,
+        description: form.description,
+        groups: [],
       };
 
       await signUp(payload);
@@ -107,142 +168,62 @@ const Register = () => {
     }
   };
 
-  if (user) return <Navigate to="/" />;
-
   return (
     <form
       onSubmit={handleSubmit}
-      className="my-5 md:w-1/2 mx-auto flex flex-col gap-3"
+      className="my-5 md:w-1/2 mx-auto flex flex-col gap-4 rounded-3xl bg-white p-6"
     >
-      <input
-        name="userName"
-        value={form.userName}
-        onChange={handleChange}
-        placeholder="Username"
-        className="input input-bordered"
-      />
-      <input
-        type="email"
-        name="email"
-        value={form.email}
-        onChange={handleChange}
-        placeholder="Email"
-        className="input input-bordered"
-      />
-      <input
-        type="password"
-        name="password"
-        value={form.password}
-        onChange={handleChange}
-        placeholder="Password"
-        className="input input-bordered"
-      />
-      <input
-        type="password"
-        name="confirmPassword"
-        value={form.confirmPassword}
-        onChange={handleChange}
-        placeholder="Confirm Password"
-        className="input input-bordered"
-      />
-      <input
-        type="date"
-        name="birthday"
-        value={form.birthday}
-        onChange={handleChange}
-        className="input input-bordered"
-        max={new Date().toISOString().split("T")[0]}
-      />
-      <textarea
-        name="about"
-        value={form.about}
-        onChange={handleChange}
-        placeholder="About"
-        className="input input-bordered"
-      />
-      <input
-        name="zipCode"
-        value={form.zipCode}
-        onChange={handleChange}
-        placeholder="Zip Code"
-        className="input input-bordered"
-      />
-      <input
-        name="country"
-        value={form.country}
-        onChange={handleChange}
-        placeholder="Country"
-        className="input input-bordered"
-      />
-      <input
-        name="system"
-        value={form.system}
-        onChange={handleChange}
-        placeholder="System"
-        className="input input-bordered"
-      />
-      <input
-        name="playstyle"
-        value={form.playstyle}
-        onChange={handleChange}
-        placeholder="Playstyle"
-        className="input input-bordered"
-      />
-
-      <fieldset className="flex gap-2 flex-wrap">
-        <legend>Days you play:</legend>
-        {daysOfWeek.map((day) => (
-          <label key={day} className="flex items-center gap-1">
-            <input
-              type="checkbox"
-              name="days"
-              value={day}
-              checked={form.days.includes(day)}
-              onChange={handleChange}
-            />
-            {day.toUpperCase()}
-          </label>
-        ))}
-      </fieldset>
-
-      <label>
-        Frequency per month:
-        <input
-          type="number"
-          name="frequencyPerMonth"
-          min={1}
-          max={31}
-          value={form.frequencyPerMonth}
+      {step === 1 && <Step1UserInfo form={form} onChange={handleChange} />}
+      {step === 2 && (
+        <Step2GameExperience
+          form={form}
           onChange={handleChange}
-          className="input input-bordered"
+          setMultiSelect={setMultiSelect}
         />
-      </label>
+      )}
+      {step === 3 && (
+        <Step3Preferences form={form} setMultiSelect={setMultiSelect} />
+      )}
+      {step === 4 && <Step4Schedule form={form} onChange={handleChange} />}
+      {step === 5 && <Step5Profile form={form} onChange={handleChange} />}
 
-      <input
-        name="likes"
-        value={form.likes}
-        onChange={handleChange}
-        placeholder="Likes (comma separated)"
-        className="input input-bordered"
-      />
-      <input
-        name="dislikes"
-        value={form.dislikes}
-        onChange={handleChange}
-        placeholder="Dislikes (comma separated)"
-        className="input input-bordered"
-      />
+      <div className="flex justify-between mt-6">
+        {step > 1 ? (
+          <button
+            type="button"
+            onClick={handleBack}
+            className="btn btn-secondary"
+            disabled={loading}
+          >
+            Back
+          </button>
+        ) : (
+          <div />
+        )}
+        {step < 5 ? (
+          <button
+            type="button"
+            onClick={handleNext}
+            className="btn btn-primary"
+            disabled={loading}
+          >
+            Next
+          </button>
+        ) : (
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? "Creating..." : "Create Account"}
+          </button>
+        )}
+      </div>
 
-      <small>
-        Already have an account?{" "}
-        <Link to="/login" className="text-primary hover:underline">
-          Log in!
-        </Link>
-      </small>
-
-      <button disabled={loading} className="btn btn-primary self-center">
-        Create Account
-      </button>
+      {step === 1 && (
+        <small>
+          Already have an account?{" "}
+          <Link to="/login" className="text-primary hover:underline">
+            Log in!
+          </Link>
+        </small>
+      )}
     </form>
   );
 };

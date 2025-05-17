@@ -13,8 +13,8 @@ const CreateGroup = () => {
     description: "",
     zipCode: "",
     country: "",
-    system: "",
-    playstyle: "",
+    systems: "",
+    playstyles: "",
     days: [],
     frequencyPerMonth: 1,
     maxMembers: 10,
@@ -45,8 +45,8 @@ const CreateGroup = () => {
         description,
         zipCode,
         country,
-        system,
-        playstyle,
+        systems,
+        playstyles,
         days,
         frequencyPerMonth,
         maxMembers,
@@ -58,8 +58,8 @@ const CreateGroup = () => {
         !description ||
         !zipCode ||
         !country ||
-        !system ||
-        !playstyle ||
+        !systems ||
+        !playstyles ||
         days.length === 0 ||
         !frequencyPerMonth ||
         !maxMembers
@@ -75,8 +75,8 @@ const CreateGroup = () => {
         description: "",
         zipCode: "",
         country: "",
-        system: "",
-        playstyle: "",
+        systems: "",
+        playstyles: "",
         days: [],
         frequencyPerMonth: 1,
         maxMembers: 10,
@@ -149,8 +149,8 @@ const CreateGroup = () => {
       <label className="form-control">
         <div className="label-text">System</div>
         <input
-          name="system"
-          value={form.system}
+          name="systems"
+          value={form.systems}
           onChange={handleChange}
           className="input input-bordered"
         />
@@ -159,8 +159,8 @@ const CreateGroup = () => {
       <label className="form-control">
         <div className="label-text">Playstyle</div>
         <input
-          name="playstyle"
-          value={form.playstyle}
+          name="playstyles"
+          value={form.playstyles}
           onChange={handleChange}
           className="input input-bordered"
         />
