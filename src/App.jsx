@@ -21,12 +21,12 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/search" element={<Profile />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="group/:id" element={<Group />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/group/:id" element={<Group />} />
         <Route element={<ProtectedLayout />}>
-          <Route path="create" element={<CreateGroup />} />
-          <Route path="edit/:id" element={<UpdateGroup />} />
+          <Route path="/create" element={<CreateGroup />} />
+          <Route path="/edit/:id" element={<UpdateGroup />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>

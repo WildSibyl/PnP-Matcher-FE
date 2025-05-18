@@ -1,9 +1,10 @@
 export const systemsPreference = [
-  { label: "Dungeons & Dragons 5e", value: "Dungeons & Dragons 5e" },
+  { label: "D&D 5e", value: "D&D 5e" },
   { label: "Pathfinder 2e", value: "Pathfinder 2e" },
   { label: "Call of Cthulhu", value: "Call of Cthulhu" },
   { label: "Shadowrun", value: "Shadowrun" },
   { label: "Vampire: The Masquerade", value: "Vampire: The Masquerade" },
+  { label: "Cyberpunk 2077", value: "Cyberpunk 2077" },
   { label: "Blades in the Dark", value: "Blades in the Dark" },
   { label: "Starfinder", value: "Starfinder" },
   { label: "Savage Worlds", value: "Savage Worlds" },
@@ -18,18 +19,18 @@ export const playstylesPreference = [
 ];
 
 export const likesPreference = [
-  { label: "Dungeons", value: "dungeons" },
-  { label: "Exploration", value: "exploration" },
-  { label: "Combat", value: "combat" },
-  { label: "Roleplay", value: "roleplay" },
-  { label: "Puzzles", value: "puzzles" },
+  { label: "Dungeons", value: "Dungeons" },
+  { label: "Exploration", value: "Exploration" },
+  { label: "Combat", value: "Combat" },
+  { label: "Roleplay", value: "Roleplay" },
+  { label: "Puzzles", value: "Puzzles" },
 ];
 
 export const dislikesPreference = [
-  { label: "Violence", value: "violence" },
-  { label: "Meta-gaming", value: "meta-gaming" },
-  { label: "Railroading", value: "railroading" },
-  { label: "Long Sessions", value: "long sessions" },
+  { label: "Violence", value: "Violence" },
+  { label: "Meta-gaming", value: "Meta-gaming" },
+  { label: "Railroading", value: "Railroading" },
+  { label: "Long Sessions", value: "Long sessions" },
 ];
 
 export const experienceLevel = [

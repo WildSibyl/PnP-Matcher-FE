@@ -23,8 +23,12 @@ export const me = async () => {
 };
 
 export const signUp = async (formData) => {
+  console.log("signup hit");
+  console.log("baseUrl", baseUrl);
+  console.log("formData", formData);
   const res = await fetch(`${baseUrl}/signup`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },

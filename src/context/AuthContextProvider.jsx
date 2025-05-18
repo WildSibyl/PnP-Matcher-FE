@@ -13,6 +13,7 @@ const AuthContextProvider = ({ children }) => {
         setUser(userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
+        console.error("User not logged in or session expired.");
       }
     };
 
