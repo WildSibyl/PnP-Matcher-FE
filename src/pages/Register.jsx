@@ -3,22 +3,12 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { signUp } from "../data/auth";
 import { useAuth } from "../hooks/useAuth";
-import {
-  systemsPreference,
-  playstylesPreference,
-  likesPreference,
-  dislikesPreference,
-  experienceLevel,
-} from "../data/dropdowns/preferences";
-import Select from "react-select";
 
 import Step1UserInfo from "../components/register-comp/Step1UserInfo";
 import Step2GameExperience from "../components/register-comp/Step2GameExperience";
 import Step3Preferences from "../components/register-comp/Step3Preferences";
 import Step4Schedule from "../components/register-comp/Step4Schedule";
 import Step5Profile from "../components/register-comp/Step5Profile";
-
-const daysOfWeek = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -175,22 +165,23 @@ const Register = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="my-5 md:w-1/2 mx-auto flex flex-col gap-4 rounded-3xl bg-white p-6"
+      className="my-5 md:w-1/2 mx-auto flex flex-col gap-4"
     >
-      {step === 1 && <Step1UserInfo form={form} onChange={handleChange} />}
-      {step === 2 && (
-        <Step2GameExperience
-          form={form}
-          onChange={handleChange}
-          setMultiSelect={setMultiSelect}
-        />
-      )}
-      {step === 3 && (
-        <Step3Preferences form={form} setMultiSelect={setMultiSelect} />
-      )}
-      {step === 4 && <Step4Schedule form={form} onChange={handleChange} />}
-      {step === 5 && <Step5Profile form={form} onChange={handleChange} />}
-
+      <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+        {step === 1 && <Step1UserInfo form={form} onChange={handleChange} />}
+        {step === 2 && (
+          <Step2GameExperience
+            form={form}
+            onChange={handleChange}
+            setMultiSelect={setMultiSelect}
+          />
+        )}
+        {step === 3 && (
+          <Step3Preferences form={form} setMultiSelect={setMultiSelect} />
+        )}
+        {step === 4 && <Step4Schedule form={form} onChange={handleChange} />}
+        {step === 5 && <Step5Profile form={form} onChange={handleChange} />}
+      </div>
       <div className="flex justify-between mt-6">
         {step > 1 ? (
           <button

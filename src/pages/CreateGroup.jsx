@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createGroup } from "../data/groups";
 
-const dayOptions = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+const dayOptions = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 
 const CreateGroup = () => {
   const navigate = useNavigate();
@@ -101,7 +101,7 @@ const CreateGroup = () => {
           value={form.name}
           onChange={handleChange}
           placeholder="Enter group name..."
-          className="input input-bordered"
+          className="input-bordered"
         />
       </label>
 
@@ -112,7 +112,7 @@ const CreateGroup = () => {
           value={form.image}
           onChange={handleChange}
           placeholder="Group image URL..."
-          className="input input-bordered"
+          className="input-bordered"
         />
       </label>
 
@@ -132,7 +132,7 @@ const CreateGroup = () => {
           name="zipCode"
           value={form.zipCode}
           onChange={handleChange}
-          className="input input-bordered"
+          className="input-bordered"
         />
       </label>
 
@@ -142,7 +142,7 @@ const CreateGroup = () => {
           name="country"
           value={form.country}
           onChange={handleChange}
-          className="input input-bordered"
+          className="input-bordered"
         />
       </label>
 
@@ -152,7 +152,7 @@ const CreateGroup = () => {
           name="systems"
           value={form.systems}
           onChange={handleChange}
-          className="input input-bordered"
+          className="input-bordered"
         />
       </label>
 
@@ -162,7 +162,7 @@ const CreateGroup = () => {
           name="playstyles"
           value={form.playstyles}
           onChange={handleChange}
-          className="input input-bordered"
+          className="input-bordered"
         />
       </label>
 
@@ -194,7 +194,7 @@ const CreateGroup = () => {
           onChange={handleChange}
           min={1}
           max={31}
-          className="input input-bordered"
+          className="input-bordered"
         />
       </label>
 
@@ -207,7 +207,7 @@ const CreateGroup = () => {
           onChange={handleChange}
           min={1}
           max={30}
-          className="input input-bordered"
+          className="input-bordered"
         />
       </label>
 

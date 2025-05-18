@@ -16,9 +16,6 @@ const Navbar = () => {
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
               {user ? <NavLink to="/create">Create group</NavLink> : null}
             </li>
             <li>
