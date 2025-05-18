@@ -143,7 +143,8 @@ const Register = () => {
         userName: form.userName,
         email: form.email,
         password: form.password,
-        birthday: new Date(form.birthday),
+        confirmPassword: form.confirmPassword,
+        birthday: new Date(form.birthday).toISOString(),
         zipCode: form.zipCode,
         country: form.country,
         experience: form.experience,
@@ -158,6 +159,8 @@ const Register = () => {
         groups: [],
       };
 
+      //console.log("Payload being sent to backend:", payload);
+
       await signUp(payload);
       toast.success("Account created successfully. Please log in.");
       navigate("/login");
@@ -166,6 +169,7 @@ const Register = () => {
     } finally {
       setLoading(false);
     }
+    console.log("Form submitted:", form);
   };
 
   return (
@@ -192,7 +196,7 @@ const Register = () => {
           <button
             type="button"
             onClick={handleBack}
-            className="btn btn-secondary"
+            className="btn-secondary-light"
             disabled={loading}
           >
             Back
@@ -204,13 +208,17 @@ const Register = () => {
           <button
             type="button"
             onClick={handleNext}
-            className="btn btn-primary"
+            className="btn-primary-light"
             disabled={loading}
           >
             Next
           </button>
         ) : (
-          <button type="submit" className="btn btn-primary" disabled={loading}>
+          <button
+            type="submit"
+            className="btn-primary-light"
+            disabled={loading}
+          >
             {loading ? "Creating..." : "Create Account"}
           </button>
         )}

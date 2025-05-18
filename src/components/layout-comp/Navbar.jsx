@@ -23,7 +23,7 @@ const Navbar = () => {
             </li>
             <li>
               {user ? (
-                <span>{`Hi, ${user.firstName}!`}</span>
+                <span>{`Hi, ${user.userName}!`}</span>
               ) : (
                 <NavLink to="/register">Register</NavLink>
               )}
