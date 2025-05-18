@@ -88,7 +88,7 @@ const UpdateGroup = () => {
             name={field}
             value={form[field]}
             onChange={handleChange}
-            className="input input-bordered w-full"
+            className="input-bordered w-full"
           />
         </label>
       ))}
@@ -105,7 +105,7 @@ const UpdateGroup = () => {
               days: e.target.value.split(",").map((d) => d.trim()),
             }))
           }
-          className="input input-bordered w-full"
+          className="input-bordered w-full"
         />
       </label>
 

@@ -1,20 +1,26 @@
 const Step5Profile = ({ form, onChange }) => (
   <>
-    <label className="label">Tagline</label>
+    <div className="flex flex-row justify-between">
+      <label className="label">TAGLINE</label>
+      <p className="label-italic">Make your profile stand out!</p>
+    </div>
     <textarea
       name="tagline"
       value={form.tagline}
       onChange={onChange}
       placeholder="Short tagline"
-      className="input input-bordered h-12"
+      className="input-bordered h-12"
     />
-    <label className="label">Description</label>
+    <div className="flex flex-row justify-between">
+      <label className="label">DESCRIPTION</label>
+      <p className="label-italic">Tell us more about you</p>
+    </div>
     <textarea
       name="description"
       value={form.description}
       onChange={onChange}
       placeholder="About you"
-      className="input input-bordered h-24"
+      className="input-bordered h-50"
     />
   </>
 );

@@ -7,7 +7,11 @@ import {
 
 const Step3Preferences = ({ form, setMultiSelect }) => (
   <>
-    <label className="label mt-4">Playstyle</label>
+    <h3 className="title">YOU AS A PLAYER 2</h3>
+    <div className="flex flex-row justify-between">
+      <label className="label">PLAYSTYLE</label>
+      <p className="label-italic">Which playstyles fit you the most?</p>
+    </div>
     <Select
       options={playstylesPreference}
       isMulti
@@ -16,32 +20,55 @@ const Step3Preferences = ({ form, setMultiSelect }) => (
       )}
       onChange={(selected) => setMultiSelect("playstyles", selected)}
       placeholder="Select playstyles"
+      className="input-bordered-multi"
     />
-    <div className="mt-2 flex flex-wrap gap-2">
+    <div className="tag-field">
       {form.playstyles.map((val) => (
-        <span key={val} className="bg-gray-200 px-2 py-1 rounded">
+        <span key={val} className="bg-black text-white px-2 py-1 rounded-full">
           {val}
         </span>
       ))}
     </div>
 
-    <label className="label mt-4">Preferences (Likes)</label>
+    <div className="flex flex-row justify-between">
+      <label className="label">PREFERENCES</label>
+      <p className="label-italic">Stuff you like</p>
+    </div>
     <Select
       options={likesPreference}
       isMulti
       value={likesPreference.filter((l) => form.likes.includes(l.value))}
       onChange={(selected) => setMultiSelect("likes", selected)}
       placeholder="Select likes"
+      className="input-bordered-multi"
     />
+    <div className="tag-field">
+      {form.likes.map((val) => (
+        <span key={val} className="bg-black text-white px-2 py-1 rounded-full">
+          {val}
+        </span>
+      ))}
+    </div>
 
-    <label className="label mt-4">NO-GOs (Dislikes)</label>
+    <div className="flex flex-row justify-between">
+      <label className="label">NO-GOs</label>
+      <p className="label-italic">Stuff you dislike</p>
+    </div>
     <Select
       options={dislikesPreference}
       isMulti
       value={dislikesPreference.filter((d) => form.dislikes.includes(d.value))}
       onChange={(selected) => setMultiSelect("dislikes", selected)}
       placeholder="Select dislikes"
+      className="input-bordered-multi"
     />
+    <div className="tag-field">
+      {form.dislikes.map((val) => (
+        <span key={val} className="bg-black text-white px-2 py-1 rounded-full">
+          {val}
+        </span>
+      ))}
+    </div>
   </>
 );
 
