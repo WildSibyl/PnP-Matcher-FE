@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
 @plugin "daisyui/theme" {
   name: "pnp";
   default: true;
@@ -11,7 +12,7 @@
   --color-base-content: rgba(2, 8, 13, 1);
   --color-primary: rgba(112, 36, 219, 1);
   --color-primary-content: oklch(98% 0.014 180.72);
-  --color-secondary: oklch(57% 0.245 27.325);
+  --color-secondary: oklch(13% 0.028 261.692);
   --color-secondary-content: oklch(97% 0.013 17.38);
   --color-accent: rgba(197, 154, 253, 1);
   --color-accent-content: oklch(98% 0.002 247.839);
@@ -40,10 +41,11 @@
 @theme {
   --color-pnp-darkpurple: #7024db;
   --color-pnp-darkblue: #3bc7fc;
-  --color-pnp-green: #67ffcc;
-  --color-pnp-purple: #c59afd;
-  --color-pnp-blue: #4fcfff;
-  --color-pnp-black: #02080d;
+  --color-pnp-green: var(--color-success);
+  --color-pnp-purple: var(--color-primary);
+  --color-pnp-blue: var(--color-neutral);
+  --color-pnp-black: var(--color-base-content);
+  --color-pnp-white: var(--color-secondary-content);
 }
 
 @utility pnp-shadow {
@@ -57,16 +59,16 @@
     font-family: "Inter Variable", sans-serif;
   }
   h1 {
-    @apply text-5xl font-extrabold uppercase mb-4;
+    @apply text-5xl font-extrabold uppercase;
   }
   h2 {
-    @apply text-3xl font-extrabold uppercase mb-2;
+    @apply text-3xl font-extrabold uppercase;
   }
   h3 {
-    @apply text-2xl font-extrabold uppercase mb-2;
+    @apply text-2xl font-extrabold uppercase;
   }
   p {
-    @apply text-lg font-semibold mb-2;
+    @apply text-lg font-semibold;
   }
   small {
     @apply text-sm font-semibold;
@@ -115,16 +117,16 @@
       @apply bg-[#02080D] px-[2vw];
     }
     h1 {
-      @apply text-5xl font-extrabold uppercase mb-4;
+      @apply text-4xl font-extrabold uppercase;
     }
     h2 {
-      @apply text-3xl font-extrabold uppercase mb-2;
+      @apply text-2xl font-extrabold uppercase;
     }
     h3 {
-      @apply text-2xl font-extrabold uppercase mb-2;
+      @apply text-lg font-extrabold uppercase;
     }
     p {
-      @apply text-lg font-semibold mb-2;
+      @apply text-base font-semibold;
     }
     small {
       @apply text-sm font-semibold;
