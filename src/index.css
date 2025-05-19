@@ -54,7 +54,7 @@
 
 @layer base {
   body {
-    @apply bg-[#02080D] px-[10vw];
+    @apply bg-[#02080D];
 
     font-family: "Inter Variable", sans-serif;
   }
@@ -114,7 +114,7 @@
 
   @media (max-width: 1250px) {
     body {
-      @apply bg-[#02080D] px-[2vw];
+      @apply bg-[#02080D];
     }
     h1 {
       @apply text-4xl font-extrabold uppercase;
