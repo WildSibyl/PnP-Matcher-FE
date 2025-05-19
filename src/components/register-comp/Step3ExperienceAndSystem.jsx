@@ -1,12 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select from "react-select";
 import {
   experienceLevel,
   systemsPreference,
 } from "../../data/dropdowns/preferences";
+import TagMultiSelect from "../edit-comp/TagMultiSelect";
+import { useTagContext } from "../../context/TagsContextProvider"; //still WIP
 
-const Step3ExperienceAndSystem = ({ form, onChange, setMultiSelect }) => {
-  const [x, setX] = useState(null);
+const Step3ExperienceAndSystem = ({ form, setForm, onChange }) => {
+  const [selectedSystems, setSelectedSystems] = useState([]);
+
+  useEffect(() => {
+    setForm((prev) => ({
+      ...prev,
+      systems: selectedSystems.map((s) => s.value),
+    }));
+  }, [selectedSystems]);
+
+  const handleSelectChange = (selectedOptions) => {
+    const newSelections = selectedOptions || [];
+
+    setSelectedSystems((prev) => {
+      const unique = [...prev];
+      newSelections.forEach((option) => {
+        if (!unique.find((o) => o.value === option.value)) {
+          unique.push(option);
+        }
+      });
+      return unique;
+    });
+  };
+
+  const handleRemoveSystem = (valToRemove) => {
+    setSelectedSystems((prev) =>
+      prev.filter((opt) => opt.value !== valToRemove)
+    );
+  };
 
   return (
     <>
@@ -36,18 +65,24 @@ const Step3ExperienceAndSystem = ({ form, onChange, setMultiSelect }) => {
       <Select
         options={systemsPreference}
         isMulti
-        value={systemsPreference.filter((s) => form.systems.includes(s.value))}
-        onChange={(selected) => setMultiSelect("systems", selected)}
+        onChange={handleSelectChange}
+        value={[]} // Makes it always look empty
         placeholder="Select systems"
         className="input-bordered-multi"
       />
       <div className="tag-field">
-        {form.systems.map((val) => (
+        {selectedSystems.map((opt) => (
           <span
-            key={val}
-            className="bg-black text-white px-2 py-1 rounded-full"
+            key={opt.value}
+            className="flex items-center bg-black text-white px-3 py-1 rounded-full"
           >
-            {val}
+            {opt.label}
+            <button
+              className="ml-2 text-white"
+              onClick={() => handleRemoveSystem(opt.value)}
+            >
+              &times;
+            </button>
           </span>
         ))}
       </div>

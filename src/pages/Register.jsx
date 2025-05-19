@@ -176,6 +176,7 @@ const Register = () => {
             form={form}
             onChange={handleChange}
             setMultiSelect={setMultiSelect}
+            setForm={setForm}
           />
         )}
         {step === 4 && <Step4Schedule form={form} onChange={handleChange} />}
