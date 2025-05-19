@@ -86,7 +86,12 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <NavMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} user={user} />
+      <NavMenu
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+        user={user}
+        logOut={logOut}
+      />
     </>
   );
 };
