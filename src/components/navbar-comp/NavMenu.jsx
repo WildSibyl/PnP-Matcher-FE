@@ -8,7 +8,7 @@ import dragonImage from "../../assets/dragonimage.png";
 import profilePic from "../../assets/exampleProfilePic.jpg";
 import Chatbubblesvg from "../../assets/chatbubble.svg?react";
 
-const NavMenu = ({ menuOpen, setMenuOpen, user }) => {
+const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
   return (
     <div
       className={`fixed top-0 left-0 w-[100vw] h-[100vh] z-10 flex flex-col justify-center bg-clip-padding backdrop-filter backdrop-blur-sm bg-[rgba(8,11,31,0.80)] ease-in-out duration-200 ${
@@ -19,13 +19,21 @@ const NavMenu = ({ menuOpen, setMenuOpen, user }) => {
     >
       <div className="grid grid-cols-2 w-[80vw] mx-auto gap-4">
         {user ? (
-          <div className="flex col-span-2 text-pnp-white justify-center items-center gap-4">
-            <img
-              className="rounded-full h-[8vh] border-pnp-white border-1"
-              src={profilePic}
-              alt="username"
-            ></img>
-            <h3 className="font-semibold normal-case">Hi, Username!</h3>
+          <div className="flex flex-col col-span-2 gap-4 justify-center text-center">
+            <div className="flex col-span-2 text-pnp-white justify-center items-center gap-4">
+              <img
+                className="rounded-full h-[8vh] border-pnp-white border-1"
+                src={profilePic}
+                alt="username"
+              ></img>
+              <h3 className="font-semibold normal-case">{`Hi, ${user.userName}!`}</h3>
+            </div>
+            <button
+              className="btn-secondary-light font-semibold normal-case cursor-pointer mx-auto"
+              onClick={logOut}
+            >
+              <h3 className="font-semibold normal-case">Log out</h3>
+            </button>
           </div>
         ) : (
           <div className="flex flex-col col-span-2 gap-4 justify-center text-center">
@@ -53,7 +61,7 @@ const NavMenu = ({ menuOpen, setMenuOpen, user }) => {
 
         <button
           style={{ backgroundImage: `url(${dragonImage})` }}
-          className="bg-center bg-cover rounded-2xl items-center justify-center h-[18vh] text-pnp-white col-span-2 flex justify-center gap-2"
+          className="bg-center bg-cover rounded-2xl items-center justify-center h-[18vh] text-pnp-white col-span-2 flex gap-2"
         >
           <CrossedSwordssvg />
           <h3>START MATCHING!</h3>
