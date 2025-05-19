@@ -1,11 +1,11 @@
 const Home = () => {
   return (
     <div>
-      <h1 className="white">This is the H1</h1>
-      <h2 className="white">This is the H2</h2>
-      <h3 className="white">This is the H3</h3>
-      <p className="white">This is an paragraph text</p>
-      <small className="white">Those are smaller footnotes</small>
+      <h1>This is the H1</h1>
+      <h2>This is the H2</h2>
+      <h3>This is the H3</h3>
+      <p>This is an paragraph text</p>
+      <small>Those are smaller footnotes</small>
       <br />
       <button className="btn-primary-light">Primary LIGHT</button>
       <button className="btn-secondary-light">Secondary LIGHT</button>

@@ -56,20 +56,20 @@
 
     font-family: "Inter Variable", sans-serif;
   }
-  h1.white {
-    @apply text-5xl text-white font-extrabold uppercase mb-4;
+  h1 {
+    @apply text-5xl font-extrabold uppercase mb-4;
   }
-  h2.white {
-    @apply text-3xl text-white font-extrabold uppercase mb-2;
+  h2 {
+    @apply text-3xl font-extrabold uppercase mb-2;
   }
-  h3.white {
-    @apply text-2xl text-white font-extrabold uppercase mb-2;
+  h3 {
+    @apply text-2xl font-extrabold uppercase mb-2;
   }
-  p.white {
-    @apply text-lg text-white font-semibold mb-2;
+  p {
+    @apply text-lg font-semibold mb-2;
   }
-  small.white {
-    @apply text-sm text-white font-semibold;
+  small {
+    @apply text-sm font-semibold;
   }
 
   /* registration tags: they work only if the h1,h2,h3,p,small rules have the className="white" */
@@ -114,20 +114,20 @@
     body {
       @apply bg-[#02080D] px-[2vw];
     }
-    h1.white {
-      @apply text-5xl text-white font-extrabold uppercase mb-4;
+    h1 {
+      @apply text-5xl font-extrabold uppercase mb-4;
     }
-    h2.white {
-      @apply text-3xl text-white font-extrabold uppercase mb-2;
+    h2 {
+      @apply text-3xl font-extrabold uppercase mb-2;
     }
-    h3.white {
-      @apply text-2xl text-white font-extrabold uppercase mb-2;
+    h3 {
+      @apply text-2xl font-extrabold uppercase mb-2;
     }
-    p.white {
-      @apply text-lg text-white font-semibold mb-2;
+    p {
+      @apply text-lg font-semibold mb-2;
     }
-    small.white {
-      @apply text-sm text-white font-semibold;
+    small {
+      @apply text-sm font-semibold;
     }
   }
 }
