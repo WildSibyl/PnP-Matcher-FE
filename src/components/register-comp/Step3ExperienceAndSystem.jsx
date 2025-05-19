@@ -15,6 +15,7 @@ const Step3ExperienceAndSystem = ({ form, setForm, onChange }) => {
       ...prev,
       systems: selectedSystems.map((s) => s.value),
     }));
+    console.log("Updated systems:", selectedSystems);
   }, [selectedSystems]);
 
   const handleSelectChange = (selectedOptions) => {
@@ -29,12 +30,14 @@ const Step3ExperienceAndSystem = ({ form, setForm, onChange }) => {
       });
       return unique;
     });
+    console.log("Selected systems:", selectedOptions);
   };
 
   const handleRemoveSystem = (valToRemove) => {
     setSelectedSystems((prev) =>
       prev.filter((opt) => opt.value !== valToRemove)
     );
+    console.log("Removed system:", valToRemove);
   };
 
   return (

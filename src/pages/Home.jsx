@@ -1,7 +1,22 @@
+import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
+import { likesPreference } from "../data/dropdowns/preferences";
+import { useTagContext } from "../context/TagsContextProvider";
+
 const Home = () => {
+  const { form, setForm } = useTagContext();
+
   return (
     <>
       <div className="bg-gray-600">
+        {/* testing the new TagMultiSelect component */}
+        <TagMultiSelect
+          options={likesPreference}
+          label="Test"
+          helperText="this is a test"
+          name="likes"
+          placeholder="Select preferences"
+          onChange={(values) => setForm((prev) => ({ ...prev, likes: values }))}
+        />
         <h1 className="text-pnp-white">This is the H1</h1>
         <h2 className="text-pnp-white">This is the H2</h2>
         <h3 className="text-pnp-white">This is the H3</h3>
