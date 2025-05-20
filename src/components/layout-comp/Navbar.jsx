@@ -60,7 +60,7 @@ const Navbar = () => {
 
         {/* Show Desktop Navbar in large viewports */}
         <div className="hidden lg:block">
-          <NavDesktop logo={logo} user={user} />
+          <NavDesktop logo={logo} user={user} logOut={logOut} />
         </div>
       </div>
       {/* Full Screen Menu for mobile */}
