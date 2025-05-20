@@ -1,5 +1,5 @@
 const CardAvailability = () => {
-  const available = ["MO", "WE", "SA"];
+  const available = ["MO", "WE", "SA", "TU"];
   const frequencyPerMonth = 3;
 
   const calculateDays = (days) => {
@@ -18,14 +18,14 @@ const CardAvailability = () => {
 
   return (
     <div className="flex">
-      <div className="flex gap-1 pnp-shadow px-4 py-2 pr-6 rounded-[7px]">
+      <div className="relative flex gap-1 pl-2 justify-center items-center pnp-shadow rounded-[7px]">
         {calculateDays(available).map((e, index) => (
-          <p key={index} className="text-sm font-extrabold text-[#3E5466]">
+          <p key={index} className="text-sm font-extrabold mx-1 text-[#3E5466]">
             {e}
           </p>
         ))}
+        <div className="bg-pnp-blue ml-2 pnp-shadow px-3 py-2 rounded-[7px] text-sm font-extrabold text-pnp-white z-[5]">{`${frequencyPerMonth}x / mo`}</div>
       </div>
-      <div className="bg-pnp-blue pnp-shadow px-4 py-2 rounded-[7px] text-sm font-extrabold text-pnp-white z-[5]">{`${frequencyPerMonth}x / mo`}</div>
     </div>
   );
 };
