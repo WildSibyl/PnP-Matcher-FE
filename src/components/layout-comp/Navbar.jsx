@@ -49,13 +49,13 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`sticky top-0 w-full mt-0 pt-6 pb-3 px-6 z-40 transition-colors duration-300 ease-in-out ${
+        className={`sticky top-0 w-full mt-0 pt-4 pb-3 px-6 z-40 transition-colors duration-300 ease-in-out ${
           scrolled
             ? "h-full w-full rounded-md bg-[rgba(112,36,219,0.1)] bg-clip-padding backdrop-filter backdrop-blur-sm pnp-shadow"
             : "bg-transparent"
         }`}
       >
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <Link to="/">
             <img
               src={logo}
@@ -66,20 +66,26 @@ const Navbar = () => {
           <div className="flex gap-6">
             {user ? (
               <Chatbubblesvg
-                className={`min-w-[8vw] fill-current ${setIconColor()} `}
+                className={`min-w-[8vw] fill-current cursor-pointer ${setIconColor()} `}
               />
             ) : (
-              ""
+              <NavLink
+                onClick={() => setMenuOpen(false)}
+                className="btn-primary-light max-h-[35px]"
+                to="/register"
+              >
+                Sign up!
+              </NavLink>
             )}
 
             <button onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? (
                 <Closesvg
-                  className={`min-w-[8vw] fill-current ${setIconColor()} `}
+                  className={`min-w-[8vw] fill-current cursor-pointer ${setIconColor()} `}
                 />
               ) : (
                 <Burgermenuesvg
-                  className={`min-w-[8vw] fill-current ${setIconColor()} `}
+                  className={`min-w-[8vw] fill-current cursor-pointer ${setIconColor()} `}
                 />
               )}
             </button>
