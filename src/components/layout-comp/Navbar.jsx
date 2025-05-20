@@ -1,15 +1,13 @@
-import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useState, useEffect } from "react";
 import NavMenu from "../navbar-comp/NavMenu";
+import NavMobile from "../navbar-comp/NavMobile";
 
 import logo from "../../assets/logo.svg";
-import Chatbubblesvg from "../../assets/chatbubble.svg?react";
-import Closesvg from "../../assets/close.svg?react";
-import Burgermenuesvg from "../../assets/burgermenu.svg?react";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -41,11 +39,6 @@ const Navbar = () => {
     return () => document.body.classList.remove("overflow-hidden");
   }, [menuOpen]);
 
-  const setIconColor = () => {
-    if (scrolled) return "text-pnp-white";
-    return "text-pnp-white";
-  };
-
   return (
     <>
       <div
@@ -55,42 +48,12 @@ const Navbar = () => {
             : "bg-transparent"
         }`}
       >
-        <div className="flex justify-between items-center">
-          <Link to="/">
-            <img
-              src={logo}
-              className="cursor-pointer hover:scale-98 *:ease-in-out duration-200"
-              alt="pnpmatch logo"
-            ></img>
-          </Link>
-          <div className="flex gap-6">
-            {user ? (
-              <Chatbubblesvg
-                className={`min-w-[8vw] fill-current cursor-pointer ${setIconColor()} `}
-              />
-            ) : (
-              <NavLink
-                onClick={() => setMenuOpen(false)}
-                className="btn-primary-light max-h-[35px]"
-                to="/register"
-              >
-                Sign up!
-              </NavLink>
-            )}
-
-            <button onClick={() => setMenuOpen(!menuOpen)}>
-              {menuOpen ? (
-                <Closesvg
-                  className={`min-w-[8vw] fill-current cursor-pointer ${setIconColor()} `}
-                />
-              ) : (
-                <Burgermenuesvg
-                  className={`min-w-[8vw] fill-current cursor-pointer ${setIconColor()} `}
-                />
-              )}
-            </button>
-          </div>
-        </div>
+        <NavMobile
+          logo={logo}
+          user={user}
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+        />
       </div>
       <NavMenu
         menuOpen={menuOpen}

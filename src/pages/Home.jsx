@@ -1,4 +1,5 @@
 import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
+import PlayerCard from "../components/cards/PlayerCard";
 
 const Home = () => {
   return (
@@ -24,6 +25,7 @@ const Home = () => {
         <button className="btn-primary-dark">Primary DARK</button>
         <button className="btn-secondary-dark">Secondary DARK</button>
       </div>
+      <PlayerCard />
       <div>
         <h1 className="text-pnp-white">
           A very long text to test navbar & scroll

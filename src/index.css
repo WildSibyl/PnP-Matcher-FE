@@ -42,7 +42,7 @@
   --color-pnp-darkpurple: #7024db;
   --color-pnp-darkblue: #3bc7fc;
   --color-pnp-green: var(--color-success);
-  --color-pnp-purple: var(--color-primary);
+  --color-pnp-purple: var(--color-accent);
   --color-pnp-blue: var(--color-neutral);
   --color-pnp-black: var(--color-base-content);
   --color-pnp-white: var(--color-secondary-content);
