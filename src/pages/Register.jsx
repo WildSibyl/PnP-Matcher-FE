@@ -220,9 +220,9 @@ const Register = () => {
       </div>
 
       {step === 1 && (
-        <small className="text-secondary-content hover:underline justify-center flex">
+        <small className="text-pnp-white hover:underline justify-center flex">
           Already have an account?{" "}
-          <Link to="/login" className="text-pnp-purple hover:underline ml-1">
+          <Link to="/login" className="text-pnp-purple hover:underline ml-2">
             Log in!
           </Link>
         </small>

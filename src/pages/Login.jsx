@@ -40,7 +40,8 @@ const Login = () => {
       className="my-5 md:w-1/2 mx-auto flex flex-col gap-3"
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+      <div className="flex flex-col gap-1 rounded-3xl bg-white px-6 pt-6 pb-4">
+        <h3 className="title">HELLO ADVENTURER!</h3>
         <label className="input-bordered flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -82,16 +83,16 @@ const Login = () => {
             placeholder="Password"
           />
         </label>
-        <small>
-          Don&apos;t have an account?{" "}
-          <Link to="/register" className="text-primary hover:underline">
-            Register!
-          </Link>
-        </small>
-        <button className="btn-primary-light self-center" disabled={loading}>
-          Login
-        </button>
       </div>
+      <button className="btn-primary-light self-center mt-3" disabled={loading}>
+        Login
+      </button>
+      <small className="text-pnp-white hover:underline justify-center flex mt-2">
+        Don&apos;t have an account?{" "}
+        <Link to="/register" className="text-pnp-purple hover:underline ml-2">
+          Register!
+        </Link>
+      </small>
     </form>
   );
 };
