@@ -19,46 +19,17 @@ const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
     >
       <div className="grid grid-cols-2 w-[80vw] mx-auto gap-4">
         {user ? (
-          <div className="flex flex-col col-span-2 gap-4 justify-center text-center">
-            <div className="flex col-span-2 text-pnp-white justify-center items-center gap-4">
-              <img
-                className="rounded-full h-[8vh] border-pnp-white border-1"
-                src={profilePic}
-                alt="username"
-              ></img>
-              <h3 className="font-semibold normal-case">{`Hi, ${user.userName}!`}</h3>
-            </div>
-            <button
-              className="btn-secondary-light font-semibold normal-case cursor-pointer mx-auto"
-              onClick={logOut}
-            >
-              <h3 className="font-semibold normal-case">Log out</h3>
-            </button>
+          <div className="flex col-span-2 text-pnp-white justify-center items-center gap-4">
+            <img
+              className="rounded-full h-[8vh] border-pnp-white border-1"
+              src={profilePic}
+              alt="username"
+            ></img>
+            <h3 className="font-semibold normal-case">{`Hi, ${user.userName}!`}</h3>
           </div>
         ) : (
-          <div className="flex flex-col col-span-2 gap-4 justify-center text-center">
-            <h3 className="normal-case font-semibold text-pnp-white">
-              Not logged in
-            </h3>
-            <div className="flex gap-4 justify-center">
-              <NavLink
-                onClick={() => setMenuOpen(false)}
-                className="btn-secondary-light"
-                to="/register"
-              >
-                Register
-              </NavLink>
-              <NavLink
-                onClick={() => setMenuOpen(false)}
-                className="btn-secondary-light"
-                to="/login"
-              >
-                Login
-              </NavLink>
-            </div>
-          </div>
+          ""
         )}
-
         <button
           style={{ backgroundImage: `url(${dragonImage})` }}
           className="bg-center bg-cover rounded-2xl items-center justify-center h-[18vh] text-pnp-white col-span-2 flex gap-2"
@@ -91,6 +62,36 @@ const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
         )}
       </div>
 
+      {user ? (
+        <div className="flex flex-col col-span-2 gap-4 mt-5 justify-center text-center">
+          <button
+            className="btn-secondary-light font-semibold normal-case cursor-pointer mx-auto"
+            onClick={logOut}
+          >
+            <h3 className="font-semibold normal-case">Log out</h3>
+          </button>
+        </div>
+      ) : (
+        <div className="flex flex-col col-span-2 gap-4 justify-center text-center">
+          <div className="flex gap-4 justify-center mt-5">
+            <NavLink
+              onClick={() => setMenuOpen(false)}
+              className="btn-secondary-light"
+              to="/register"
+            >
+              Register
+            </NavLink>
+            <NavLink
+              onClick={() => setMenuOpen(false)}
+              className="btn-secondary-light"
+              to="/login"
+            >
+              Login
+            </NavLink>
+          </div>
+        </div>
+      )}
+
       <div className="flex text-pnp-white normal-case w-full justify-center gap-6 mt-10">
         <h3 className="normal-case">Imprint</h3>
         <h3 className="normal-case">Privacy</h3>
@@ -100,25 +101,3 @@ const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
 };
 
 export default NavMenu;
-
-/* <div className="flex-none">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              {user ? <NavLink to="/create">Create group</NavLink> : null}
-            </li>
-            <li>
-              {user ? (
-                <span>{`Hi, ${user.userName}!`}</span>
-              ) : (
-                <NavLink to="/register">Register</NavLink>
-              )}
-            </li>
-            <li>
-              {user ? (
-                <span onClick={logOut}>Log out</span>
-              ) : (
-                <NavLink to="/login">Login</NavLink>
-              )}
-            </li>
-          </ul>
-        </div> */

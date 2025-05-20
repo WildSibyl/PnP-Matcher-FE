@@ -9,9 +9,12 @@ import Closesvg from "../../assets/close.svg?react";
 import Burgermenuesvg from "../../assets/burgermenu.svg?react";
 
 const Navbar = () => {
-  const { user, logOut } = useAuth();
+  // const { user, logOut } = useAuth();
+  const { logOut } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const user = true;
 
   //Check if page is scrolled
   useEffect(() => {
