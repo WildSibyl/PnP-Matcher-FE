@@ -84,7 +84,7 @@ const Login = () => {
           />
         </label>
       </div>
-      <button className="btn-primary-light self-center mt-3" disabled={loading}>
+      <button className="btn-primary-light self-center mt-4" disabled={loading}>
         Login
       </button>
       <small className="text-pnp-white hover:underline justify-center flex mt-2">

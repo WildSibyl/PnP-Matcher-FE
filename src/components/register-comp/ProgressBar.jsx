@@ -3,7 +3,7 @@ const ProgressBar = ({ step }) => {
   const progressPercent = (step / totalSteps) * 100;
 
   return (
-    <div className="w-full px-6 justify-center flex flex-col items-center">
+    <div className="w-full px-6 my-1 justify-center flex flex-col items-center">
       <div className="text-sm font-medium text-center mb-2 text-pnp-white ">
         Step {step}/{totalSteps}
       </div>
