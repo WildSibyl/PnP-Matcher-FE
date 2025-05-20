@@ -1,5 +1,5 @@
 import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
-import { likesPreference } from "../data/dropdowns/preferences";
+//import { likesPreference } from "../data/dropdowns/preferences";
 import { useTagContext } from "../context/TagsContextProvider";
 
 const Home = () => {
@@ -10,9 +10,9 @@ const Home = () => {
       <div className="bg-gray-600">
         {/* testing the new TagMultiSelect component */}
         <TagMultiSelect
-          options={likesPreference}
+          category="likes"
           label="Test"
-          helperText="this is a test"
+          helperText="This is a test"
           name="likes"
           placeholder="Select preferences"
           onChange={(values) => setForm((prev) => ({ ...prev, likes: values }))}

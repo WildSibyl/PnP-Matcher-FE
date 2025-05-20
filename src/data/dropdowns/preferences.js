@@ -1,4 +1,4 @@
-export const systemsPreference = [
+export const systemssPreference = [
   { label: "D&D 5e", value: "D&D 5e" },
   { label: "Pathfinder 2e", value: "Pathfinder 2e" },
   { label: "Call of Cthulhu", value: "Call of Cthulhu" },
@@ -10,7 +10,7 @@ export const systemsPreference = [
   { label: "Savage Worlds", value: "Savage Worlds" },
 ];
 
-export const playstylesPreference = [
+export const playstylessPreference = [
   { label: "Roleplay-heavy", value: "Roleplay-heavy" },
   { label: "Combat-focused", value: "Combat-focused" },
   { label: "Casual", value: "Casual" },
@@ -18,7 +18,7 @@ export const playstylesPreference = [
   { label: "Mechanics-heavy", value: "Mechanics-heavy" },
 ];
 
-export const likesPreference = [
+export const likessPreference = [
   { label: "Dungeons", value: "Dungeons" },
   { label: "Exploration", value: "Exploration" },
   { label: "Combat", value: "Combat" },
@@ -26,7 +26,7 @@ export const likesPreference = [
   { label: "Puzzles", value: "Puzzles" },
 ];
 
-export const dislikesPreference = [
+export const dislikesssPreference = [
   { label: "Violence", value: "Violence" },
   { label: "Meta-gaming", value: "Meta-gaming" },
   { label: "Railroading", value: "Railroading" },

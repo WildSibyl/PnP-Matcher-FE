@@ -1,33 +1,48 @@
 import { useEffect, useState } from "react";
 import Select from "react-select";
-import { useTagContext } from "../../context/TagsContextProvider";
+import { getOptionsByCategory } from "../../data/options";
 
 //still very WIP
+import { useTagContext } from "../../context/TagsContextProvider";
 
 const TagMultiSelect = ({
-  options = [],
   placeholder = "Select options",
   label,
   helperText,
   name,
-  onChange, // expects (values: string[]) => void
+  onChange,
+  category, // category to fetch options
 }) => {
+  const [options, setOptions] = useState([]);
   const [selected, setSelected] = useState([]);
+
+  useEffect(() => {
+    if (!category) return;
+
+    const fetchOptions = async () => {
+      try {
+        const data = await getOptionsByCategory(category);
+        setOptions(data.map((opt) => ({ label: opt.label, value: opt.value })));
+      } catch (err) {
+        console.error(`Failed to load options for ${category}:`, err.message);
+      }
+    };
+
+    fetchOptions();
+  }, [category]);
 
   const handleSelectChange = (selectedOptions) => {
     const newSelections = selectedOptions || [];
-
     const updatedSelections = [...selected];
+
     newSelections.forEach((option) => {
       if (!updatedSelections.find((o) => o.value === option.value)) {
         updatedSelections.push(option);
       }
-      console.log("Updated selections:", updatedSelections);
     });
 
     setSelected(updatedSelections);
     onChange(updatedSelections.map((o) => o.value));
-    console.log("Selected options:", updatedSelections);
   };
 
   const handleRemove = (valToRemove) => {
@@ -36,7 +51,6 @@ const TagMultiSelect = ({
     );
     setSelected(updatedSelections);
     onChange(updatedSelections.map((o) => o.value));
-    console.log("Removed option:", valToRemove);
   };
 
   return (

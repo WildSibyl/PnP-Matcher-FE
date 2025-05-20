@@ -1,0 +1,130 @@
+[
+  { "value": "D&D 5e", "label": "D&D 5e", "category": "systems" },
+  { "value": "Pathfinder 2e", "label": "Pathfinder 2e", "category": "systems" },
+  {
+    "value": "Call of Cthulhu",
+    "label": "Call of Cthulhu",
+    "category": "systems"
+  },
+  { "value": "Shadowrun", "label": "Shadowrun", "category": "systems" },
+  {
+    "value": "Vampire: The Masquerade",
+    "label": "Vampire: The Masquerade",
+    "category": "systems"
+  },
+  {
+    "value": "Cyberpunk 2077",
+    "label": "Cyberpunk 2077",
+    "category": "systems"
+  },
+  {
+    "value": "Blades in the Dark",
+    "label": "Blades in the Dark",
+    "category": "systems"
+  },
+  { "value": "Starfinder", "label": "Starfinder", "category": "systems" },
+  { "value": "Savage Worlds", "label": "Savage Worlds", "category": "systems" },
+
+  {
+    "value": "Roleplay-heavy",
+    "label": "Roleplay-heavy",
+    "category": "playstyles"
+  },
+  {
+    "value": "Combat-focused",
+    "label": "Combat-focused",
+    "category": "playstyles"
+  },
+  { "value": "Casual", "label": "Casual", "category": "playstyles" },
+  {
+    "value": "Narrative-driven",
+    "label": "Narrative-driven",
+    "category": "playstyles"
+  },
+  {
+    "value": "Mechanics-heavy",
+    "label": "Mechanics-heavy",
+    "category": "playstyles"
+  },
+
+  { "value": "Dungeons", "label": "Dungeons", "category": "likes" },
+  { "value": "Exploration", "label": "Exploration", "category": "likes" },
+  { "value": "Combat", "label": "Combat", "category": "likes" },
+  { "value": "Roleplay", "label": "Roleplay", "category": "likes" },
+  { "value": "Puzzles", "label": "Puzzles", "category": "likes" },
+
+  { "value": "Violence", "label": "Violence", "category": "dislikes" },
+  { "value": "Meta-gaming", "label": "Meta-gaming", "category": "dislikes" },
+  { "value": "Railroading", "label": "Railroading", "category": "dislikes" },
+  {
+    "value": "Long sessions",
+    "label": "Long Sessions",
+    "category": "dislikes"
+  },
+
+  {
+    "value": "Rookie: Getting to know P&P",
+    "label": "Rookie: Getting to know P&P",
+    "category": "experience"
+  },
+  {
+    "value": "Adventurer: I know my game",
+    "label": "Adventurer: I know my game",
+    "category": "experience"
+  },
+  {
+    "value": "Hero: P&P is my life",
+    "label": "Hero: P&P is my life",
+    "category": "experience"
+  },
+
+  { "value": "Game Master", "label": "Game Master", "category": "playerRoles" },
+  { "value": "Player", "label": "Player", "category": "playerRoles" },
+
+  { "value": "Arabic", "label": "Arabic", "category": "languages" },
+  { "value": "Basque", "label": "Basque", "category": "languages" },
+  { "value": "Bengali", "label": "Bengali", "category": "languages" },
+  { "value": "Bulgarian", "label": "Bulgarian", "category": "languages" },
+  { "value": "Catalan", "label": "Catalan", "category": "languages" },
+  { "value": "Chinese", "label": "Chinese", "category": "languages" },
+  { "value": "Croatian", "label": "Croatian", "category": "languages" },
+  { "value": "Czech", "label": "Czech", "category": "languages" },
+  { "value": "Danish", "label": "Danish", "category": "languages" },
+  { "value": "Dutch", "label": "Dutch", "category": "languages" },
+  { "value": "English", "label": "English", "category": "languages" },
+  { "value": "Estonian", "label": "Estonian", "category": "languages" },
+  { "value": "Finnish", "label": "Finnish", "category": "languages" },
+  { "value": "French", "label": "French", "category": "languages" },
+  { "value": "Galician", "label": "Galician", "category": "languages" },
+  { "value": "German", "label": "German", "category": "languages" },
+  { "value": "Greek", "label": "Greek", "category": "languages" },
+  { "value": "Hebrew", "label": "Hebrew", "category": "languages" },
+  { "value": "Hindi", "label": "Hindi", "category": "languages" },
+  { "value": "Hungarian", "label": "Hungarian", "category": "languages" },
+  { "value": "Icelandic", "label": "Icelandic", "category": "languages" },
+  { "value": "Indonesian", "label": "Indonesian", "category": "languages" },
+  { "value": "Italian", "label": "Italian", "category": "languages" },
+  { "value": "Japanese", "label": "Japanese", "category": "languages" },
+  { "value": "Korean", "label": "Korean", "category": "languages" },
+  { "value": "Latvian", "label": "Latvian", "category": "languages" },
+  { "value": "Lithuanian", "label": "Lithuanian", "category": "languages" },
+  { "value": "Malay", "label": "Malay", "category": "languages" },
+  { "value": "Norwegian", "label": "Norwegian", "category": "languages" },
+  { "value": "Persian", "label": "Persian", "category": "languages" },
+  { "value": "Polish", "label": "Polish", "category": "languages" },
+  { "value": "Portuguese", "label": "Portuguese", "category": "languages" },
+  { "value": "Romanian", "label": "Romanian", "category": "languages" },
+  { "value": "Russian", "label": "Russian", "category": "languages" },
+  { "value": "Serbian", "label": "Serbian", "category": "languages" },
+  { "value": "Slovak", "label": "Slovak", "category": "languages" },
+  { "value": "Slovenian", "label": "Slovenian", "category": "languages" },
+  { "value": "Spanish", "label": "Spanish", "category": "languages" },
+  { "value": "Swedish", "label": "Swedish", "category": "languages" },
+  { "value": "Tagalog", "label": "Tagalog", "category": "languages" },
+  { "value": "Thai", "label": "Thai", "category": "languages" },
+  { "value": "Turkish", "label": "Turkish", "category": "languages" },
+  { "value": "Ukrainian", "label": "Ukrainian", "category": "languages" },
+  { "value": "Urdu", "label": "Urdu", "category": "languages" },
+  { "value": "Vietnamese", "label": "Vietnamese", "category": "languages" },
+  { "value": "Welsh", "label": "Welsh", "category": "languages" }
+]
