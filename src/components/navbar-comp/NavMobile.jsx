@@ -7,7 +7,7 @@ import Burgermenuesvg from "../../assets/burgermenu.svg?react";
 
 const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center h-[7vh]">
       <Link to="/">
         <img
           src={logo}
