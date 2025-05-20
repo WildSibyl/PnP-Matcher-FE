@@ -13,6 +13,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Group from "./pages/Group";
+import Grouplist from "./pages/Grouplist";
+import Chat from "./pages/Chat";
+
+import Search from "./pages/Search";
 
 const App = () => {
   return (
@@ -20,10 +24,12 @@ const App = () => {
       <Route path="/" element={<MainLayout />} errorElement={<Error />}>
         <Route index element={<Home />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/search" element={<Profile />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/group/:id" element={<Group />} />
+        <Route path="/grouplist" element={<Grouplist />} />
+        <Route path="/chat" element={<Chat />} />
         <Route element={<ProtectedLayout />}>
           <Route path="/create" element={<CreateGroup />} />
           <Route path="/edit/:id" element={<UpdateGroup />} />

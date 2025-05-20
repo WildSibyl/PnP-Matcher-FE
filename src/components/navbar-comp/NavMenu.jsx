@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 import CrossedSwordssvg from "../../assets/crossedSwords.svg?react";
 import Groupssvg from "../../assets/groups.svg?react";
@@ -30,32 +30,33 @@ const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
         ) : (
           ""
         )}
-        <button
+        <Link
+          to="/search"
           style={{ backgroundImage: `url(${dragonImage})` }}
           className="bg-center bg-cover rounded-2xl items-center justify-center h-[18vh] text-pnp-white col-span-2 flex gap-2"
         >
           <CrossedSwordssvg />
           <h3>START MATCHING!</h3>
-        </button>
+        </Link>
 
         {user ? (
           <>
-            <button className="btn-navi">
+            <Link to="/profile" className="btn-navi">
               <Usersvg />
               <h3 className="font-semibold normal-case">Profile</h3>
-            </button>
-            <button className="btn-navi">
+            </Link>
+            <Link to="/chat" className="btn-navi">
               <Chatbubblesvg />
               <h3 className="font-semibold normal-case ">Messages</h3>
-            </button>
-            <button className="btn-navi">
+            </Link>
+            <Link to="/grouplist" className="btn-navi">
               <Groupssvg />
               <h3 className="font-semibold normal-case ">Groups</h3>
-            </button>
-            <button className="btn-navi">
+            </Link>
+            <Link to="/account" className="btn-navi">
               <Accountsvg />
               <h3 className="font-semibold normal-case ">Account</h3>
-            </button>
+            </Link>
           </>
         ) : (
           ""
