@@ -1,5 +1,4 @@
 import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
-//import { likesPreference } from "../data/dropdowns/preferences";
 import { useTagContext } from "../context/TagsContextProvider";
 import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
 import PlayerCard from "../components/cards/PlayerCard";

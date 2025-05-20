@@ -8,6 +8,7 @@ import Step1UserInfo from "../components/register-comp/Step1UserInfo";
 import Step2AgeAndLocation from "../components/register-comp/Step2AgeAndLocation";
 import Step3ExperienceAndSystem from "../components/register-comp/Step3ExperienceAndSystem";
 import Step4Schedule from "../components/register-comp/Step4Schedule";
+import ProgressBar from "../components/register-comp/ProgressBar";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -32,6 +33,7 @@ const Register = () => {
   });
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -87,7 +89,8 @@ const Register = () => {
           return "Please select at least one system.";
         break;
       case 4:
-        if (form.days.length === 0)
+        if (isSubmitting && form.days.length === 0)
+          // Still not preventing Invalid body error, the form submits entering step 4 anyway
           return "Please select at least one day you play.";
         if (form.frequencyPerMonth < 1)
           return "Frequency per month must be at least 1.";
@@ -113,11 +116,13 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     // Validate last step again
     const error = validateStep();
     if (error) {
       toast.error(error);
+      setIsSubmitting(false);
       return;
     }
 
@@ -155,6 +160,7 @@ const Register = () => {
       toast.error(error.message);
     } finally {
       setLoading(false);
+      setIsSubmitting(false);
     }
     console.log("Form submitted:", form);
   };
@@ -167,23 +173,20 @@ const Register = () => {
       <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
         {step === 1 && <Step1UserInfo form={form} onChange={handleChange} />}
         {step === 2 && (
-          <Step2AgeAndLocation
-            form={form}
-            onChange={handleChange}
-            setMultiSelect={setMultiSelect}
-          />
+          <Step2AgeAndLocation form={form} onChange={handleChange} />
         )}
         {step === 3 && (
           <Step3ExperienceAndSystem
             form={form}
             onChange={handleChange}
             setMultiSelect={setMultiSelect}
-            setForm={setForm}
+            setForm={setForm} // Is this setting the form by clicking next, therefore creating the Invalid body error?
           />
         )}
         {step === 4 && <Step4Schedule form={form} onChange={handleChange} />}
       </div>
-      <div className="flex justify-between mt-6">
+      <ProgressBar step={step} />
+      <div className="flex justify-between my-1 mx-6">
         {step > 1 ? (
           <button
             type="button"
@@ -217,9 +220,9 @@ const Register = () => {
       </div>
 
       {step === 1 && (
-        <small>
+        <small className="text-pnp-white hover:underline justify-center flex">
           Already have an account?{" "}
-          <Link to="/login" className="text-primary hover:underline">
+          <Link to="/login" className="text-pnp-purple hover:underline ml-2">
             Log in!
           </Link>
         </small>
