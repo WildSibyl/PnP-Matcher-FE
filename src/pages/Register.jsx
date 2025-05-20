@@ -87,8 +87,6 @@ const Register = () => {
           return "Please select at least one system.";
         break;
       case 4:
-        if (form.days.length === 0)
-          return "Please select at least one day you play.";
         if (form.frequencyPerMonth < 1)
           return "Frequency per month must be at least 1.";
         break;
@@ -167,11 +165,7 @@ const Register = () => {
       <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
         {step === 1 && <Step1UserInfo form={form} onChange={handleChange} />}
         {step === 2 && (
-          <Step2AgeAndLocation
-            form={form}
-            onChange={handleChange}
-            setMultiSelect={setMultiSelect}
-          />
+          <Step2AgeAndLocation form={form} onChange={handleChange} />
         )}
         {step === 3 && (
           <Step3ExperienceAndSystem
@@ -207,7 +201,7 @@ const Register = () => {
           </button>
         ) : (
           <button
-            type="submit"
+            onClick={handleSubmit}
             className="btn-primary-light"
             disabled={loading}
           >
@@ -217,11 +211,8 @@ const Register = () => {
       </div>
 
       {step === 1 && (
-        <small>
-          Already have an account?{" "}
-          <Link to="/login" className="text-primary hover:underline">
-            Log in!
-          </Link>
+        <small className="text-secondary-content hover:underline">
+          Already have an account? <Link to="/login">Log in!</Link>
         </small>
       )}
     </form>

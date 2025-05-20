@@ -11,7 +11,7 @@ const MainLayout = () => {
   return (
     <>
       <MenuIcons />
-      <ToastContainer position="bottom-left" autoClose={1500} theme="colored" />
+      <ToastContainer position="top-center" autoClose={1500} theme="colored" />
       <AuthContextProvider>
         <TagsContextProvider>
           <Navbar />
