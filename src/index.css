@@ -97,23 +97,29 @@
   /* end of registration temporary tags */
 
   .btn-primary-light {
-    @apply flex items-center justify-center px-[16px] bg-linear-165 box-border from-pnp-darkpurple to-pnp-darkblue text-white text-base xl:text-lg font-extrabold h-[54px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
+    @apply flex items-center gap-2 justify-center px-[16px] bg-linear-165 box-border from-pnp-darkpurple to-pnp-darkblue text-white text-base font-extrabold h-[54px] xl:h-[44px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
   }
 
   .btn-primary-dark {
-    @apply flex items-center justify-center px-[16px] bg-pnp-black box-border text-white text-base xl:text-lg font-extrabold h-[54px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
+    @apply flex items-center gap-2 justify-center px-[16px] bg-pnp-black box-border text-white text-base font-extrabold h-[54px] xl:h-[44px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
   }
 
   .btn-secondary-light {
-    @apply flex items-center justify-center px-[16px] bg-none box-border text-white text-base xl:text-lg border-[2px] translate-y-[2px] font-extrabold h-[54px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
+    @apply flex items-center gap-2 justify-center px-[16px] bg-none box-border text-white text-base border-[2px] translate-y-[2px] font-extrabold h-[54px] xl:h-[44px]  rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
   }
 
   .btn-secondary-dark {
-    @apply flex items-center justify-center px-[16px] bg-none box-border text-pnp-black text-base xl:text-lg border-[2px] translate-y-[2px] font-extrabold h-[54px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
+    @apply flex items-center gap-2 justify-center px-[16px] bg-none box-border text-pnp-black text-base border-[2px] translate-y-[2px] font-extrabold h-[54px] xl:h-[44px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
   }
 
   .btn-navi {
-    @apply bg-pnp-white rounded-2xl max-w-[40vw] h-[12vh] flex flex-col items-center justify-center;
+    @apply bg-pnp-white gap-2 rounded-2xl max-w-[40vw] h-[12vh] flex flex-col items-center justify-center;
+  }
+
+  .btn-icon svg,
+  .btn-icon img {
+    max-height: 25px;
+    width: auto;
   }
 
   @media (max-width: 1250px) {

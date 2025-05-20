@@ -1,3 +1,5 @@
+import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
+
 const Home = () => {
   return (
     <>
@@ -14,6 +16,10 @@ const Home = () => {
         <div className="w-[3vw] h-[3vh] bg-pnp-white"></div>
         <br />
         <button className="btn-primary-light">Primary LIGHT</button>
+        <button className="btn-primary-light btn-icon">
+          <CrossedSwordssvg className="text-pnp-white" />
+          Match now!
+        </button>
         <button className="btn-secondary-light">Secondary LIGHT</button>
         <button className="btn-primary-dark">Primary DARK</button>
         <button className="btn-secondary-dark">Secondary DARK</button>
