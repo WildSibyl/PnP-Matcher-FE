@@ -1,7 +1,4 @@
-const CardAvailability = () => {
-  const available = ["MO", "WE", "SA", "TU"];
-  const frequencyPerMonth = 3;
-
+const CardAvailability = ({ days, frequencyPerMonth }) => {
   const calculateDays = (days) => {
     let daysTeaser = [];
     if (days.length > 3) {
@@ -12,15 +9,14 @@ const CardAvailability = () => {
     } else {
       daysTeaser = [];
     }
-    console.log(daysTeaser);
     return daysTeaser;
   };
 
   return (
     <div className="flex">
       <div className="relative flex gap-1 pl-2 justify-center items-center pnp-shadow rounded-[7px]">
-        {calculateDays(available).map((e, index) => (
-          <p key={index} className="text-sm font-extrabold mx-1 text-[#3E5466]">
+        {calculateDays(days).map((e, index) => (
+          <p key={index} className="text-sm font-extrabold  text-[#3E5466]">
             {e}
           </p>
         ))}
