@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import getIcon from "../../utils/getIcon";
+
 const CardBadges = ({ options }) => {
   const [dispBadges, setDispBadges] = useState([]);
 
   useEffect(() => {
     let badgeSelection = [];
-    let maxBadges = 10;
+    let maxBadges = 8;
 
     let systems = options.filter((e) => e.category === "systems");
     let playstyles = options.filter((e) => e.category === "playstyles");
@@ -39,6 +41,7 @@ const CardBadges = ({ options }) => {
             e.category === "likes" ? "pnp-badge-white" : "pnp-badge-black"
           } text-base`}
         >
+          {getIcon(e.value)}
           {e.value}
         </div>
       ))}

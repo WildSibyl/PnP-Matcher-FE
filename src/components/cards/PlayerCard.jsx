@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import CardAvailability from "./CardAvailability";
-import calculateAge from "../../../utils/calculateAge";
+import calculateAge from "../../utils/calculateAge";
 import MatchingValue from "./MatchingValue";
 import CardBadges from "./CardBadges";
 
@@ -21,6 +21,10 @@ const PlayerCard = () => {
     },
     {
       value: "Tactician",
+      category: "playstyles",
+    },
+    {
+      value: "Lorekeeper",
       category: "playstyles",
     },
     {
@@ -85,7 +89,7 @@ const PlayerCard = () => {
   return (
     <div
       className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] min-w-[350px] max-w-[500px] px-4
-    mx-auto"
+    mx-auto pb-6"
     >
       <MatchingValue matchValue={matchValue} />
 
@@ -119,25 +123,23 @@ const PlayerCard = () => {
       </div>
 
       {/* PLAYER OPTIONS */}
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap pb-3">
         <div className="badge pnp-badge-trans text-base btn-icon">
           <Usersvg />
-          Player
+          Player & GM
         </div>
-        <div className="badge pnp-badge-trans text-base btn-icon">
-          <Usersvg />
-          GM
-        </div>
+
         <div className="badge pnp-badge-trans text-base btn-icon">
           <Usersvg />
           Adventurer
         </div>
+
         <div className="badge pnp-badge-trans text-base btn-icon">
           <Usersvg />
           On Site
         </div>
       </div>
-      <CardBadges options={playerOptions} className="pb-4" />
+      <CardBadges options={playerOptions} className="mb-3" />
     </div>
   );
 };
