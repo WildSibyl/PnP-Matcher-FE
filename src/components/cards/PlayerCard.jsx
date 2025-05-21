@@ -1,33 +1,111 @@
+import { useState, useEffect } from "react";
 import CardAvailability from "./CardAvailability";
+import calculateAge from "../../utils/calculateAge";
+import MatchingValue from "./MatchingValue";
+import CardBadges from "./CardBadges";
 
 import profilePic from "../../assets/exampleProfilePic.jpg";
-import Starsvg from "../../assets/star.svg?react";
 import Usersvg from "../../assets/user.svg?react";
 
 const PlayerCard = () => {
+  const [currUser, setCurrUser] = useState(null);
+
+  const playerOptions = [
+    {
+      value: "D&D 5e",
+      category: "systems",
+    },
+    {
+      value: "Call of Cthullhu",
+      category: "systems",
+    },
+    {
+      value: "Tactician",
+      category: "playstyles",
+    },
+    {
+      value: "Lorekeeper",
+      category: "playstyles",
+    },
+    {
+      value: "Narrator",
+      category: "playstyles",
+    },
+    {
+      value: "Combat",
+      category: "likes",
+    },
+    {
+      value: "Eating chips",
+      category: "likes",
+    },
+    {
+      value: "Puzzles",
+      category: "likes",
+    },
+    {
+      value: "Punching my GM",
+      category: "likes",
+    },
+    {
+      value: "Railroading",
+      category: "dislikes",
+    },
+    {
+      value: "Violence",
+      category: "dislikes",
+    },
+  ];
+
   const matchValue = 85;
+  const dummy = {
+    _id: { $oid: "682ca76d0f10bd24e7301b6e" },
+    userName: "WildSibyl",
+    email: "giada.bellan.mail@gmail.com",
+    password: "$2b$10$AZEbNytXLDSgw9UA1JV.8ObZVAcnHj0DnRKjNmiC5NkjHRuVMVAge",
+    birthday: "2000-05-15T00:00:00.000+00:00",
+    zipCode: "21149",
+    country: "Germany",
+    experience: "Adventurer: I know my game",
+    systems: ["Pathfinder 2e", "Starfinder", "Shadowrun"],
+    days: ["TU", "TH", "SA"],
+    frequencyPerMonth: 1,
+    languages: ["EN, DE"],
+    playingRole: ["GM"],
+    playstyles: ["Rules-Heavy", "Tactician"],
+    likes: ["Railroading", "Narrative", "Bossfights"],
+    dislikes: ["MinMaxing"],
+    tagline: "Hi, This is me!",
+    description: "",
+    groups: [],
+    createdAt: { $date: { $numberLong: "1747756909618" } },
+    __v: { $numberInt: "0" },
+  };
+
+  useEffect(() => setCurrUser(dummy), []);
+
+  if (!currUser) return <p>LOADING</p>;
 
   return (
-    <div className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] px-4">
-      {/* MATCHING VALUE */}
-      {matchValue > 77 ? (
-        <div className="flex justify-center -translate-y-3">
-          <div className="flex items-center gap-2 font-extrabold text-pnp-white rounded-full bg-linear-165 box-border from-pnp-darkpurple to-pnp-darkblue px-3 py-1">
-            <Starsvg className="text-pnp-white max-w-[1rem]" /> <p>85%</p>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
+    <div
+      className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] min-w-[350px] max-w-[500px] px-4
+    mx-auto pb-6"
+    >
+      <MatchingValue matchValue={matchValue} />
+
       {/* LFG, AVAILABILITY */}
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between  pt-4 mb-4">
         <div className="flex justify-center">
-          <div className="flex items-center gap-2 font-extrabold text-pnp-black rounded-full bg-pnp-green px-3 py-1">
-            <Usersvg className="text-pnp-black max-w-[1rem]" /> <p>LFG</p>
+          <div className="flex items-center gap-2 pnp-shadow font-extrabold text-pnp-black rounded-full bg-pnp-green px-3 py-1">
+            <Usersvg className="text-pnp-black max-w-[1rem] " /> <p>LFG</p>
           </div>
         </div>
-        <CardAvailability />
+        <CardAvailability
+          days={currUser.days}
+          frequencyPerMonth={currUser.frequencyPerMonth}
+        />
       </div>
+
       {/* PLAYER INFOS */}
       <div className="flex gap-2 mb-4">
         <img
@@ -36,24 +114,32 @@ const PlayerCard = () => {
           alt="user"
         ></img>
         <div>
-          <h2 className="normal-case">Username</h2>
-          <p className="font-semibold">This is my tagline!</p>
-          <div className="flex gap-2">
-            <p className="font-medium text-[#3E5466]">21073 Hamburg</p>{" "}
-            <p className="font-medium text-[#3E5466]">|</p>{" "}
-            <p className="font-medium text-[#3E5466]">35 years</p>
-          </div>
+          <h2 className="normal-case">{currUser.userName}</h2>
+          <p className="font-semibold">{currUser.tagline}</p>
+          <p className="font-medium text-[#3E5466]">{`${
+            currUser.zipCode
+          } | ${calculateAge(currUser.birthday)} years`}</p>
         </div>
       </div>
+
       {/* PLAYER OPTIONS */}
-      <div className="flex flex-wrap">
-        <p>Player</p>
-        <p>GM</p>
-        <p>Adventurer</p>
+      <div className="flex flex-wrap pb-3">
+        <div className="badge pnp-badge-trans text-base btn-icon">
+          <Usersvg />
+          Player & GM
+        </div>
+
+        <div className="badge pnp-badge-trans text-base btn-icon">
+          <Usersvg />
+          Adventurer
+        </div>
+
+        <div className="badge pnp-badge-trans text-base btn-icon">
+          <Usersvg />
+          On Site
+        </div>
       </div>
-      <div className="flex flex-wrap">
-        <p>DnD 5E</p>
-      </div>
+      <CardBadges options={playerOptions} className="mb-3" />
     </div>
   );
 };
