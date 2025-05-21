@@ -2,9 +2,6 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 import { getOptionsByCategory } from "../../data/options";
 
-//still very WIP
-import { useTagContext } from "../../context/TagsContextProvider";
-
 const TagMultiSelect = ({
   placeholder = "Select options",
   label,

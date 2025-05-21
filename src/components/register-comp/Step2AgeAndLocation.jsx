@@ -1,4 +1,4 @@
-const Step2AgeAndLocation = ({ form, onChange }) => (
+const Step2AgeAndLocation = ({ regForm, onChange }) => (
   <>
     <div className="flex flex-row justify-between">
       <label className="label">BIRTHDAY</label>
@@ -7,31 +7,53 @@ const Step2AgeAndLocation = ({ form, onChange }) => (
     <input
       type="date"
       name="birthday"
-      value={form.birthday}
+      value={regForm.birthday}
       onChange={onChange}
       className="input-bordered"
       max={new Date().toISOString().split("T")[0]}
     />
     <div className="flex flex-row justify-between">
-      <label className="label">ZIP CODE</label>
+      <label className="label">ADDRESS</label>
       <p className="label-italic">Where is your castle placed?</p>
     </div>
     <input
-      name="zipCode"
-      value={form.zipCode}
-      onChange={onChange}
-      placeholder="Zip Code"
+      name="street"
+      value={regForm.address.street}
+      onChange={(e) =>
+        onChange({ target: { name: "address.street", value: e.target.value } })
+      }
+      placeholder="Street"
       className="input-bordered"
     />
-    <div className="flex flex-row justify-between">
-      <label className="label">COUNTRY</label>
-      <p className="label-italic">How is your land called?</p>
-    </div>
     <input
-      name="country"
-      value={form.country}
-      onChange={onChange}
-      placeholder="Country"
+      name="houseNumber"
+      value={regForm.address.houseNumber}
+      onChange={(e) =>
+        onChange({
+          target: { name: "address.houseNumber", value: e.target.value },
+        })
+      }
+      placeholder="House Number"
+      className="input-bordered"
+    />
+    <input
+      name="postalCode"
+      value={regForm.address.postalCode}
+      onChange={(e) =>
+        onChange({
+          target: { name: "address.postalCode", value: e.target.value },
+        })
+      }
+      placeholder="Postal Code"
+      className="input-bordered"
+    />
+    <input
+      name="city"
+      value={regForm.address.city}
+      onChange={(e) =>
+        onChange({ target: { name: "address.city", value: e.target.value } })
+      }
+      placeholder="City"
       className="input-bordered"
     />
   </>
