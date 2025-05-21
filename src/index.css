@@ -121,15 +121,15 @@
   }
 
   .pnp-badge-black {
-    @apply badge !text-pnp-white !bg-pnp-black pnp-shadow !border-none mx-0.5;
+    @apply badge !text-pnp-white !bg-pnp-black pnp-shadow !border-none mx-0.5 text-base;
   }
 
   .pnp-badge-white {
-    @apply badge !text-pnp-black !bg-pnp-white pnp-shadow !border-none mx-0.5;
+    @apply badge !text-pnp-black !bg-pnp-white pnp-shadow !border-none mx-0.5 text-base;
   }
 
   .pnp-badge-trans {
-    @apply badge !text-pnp-black !bg-transparent !border-none mx-0.5;
+    @apply badge !text-pnp-black !bg-transparent !border-none mx-0.5 text-base;
   }
 
   .btn-icon svg,
