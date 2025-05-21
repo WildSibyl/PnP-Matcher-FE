@@ -1,5 +1,5 @@
 import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
-import { useAuth } from "../context/AuthContextProvider";
+import { useAuth } from "../hooks/useAuth";
 import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
 import PlayerCard from "../components/cards/PlayerCard";
 

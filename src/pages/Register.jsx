@@ -17,8 +17,12 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     birthday: "",
-    zipCode: "",
-    country: "",
+    address: {
+      street: "",
+      houseNumber: "",
+      postalCode: "",
+      city: "",
+    },
     experience: "",
     systems: [],
     days: [],
@@ -42,6 +46,18 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    if (name.startsWith("address.")) {
+      const field = name.split(".")[1];
+      setRegForm((prev) => ({
+        ...prev,
+        address: {
+          ...prev.address,
+          [field]: value,
+        },
+      }));
+      return;
+    }
+
     if (name === "days") {
       let newDays = [...regForm.days];
       if (checked) {
@@ -80,7 +96,13 @@ const Register = () => {
           return "Passwords do not match.";
         break;
       case 2:
-        if (!regForm.birthday || !regForm.zipCode || !regForm.country)
+        if (
+          !regForm.birthday ||
+          !regForm.address.street ||
+          !regForm.address.houseNumber ||
+          !regForm.address.postalCode ||
+          !regForm.address.city
+        )
           return "Please fill all required fields.";
         break;
       case 3:
@@ -135,8 +157,9 @@ const Register = () => {
         password: regForm.password,
         confirmPassword: regForm.confirmPassword,
         birthday: new Date(regForm.birthday).toISOString(),
-        zipCode: regForm.zipCode,
-        country: regForm.country,
+        address: {
+          ...regForm.address,
+        },
         experience: regForm.experience,
         systems: regForm.systems,
         days: regForm.days,
