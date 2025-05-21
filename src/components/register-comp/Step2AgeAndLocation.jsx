@@ -1,4 +1,4 @@
-const Step2AgeAndLocation = ({ form, onChange }) => (
+const Step2AgeAndLocation = ({ regForm, onChange }) => (
   <>
     <div className="flex flex-row justify-between">
       <label className="label">BIRTHDAY</label>
@@ -7,7 +7,7 @@ const Step2AgeAndLocation = ({ form, onChange }) => (
     <input
       type="date"
       name="birthday"
-      value={form.birthday}
+      value={regForm.birthday}
       onChange={onChange}
       className="input-bordered"
       max={new Date().toISOString().split("T")[0]}
@@ -18,7 +18,7 @@ const Step2AgeAndLocation = ({ form, onChange }) => (
     </div>
     <input
       name="zipCode"
-      value={form.zipCode}
+      value={regForm.zipCode}
       onChange={onChange}
       placeholder="Zip Code"
       className="input-bordered"
@@ -29,7 +29,7 @@ const Step2AgeAndLocation = ({ form, onChange }) => (
     </div>
     <input
       name="country"
-      value={form.country}
+      value={regForm.country}
       onChange={onChange}
       placeholder="Country"
       className="input-bordered"

@@ -11,7 +11,7 @@ import Step4Schedule from "../components/register-comp/Step4Schedule";
 import ProgressBar from "../components/register-comp/ProgressBar";
 
 const Register = () => {
-  const [form, setForm] = useState({
+  const [regForm, setRegForm] = useState({
     userName: "",
     email: "",
     password: "",
@@ -43,23 +43,23 @@ const Register = () => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (name === "days") {
-      let newDays = [...form.days];
+      let newDays = [...regForm.days];
       if (checked) {
         if (!newDays.includes(value)) newDays.push(value);
       } else {
         newDays = newDays.filter((day) => day !== value);
       }
-      setForm((prev) => ({ ...prev, days: newDays }));
+      setRegForm((prev) => ({ ...prev, days: newDays }));
     } else if (type === "number") {
-      setForm((prev) => ({ ...prev, [name]: Number(value) }));
+      setRegForm((prev) => ({ ...prev, [name]: Number(value) }));
     } else {
-      setForm((prev) => ({ ...prev, [name]: value }));
+      setRegForm((prev) => ({ ...prev, [name]: value }));
     }
   };
 
   // Helpers for react-select multi-select updates
   const setMultiSelect = (name, selectedOptions) => {
-    setForm((prev) => ({
+    setRegForm((prev) => ({
       ...prev,
       [name]: selectedOptions ? selectedOptions.map((s) => s.value) : [],
     }));
@@ -70,29 +70,29 @@ const Register = () => {
     switch (step) {
       case 1:
         if (
-          !form.userName ||
-          !form.email ||
-          !form.password ||
-          !form.confirmPassword
+          !regForm.userName ||
+          !regForm.email ||
+          !regForm.password ||
+          !regForm.confirmPassword
         )
           return "Please fill all required fields.";
-        if (form.password !== form.confirmPassword)
+        if (regForm.password !== regForm.confirmPassword)
           return "Passwords do not match.";
         break;
       case 2:
-        if (!form.birthday || !form.zipCode || !form.country)
+        if (!regForm.birthday || !regForm.zipCode || !regForm.country)
           return "Please fill all required fields.";
         break;
       case 3:
-        if (!form.experience) return "Please select your experience.";
-        if (form.systems.length === 0)
+        if (!regForm.experience) return "Please select your experience.";
+        if (regForm.systems.length === 0)
           return "Please select at least one system.";
         break;
       case 4:
-        if (isSubmitting && form.days.length === 0)
-          // Still not preventing Invalid body error, the form submits entering step 4 anyway
+        if (isSubmitting && regForm.days.length === 0)
+          // Still not preventing Invalid body error, the regForm submits entering step 4 anyway
           return "Please select at least one day you play.";
-        if (form.frequencyPerMonth < 1)
+        if (regForm.frequencyPerMonth < 1)
           return "Frequency per month must be at least 1.";
         break;
       default:
@@ -130,24 +130,24 @@ const Register = () => {
     try {
       // Prepare payload
       const payload = {
-        userName: form.userName,
-        email: form.email,
-        password: form.password,
-        confirmPassword: form.confirmPassword,
-        birthday: new Date(form.birthday).toISOString(),
-        zipCode: form.zipCode,
-        country: form.country,
-        experience: form.experience,
-        systems: form.systems,
-        days: form.days,
-        frequencyPerMonth: form.frequencyPerMonth,
-        playingRoles: form.playingRoles,
-        languages: form.languages,
-        playstyles: form.playstyles,
-        likes: form.likes,
-        dislikes: form.dislikes,
-        tagline: form.tagline,
-        description: form.description,
+        userName: regForm.userName,
+        email: regForm.email,
+        password: regForm.password,
+        confirmPassword: regForm.confirmPassword,
+        birthday: new Date(regForm.birthday).toISOString(),
+        zipCode: regForm.zipCode,
+        country: regForm.country,
+        experience: regForm.experience,
+        systems: regForm.systems,
+        days: regForm.days,
+        frequencyPerMonth: regForm.frequencyPerMonth,
+        playingRoles: regForm.playingRoles,
+        languages: regForm.languages,
+        playstyles: regForm.playstyles,
+        likes: regForm.likes,
+        dislikes: regForm.dislikes,
+        tagline: regForm.tagline,
+        description: regForm.description,
         groups: [],
       };
 
@@ -162,7 +162,7 @@ const Register = () => {
       setLoading(false);
       setIsSubmitting(false);
     }
-    console.log("Form submitted:", form);
+    console.log("Form submitted:", regForm);
   };
 
   return (
@@ -171,19 +171,23 @@ const Register = () => {
       className="my-5 md:w-1/2 mx-auto flex flex-col gap-4"
     >
       <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
-        {step === 1 && <Step1UserInfo form={form} onChange={handleChange} />}
+        {step === 1 && (
+          <Step1UserInfo regForm={regForm} onChange={handleChange} />
+        )}
         {step === 2 && (
-          <Step2AgeAndLocation form={form} onChange={handleChange} />
+          <Step2AgeAndLocation regForm={regForm} onChange={handleChange} />
         )}
         {step === 3 && (
           <Step3ExperienceAndSystem
-            form={form}
+            regForm={regForm}
             onChange={handleChange}
             setMultiSelect={setMultiSelect}
-            setForm={setForm} // Is this setting the form by clicking next, therefore creating the Invalid body error?
+            setRegForm={setRegForm} // Is this setting the regForm by clicking next, therefore creating the Invalid body error?
           />
         )}
-        {step === 4 && <Step4Schedule form={form} onChange={handleChange} />}
+        {step === 4 && (
+          <Step4Schedule regForm={regForm} onChange={handleChange} />
+        )}
       </div>
       <ProgressBar step={step} />
       <div className="flex justify-between my-1 mx-6">
