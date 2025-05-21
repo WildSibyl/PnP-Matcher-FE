@@ -6,6 +6,7 @@ import CardBadges from "./CardBadges";
 
 import profilePic from "../../assets/exampleProfilePic.jpg";
 import Usersvg from "../../assets/user.svg?react";
+import getIcon from "../../utils/getIcon";
 
 const PlayerCard = () => {
   const [currUser, setCurrUser] = useState(null);
@@ -96,9 +97,7 @@ const PlayerCard = () => {
       {/* LFG, AVAILABILITY */}
       <div className="flex justify-between  pt-4 mb-4">
         <div className="flex justify-center">
-          <div className="flex items-center gap-2 pnp-shadow font-extrabold text-pnp-black rounded-full bg-pnp-green px-3 py-1">
-            <Usersvg className="text-pnp-black max-w-[1rem] " /> <p>LFG</p>
-          </div>
+          <div className="pnp-badge-green">{getIcon("User")}LFG</div>
         </div>
         <CardAvailability
           days={currUser.days}
@@ -123,21 +122,13 @@ const PlayerCard = () => {
       </div>
 
       {/* PLAYER OPTIONS */}
-      <div className="flex flex-wrap pb-3">
-        <div className="badge pnp-badge-trans text-base btn-icon">
-          <Usersvg />
-          Player & GM
+      <div className="flex flex-wrap pb-3 ">
+        <div className="pnp-badge-green">{getIcon("Dice")} Player & GM</div>
+        <div className="pnp-badge-purple">
+          {getIcon("Experience")} Adventurer
         </div>
 
-        <div className="badge pnp-badge-trans text-base btn-icon">
-          <Usersvg />
-          Adventurer
-        </div>
-
-        <div className="badge pnp-badge-trans text-base btn-icon">
-          <Usersvg />
-          On Site
-        </div>
+        <div className="pnp-badge-blue">{getIcon("On-site")} On-site</div>
       </div>
       <CardBadges options={playerOptions} className="mb-3" />
     </div>
