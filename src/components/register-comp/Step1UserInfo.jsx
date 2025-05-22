@@ -1,4 +1,4 @@
-const Step1UserInfo = ({ form, onChange }) => (
+const Step1UserInfo = ({ regForm, onChange }) => (
   <>
     <h3 className="title">WHO ARE YOU?</h3>
     <div className="flex flex-row justify-between">
@@ -7,7 +7,7 @@ const Step1UserInfo = ({ form, onChange }) => (
     </div>
     <input
       name="userName"
-      value={form.userName}
+      value={regForm.userName}
       onChange={onChange}
       placeholder="Username"
       className="input-bordered"
@@ -19,7 +19,7 @@ const Step1UserInfo = ({ form, onChange }) => (
     <input
       type="email"
       name="email"
-      value={form.email}
+      value={regForm.email}
       onChange={onChange}
       placeholder="Email"
       className="input-bordered"
@@ -31,7 +31,7 @@ const Step1UserInfo = ({ form, onChange }) => (
     <input
       type="password"
       name="password"
-      value={form.password}
+      value={regForm.password}
       onChange={onChange}
       placeholder="Password"
       className="input-bordered"
@@ -43,7 +43,7 @@ const Step1UserInfo = ({ form, onChange }) => (
     <input
       type="password"
       name="confirmPassword"
-      value={form.confirmPassword}
+      value={regForm.confirmPassword}
       onChange={onChange}
       placeholder="Confirm Password"
       className="input-bordered"

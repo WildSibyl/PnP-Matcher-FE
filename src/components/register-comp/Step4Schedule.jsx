@@ -1,6 +1,6 @@
 const daysOfWeek = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 
-const Step4Schedule = ({ form, onChange }) => (
+const Step4Schedule = ({ regForm, onChange }) => (
   <>
     <h3 className="title">WHEN ARE YOU AVAILABLE?</h3>
     <div className="flex flex-row justify-between">
@@ -20,11 +20,11 @@ const Step4Schedule = ({ form, onChange }) => (
             borderRadius: "8px",
             cursor: "pointer",
             userSelect: "none",
-            backgroundColor: form.days.includes(day) ? "#4FCFFF" : "#A7E7FF",
+            backgroundColor: regForm.days.includes(day) ? "#4FCFFF" : "#A7E7FF",
             color: "white",
             fontWeight: "bold",
-            textTransform: "capitalize",
-            boxShadow: form.days.includes(day)
+            textTransregForm: "capitalize",
+            boxShadow: regForm.days.includes(day)
               ? "0 4px 2px rgba(100, 100, 100, 0.5)"
               : "0 4px 2px rgba(100, 100, 100, 0.2)",
             transition: "box-shadow 0.3s ease",
@@ -34,7 +34,7 @@ const Step4Schedule = ({ form, onChange }) => (
             type="checkbox"
             name="days"
             value={day}
-            checked={form.days.includes(day)}
+            checked={regForm.days.includes(day)}
             onChange={onChange}
             style={{ display: "none" }}
           />
@@ -50,7 +50,7 @@ const Step4Schedule = ({ form, onChange }) => (
         name="frequencyPerMonth"
         min={1}
         max={31}
-        value={form.frequencyPerMonth}
+        value={regForm.frequencyPerMonth}
         onChange={onChange}
         className="input-bordered ml-2"
       />

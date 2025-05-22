@@ -6,16 +6,6 @@ const TagContext = createContext();
 const useTagContext = () => useContext(TagContext);
 
 const TagsContextProvider = ({ children }) => {
-  const [form, setForm] = useState({
-    experience: "",
-    systems: [],
-    languages: [],
-    playerRoles: [],
-    playstyles: [],
-    likes: [],
-    dislikes: [],
-  });
-
   const [options, setOptions] = useState({
     experienceLevel: [],
     systems: [],
@@ -55,8 +45,6 @@ const TagsContextProvider = ({ children }) => {
   }, []);
 
   const values = {
-    form,
-    setForm,
     experienceLevel: options.experienceLevel,
     systems: options.systems,
     languages: options.languages,

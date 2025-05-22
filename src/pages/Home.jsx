@@ -1,11 +1,11 @@
 import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
-import { useTagContext } from "../context/TagsContextProvider";
+import { useAuth } from "../hooks/useAuth";
 import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
 import PlayerCard from "../components/cards/PlayerCard";
 import getIcon from "../utils/getIcon";
 
 const Home = () => {
-  const { form, setForm } = useTagContext();
+  const { user, setUser } = useAuth();
 
   return (
     <>
@@ -17,8 +17,9 @@ const Home = () => {
           helperText="This is a test"
           name="likes"
           placeholder="Select preferences"
-          onChange={(values) => setForm((prev) => ({ ...prev, likes: values }))}
+          onChange={(values) => setUser((prev) => ({ ...prev, likes: values }))}
         />
+
         <h1 className="text-pnp-white">This is the H1</h1>
         <h2 className="text-pnp-white">This is the H2</h2>
         <h3 className="text-pnp-white">This is the H3</h3>

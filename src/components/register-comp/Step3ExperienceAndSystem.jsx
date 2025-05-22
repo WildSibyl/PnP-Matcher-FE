@@ -1,7 +1,7 @@
 import TagMultiSelect from "../edit-comp/TagMultiSelect";
-import { useTagContext } from "../../context/TagsContextProvider"; //still WIP
+import { useTagContext } from "../../context/TagsContextProvider";
 
-const Step3ExperienceAndSystem = ({ form, setForm, onChange }) => {
+const Step3ExperienceAndSystem = ({ regForm, setRegForm, onChange }) => {
   const { experienceLevel } = useTagContext();
 
   return (
@@ -13,7 +13,7 @@ const Step3ExperienceAndSystem = ({ form, setForm, onChange }) => {
       </div>
       <select
         name="experience"
-        value={form.experience}
+        value={regForm.experience}
         onChange={onChange}
         className="input-bordered"
       >
@@ -30,7 +30,9 @@ const Step3ExperienceAndSystem = ({ form, setForm, onChange }) => {
         helperText="What are you looking for?"
         name="systems"
         placeholder="Select preferences"
-        onChange={(values) => setForm((prev) => ({ ...prev, systems: values }))}
+        onChange={(values) =>
+          setRegForm((prev) => ({ ...prev, systems: values }))
+        }
       />
     </>
   );
