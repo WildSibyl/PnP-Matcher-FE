@@ -40,7 +40,7 @@ const getIcon = (tag) => {
   if (IconComponent) {
     return <IconComponent className="w-[1rem]" />;
   } else {
-    console.log("FindIcon: No icon for this input");
+    // console.log("FindIcon: No icon for this input");
   }
 };
 

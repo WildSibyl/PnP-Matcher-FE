@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_APP_API_URL;
+const API_URL = import.meta.env.VITE_APP_PNP_MATCHER_API_URL;
 
 if (!API_URL) throw new Error("API URL is needed on the .env");
 
