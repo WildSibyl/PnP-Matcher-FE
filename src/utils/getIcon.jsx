@@ -7,6 +7,11 @@ import RulesHeavysvg from "../assets/playstyles/rules-heavy.svg?react";
 import Specialistsvg from "../assets/playstyles/specialist.svg?react";
 import Storytellersvg from "../assets/playstyles/storyteller.svg?react";
 import Tacticiansvg from "../assets/playstyles/tactician.svg?react";
+import Usersvg from "../assets/user.svg?react";
+import OnSitesvg from "../assets/onsite.svg?react";
+import Remotesvg from "../assets/remote.svg?react";
+import Dicesvg from "../assets/icon-dice.svg?react";
+import Experiencesvg from "../assets/experience.svg?react";
 
 const getIcon = (tag) => {
   const icons = {
@@ -19,6 +24,11 @@ const getIcon = (tag) => {
     Specialist: Specialistsvg,
     Storyteller: Storytellersvg,
     Tactician: Tacticiansvg,
+    User: Usersvg,
+    "On-site": OnSitesvg,
+    Remote: Remotesvg,
+    Dice: Dicesvg,
+    Experience: Experiencesvg,
   };
 
   const IconComponent = icons[tag];

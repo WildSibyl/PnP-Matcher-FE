@@ -2,6 +2,8 @@ import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
 import { useAuth } from "../hooks/useAuth";
 import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
 import PlayerCard from "../components/cards/PlayerCard";
+import GroupCard from "../components/cards/Groupcard";
+import getIcon from "../utils/getIcon";
 
 const Home = () => {
   const { user, setUser } = useAuth();
@@ -38,8 +40,13 @@ const Home = () => {
         <button className="btn-secondary-light">Secondary LIGHT</button>
         <button className="btn-primary-dark">Primary DARK</button>
         <button className="btn-secondary-dark">Secondary DARK</button>
+        <div className="pnp-badge-black my-5">
+          {getIcon("Lorekeeper")} Lorekeeper
+        </div>
       </div>
+
       <PlayerCard />
+      <GroupCard />
       <div>
         <h1 className="text-pnp-white">
           A very long text to test navbar & scroll

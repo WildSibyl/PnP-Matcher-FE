@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import CardAvailability from "./CardAvailability";
-import calculateAge from "../../utils/calculateAge";
 import MatchingValue from "./MatchingValue";
 import CardBadges from "./CardBadges";
 
-import profilePic from "../../assets/exampleProfilePic.jpg";
-import Usersvg from "../../assets/user.svg?react";
 import getIcon from "../../utils/getIcon";
+import groupdummy from "../../assets/groupdummy.png";
 
-const PlayerCard = () => {
+const GroupCard = () => {
   const [currUser, setCurrUser] = useState(null);
 
   const playerOptions = [
@@ -61,7 +59,7 @@ const PlayerCard = () => {
   const matchValue = 85;
   const dummy = {
     _id: { $oid: "682ca76d0f10bd24e7301b6e" },
-    userName: "WildSibyl",
+    userName: "Brutal Buttkickers",
     email: "giada.bellan.mail@gmail.com",
     password: "$2b$10$AZEbNytXLDSgw9UA1JV.8ObZVAcnHj0DnRKjNmiC5NkjHRuVMVAge",
     birthday: "2000-05-15T00:00:00.000+00:00",
@@ -69,14 +67,14 @@ const PlayerCard = () => {
     country: "Germany",
     experience: "Adventurer: I know my game",
     systems: ["Pathfinder 2e", "Starfinder", "Shadowrun"],
-    days: ["TU", "TH", "SA"],
-    frequencyPerMonth: 1,
+    days: ["TU", "TH", "SA", "SU"],
+    frequencyPerMonth: 4,
     languages: ["EN, DE"],
     playingRole: ["GM"],
     playstyles: ["Rules-Heavy", "Tactician"],
     likes: ["Railroading", "Narrative", "Bossfights"],
     dislikes: ["MinMaxing"],
-    tagline: "Hi, This is me!",
+    tagline: "We are only looking for the best players!!1",
     description: "",
     groups: [],
     createdAt: { $date: { $numberLong: "1747756909618" } },
@@ -89,40 +87,35 @@ const PlayerCard = () => {
 
   return (
     <div
-      className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] min-w-[350px] max-w-[500px] px-4
+      className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] min-w-[350px] max-w-[500px]
     mx-auto pb-6 mb-5"
     >
       <MatchingValue matchValue={matchValue} />
 
       {/* LFG, AVAILABILITY */}
-      <div className="flex justify-between  pt-4 mb-4">
-        <div className="flex justify-center">
+      <div
+        style={{ backgroundImage: `url(${groupdummy})` }}
+        className=" pt-4 mb-4 rounded-t-lg"
+      >
+        <div className="flex justify-between h-[18vh] px-3">
           <div className="pnp-badge-green">{getIcon("User")}LFG</div>
+          <CardAvailability
+            days={currUser.days}
+            frequencyPerMonth={currUser.frequencyPerMonth}
+          />
         </div>
-        <CardAvailability
-          days={currUser.days}
-          frequencyPerMonth={currUser.frequencyPerMonth}
-        />
       </div>
 
       {/* PLAYER INFOS */}
-      <div className="flex gap-2 mb-4">
-        <img
-          src={profilePic}
-          className="rounded-full w-[22%] border-2 border-pnp-white pnp-shadow"
-          alt="user"
-        ></img>
-        <div>
-          <h2 className="normal-case">{currUser.userName}</h2>
-          <p className="font-semibold">{currUser.tagline}</p>
-          <p className="font-medium text-[#3E5466]">{`${
-            currUser.zipCode
-          } | ${calculateAge(currUser.birthday)} years`}</p>
-        </div>
+
+      <div className="px-4">
+        <h2 className="normal-case">{currUser.userName}</h2>
+        <p className="font-medium text-[#3E5466]">{`${currUser.zipCode}`}</p>
+        <p className="font-normal pb-3">{currUser.tagline}</p>
       </div>
 
-      {/* PLAYER OPTIONS */}
-      <div className="flex flex-wrap pb-3 ">
+      {/* GROUP OPTIONS */}
+      <div className="flex flex-wrap pb-3 px-3 ">
         <div className="pnp-badge-green">{getIcon("Dice")} Player & GM</div>
         <div className="pnp-badge-purple">
           {getIcon("Experience")} Adventurer
@@ -130,9 +123,11 @@ const PlayerCard = () => {
 
         <div className="pnp-badge-blue">{getIcon("On-site")} On-site</div>
       </div>
-      <CardBadges options={playerOptions} className="mb-3" />
+      <div className="px-3">
+        <CardBadges options={playerOptions} />
+      </div>
     </div>
   );
 };
 
-export default PlayerCard;
+export default GroupCard;
