@@ -5,6 +5,8 @@ import PlayerCard from "../components/cards/PlayerCard";
 import GroupCard from "../components/cards/Groupcard";
 import getIcon from "../utils/getIcon";
 
+import Loader from "../components/Loader";
+
 const Home = () => {
   const { user, setUser } = useAuth();
 
@@ -45,6 +47,10 @@ const Home = () => {
         </div>
       </div>
 
+      {/* LOADING ANIMATION */}
+      <Loader />
+
+      {/* CARDS */}
       <PlayerCard />
       <GroupCard />
       <div>
