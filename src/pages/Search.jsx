@@ -292,7 +292,6 @@ const Search = () => {
         </div>
         <div>
           {results.map((e) => {
-            console.log(e);
             return <PlayerCard key={e._id} details={e} />;
           })}
         </div>
