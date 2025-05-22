@@ -121,27 +121,27 @@
   }
 
   .pnp-badge-black {
-    @apply badge !text-pnp-white !bg-pnp-black pnp-shadow !border-none mx-0.5 text-base;
+    @apply badge !text-pnp-white !bg-pnp-black pnp-shadow !border-none mr-1 text-base;
   }
 
   .pnp-badge-white {
-    @apply badge !text-pnp-black !bg-pnp-white pnp-shadow !border-none mx-0.5 text-base;
+    @apply badge !text-pnp-black !bg-pnp-white pnp-shadow !border-none mr-1 text-base;
   }
 
   .pnp-badge-green {
-    @apply badge !text-pnp-black !bg-pnp-green pnp-shadow !border-none mx-0.5 text-base;
+    @apply badge !text-pnp-black !bg-pnp-green pnp-shadow !border-none mr-1 text-base;
   }
 
   .pnp-badge-purple {
-    @apply badge !text-pnp-black !bg-pnp-purple pnp-shadow !border-none mx-0.5 text-base;
+    @apply badge !text-pnp-black !bg-pnp-purple pnp-shadow !border-none mr-1 text-base;
   }
 
   .pnp-badge-blue {
-    @apply badge !text-pnp-black !bg-pnp-blue pnp-shadow !border-none mx-0.5 text-base;
+    @apply badge !text-pnp-black !bg-pnp-blue pnp-shadow !border-none mr-1 text-base;
   }
 
   .pnp-badge-trans {
-    @apply badge !text-pnp-black !bg-transparent !border-none mx-0.5 text-base;
+    @apply badge !text-pnp-black !bg-transparent !border-none mr-1 text-base;
   }
 
   .btn-icon svg,
