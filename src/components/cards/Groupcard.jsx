@@ -95,7 +95,7 @@ const GroupCard = () => {
       {/* LFG, AVAILABILITY */}
       <div
         style={{ backgroundImage: `url(${groupdummy})` }}
-        className=" pt-4 mb-4 rounded-t-lg"
+        className=" pt-4 mb-4 rounded-t-lg bg-cover"
       >
         <div className="flex justify-between h-[18vh] px-3">
           <div className="pnp-badge-green">{getIcon("User")}LFG</div>
