@@ -12,6 +12,8 @@ import OnSitesvg from "../assets/onsite.svg?react";
 import Remotesvg from "../assets/remote.svg?react";
 import Dicesvg from "../assets/icon-dice.svg?react";
 import Experiencesvg from "../assets/experience.svg?react";
+import Closesvg from "../assets/close.svg?react";
+import Filtersvg from "../assets/filter.svg?react";
 
 const getIcon = (tag) => {
   const icons = {
@@ -29,6 +31,8 @@ const getIcon = (tag) => {
     Remote: Remotesvg,
     Dice: Dicesvg,
     Experience: Experiencesvg,
+    Filter: Filtersvg,
+    Close: Closesvg,
   };
 
   const IconComponent = icons[tag];
@@ -36,7 +40,7 @@ const getIcon = (tag) => {
   if (IconComponent) {
     return <IconComponent className="w-[1rem]" />;
   } else {
-    console.log("FindIcon: No icon for this input");
+    // console.log("FindIcon: No icon for this input");
   }
 };
 
