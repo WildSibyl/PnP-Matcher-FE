@@ -10,7 +10,8 @@ const TagsContextProvider = ({ children }) => {
     experienceLevel: [],
     systems: [],
     languages: [],
-    playerRoles: [],
+    playingRoles: [],
+    playingModes: [],
     playstyles: [],
     likes: [],
     dislikes: [],
@@ -22,7 +23,8 @@ const TagsContextProvider = ({ children }) => {
         const experience = await getOptionsByCategory("experience");
         const systems = await getOptionsByCategory("systems");
         const languages = await getOptionsByCategory("languages");
-        const playerRoles = await getOptionsByCategory("playerRoles");
+        const playingRoles = await getOptionsByCategory("playingRoles");
+        const playingModes = await getOptionsByCategory("playingModes");
         const playstyles = await getOptionsByCategory("playstyles");
         const likes = await getOptionsByCategory("likes");
         const dislikes = await getOptionsByCategory("dislikes");
@@ -31,7 +33,8 @@ const TagsContextProvider = ({ children }) => {
           experienceLevel: experience,
           systems,
           languages,
-          playerRoles,
+          playingRoles,
+          playingModes,
           playstyles,
           likes,
           dislikes,
@@ -48,7 +51,8 @@ const TagsContextProvider = ({ children }) => {
     experienceLevel: options.experienceLevel,
     systems: options.systems,
     languages: options.languages,
-    playerRoles: options.playerRoles,
+    playingRoles: options.playingRoles,
+    playingModes: options.playingModes,
     playstyles: options.playstyles,
     likes: options.likes,
     dislikes: options.dislikes,
