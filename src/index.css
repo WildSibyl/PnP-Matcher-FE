@@ -117,7 +117,7 @@
   }
 
   .btn-desktopnavi {
-    @apply fill-current text-pnp-white max-h-[1.5rem] max-w-[1.5rem] cursor-pointer hover:scale-95 *:ease-in-out duration-200;
+    @apply fill-current text-pnp-white max-h-[1.5rem] max-w-[1.5rem] cursor-pointer hover:scale-95 hover:text-pnp-blue *:ease-in-out duration-200;
   }
 
   .pnp-badge-black {
@@ -149,6 +149,68 @@
     max-height: 1rem;
     width: auto;
   }
+
+  /* LOADING ANIMATION */
+  .loader {
+    position: relative;
+    width: 120px;
+    height: 150px;
+    margin: 0 auto;
+  }
+
+  .book {
+    animation: float 2s ease-in-out infinite;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .loader > :nth-child(2),
+  .loader > :nth-child(3),
+  .loader > :nth-child(4) {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: rise 2.5s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  .loader > :nth-child(3) {
+    animation-delay: 0.3s;
+    left: 40%;
+  }
+
+  .loader > :nth-child(4) {
+    animation-delay: 0.6s;
+    left: 60%;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes rise {
+    0% {
+      transform: translate(-50%, 0) scale(1) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -100px) scale(0.5) rotate(90deg);
+      opacity: 0;
+    }
+  }
+  /* LOADING ANIMATION END */
 
   @media (max-width: 1250px) {
     body {
