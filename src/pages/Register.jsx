@@ -27,7 +27,9 @@ const Register = () => {
     systems: [],
     days: [],
     frequencyPerMonth: 1,
+    terms: false,
     playingRoles: [],
+    playingModes: [],
     languages: [],
     playstyles: [],
     likes: [],
@@ -37,7 +39,6 @@ const Register = () => {
   });
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -68,6 +69,9 @@ const Register = () => {
       setRegForm((prev) => ({ ...prev, days: newDays }));
     } else if (type === "number") {
       setRegForm((prev) => ({ ...prev, [name]: Number(value) }));
+    } else if (name === "terms") {
+      // Handle single checkbox boolean here (like 'terms')
+      setRegForm((prev) => ({ ...prev, [name]: checked }));
     } else {
       setRegForm((prev) => ({ ...prev, [name]: value }));
     }
@@ -111,11 +115,12 @@ const Register = () => {
           return "Please select at least one system.";
         break;
       case 4:
-        if (isSubmitting && regForm.days.length === 0)
-          // Still not preventing Invalid body error, the regForm submits entering step 4 anyway
+        if (regForm.days.length === 0)
           return "Please select at least one day you play.";
         if (regForm.frequencyPerMonth < 1)
           return "Frequency per month must be at least 1.";
+        break;
+        if (!regForm.terms) return "Please accept the Terms and Conditions.";
         break;
       default:
         return null;
@@ -138,7 +143,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
     // Validate last step again
     const error = validateStep();
@@ -164,7 +168,9 @@ const Register = () => {
         systems: regForm.systems,
         days: regForm.days,
         frequencyPerMonth: regForm.frequencyPerMonth,
+        terms: regForm.terms,
         playingRoles: regForm.playingRoles,
+        playingModes: regForm.playingModes,
         languages: regForm.languages,
         playstyles: regForm.playstyles,
         likes: regForm.likes,
@@ -183,7 +189,6 @@ const Register = () => {
       toast.error(error.message);
     } finally {
       setLoading(false);
-      setIsSubmitting(false);
     }
     console.log("Form submitted:", regForm);
   };
@@ -205,7 +210,7 @@ const Register = () => {
             regForm={regForm}
             onChange={handleChange}
             setMultiSelect={setMultiSelect}
-            setRegForm={setRegForm} // Is this setting the regForm by clicking next, therefore creating the Invalid body error?
+            setRegForm={setRegForm}
           />
         )}
         {step === 4 && (
@@ -228,6 +233,7 @@ const Register = () => {
         )}
         {step < 4 ? (
           <button
+            key="button" ////key to fix the event propagation bug
             type="button"
             onClick={handleNext}
             className="btn-primary-light"
@@ -237,6 +243,7 @@ const Register = () => {
           </button>
         ) : (
           <button
+            key="submit" //key to fix the event propagation bug
             type="submit"
             className="btn-primary-light"
             disabled={loading}
