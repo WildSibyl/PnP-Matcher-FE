@@ -232,4 +232,11 @@
       @apply text-sm font-semibold;
     }
   }
+
+  /* to show the calendar icon in the date input */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    transform: scale(1.5);
+    filter: invert(1) brightness(0.7);
+    cursor: pointer;
+  }
 }
