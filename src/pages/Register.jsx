@@ -29,7 +29,7 @@ const Register = () => {
     frequencyPerMonth: 1,
     terms: false,
     playingRoles: [],
-    playingModes: [],
+    playingModes: "",
     languages: [],
     playstyles: [],
     likes: [],
@@ -119,7 +119,6 @@ const Register = () => {
           return "Please select at least one day you play.";
         if (regForm.frequencyPerMonth < 1)
           return "Frequency per month must be at least 1.";
-        break;
         if (!regForm.terms) return "Please accept the Terms and Conditions.";
         break;
       default:
