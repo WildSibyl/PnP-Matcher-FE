@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import getIcon from "../utils/getIcon";
 import { getUsers } from "../data/user";
+import FilterModal from "../components/search-comp/FilterModal";
 
 import PlayerCard from "../components/cards/PlayerCard";
 import GroupCard from "../components/cards/Groupcard";
@@ -9,6 +10,7 @@ import Loader from "../components/Loader";
 const Search = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState({
     search: "",
     systems: ["DnD 5E", "Call of Cthullhu"],
@@ -185,7 +187,10 @@ const Search = () => {
       {/* SEARCH BAR END */}
       {/* FILTER CHIPS */}
       <div className="flex overflow-scroll items-center overflow-x-auto whitespace-nowrap no-scrollbar w-full px-4">
-        <div className="pnp-badge-white h-[2.2rem] ml-8 cursor-pointer hover:scale-95 !hover:bg-pnp-blue *:ease-in-out duration-200">
+        <div
+          onClick={() => setIsModalOpen(true)}
+          className="pnp-badge-white h-[2.2rem] ml-8 cursor-pointer hover:scale-95 !hover:bg-pnp-blue *:ease-in-out duration-200"
+        >
           {getIcon("Filter")}Filter
         </div>
 
@@ -296,6 +301,9 @@ const Search = () => {
           })}
         </div>
       </div>
+
+      {/* Filter selection modal */}
+      <FilterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
