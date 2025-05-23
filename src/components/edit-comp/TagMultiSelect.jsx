@@ -24,7 +24,12 @@ const TagMultiSelect = ({
     const fetchOptions = async () => {
       try {
         const data = await getOptionsByCategory(category);
-        setOptions(data.map((opt) => ({ label: opt.label, value: opt.value })));
+        setOptions(
+          data.map((opt) => ({
+            label: opt.label,
+            value: opt._id,
+          }))
+        );
       } catch (err) {
         console.error(`Failed to load options for ${category}:`, err.message);
       }
