@@ -9,6 +9,7 @@ const TagMultiSelect = ({
   name,
   onChange,
   category, // category to fetch options
+  value,
 }) => {
   const [options, setOptions] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -27,6 +28,12 @@ const TagMultiSelect = ({
 
     fetchOptions();
   }, [category]);
+
+  useEffect(() => {
+    if (!options.length || value) return; //are options and or value initialized?
+    const mapped = options.filter((e) => value?.includes(e.value)); //Match values with entries in options
+    setSelected(mapped); // Update selected
+  }, [value, options]);
 
   const handleSelectChange = (selectedOptions) => {
     const newSelections = selectedOptions || [];

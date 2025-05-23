@@ -1,7 +1,8 @@
 import React from "react";
 import { Dialog } from "@headlessui/react";
+import TagMultiSelect from "../edit-comp/TagMultiSelect";
 
-const FilterModal = ({ isOpen, onClose }) => (
+const FilterModal = ({ isOpen, onClose, setFilter, filter }) => (
   <Dialog open={isOpen} onClose={onClose} className="relative z-50">
     <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
     <div className="fixed inset-0 flex items-center justify-center p-4">
@@ -115,13 +116,18 @@ const FilterModal = ({ isOpen, onClose }) => (
             <h3 className="collapse-title font-semibold">GAME SYSTEMS</h3>
             <div className="collapse-content text-sm">
               <div className="flex flex-col">
-                <label className="label">GAME SYSTEMS</label>
-                <input
-                  type="city"
-                  name="city"
-                  placeholder="e.g. Hamburg"
-                  className="input-bordered"
+                <TagMultiSelect
+                  category="systems"
+                  label="GAME SYSTEM"
+                  helperText=""
+                  name="systems"
+                  placeholder="Select preferences"
+                  onChange={(values) =>
+                    setFilter((prev) => ({ ...prev, systems: values }))
+                  }
+                  value={filter.systems}
                 />
+                ;
               </div>
             </div>
           </div>

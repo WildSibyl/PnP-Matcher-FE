@@ -13,7 +13,7 @@ const Search = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState({
     search: "",
-    systems: ["DnD 5E", "Call of Cthullhu"],
+    systems: ["Torchbearer"],
     playstyles: ["Buttkicker", "Power Gamer"],
     experience: ["Adventurer"],
     likes: ["Dice"],
@@ -280,10 +280,8 @@ const Search = () => {
           : ""}
       </div>
       {/* FILTER CHIPS END */}
-
       {/* TAB */}
       {/* TAB END */}
-
       {/* RESULTS */}
       <div className="mt-2 flex flex-col items-center">
         <div className="my-8 text-pnp-white font-normal text-center ">
@@ -301,9 +299,13 @@ const Search = () => {
           })}
         </div>
       </div>
-
-      {/* Filter selection modal */}
-      <FilterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {console.log(filter)};{/* Filter selection modal */}
+      <FilterModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        setFilter={setFilter}
+        filter={filter}
+      />
     </div>
   );
 };
