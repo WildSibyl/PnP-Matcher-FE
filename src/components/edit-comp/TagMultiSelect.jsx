@@ -14,6 +14,10 @@ const TagMultiSelect = ({
   const [options, setOptions] = useState([]);
   const [selected, setSelected] = useState([]);
 
+  const customStyles = {
+    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  }; //This is done to make sure the select window is always on top
+
   useEffect(() => {
     if (!category) return;
 
@@ -30,7 +34,7 @@ const TagMultiSelect = ({
   }, [category]);
 
   useEffect(() => {
-    if (!options.length || value) return; //are options and or value initialized?
+    if (!options.length || !Array.isArray(value)) return; //are options and or value initialized, is value an array?
     const mapped = options.filter((e) => value?.includes(e.value)); //Match values with entries in options
     setSelected(mapped); // Update selected
   }, [value, options]);
@@ -76,6 +80,8 @@ const TagMultiSelect = ({
         placeholder={placeholder}
         className="input-bordered-multi"
         name={name}
+        styles={customStyles}
+        menuPortalTarget={document.body} //renders the menu in the body independent from the select field
       />
 
       <div className="tag-field mt-2">

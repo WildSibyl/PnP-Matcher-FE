@@ -6,23 +6,24 @@ import FilterModal from "../components/search-comp/FilterModal";
 import PlayerCard from "../components/cards/PlayerCard";
 import GroupCard from "../components/cards/Groupcard";
 import Loader from "../components/Loader";
+import countActiveFilters from "../utils/filterCount";
 
 const Search = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filterCount, setFilterCount] = useState(0);
   const [filter, setFilter] = useState({
     search: "",
-    systems: ["Torchbearer"],
-    playstyles: ["Buttkicker", "Power Gamer"],
-    experience: ["Adventurer"],
-    likes: ["Dice"],
-    dislikes: ["Homophobia", "Horror"],
-    location: "Hamburg",
-    radius: 10,
-    weekdays: ["MO", "WE"],
-    playMode: "both",
-    frequency: 1,
+    systems: [],
+    playstyles: [],
+    experience: [],
+    likes: [],
+    dislikes: [],
+    radius: 5,
+    weekdays: [],
+    playMode: "",
+    frequency: 0,
   });
 
   useEffect(() => {
@@ -40,6 +41,11 @@ const Search = () => {
 
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    const currFilterCount = countActiveFilters(filter);
+    setFilterCount(currFilterCount);
+  }, [filter]);
 
   if (loading)
     return (
@@ -191,7 +197,8 @@ const Search = () => {
           onClick={() => setIsModalOpen(true)}
           className="pnp-badge-white h-[2.2rem] ml-8 cursor-pointer hover:scale-95 !hover:bg-pnp-blue *:ease-in-out duration-200"
         >
-          {getIcon("Filter")}Filter
+          {getIcon("Filter")}Filter{filterCount > 0 ? "s" : ""}
+          {filterCount > 0 ? `(${filterCount})` : ""}
         </div>
 
         {/* Radius Badge */}
@@ -300,11 +307,14 @@ const Search = () => {
         </div>
       </div>
       {console.log(filter)};{/* Filter selection modal */}
+      {console.log(filterCount)};
       <FilterModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         setFilter={setFilter}
         filter={filter}
+        filterCount={filterCount}
+        setFilterCount={setFilterCount}
       />
     </div>
   );

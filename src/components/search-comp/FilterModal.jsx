@@ -2,7 +2,14 @@ import React from "react";
 import { Dialog } from "@headlessui/react";
 import TagMultiSelect from "../edit-comp/TagMultiSelect";
 
-const FilterModal = ({ isOpen, onClose, setFilter, filter }) => (
+const FilterModal = ({
+  isOpen,
+  onClose,
+  setFilter,
+  filter,
+  filterCount,
+  setFilterCount,
+}) => (
   <Dialog open={isOpen} onClose={onClose} className="relative z-50">
     <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
     <div className="fixed inset-0 flex items-center justify-center p-4">
@@ -37,15 +44,6 @@ const FilterModal = ({ isOpen, onClose, setFilter, filter }) => (
                   className="range range-neutral"
                 />
               </div>
-              {/* <div className="flex flex-col">
-                <label className="label">CITY</label>
-                <input
-                  type="city"
-                  name="city"
-                  placeholder="e.g. Hamburg"
-                  className="input-bordered"
-                />
-              </div> */}
             </div>
           </div>
 
@@ -78,34 +76,42 @@ const FilterModal = ({ isOpen, onClose, setFilter, filter }) => (
             <div className="collapse-content text-sm">
               <div className="flex flex-col">
                 <label className="label">AGE</label>
-                <select name="experience" className="input-bordered">
+                <select name="age" className="input-bordered">
                   <option value="">All ages</option>
                   <option>Younger than 20</option>
                   <option>20 - 30</option>
                   <option>30 - 40</option>
                   <option>50 and older</option>
                 </select>
-                <label className="label">EXPERIENCE</label>
-                <input
-                  type="city"
-                  name="city"
-                  placeholder="e.g. Hamburg"
-                  className="input-bordered"
-                />
-                <label className="label">WHERE TO PLAY</label>
-                <input
-                  type="city"
-                  name="city"
-                  placeholder="e.g. Hamburg"
-                  className="input-bordered"
+                <TagMultiSelect
+                  category="experience"
+                  label="EXPERIENCE"
+                  helperText=""
+                  name="experience"
+                  placeholder="Filter for EXPERIENCE"
+                  onChange={(values) =>
+                    setFilter((prev) => ({ ...prev, experience: values }))
+                  }
+                  value={filter.experience}
                 />
 
-                <label className="label">PLAYSTYLES</label>
-                <input
-                  type="city"
-                  name="city"
-                  placeholder="e.g. Hamburg"
-                  className="input-bordered"
+                <label className="label">WHERE TO PLAY</label>
+                <select name="playMode" className="input-bordered">
+                  <option value="">Online & Offline</option>
+                  <option>Online only</option>
+                  <option>On-site only</option>
+                </select>
+
+                <TagMultiSelect
+                  category="playstyles"
+                  label="PLAYSTYLES"
+                  helperText=""
+                  name="playstyles"
+                  placeholder="Filter for PLAYSTYLES"
+                  onChange={(values) =>
+                    setFilter((prev) => ({ ...prev, playstyles: values }))
+                  }
+                  value={filter.playstyles}
                 />
               </div>
             </div>
@@ -121,13 +127,12 @@ const FilterModal = ({ isOpen, onClose, setFilter, filter }) => (
                   label="GAME SYSTEM"
                   helperText=""
                   name="systems"
-                  placeholder="Select preferences"
+                  placeholder="Filter game systems"
                   onChange={(values) =>
                     setFilter((prev) => ({ ...prev, systems: values }))
                   }
                   value={filter.systems}
                 />
-                ;
               </div>
             </div>
           </div>
@@ -137,25 +142,35 @@ const FilterModal = ({ isOpen, onClose, setFilter, filter }) => (
             <h3 className="collapse-title font-semibold">PREFERENCES</h3>
             <div className="collapse-content text-sm">
               <div className="flex flex-col">
-                <label className="label">LIKES</label>
-                <input
-                  type="city"
-                  name="city"
-                  placeholder="e.g. Hamburg"
-                  className="input-bordered"
+                <TagMultiSelect
+                  category="likes"
+                  label="LIKES"
+                  helperText=""
+                  name="likes"
+                  placeholder="Filter for LIKES"
+                  onChange={(values) =>
+                    setFilter((prev) => ({ ...prev, likes: values }))
+                  }
+                  value={filter.likes}
                 />
-                <label className="label">DILIKES</label>
-                <input
-                  type="city"
-                  name="city"
-                  placeholder="e.g. Hamburg"
-                  className="input-bordered"
+                <TagMultiSelect
+                  category="dislikes"
+                  label="DISLIKES"
+                  helperText=""
+                  name="dislikes"
+                  placeholder="Filter for DISLIKES"
+                  onChange={(values) =>
+                    setFilter((prev) => ({ ...prev, dislikes: values }))
+                  }
+                  value={filter.dislikes}
                 />
               </div>
             </div>
           </div>
 
-          <button className="btn-primary-light">Apply X Filters</button>
+          <button className="btn-primary-light">
+            Apply {filterCount} Filter{filterCount > 1 ? "s" : ""}
+          </button>
         </div>
       </Dialog.Panel>
     </div>
