@@ -39,7 +39,7 @@ const Search = () => {
     };
 
     fetchUsers();
-  }, [filter]);
+  }, []);
 
   if (loading)
     return (

@@ -79,10 +79,10 @@ const FilterModal = ({ isOpen, onClose }) => (
                 <label className="label">AGE</label>
                 <select name="experience" className="input-bordered">
                   <option value="">All ages</option>
-                  <option>18 - 30</option>
+                  <option>Younger than 20</option>
+                  <option>20 - 30</option>
                   <option>30 - 40</option>
-                  <option>50 - 60</option>
-                  <option>60 and older</option>
+                  <option>50 and older</option>
                 </select>
                 <label className="label">EXPERIENCE</label>
                 <input
