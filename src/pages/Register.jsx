@@ -29,7 +29,7 @@ const Register = () => {
     frequencyPerMonth: 1,
     terms: false,
     playingRoles: [],
-    playingModes: "",
+    playingModes: null,
     languages: [],
     playstyles: [],
     likes: [],
