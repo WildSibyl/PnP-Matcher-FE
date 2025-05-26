@@ -8,7 +8,7 @@ import MenuIcons from "../components/navbar-comp/MenuIcons";
 
 const MainLayout = () => {
   return (
-    <>
+    <div className="w-full max-w-screen overflow-x-hidden min-h-screen">
       <MenuIcons />
       <ToastContainer position="top-center" autoClose={1500} theme="colored" />
 
@@ -17,7 +17,7 @@ const MainLayout = () => {
         <Outlet />
         <Footer />
       </TagsContextProvider>
-    </>
+    </div>
   );
 };
 
