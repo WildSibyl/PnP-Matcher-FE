@@ -147,7 +147,6 @@ const Register = () => {
     const error = validateStep();
     if (error) {
       toast.error(error);
-      setIsSubmitting(false);
       return;
     }
 
@@ -197,7 +196,7 @@ const Register = () => {
       onSubmit={handleSubmit}
       className="my-5 md:w-1/2 mx-auto flex flex-col gap-4"
     >
-      <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+      <div className="flex flex-col gap-1">
         {step === 1 && (
           <Step1UserInfo regForm={regForm} onChange={handleChange} />
         )}
