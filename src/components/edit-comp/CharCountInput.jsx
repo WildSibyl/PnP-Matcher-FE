@@ -10,6 +10,7 @@ const CharCountInput = ({
   label,
   helperText,
   validation,
+  type = "text",
 }) => {
   const handleChange = (e) => {
     const newValue = e.target.value;
@@ -27,6 +28,7 @@ const CharCountInput = ({
         </div>
       )}
       <input
+        type={type}
         name={name}
         value={value}
         onChange={handleChange}
