@@ -30,17 +30,20 @@ const FilterModal = ({
             <div className="collapse-content text-sm">
               <label className="label">SEARCH RADIUS</label>
               <div className="flex justify-between gap-4 items-center">
-                <input
-                  type="radius"
-                  name="radius"
-                  placeholder="5km"
-                  className="input-bordered max-w-[20%]"
-                />
+                <label className="label">
+                  <span className="ml-2">{filter.radius} km</span>
+                </label>
                 <input
                   type="range"
-                  min={0}
-                  max="100"
-                  value="40"
+                  min={5}
+                  max={100}
+                  value={filter.radius}
+                  onInput={(e) =>
+                    setFilter((prev) => ({
+                      ...prev,
+                      radius: Number(e.target.value),
+                    }))
+                  }
                   className="range range-neutral"
                 />
               </div>
@@ -72,17 +75,34 @@ const FilterModal = ({
 
           <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
             <input type="checkbox" />
-            <h3 className="collapse-title font-semibold">PLAYER TYPE</h3>
+            <h3 className="collapse-title font-semibold">
+              PLAYER TYPE
+              {(filter.age !== "" ||
+                filter.experience.length > 0 ||
+                filter.playMode !== "" ||
+                filter.playstyles.length > 0) && (
+                <div className="pnp-badge-blue ml-3">Active</div>
+              )}
+            </h3>
             <div className="collapse-content text-sm">
               <div className="flex flex-col">
                 <label className="label">AGE</label>
-                <select name="age" className="input-bordered">
+
+                <select
+                  name="age"
+                  className="input-bordered"
+                  onChange={(e) =>
+                    setFilter((prev) => ({ ...prev, age: e.target.value }))
+                  }
+                  value={filter.age}
+                >
                   <option value="">All ages</option>
                   <option>Younger than 20</option>
                   <option>20 - 30</option>
                   <option>30 - 40</option>
                   <option>50 and older</option>
                 </select>
+
                 <TagMultiSelect
                   category="experience"
                   label="EXPERIENCE"
@@ -96,8 +116,15 @@ const FilterModal = ({
                 />
 
                 <label className="label">WHERE TO PLAY</label>
-                <select name="playMode" className="input-bordered">
-                  <option value="">Online & Offline</option>
+                <select
+                  name="playMode"
+                  className="input-bordered"
+                  onChange={(e) =>
+                    setFilter((prev) => ({ ...prev, playMode: e.target.value }))
+                  }
+                  value={filter.playMode}
+                >
+                  <option value="">Online & On-site</option>
                   <option>Online only</option>
                   <option>On-site only</option>
                 </select>
@@ -119,7 +146,12 @@ const FilterModal = ({
 
           <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
             <input type="checkbox" />
-            <h3 className="collapse-title font-semibold">GAME SYSTEMS</h3>
+            <h3 className="collapse-title font-semibold">
+              GAME SYSTEMS{" "}
+              {filter.languages.length > 0 && (
+                <div className="pnp-badge-blue ml-3">Active</div>
+              )}
+            </h3>
             <div className="collapse-content text-sm">
               <div className="flex flex-col">
                 <TagMultiSelect
@@ -139,7 +171,12 @@ const FilterModal = ({
 
           <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
             <input type="checkbox" />
-            <h3 className="collapse-title font-semibold">PREFERENCES</h3>
+            <h3 className="collapse-title font-semibold">
+              PREFERENCES{" "}
+              {(filter.likes.length > 0 || filter.dislikes.length > 0) && (
+                <div className="pnp-badge-blue ml-3">Active</div>
+              )}
+            </h3>
             <div className="collapse-content text-sm">
               <div className="flex flex-col">
                 <TagMultiSelect
@@ -163,6 +200,32 @@ const FilterModal = ({
                     setFilter((prev) => ({ ...prev, dislikes: values }))
                   }
                   value={filter.dislikes}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
+            <input type="checkbox" />
+            <h3 className="collapse-title font-semibold">
+              LANGUAGES
+              {filter.languages.length > 0 && (
+                <div className="pnp-badge-blue ml-3">Active</div>
+              )}
+            </h3>
+
+            <div className="collapse-content text-sm">
+              <div className="flex flex-col">
+                <TagMultiSelect
+                  category="languages"
+                  label="LANGUAGES"
+                  helperText=""
+                  name="languages"
+                  placeholder="Filter for LANGUAGES"
+                  onChange={(values) =>
+                    setFilter((prev) => ({ ...prev, languages: values }))
+                  }
+                  value={filter.languages}
                 />
               </div>
             </div>

@@ -24,6 +24,8 @@ const Search = () => {
     weekdays: [],
     playMode: "",
     frequency: 0,
+    languages: [],
+    age: "",
   });
 
   useEffect(() => {
@@ -51,16 +53,23 @@ const Search = () => {
     const newFilter = { ...filter };
 
     for (const [key, value] of Object.entries(filter)) {
-      if (Array.isArray(value)) {
+      if (valToRemove === "radius") {
+        if (value > 5) {
+          newFilter.radius = 5;
+        }
+      } else if (valToRemove === "age") {
+        newFilter.age = "";
+      } else if (valToRemove === "playMode") {
+        newFilter.playMode = "";
+      } else if (Array.isArray(value)) {
         newFilter[key] = value.filter((opt) => opt !== valToRemove);
       } else {
         if (value === valToRemove) {
           newFilter[key] = "";
         }
       }
-
-      setFilter(newFilter);
     }
+    setFilter(newFilter);
   };
 
   return (
@@ -101,10 +110,42 @@ const Search = () => {
         {filter.radius > 5 ? (
           <div className="pnp-badge-white cursor-pointer shrink-0">
             Radius: {filter.radius}km
-            <button className="*:w-[0.5rem]" onClick={() => handleRemove(e)}>
+            <button
+              className="*:w-[0.5rem]"
+              onClick={() => handleRemove("radius")}
+            >
               {getIcon("Close")}
             </button>
-            ;
+          </div>
+        ) : (
+          ""
+        )}
+
+        {/* Age Badge */}
+        {filter.age !== "" && filter.age !== "All ages" ? (
+          <div className="pnp-badge-white cursor-pointer shrink-0">
+            Age: {filter.age}
+            <button
+              className="*:w-[0.5rem]"
+              onClick={() => handleRemove("age")}
+            >
+              {getIcon("Close")}
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {/* Playmode badge */}
+        {filter.playMode !== "" && filter.playMode !== "Online & On-site" ? (
+          <div className="pnp-badge-white cursor-pointer shrink-0">
+            {filter.playMode}
+            <button
+              className="*:w-[0.5rem]"
+              onClick={() => handleRemove("playMode")}
+            >
+              {getIcon("Close")}
+            </button>
           </div>
         ) : (
           ""
