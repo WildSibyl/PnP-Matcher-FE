@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import getIcon from "../utils/getIcon";
-import { getUsers } from "../data/user";
+import { getFilteredUsers } from "../data/user";
 import FilterModal from "../components/search-comp/FilterModal";
 
 import PlayerCard from "../components/cards/PlayerCard";
@@ -30,7 +30,7 @@ const Search = () => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        const data = await getUsers(5);
+        const data = await getFilteredUsers(filter.radius, filter); // amended to pass filter
         setResults(data);
       } catch (error) {
         console.error("Error fetching users:", err.message);

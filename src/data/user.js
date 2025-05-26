@@ -4,17 +4,24 @@ if (!API_URL) throw new Error("API URL is needed on the .env");
 
 const baseURL = `${API_URL}/users`;
 
-export const getUsers = async (radius) => {
-  const res = await fetch(`${baseURL}?radius=${radius * 1000}`);
+export const getFilteredUsers = async (radius, filters = {}) => {
+  const res = await fetch(`${baseURL}?radius=${radius * 1000}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(filters),
+  });
 
   if (!res.ok) {
     const errorData = await res.json();
-
     throw new Error(
-      errorData.error || "An error occurred while fetching users"
+      errorData.error ||
+        errorData.message ||
+        "An error occurred while fetching users"
     );
   }
 
-  const data = res.json();
+  const data = await res.json();
   return data;
 };
