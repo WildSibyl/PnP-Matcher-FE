@@ -10,6 +10,8 @@ const removeFilter = (currentFilter, valToRemove) => {
       newFilter.age = "";
     } else if (valToRemove === "playMode") {
       newFilter.playMode = "";
+    } else if (valToRemove === "weekdays") {
+      newFilter.weekdays = [];
     } else if (Array.isArray(value)) {
       newFilter[key] = value.filter((opt) => opt !== valToRemove);
     } else {

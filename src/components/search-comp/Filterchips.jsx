@@ -60,7 +60,7 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
       )}
 
       {/* Weekday Badge */}
-      {filter.weekdays.length > 0 ? (
+      {filter.weekdays.length > 0 && (
         <div className="pnp-badge-white cursor-pointer shrink-0">
           Days:
           {filter.weekdays.map((e, index) => {
@@ -69,13 +69,27 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
             } else {
               return `${e}, `;
             }
-            <button className="*:w-[0.5rem]" onClick={() => handleRemove(e)}>
-              {getIcon("Close")}
-            </button>;
           })}
+          <button
+            className="*:w-[0.5rem]"
+            onClick={() => handleRemove("weekdays")}
+          >
+            {getIcon("Close")}
+          </button>
         </div>
-      ) : (
-        ""
+      )}
+
+      {/* Frequency Badge */}
+      {filter.frequency > 0 && (
+        <div className="pnp-badge-white cursor-pointer shrink-0">
+          Freq: {filter.frequency} /mo
+          <button
+            className="*:w-[0.5rem]"
+            onClick={() => handleRemove(filter.frequency)}
+          >
+            {getIcon("Close")}
+          </button>
+        </div>
       )}
 
       {/* Game Systems Badges */}

@@ -58,7 +58,6 @@ const FilterModal = ({
               <div className="flex flex-col">
                 <WeekdaySelector
                   weekdays={filter.weekdays}
-                  label="Sweet labels!"
                   onChange={(newDays) =>
                     setFilter({ ...filter, weekdays: newDays })
                   }
@@ -86,6 +85,9 @@ const FilterModal = ({
                 <div className="label">TIMES</div>
                 <div className="text-pnp-black font-bold">per Month</div>
               </div>
+              <small className="font-light">
+                (Set to 0 to ignore frequency filter.)
+              </small>
             </div>
           </div>
 
