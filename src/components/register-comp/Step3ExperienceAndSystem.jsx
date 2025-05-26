@@ -19,7 +19,7 @@ const Step3ExperienceAndSystem = ({ regForm, setRegForm, onChange }) => {
       >
         <option value="">Select experience</option>
         {experienceLevel.map((level) => (
-          <option key={level.value} value={level.value}>
+          <option key={level._id} value={level._id}>
             {level.label}
           </option>
         ))}
