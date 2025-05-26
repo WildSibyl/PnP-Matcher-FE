@@ -1,6 +1,7 @@
 import React from "react";
 import { Dialog } from "@headlessui/react";
 import TagMultiSelect from "../edit-comp/TagMultiSelect";
+import WeekdaySelector from "../WeekdaySelector";
 
 const FilterModal = ({
   isOpen,
@@ -55,20 +56,35 @@ const FilterModal = ({
             <h3 className="collapse-title font-semibold">AVAILABILITY</h3>
             <div className="collapse-content text-sm">
               <div className="flex flex-col">
-                <label className="label">WEEKDAYS</label>
-                <input
-                  type="city"
-                  name="city"
-                  placeholder="e.g. Hamburg"
-                  className="input-bordered"
+                <WeekdaySelector
+                  weekdays={filter.weekdays}
+                  label="Sweet labels!"
+                  onChange={(newDays) =>
+                    setFilter({ ...filter, weekdays: newDays })
+                  }
                 />
-                <label className="label">FREQUENCY</label>
+              </div>
+              <label className="label">FREQUENCY</label>
+              <div className="label flex flex-row">
                 <input
-                  type="city"
-                  name="city"
-                  placeholder="e.g. Hamburg"
-                  className="input-bordered"
+                  type="number"
+                  name="frequency"
+                  min={0}
+                  max={31}
+                  value={filter.frequency}
+                  onChange={(e) => {
+                    {
+                      const val = e.target.value;
+                      setFilter((prev) => ({
+                        ...prev,
+                        frequency: val === "" ? "" : Number(val),
+                      }));
+                    }
+                  }}
+                  className="input-bordered ml-2"
                 />
+                <div className="label">TIMES</div>
+                <div className="text-pnp-black font-bold">per Month</div>
               </div>
             </div>
           </div>
