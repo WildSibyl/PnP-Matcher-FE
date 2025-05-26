@@ -42,7 +42,7 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`sticky top-0 w-full px-6 z-40 transition-colors duration-300 ease-in-out ${
+        className={`sticky top-0 w-full px-6 z-[60] transition-colors duration-300 ease-in-out ${
           scrolled
             ? "h-full w-full rounded-md bg-[rgba(112,36,219,0.1)] bg-clip-padding backdrop-filter backdrop-blur-sm pnp-shadow"
             : "bg-transparent"

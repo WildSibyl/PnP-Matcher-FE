@@ -31,7 +31,7 @@ const FilterModal = ({
             <h3 className="collapse-title font-semibold">
               LOCATION
               {filter.radius > 5 && (
-                <div className="pnp-badge-blue ml-3">Active</div>
+                <div className="pnp-badge-blue ml-2">Active</div>
               )}
             </h3>
             <div className="collapse-content text-sm">
@@ -64,7 +64,7 @@ const FilterModal = ({
               AVAILABILITY
               {(filter.weekdays.length > 0 ||
                 (filter.frequency !== "" && filter.frequency > 0)) && (
-                <div className="pnp-badge-blue ml-3">Active</div>
+                <div className="pnp-badge-blue ml-2">Active</div>
               )}
             </h3>
             <div className="collapse-content text-sm">
@@ -113,7 +113,7 @@ const FilterModal = ({
                 filter.experience.length > 0 ||
                 filter.playMode !== "" ||
                 filter.playstyles.length > 0) && (
-                <div className="pnp-badge-blue ml-3">Active</div>
+                <div className="pnp-badge-blue ml-2">Active</div>
               )}
             </h3>
             <div className="collapse-content text-sm">
@@ -182,7 +182,7 @@ const FilterModal = ({
             <h3 className="collapse-title font-semibold">
               GAME SYSTEMS{" "}
               {filter.systems.length > 0 && (
-                <div className="pnp-badge-blue ml-3">Active</div>
+                <div className="pnp-badge-blue ml-2">Active</div>
               )}
             </h3>
             <div className="collapse-content text-sm">
@@ -208,7 +208,7 @@ const FilterModal = ({
             <h3 className="collapse-title font-semibold">
               PREFERENCES{" "}
               {(filter.likes.length > 0 || filter.dislikes.length > 0) && (
-                <div className="pnp-badge-blue ml-3">Active</div>
+                <div className="pnp-badge-blue ml-2">Active</div>
               )}
             </h3>
             <div className="collapse-content text-sm">
@@ -245,7 +245,7 @@ const FilterModal = ({
             <h3 className="collapse-title font-semibold">
               LANGUAGES
               {filter.languages.length > 0 && (
-                <div className="pnp-badge-blue ml-3">Active</div>
+                <div className="pnp-badge-blue ml-2">Active</div>
               )}
             </h3>
 
@@ -266,7 +266,7 @@ const FilterModal = ({
             </div>
           </div>
 
-          <button className="btn-primary-light">
+          <button className="btn-primary-light" onClick={onClose}>
             Apply {filterCount} Filter{filterCount > 1 ? "s" : ""}
           </button>
         </div>
