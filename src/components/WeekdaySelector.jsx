@@ -60,6 +60,7 @@ const WeekdaySelector = ({ weekdays = [], label, onChange }) => {
               checked={newSelection.includes(day)}
               style={{ display: "none" }}
               onClick={() => toggleDay(day)}
+              readOnly
             />
             {day}
           </label>

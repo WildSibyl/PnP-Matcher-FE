@@ -62,7 +62,7 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
       {/* Weekday Badge */}
       {filter.weekdays.length > 0 && (
         <div className="pnp-badge-white cursor-pointer shrink-0">
-          Days:
+          Days:{` `}
           {filter.weekdays.map((e, index) => {
             if (index === filter.weekdays.length - 1) {
               return `${e}`;
@@ -86,6 +86,26 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
           <button
             className="*:w-[0.5rem]"
             onClick={() => handleRemove(filter.frequency)}
+          >
+            {getIcon("Close")}
+          </button>
+        </div>
+      )}
+
+      {/* Language Badge */}
+      {filter.languages.length > 0 && (
+        <div className="pnp-badge-white cursor-pointer shrink-0">
+          Languages:{` `}
+          {filter.languages.map((e, index) => {
+            if (index === filter.languages.length - 1) {
+              return `${e}`;
+            } else {
+              return `${e}, `;
+            }
+          })}
+          <button
+            className="*:w-[0.5rem]"
+            onClick={() => handleRemove("languages")}
           >
             {getIcon("Close")}
           </button>

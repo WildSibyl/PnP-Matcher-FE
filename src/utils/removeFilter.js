@@ -12,6 +12,8 @@ const removeFilter = (currentFilter, valToRemove) => {
       newFilter.playMode = "";
     } else if (valToRemove === "weekdays") {
       newFilter.weekdays = [];
+    } else if (valToRemove === "languages") {
+      newFilter.languages = [];
     } else if (Array.isArray(value)) {
       newFilter[key] = value.filter((opt) => opt !== valToRemove);
     } else {

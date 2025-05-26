@@ -25,9 +25,15 @@ const FilterModal = ({
           Set Filters
         </Dialog.Title>
         <div className="">
+          {/* LOCATION */}
           <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
             <input type="checkbox" />
-            <h3 className="collapse-title font-semibold">LOCATION</h3>
+            <h3 className="collapse-title font-semibold">
+              LOCATION
+              {filter.radius > 5 && (
+                <div className="pnp-badge-blue ml-3">Active</div>
+              )}
+            </h3>
             <div className="collapse-content text-sm">
               <label className="label">SEARCH RADIUS</label>
               <div className="flex justify-between gap-4 items-center">
@@ -51,9 +57,16 @@ const FilterModal = ({
             </div>
           </div>
 
+          {/* AVAILABILITY */}
           <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
             <input type="checkbox" />
-            <h3 className="collapse-title font-semibold">AVAILABILITY</h3>
+            <h3 className="collapse-title font-semibold">
+              AVAILABILITY
+              {(filter.weekdays.length > 0 ||
+                (filter.frequency !== "" && filter.frequency > 0)) && (
+                <div className="pnp-badge-blue ml-3">Active</div>
+              )}
+            </h3>
             <div className="collapse-content text-sm">
               <div className="flex flex-col">
                 <WeekdaySelector
@@ -91,6 +104,7 @@ const FilterModal = ({
             </div>
           </div>
 
+          {/* PLAYER TYPE */}
           <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
             <input type="checkbox" />
             <h3 className="collapse-title font-semibold">
@@ -162,11 +176,12 @@ const FilterModal = ({
             </div>
           </div>
 
+          {/* GAME SYSTEMS */}
           <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
             <input type="checkbox" />
             <h3 className="collapse-title font-semibold">
               GAME SYSTEMS{" "}
-              {filter.languages.length > 0 && (
+              {filter.systems.length > 0 && (
                 <div className="pnp-badge-blue ml-3">Active</div>
               )}
             </h3>
@@ -187,6 +202,7 @@ const FilterModal = ({
             </div>
           </div>
 
+          {/* PREFERENCES */}
           <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
             <input type="checkbox" />
             <h3 className="collapse-title font-semibold">
@@ -223,6 +239,7 @@ const FilterModal = ({
             </div>
           </div>
 
+          {/* LANGUAGES */}
           <div className="collapse collapse-arrow bg-base-100 border-base-300 border">
             <input type="checkbox" />
             <h3 className="collapse-title font-semibold">
