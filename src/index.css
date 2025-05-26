@@ -1,0 +1,242 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "pnp";
+  default: true;
+  prefersdark: true;
+  color-scheme: "dark";
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(98% 0.002 247.839);
+  --color-base-300: oklch(98% 0.003 247.858);
+  --color-base-content: rgba(2, 8, 13, 1);
+  --color-primary: rgba(112, 36, 219, 1);
+  --color-primary-content: oklch(98% 0.014 180.72);
+  --color-secondary: oklch(13% 0.028 261.692);
+  --color-secondary-content: oklch(97% 0.013 17.38);
+  --color-accent: rgba(197, 154, 253, 1);
+  --color-accent-content: oklch(98% 0.002 247.839);
+  --color-neutral: rgba(79, 207, 255, 1);
+  --color-neutral-content: oklch(96% 0.016 293.756);
+  --color-info: rgba(79, 207, 255, 1);
+  --color-info-content: oklch(29% 0.066 243.157);
+  --color-success: rgba(103, 255, 204, 1);
+  --color-success-content: oklch(26% 0.065 152.934);
+  --color-warning: rgba(252, 252, 59, 1);
+  --color-warning-content: oklch(27% 0.077 45.635);
+  --color-error: oklch(70% 0.191 22.216);
+  --color-error-content: oklch(25% 0.092 26.042);
+  --radius-selector: 2rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1.5px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@custom-variant hover (&:hover);
+
+@theme {
+  --color-pnp-darkpurple: #7024db;
+  --color-pnp-darkblue: #3bc7fc;
+  --color-pnp-green: var(--color-success);
+  --color-pnp-purple: var(--color-accent);
+  --color-pnp-blue: var(--color-neutral);
+  --color-pnp-black: var(--color-base-content);
+  --color-pnp-white: var(--color-secondary-content);
+}
+
+@utility pnp-shadow {
+  box-shadow: 0px 4px 17.6px -3px rgba(0, 0, 0, 0.25);
+}
+
+@layer base {
+  body {
+    @apply bg-[#02080D];
+
+    font-family: "Inter Variable", sans-serif;
+  }
+  h1 {
+    @apply text-5xl font-extrabold uppercase;
+  }
+  h2 {
+    @apply text-3xl font-extrabold uppercase;
+  }
+  h3 {
+    @apply text-2xl font-extrabold uppercase;
+  }
+  p {
+    @apply text-lg font-semibold;
+  }
+  small {
+    @apply text-sm font-semibold;
+  }
+
+  /* registration tags: they work only if the h1,h2,h3,p,small rules have the className="white" */
+  .title {
+    @apply text-lg text-black font-bold mb-2;
+  }
+  .label {
+    @apply text-sm text-gray-700 font-medium;
+  }
+  .label-italic {
+    @apply text-sm text-gray-600 font-medium italic;
+  }
+  .input-bordered {
+    @apply input-md border-2 border-black rounded-md min-h-[40px] mb-4 px-3;
+  }
+  .input-bordered-multi {
+    @apply input-md border-2 border-black rounded-md min-h-[40px] mb-4;
+  }
+  .tag-field {
+    @apply mb-4 flex flex-wrap gap-2;
+  }
+
+  /* end of registration temporary tags */
+
+  .btn-primary-light {
+    @apply flex items-center gap-2 justify-center px-[16px] bg-linear-165 box-border from-pnp-darkpurple to-pnp-darkblue text-white text-base font-extrabold h-[54px] xl:h-[44px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
+  }
+
+  .btn-primary-dark {
+    @apply flex items-center gap-2 justify-center px-[16px] bg-pnp-black box-border text-white text-base font-extrabold h-[54px] xl:h-[44px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
+  }
+
+  .btn-secondary-light {
+    @apply flex items-center gap-2 justify-center px-[16px] bg-none box-border text-white text-base border-[2px] translate-y-[2px] font-extrabold h-[54px] xl:h-[44px]  rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
+  }
+
+  .btn-secondary-dark {
+    @apply flex items-center gap-2 justify-center px-[16px] bg-none box-border text-pnp-black text-base border-[2px] translate-y-[2px] font-extrabold h-[54px] xl:h-[44px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
+  }
+
+  .btn-navi {
+    @apply bg-pnp-white gap-2 rounded-2xl max-w-[40vw] h-[12vh] flex flex-col items-center justify-center;
+  }
+
+  .btn-desktopnavi {
+    @apply fill-current text-pnp-white max-h-[1.5rem] max-w-[1.5rem] cursor-pointer hover:scale-95 hover:text-pnp-blue *:ease-in-out duration-200;
+  }
+
+  .pnp-badge-black {
+    @apply badge !text-pnp-white !bg-pnp-black pnp-shadow !border-none mr-1 text-base;
+  }
+
+  .pnp-badge-white {
+    @apply badge !text-pnp-black !bg-pnp-white pnp-shadow !border-none mr-1 text-base;
+  }
+
+  .pnp-badge-green {
+    @apply badge !text-pnp-black !bg-pnp-green pnp-shadow !border-none mr-1 text-base;
+  }
+
+  .pnp-badge-purple {
+    @apply badge !text-pnp-black !bg-pnp-purple pnp-shadow !border-none mr-1 text-base;
+  }
+
+  .pnp-badge-blue {
+    @apply badge !text-pnp-black !bg-pnp-blue pnp-shadow !border-none mr-1 text-base;
+  }
+
+  .pnp-badge-trans {
+    @apply badge !text-pnp-black !bg-transparent !border-none mr-1 text-base;
+  }
+
+  .btn-icon svg,
+  .btn-icon img {
+    max-height: 1rem;
+    width: auto;
+  }
+
+  /* LOADING ANIMATION */
+  .loader {
+    position: relative;
+    width: 120px;
+    height: 150px;
+    margin: 0 auto;
+  }
+
+  .book {
+    animation: float 2s ease-in-out infinite;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .loader > :nth-child(2),
+  .loader > :nth-child(3),
+  .loader > :nth-child(4) {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: rise 2.5s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  .loader > :nth-child(3) {
+    animation-delay: 0.3s;
+    left: 40%;
+  }
+
+  .loader > :nth-child(4) {
+    animation-delay: 0.6s;
+    left: 60%;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes rise {
+    0% {
+      transform: translate(-50%, 0) scale(1) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -100px) scale(0.5) rotate(90deg);
+      opacity: 0;
+    }
+  }
+  /* LOADING ANIMATION END */
+
+  @media (max-width: 1250px) {
+    body {
+      @apply bg-[#02080D];
+    }
+    h1 {
+      @apply text-4xl font-extrabold uppercase;
+    }
+    h2 {
+      @apply text-2xl font-extrabold uppercase;
+    }
+    h3 {
+      @apply text-lg font-extrabold uppercase;
+    }
+    p {
+      @apply text-base font-semibold;
+    }
+    small {
+      @apply text-sm font-semibold;
+    }
+  }
+
+  /* to show the calendar icon in the date input */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    transform: scale(1.5);
+    filter: invert(1) brightness(0.7);
+    cursor: pointer;
+  }
+}
