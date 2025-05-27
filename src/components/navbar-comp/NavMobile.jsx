@@ -15,6 +15,12 @@ const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
           alt="pnpmatch logo"
         ></img>
       </Link>
+      {/* Test Link for debugging */}
+      <Link to="/test">
+        <div className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
+          🛠
+        </div>
+      </Link>
       <div className="flex gap-6">
         {user ? (
           <Chatbubblesvg
