@@ -30,19 +30,36 @@ const Search = () => {
     age: "",
   });
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setLoading(true);
-      try {
-        const data = await getFilteredUsers(filter.radius, filter); // amended to pass filter
-        setResults(data);
-      } catch (error) {
-        console.error("Error fetching users:", error.message);
-      } finally {
-        setLoading(false);
-      }
+  const formatFilterForBackend = (filter) => {
+    return {
+      ...filter,
+      systems: filter.systems.map((s) => s.id),
+      playstyles: filter.playstyles.map((s) => s.id),
+      experience: filter.experience.map((s) => s.id),
+      likes: filter.likes.map((s) => s.id),
+      dislikes: filter.dislikes.map((s) => s.id),
+      languages: filter.languages.map((s) => s.id),
     };
+  };
 
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const formattedFilter = formatFilterForBackend(filter);
+      const data = await getFilteredUsers(
+        formattedFilter.radius,
+        formattedFilter
+      ); // amended to pass filter
+      setResults(data);
+    } catch (error) {
+      console.error("Error fetching users:", error.message);
+      setResults([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchUsers();
   }, []);
 
@@ -60,6 +77,7 @@ const Search = () => {
         setFilter={setFilter}
         filterCount={filterCount}
         setIsModalOpen={setIsModalOpen}
+        fetchUsers={fetchUsers}
       />
       {/* TAB */}
       {/* TAB END */}
@@ -89,6 +107,7 @@ const Search = () => {
         filter={filter}
         filterCount={filterCount}
         setFilterCount={setFilterCount}
+        fetchUsers={fetchUsers}
       />
     </div>
   );

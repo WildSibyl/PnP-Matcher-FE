@@ -1,10 +1,17 @@
 import getIcon from "../../utils/getIcon";
 import removeFilter from "../../utils/removeFilter";
 
-const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
+const Filterchips = ({
+  filter,
+  setFilter,
+  filterCount,
+  setIsModalOpen,
+  fetchUsers,
+}) => {
   const handleRemove = (valToRemove) => {
     const newFilter = removeFilter(filter, valToRemove);
     setFilter(newFilter);
+    fetchUsers(newFilter);
   };
 
   return (
@@ -18,12 +25,14 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
       </div>
 
       {/* Radius Badge */}
-      {filter.radius > 5 ? (
+      {filter.radius > 5000 ? (
         <div className="pnp-badge-white cursor-pointer shrink-0">
           Radius: {filter.radius / 1000}km
           <button
             className="*:w-[0.5rem]"
-            onClick={() => handleRemove("radius")}
+            onClick={() => {
+              handleRemove("radius");
+            }}
           >
             {getIcon("Close")}
           </button>
@@ -99,9 +108,9 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
           Languages:{` `}
           {filter.languages.map((e, index) => {
             if (index === filter.languages.length - 1) {
-              return `${e}`;
+              return `${e.value}`;
             } else {
-              return `${e}, `;
+              return `${e.value}, `;
             }
           })}
           <button
@@ -118,7 +127,7 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
         ? filter.systems.map((e, index) => {
             return (
               <div key={index} className="pnp-badge-white shrink-0">
-                {e}
+                {e.value}
                 <button
                   className="*:w-[0.5rem]"
                   onClick={() => handleRemove(e)}
@@ -135,7 +144,7 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
         ? filter.experience.map((e, index) => {
             return (
               <div key={index} className="pnp-badge-white shrink-0">
-                {e}
+                {e.value}
                 <button
                   className="*:w-[0.5rem]"
                   onClick={() => handleRemove(e)}
@@ -152,7 +161,7 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
         ? filter.playstyles.map((e, index) => {
             return (
               <div key={index} className="pnp-badge-white shrink-0">
-                {e}
+                {e.value}
                 <button
                   className="*:w-[0.5rem]"
                   onClick={() => handleRemove(e)}
@@ -169,7 +178,7 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
         ? filter.likes.map((e, index) => {
             return (
               <div key={index} className="pnp-badge-white shrink-0">
-                {e}
+                {e.value}
                 <button
                   className="*:w-[0.5rem]"
                   onClick={() => handleRemove(e)}
@@ -186,7 +195,7 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
         ? filter.dislikes.map((e, index) => {
             return (
               <div key={index} className="pnp-badge-white shrink-0">
-                {e}
+                {e.value}
                 <button
                   className="*:w-[0.5rem]"
                   onClick={() => handleRemove(e)}

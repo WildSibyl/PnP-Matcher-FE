@@ -38,3 +38,18 @@ export const getFilteredUsers = async (radius, filters = {}) => {
   const data = await res.json();
   return data;
 };
+
+// not the same url, but related to user data
+export const checkUsername = async (username) => {
+  const res = await fetch(`${API_URL}/check-username?username=${username}`);
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(
+      errorData.error || "An error occurred while checking username"
+    );
+  }
+
+  const data = await res.json();
+  return data.isAvailable;
+};

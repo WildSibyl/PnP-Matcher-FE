@@ -163,7 +163,7 @@ const Register = () => {
           ...regForm.address,
         },
         experience: regForm.experience,
-        systems: regForm.systems,
+        systems: regForm.systems.map((s) => s.id),
         weekdays: regForm.weekdays,
         frequencyPerMonth: regForm.frequencyPerMonth,
         terms: regForm.terms,

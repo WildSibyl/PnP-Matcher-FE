@@ -26,8 +26,9 @@ const TagMultiSelect = ({
         const data = await getOptionsByCategory(category);
         setOptions(
           data.map((opt) => ({
+            id: opt._id,
             label: opt.label,
-            value: opt._id,
+            value: opt.value,
           }))
         );
       } catch (err) {
@@ -40,8 +41,8 @@ const TagMultiSelect = ({
 
   useEffect(() => {
     if (!options.length || !Array.isArray(value)) return; //are options and or value initialized, is value an array?
-    const mapped = options.filter((e) => value?.includes(e.value)); //Match values with entries in options
-    setSelected(mapped); // Update selected
+    // const mapped = options.filter((e) => value?.includes(e.value)); //Match values with entries in options
+    setSelected(value); // Update selected
   }, [value, options]);
 
   const handleSelectChange = (selectedOptions) => {
@@ -55,7 +56,7 @@ const TagMultiSelect = ({
     });
 
     setSelected(updatedSelections);
-    onChange(updatedSelections.map((o) => o.value));
+    onChange(updatedSelections.map((o) => ({ ...o })));
   };
 
   const handleRemove = (valToRemove) => {
@@ -63,7 +64,7 @@ const TagMultiSelect = ({
       (opt) => opt.value !== valToRemove
     );
     setSelected(updatedSelections);
-    onChange(updatedSelections.map((o) => o.value));
+    onChange(updatedSelections.map((o) => ({ ...o })));
   };
 
   return (

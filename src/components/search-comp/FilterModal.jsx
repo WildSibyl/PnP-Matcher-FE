@@ -10,6 +10,7 @@ const FilterModal = ({
   filter,
   filterCount,
   setFilterCount,
+  fetchUsers,
 }) => {
   const mToKm = (value) => {
     const km = value / 1000;
@@ -153,7 +154,10 @@ const FilterModal = ({
                     name="experience"
                     placeholder="Filter for EXPERIENCE"
                     onChange={(values) =>
-                      setFilter((prev) => ({ ...prev, experience: values }))
+                      setFilter((prev) => ({
+                        ...prev,
+                        experience: values.map((s) => s),
+                      }))
                     }
                     value={filter.experience}
                   />
@@ -182,7 +186,10 @@ const FilterModal = ({
                     name="playstyles"
                     placeholder="Filter for PLAYSTYLES"
                     onChange={(values) =>
-                      setFilter((prev) => ({ ...prev, playstyles: values }))
+                      setFilter((prev) => ({
+                        ...prev,
+                        playstyles: values.map((s) => s),
+                      }))
                     }
                     value={filter.playstyles}
                   />
@@ -208,7 +215,10 @@ const FilterModal = ({
                     name="systems"
                     placeholder="Filter game systems"
                     onChange={(values) =>
-                      setFilter((prev) => ({ ...prev, systems: values }))
+                      setFilter((prev) => ({
+                        ...prev,
+                        systems: values.map((s) => s),
+                      }))
                     }
                     value={filter.systems}
                   />
@@ -234,7 +244,10 @@ const FilterModal = ({
                     name="likes"
                     placeholder="Filter for LIKES"
                     onChange={(values) =>
-                      setFilter((prev) => ({ ...prev, likes: values }))
+                      setFilter((prev) => ({
+                        ...prev,
+                        likes: values.map((s) => s),
+                      }))
                     }
                     value={filter.likes}
                   />
@@ -245,7 +258,10 @@ const FilterModal = ({
                     name="dislikes"
                     placeholder="Filter for DISLIKES"
                     onChange={(values) =>
-                      setFilter((prev) => ({ ...prev, dislikes: values }))
+                      setFilter((prev) => ({
+                        ...prev,
+                        dislikes: values.map((s) => s),
+                      }))
                     }
                     value={filter.dislikes}
                   />
@@ -272,7 +288,10 @@ const FilterModal = ({
                     name="languages"
                     placeholder="Filter for LANGUAGES"
                     onChange={(values) =>
-                      setFilter((prev) => ({ ...prev, languages: values }))
+                      setFilter((prev) => ({
+                        ...prev,
+                        languages: values.map((s) => s),
+                      }))
                     }
                     value={filter.languages}
                   />
@@ -300,7 +319,13 @@ const FilterModal = ({
               >
                 Clear All Filters
               </button>
-              <button className="btn-primary-light" onClick={onClose}>
+              <button
+                className="btn-primary-light"
+                onClick={() => {
+                  fetchUsers();
+                  onClose();
+                }}
+              >
                 Apply {filterCount} Filter{filterCount > 1 ? "s" : ""}
               </button>
             </div>
