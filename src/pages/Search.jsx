@@ -22,7 +22,7 @@ const Search = () => {
     experience: [],
     likes: [],
     dislikes: [],
-    radius: 5,
+    radius: 5000,
     weekdays: [],
     playingModes: "",
     frequencyPerMonth: 1,

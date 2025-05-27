@@ -20,7 +20,7 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
       {/* Radius Badge */}
       {filter.radius > 5 ? (
         <div className="pnp-badge-white cursor-pointer shrink-0">
-          Radius: {filter.radius}km
+          Radius: {filter.radius / 1000}km
           <button
             className="*:w-[0.5rem]"
             onClick={() => handleRemove("radius")}
