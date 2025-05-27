@@ -15,6 +15,7 @@ export const getFilteredUsers = async (radius, filters = {}) => {
 
   const res = await fetch(`${baseURL}?radius=${radius * 1000}`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },

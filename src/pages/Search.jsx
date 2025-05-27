@@ -16,7 +16,7 @@ const Search = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
   const [filter, setFilter] = useState({
-    //search: "",
+    search: "",
     systems: [],
     playstyles: [],
     experience: [],
@@ -27,7 +27,7 @@ const Search = () => {
     playingModes: "",
     frequencyPerMonth: 1,
     languages: [],
-    //age: "",
+    age: "",
   });
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const Search = () => {
         const data = await getFilteredUsers(filter.radius, filter); // amended to pass filter
         setResults(data);
       } catch (error) {
-        console.error("Error fetching users:", err.message);
+        console.error("Error fetching users:", error.message);
       } finally {
         setLoading(false);
       }
