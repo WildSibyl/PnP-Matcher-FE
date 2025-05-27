@@ -9,7 +9,7 @@ const GroupCard = ({
   zipCode,
   systems,
   playstyles,
-  days,
+  weekdays,
   frequencyPerMonth,
   maxMembers,
   author,
@@ -38,7 +38,7 @@ const GroupCard = ({
             <strong>Playstyle:</strong> {playstyles}
           </li>
           <li>
-            <strong>Days:</strong> {days?.join(", ")}
+            <strong>Days:</strong> {weekdays?.join(", ")}
           </li>
           <li>
             <strong>Frequency/Month:</strong> {frequencyPerMonth}

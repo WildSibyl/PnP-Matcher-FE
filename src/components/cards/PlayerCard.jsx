@@ -30,7 +30,7 @@ const PlayerCard = ({ details }) => {
           <div className="pnp-badge-green">{getIcon("User")}LFG</div>
         </div>
         <CardAvailability
-          days={details.days}
+          weekdays={details.weekdays}
           frequencyPerMonth={details.frequencyPerMonth}
         />
       </div>

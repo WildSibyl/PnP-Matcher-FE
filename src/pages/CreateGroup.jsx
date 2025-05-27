@@ -15,7 +15,7 @@ const CreateGroup = () => {
     country: "",
     systems: "",
     playstyles: "",
-    days: [],
+    weekdays: [],
     frequencyPerMonth: 1,
     maxMembers: 10,
   });
@@ -30,9 +30,9 @@ const CreateGroup = () => {
     const { value, checked } = e.target;
     setForm((prev) => ({
       ...prev,
-      days: checked
-        ? [...prev.days, value]
-        : prev.days.filter((day) => day !== value),
+      weekdays: checked
+        ? [...prev.weekdays, value]
+        : prev.weekdays.filter((day) => day !== value),
     }));
   };
 
@@ -47,7 +47,7 @@ const CreateGroup = () => {
         country,
         systems,
         playstyles,
-        days,
+        weekdays,
         frequencyPerMonth,
         maxMembers,
       } = form;
@@ -60,7 +60,7 @@ const CreateGroup = () => {
         !country ||
         !systems ||
         !playstyles ||
-        days.length === 0 ||
+        weekdays.length === 0 ||
         !frequencyPerMonth ||
         !maxMembers
       ) {
@@ -77,7 +77,7 @@ const CreateGroup = () => {
         country: "",
         systems: "",
         playstyles: "",
-        days: [],
+        weekdays: [],
         frequencyPerMonth: 1,
         maxMembers: 10,
       });
@@ -173,9 +173,9 @@ const CreateGroup = () => {
             <label key={day} className="label cursor-pointer">
               <input
                 type="checkbox"
-                name="days"
+                name="weekdays"
                 value={day}
-                checked={form.days.includes(day)}
+                checked={form.weekdays.includes(day)}
                 onChange={handleCheckboxChange}
                 className="checkbox checkbox-sm"
               />

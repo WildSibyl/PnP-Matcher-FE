@@ -32,7 +32,7 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
         ""
       )}
 
-      {/* Age Badge */}
+      {/* Age Badge
       {filter.age !== "" && filter.age !== "All ages" ? (
         <div className="pnp-badge-white cursor-pointer shrink-0">
           Age: {filter.age}
@@ -42,15 +42,16 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
         </div>
       ) : (
         ""
-      )}
+      )} */}
 
-      {/* Playmode badge */}
-      {filter.playMode !== "" && filter.playMode !== "Online & On-site" ? (
+      {/* playingModes badge */}
+      {filter.playingModes !== "" &&
+      filter.playingModes !== "Online & On-site" ? (
         <div className="pnp-badge-white cursor-pointer shrink-0">
-          {filter.playMode}
+          {filter.playingModes}
           <button
             className="*:w-[0.5rem]"
-            onClick={() => handleRemove("playMode")}
+            onClick={() => handleRemove("playingModes")}
           >
             {getIcon("Close")}
           </button>
@@ -80,12 +81,12 @@ const Filterchips = ({ filter, setFilter, filterCount, setIsModalOpen }) => {
       )}
 
       {/* Frequency Badge */}
-      {filter.frequency > 0 && (
+      {filter.frequencyPerMonth > 0 && (
         <div className="pnp-badge-white cursor-pointer shrink-0">
-          Freq: {filter.frequency} /mo
+          Freq: {filter.frequencyPerMonth} /mo
           <button
             className="*:w-[0.5rem]"
-            onClick={() => handleRemove(filter.frequency)}
+            onClick={() => handleRemove(filter.frequencyPerMonth)}
           >
             {getIcon("Close")}
           </button>

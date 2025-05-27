@@ -8,8 +8,8 @@ const removeFilter = (currentFilter, valToRemove) => {
       }
     } else if (valToRemove === "age") {
       newFilter.age = "";
-    } else if (valToRemove === "playMode") {
-      newFilter.playMode = "";
+    } else if (valToRemove === "playingModes") {
+      newFilter.playingModes = "";
     } else if (valToRemove === "weekdays") {
       newFilter.weekdays = [];
     } else if (valToRemove === "languages") {

@@ -14,7 +14,7 @@ const UpdateGroup = () => {
     zipCode: "",
     systems: [],
     playstyles: [],
-    days: [],
+    weekdays: [],
     frequencyPerMonth: 1,
     likes: [],
     dislikes: [],
@@ -33,7 +33,7 @@ const UpdateGroup = () => {
           zipCode: group.zipCode || "",
           systems: group.systems || [],
           playstyles: group.playstyles || [],
-          days: group.days || [],
+          weekdays: group.weekdays || [],
           frequencyPerMonth: group.frequencyPerMonth || "",
           maxMembers: group.maxMembers || [],
         });
@@ -97,12 +97,12 @@ const UpdateGroup = () => {
       <label className="form-control">
         <div className="label-text">Days (comma-separated)</div>
         <input
-          name="days"
-          value={form.days.join(", ")}
+          name="weekdays"
+          value={form.weekdays.join(", ")}
           onChange={(e) =>
             setForm((prev) => ({
               ...prev,
-              days: e.target.value.split(",").map((d) => d.trim()),
+              weekdays: e.target.value.split(",").map((d) => d.trim()),
             }))
           }
           className="input-bordered w-full"

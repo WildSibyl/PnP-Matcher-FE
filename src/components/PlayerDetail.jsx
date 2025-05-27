@@ -72,7 +72,7 @@
 
 //                 <div className="flex justify-start flex-wrap gap-2 mt-2">
 //                   {allDays.map((day) => {
-//                     const isActive = user.days.includes(day);
+//                     const isActive = user.weekdays.includes(day);
 //                     return (
 //                       <span
 //                         key={day}
@@ -493,12 +493,12 @@ const PlayerDetail = () => {
                 </h3>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {allDays.map((day) => {
-                    const isActive = editedUser.days?.includes(day);
+                    const isActive = editedUser.weekdays?.includes(day);
                     const toggleDay = () => {
                       const updatedDays = isActive
-                        ? editedUser.days.filter((d) => d !== day)
-                        : [...(editedUser.days || []), day];
-                      setEditedUser({ ...editedUser, days: updatedDays });
+                        ? editedUser.weekdays.filter((d) => d !== day)
+                        : [...(editedUser.weekdays || []), day];
+                      setEditedUser({ ...editedUser, weekdays: updatedDays });
                     };
 
                     return isEditing ? (

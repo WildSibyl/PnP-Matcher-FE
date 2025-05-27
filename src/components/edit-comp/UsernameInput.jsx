@@ -22,7 +22,8 @@ const UsernameInput = ({
       return;
     }
 
-    if (/^[A-Za-z\s]*$/.test(value)) {
+    if (/^[A-Za-z0-9\s]+$/.test(value)) {
+      // allow letters, numbers, and spaces
       setValidationError("");
 
       const timeout = setTimeout(() => {
@@ -39,7 +40,7 @@ const UsernameInput = ({
 
       return () => clearTimeout(timeout);
     } else {
-      setValidationError("Only letters and spaces are allowed.");
+      setValidationError("Only letters, numbers, and spaces are allowed.");
       setIsUsernameAvailable(null);
     }
   }, [value]);

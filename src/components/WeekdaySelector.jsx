@@ -55,7 +55,7 @@ const WeekdaySelector = ({ weekdays = [], label, onChange }) => {
           >
             <input
               type="checkbox"
-              name="days"
+              name="weekdays"
               value={day}
               checked={newSelection.includes(day)}
               style={{ display: "none" }}

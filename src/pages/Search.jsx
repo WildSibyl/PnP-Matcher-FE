@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import getIcon from "../utils/getIcon";
-import { getUsers } from "../data/user";
+import { getFilteredUsers } from "../data/user";
 import FilterModal from "../components/search-comp/FilterModal";
+
 import PlayerCard from "../components/cards/PlayerCard";
 import GroupCard from "../components/cards/Groupcard";
 import Loader from "../components/Loader";
@@ -23,8 +24,8 @@ const Search = () => {
     dislikes: [],
     radius: 5,
     weekdays: [],
-    playMode: "",
-    frequency: 1,
+    playingModes: "",
+    frequencyPerMonth: 1,
     languages: [],
     age: "",
   });
@@ -33,10 +34,10 @@ const Search = () => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        const data = await getUsers(5);
+        const data = await getFilteredUsers(filter.radius, filter); // amended to pass filter
         setResults(data);
       } catch (error) {
-        console.error("Error fetching users:", err.message);
+        console.error("Error fetching users:", error.message);
       } finally {
         setLoading(false);
       }

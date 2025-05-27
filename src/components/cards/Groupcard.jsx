@@ -67,7 +67,7 @@ const GroupCard = () => {
     country: "Germany",
     experience: "Adventurer: I know my game",
     systems: ["Pathfinder 2e", "Starfinder", "Shadowrun"],
-    days: ["TU", "TH", "SA", "SU"],
+    weekdays: ["TU", "TH", "SA", "SU"],
     frequencyPerMonth: 4,
     languages: ["EN, DE"],
     playingRole: ["GM"],
@@ -100,7 +100,7 @@ const GroupCard = () => {
         <div className="flex justify-between h-[18vh] px-3">
           <div className="pnp-badge-green">{getIcon("User")}LFG</div>
           <CardAvailability
-            days={currUser.days}
+            weekdays={currUser.weekdays}
             frequencyPerMonth={currUser.frequencyPerMonth}
           />
         </div>
