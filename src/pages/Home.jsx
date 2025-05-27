@@ -4,11 +4,19 @@ import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
 import PlayerCard from "../components/cards/PlayerCard";
 import GroupCard from "../components/cards/Groupcard";
 import getIcon from "../utils/getIcon";
+import CharCountInput from "../components/edit-comp/CharCountInput";
+import avatarPic from "../assets/avatar.svg";
 
 import Loader from "../components/Loader";
+import { useState } from "react";
 
 const Home = () => {
-  const { user, setUser } = useAuth();
+  const [guestUser, setGuestUser] = useState({
+    systems: [],
+    address: {
+      city: "",
+    },
+  });
 
   return (
     <>
@@ -78,6 +86,53 @@ const Home = () => {
           comic book series, and the second best-selling comic book series in
           history after One Piece.
         </p>
+        {/* Homepage */}
+        <div className="flex flex-col items-center justify-center w-full">
+          <div className="flex flex-col items-center justify-center bg-pnp-black p-5">
+            <h3 className="text-pnp-white">Match players.</h3>
+            <h2 className="text-pnp-white">Start Playing!</h2>
+            <p className="text-pnp-white">What are you looking for?</p>
+            <div className="w-[300px]">
+              <input
+                className="input-bordered bg-white w-full"
+                name="city"
+                value={guestUser.address.city}
+                onChange={(e) =>
+                  onChange({
+                    target: { name: "address.city", value: e.target.value },
+                  })
+                }
+                placeholder="Your city"
+              />
+              <TagMultiSelect
+                category="systems"
+                name="systems"
+                placeholder="Select your games!"
+                onChange={(values) =>
+                  setGuestUser((prev) => ({ ...prev, systems: values }))
+                }
+              />
+            </div>
+
+            <button className="btn-primary-light">Find players</button>
+
+            <p className="text-pnp-white">Match with players near you</p>
+
+            <div className="h-[100px] w-[100px] rounded-full border-6 border-white overflow-hidden">
+              <img src={avatarPic} alt="random avatar" />
+            </div>
+            <p className="text-pnp-white">All your favorite TTRPG systems</p>
+
+            <p className="text-pnp-white">Get to know PnPMatch!</p>
+
+            <div>Embed video</div>
+          </div>
+          <div className="flex flex-col items-center justify-center bg-pnp-white p-5">
+            <h3 className="text-pnp-black">
+              Find a group that matches your playstyle!
+            </h3>
+          </div>
+        </div>
       </div>
     </>
   );
