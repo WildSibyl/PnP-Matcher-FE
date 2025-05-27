@@ -41,7 +41,10 @@ const Step3ExperienceAndSystem = ({ regForm, setRegForm, onChange }) => {
             name="systems"
             placeholder="Select preferences"
             onChange={(values) =>
-              setRegForm((prev) => ({ ...prev, systems: values }))
+              setRegForm((prev) => ({
+                ...prev,
+                systems: values.map((s) => s),
+              }))
             }
             value={regForm.systems}
           />
