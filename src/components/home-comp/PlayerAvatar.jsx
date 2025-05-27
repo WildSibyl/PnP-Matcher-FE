@@ -1,9 +1,11 @@
-const PlayerAvatar = () => {
-  // Fetch random avatar from the API
-
+const PlayerAvatar = ({ avatar }) => {
   return (
-    <div className="h-[100px] w-[100px] rounded-full border-6 border-white overflow-hidden">
-      <img src={avatarPic} alt="random avatar" />
+    <div className="h-[100px] w-[100px] rounded-full border-6 border-white overflow-hidden shrink-0">
+      <img
+        src={avatar}
+        alt="random avatar"
+        className="w-full h-full object-cover"
+      />
     </div>
   );
 };
