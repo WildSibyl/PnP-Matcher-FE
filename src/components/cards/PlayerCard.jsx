@@ -3,6 +3,7 @@ import CardAvailability from "./CardAvailability";
 import calculateAge from "../../utils/calculateAge";
 import MatchingValue from "./MatchingValue";
 import CardBadges from "./CardBadges";
+import shortenExperienceLabel from "../../utils/shortenExperience";
 
 import profilePic from "../../assets/exampleProfilePic.jpg";
 import Usersvg from "../../assets/user.svg?react";
@@ -10,7 +11,7 @@ import getIcon from "../../utils/getIcon";
 
 const PlayerCard = ({ details }) => {
   // const [currUser, setCurrUser] = useState(null);
-  // console.log("User ", details);
+  console.log("User ", details);
   const matchValue = 85;
 
   // useEffect(() => setCurrUser(dummy), []);
@@ -55,14 +56,24 @@ const PlayerCard = ({ details }) => {
 
       {/* PLAYER OPTIONS */}
       <div className="flex flex-wrap pb-3 ">
-        <div className="pnp-badge-green">
-          {getIcon("Dice")} {details.playerRole}
-        </div>
-        <div className="pnp-badge-purple">
-          {getIcon("Experience")} {details.playerRole}
-        </div>
+        {details.playerRole && (
+          <div className="pnp-badge-green">
+            {getIcon("Dice")} {details.playerRole}
+          </div>
+        )}
 
-        <div className="pnp-badge-blue">{getIcon("On-site")} On-site</div>
+        {details.experience && (
+          <div className="pnp-badge-purple">
+            {getIcon("Experience")}{" "}
+            {shortenExperienceLabel(details.experience?.value)}
+          </div>
+        )}
+
+        {details.playingModes && (
+          <div className="pnp-badge-blue">
+            {getIcon(details.playingModes?.value)} {details.playingModes?.value}
+          </div>
+        )}
       </div>
       <CardBadges details={details} className="mb-3" />
     </div>

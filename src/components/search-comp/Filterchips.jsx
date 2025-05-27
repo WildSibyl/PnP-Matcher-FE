@@ -1,5 +1,6 @@
 import getIcon from "../../utils/getIcon";
 import removeFilter from "../../utils/removeFilter";
+import shortenExperienceLabel from "../../utils/shortenExperience";
 
 const Filterchips = ({
   filter,
@@ -144,7 +145,7 @@ const Filterchips = ({
         ? filter.experience.map((e, index) => {
             return (
               <div key={index} className="pnp-badge-white shrink-0">
-                {e.value}
+                {shortenExperienceLabel(e.value)}
                 <button
                   className="*:w-[0.5rem]"
                   onClick={() => handleRemove(e)}

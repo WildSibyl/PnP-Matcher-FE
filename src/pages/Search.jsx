@@ -98,8 +98,8 @@ const Search = () => {
           })}
         </div>
       </div>
-      {console.log(filter)};{/* Filter selection modal */}
-      {console.log(filterCount)};
+      {/* {console.log(filter)}; */}
+      {/* {console.log(filterCount)}; */}
       <FilterModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
