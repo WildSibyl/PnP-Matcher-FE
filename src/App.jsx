@@ -18,6 +18,7 @@ const Grouplist = lazy(() => import("./pages/Grouplist"));
 const Chat = lazy(() => import("./pages/Chat"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Error = lazy(() => import("./pages/Error"));
+const Test = lazy(() => import("./pages/Test"));
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/group/:id" element={<Group />} />
           <Route path="/grouplist" element={<Grouplist />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/test" element={<Test />} />
           <Route element={<ProtectedLayout />}>
             <Route path="/create" element={<CreateGroup />} />
             <Route path="/edit/:id" element={<UpdateGroup />} />

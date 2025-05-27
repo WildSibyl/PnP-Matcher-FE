@@ -449,14 +449,12 @@ const PlayerDetail = () => {
                   />
                 ) : (
                   <div className="flex flex-wrap gap-2 mt-2">
-                    {(editedUser.experience || []).map((experiences) => (
-                      <div
-                        className="badge badge-outline text-white bg-[#02080d]"
-                        key={experiences}
-                      >
-                        {experiences}
-                      </div>
-                    ))}
+                    <div
+                      className="badge badge-outline text-white bg-[#02080d]"
+                      key={editedUser.experience}
+                    >
+                      {editedUser.experience}
+                    </div>
                   </div>
                 )}
               </div>
