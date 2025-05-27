@@ -338,23 +338,26 @@ const PlayerDetail = () => {
       <div className="max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
         {/* Left Section */}
         <div className="w-full lg:w-[40%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
-          <div className="flex flex-col items-center text-center gap-4 lg:flex-row lg:items-start lg:text-left">
-            <label htmlFor="avatar-upload">
-              <img
-                src={previewImage || user.avatarUrl || profile}
-                alt="Avatar"
-                className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer"
+          {/* <div className="flex flex-col items-center text-center gap-4 lg:flex-row lg:items-start lg:text-left"> */}
+          <div className="flex flex-col lg:flex-row items-start gap-4">
+            <div className="flex-shrink-0">
+              <label htmlFor="avatar-upload">
+                <img
+                  src={previewImage || user.avatarUrl || profile}
+                  alt="Avatar"
+                  className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer"
+                />
+              </label>
+              <input
+                id="avatar-upload"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageChange}
               />
-            </label>
-            <input
-              id="avatar-upload"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleImageChange}
-            />
+            </div>
 
-            <div className="flex flex-col items-center lg:items-start">
+            <div className="flex flex-1 flex-col items-center lg:items-start">
               {isEditing ? (
                 <input
                   type="text"
@@ -388,7 +391,7 @@ const PlayerDetail = () => {
               )}
 
               {isEditing ? (
-                <>
+                <div className="flex flex-wrap gap-4 mt-4">
                   <input
                     type="text"
                     value={editedUser.zipCode}
@@ -398,7 +401,8 @@ const PlayerDetail = () => {
                         zipCode: e.target.value,
                       }))
                     }
-                    className="input mt-4"
+                    placeholder="Zip Code"
+                    className="input"
                   />
                   <input
                     type="text"
@@ -409,17 +413,9 @@ const PlayerDetail = () => {
                         country: e.target.value,
                       }))
                     }
-                    className="input mt-2"
+                    placeholder="Country"
+                    className="input"
                   />
-                </>
-              ) : (
-                <small className="text-gray-700">
-                  {editedUser.zipCode}, {editedUser.country}
-                </small>
-              )}
-
-              <div className="mt-2">
-                {isEditing ? (
                   <input
                     type="date"
                     className="input"
@@ -431,14 +427,16 @@ const PlayerDetail = () => {
                       })
                     }
                   />
-                ) : (
-                  <p className="text-sm text-gray-700 mt-2">
-                    {editedUser.birthday
-                      ? `${calculateAge(editedUser.birthday)} years old`
-                      : "Age unknown"}
-                  </p>
-                )}
-              </div>
+                </div>
+              ) : (
+                <div className="text-sm text-gray-700 flex flex-wrap gap-2 mt-2">
+                  {editedUser.zipCode && <span>{editedUser.zipCode}</span>}
+                  {editedUser.country && <span>{editedUser.country}</span>}|
+                  {editedUser.birthday && (
+                    <span>{calculateAge(editedUser.birthday)} years old</span>
+                  )}
+                </div>
+              )}
 
               <div className="mt-2">
                 {isEditing ? (
@@ -528,7 +526,7 @@ const PlayerDetail = () => {
                 </div>
               </div>
 
-              <button className="btn-primary-dark w-auto h-auto mt-4 gap-2 mx-auto lg:mx-0 flex">
+              {/* <button className="btn-primary-dark w-auto h-auto mt-4 gap-2 mx-auto lg:mx-0 flex">
                 <img src={send_icon} alt="" />
                 Send DM
               </button>
@@ -552,7 +550,38 @@ const PlayerDetail = () => {
                 >
                   Edit
                 </button>
-              )}
+              )} */}
+
+              <div className="mt-4">
+                {isEditing ? (
+                  // Edit mode: Save and Cancel buttons in the same row
+                  <div className="flex gap-4">
+                    <button onClick={handleSave} className="btn-primary-dark">
+                      Save
+                    </button>
+                    <button
+                      onClick={handleCancel}
+                      className="btn-primary-dark bg-gray-300 text-black hover:bg-gray-400"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  // View mode: Send DM and Edit buttons in the same row
+                  <div className="flex gap-4">
+                    <button className="btn-primary-dark w-auto h-auto gap-2 flex">
+                      <img src={send_icon} alt="" />
+                      Send DM
+                    </button>
+                    <button
+                      onClick={() => setIsEditing(true)}
+                      className="btn-primary-dark w-auto h-auto gap-2 flex"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -700,11 +729,14 @@ const PlayerDetail = () => {
                 {/* Likes */}
 
                 <div className="mt-4">
-                  <h3 className="font-semibold text-sm text-gray-700 flex gap-2">
-                    LIKES
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-semibold text-sm text-gray-700 flex gap-2">
+                      LIKES{" "}
+                    </h3>
                     {/* <div className="flex items-start gap-2 mt-2"> */}
-                    <img src={like} alt="like icon" className="w-5 h-5 mt-1" />
-                  </h3>
+                    <img src={like} alt="like icon" className="w-5 h-5 " />
+                  </div>
+
                   {/* <div className="flex flex-wrap gap-2"> */}
                   {isEditing ? (
                     <TagMultiSelect
@@ -733,14 +765,17 @@ const PlayerDetail = () => {
                 {/* Dislikes */}
 
                 <div className="mt-4">
-                  <h3 className="font-semibold text-sm text-gray-700 flex gap-2">
-                    DISLIKES
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-semibold text-sm text-gray-700 flex gap-2">
+                      DISLIKES
+                    </h3>
+
                     <img
                       src={dislike}
                       alt="dislike icon"
-                      className="w-5 h-5 mt-1"
+                      className="w-5 h-5 "
                     />
-                  </h3>
+                  </div>
 
                   {isEditing ? (
                     <TagMultiSelect
