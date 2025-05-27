@@ -66,7 +66,7 @@ const Group = () => {
           <strong>Playstyle:</strong> {group.playstyles}
         </li>
         <li>
-          <strong>Days:</strong> {group.days.join(", ")}
+          <strong>Days:</strong> {group.weekdays.join(", ")}
         </li>
         <li>
           <strong>Frequency/Month:</strong> {group.frequencyPerMonth}

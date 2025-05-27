@@ -25,7 +25,7 @@ const Register = () => {
     },
     experience: "",
     systems: [],
-    days: [],
+    weekdays: [],
     frequencyPerMonth: 1,
     terms: false,
     playingRoles: [],
@@ -59,14 +59,14 @@ const Register = () => {
       return;
     }
 
-    if (name === "days") {
-      let newDays = [...regForm.days];
+    if (name === "weekdays") {
+      let newDays = [...regForm.weekdays];
       if (checked) {
         if (!newDays.includes(value)) newDays.push(value);
       } else {
         newDays = newDays.filter((day) => day !== value);
       }
-      setRegForm((prev) => ({ ...prev, days: newDays }));
+      setRegForm((prev) => ({ ...prev, weekdays: newDays }));
     } else if (type === "number") {
       setRegForm((prev) => ({ ...prev, [name]: Number(value) }));
     } else if (name === "terms") {
@@ -115,7 +115,7 @@ const Register = () => {
           return "Please select at least one system.";
         break;
       case 4:
-        if (regForm.days.length === 0)
+        if (regForm.weekdays.length === 0)
           return "Please select at least one day you play.";
         if (regForm.frequencyPerMonth < 1)
           return "Frequency per month must be at least 1.";
@@ -164,7 +164,7 @@ const Register = () => {
         },
         experience: regForm.experience,
         systems: regForm.systems,
-        days: regForm.days,
+        weekdays: regForm.weekdays,
         frequencyPerMonth: regForm.frequencyPerMonth,
         terms: regForm.terms,
         playingRoles: regForm.playingRoles,

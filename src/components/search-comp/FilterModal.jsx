@@ -63,7 +63,8 @@ const FilterModal = ({
             <h3 className="collapse-title font-semibold">
               AVAILABILITY
               {(filter.weekdays.length > 0 ||
-                (filter.frequency !== "" && filter.frequency > 0)) && (
+                (filter.frequencyPerMonth !== "" &&
+                  filter.frequencyPerMonth > 0)) && (
                 <div className="pnp-badge-blue ml-2">Active</div>
               )}
             </h3>
@@ -80,16 +81,16 @@ const FilterModal = ({
               <div className="label flex flex-row">
                 <input
                   type="number"
-                  name="frequency"
+                  name="frequencyPerMonth"
                   min={0}
                   max={31}
-                  value={filter.frequency}
+                  value={filter.frequencyPerMonth}
                   onChange={(e) => {
                     {
                       const val = e.target.value;
                       setFilter((prev) => ({
                         ...prev,
-                        frequency: val === "" ? "" : Number(val),
+                        frequencyPerMonth: val === "" ? "" : Number(val),
                       }));
                     }
                   }}
@@ -99,7 +100,7 @@ const FilterModal = ({
                 <div className="text-pnp-black font-bold">per Month</div>
               </div>
               <small className="font-light">
-                (Set to 0 to ignore frequency filter.)
+                (Set to 0 to ignore frequencyPerMonth filter.)
               </small>
             </div>
           </div>
@@ -111,7 +112,7 @@ const FilterModal = ({
               PLAYER TYPE
               {(filter.age !== "" ||
                 filter.experience.length > 0 ||
-                filter.playMode !== "" ||
+                filter.playingModes !== "" ||
                 filter.playstyles.length > 0) && (
                 <div className="pnp-badge-blue ml-2">Active</div>
               )}
@@ -148,12 +149,15 @@ const FilterModal = ({
 
                 <label className="label">WHERE TO PLAY</label>
                 <select
-                  name="playMode"
+                  name="playingModes"
                   className="input-bordered"
                   onChange={(e) =>
-                    setFilter((prev) => ({ ...prev, playMode: e.target.value }))
+                    setFilter((prev) => ({
+                      ...prev,
+                      playingModes: e.target.value,
+                    }))
                   }
-                  value={filter.playMode}
+                  value={filter.playingModes}
                 >
                   <option value="">Online & On-site</option>
                   <option>Online only</option>

@@ -11,7 +11,7 @@ const Profile = () => {
     avatarUrl: "https://randomuser.me/api/portraits/women/44.jpg",
     roles: ["Player", "Game Master", "Rookie"],
     availability: "2x per month",
-    days: ["MO", "WE"],
+    weekdays: ["MO", "WE"],
     about: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lacinia nunc sed sapien ullamcorper, quis congue sapien pulvinar. Nulla facilisi. Pellentesque porttitor porta ligula nec facilisis. Vestibulum in quam nisl. Sed non ante sed lorem finibus rutrum ut sit amet odio. Phasellus gravida rutrum orci, id pharetra tortor faucibus et. Duis dictum, odio eget hendrerit gravida, tortor justo posuere ex, ac lacinia ligula justo ac eros. Vestibulum lacinia, leo sed sagittis mattis, arcu lacus viverra velit, a feugiat magna nulla a libero.`,
     languages: [
       "https://flagcdn.com/w80/de.png",

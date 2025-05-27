@@ -36,13 +36,13 @@ const Step4Schedule = ({ regForm, onChange }) => {
                   borderRadius: "8px",
                   cursor: "pointer",
                   userSelect: "none",
-                  backgroundColor: regForm.days.includes(day)
+                  backgroundColor: regForm.weekdays.includes(day)
                     ? "#4FCFFF"
                     : "#A7E7FF",
                   color: "white",
                   fontWeight: "bold",
                   textTransregForm: "capitalize",
-                  boxShadow: regForm.days.includes(day)
+                  boxShadow: regForm.weekdays.includes(day)
                     ? "0 4px 2px rgba(100, 100, 100, 0.5)"
                     : "0 4px 2px rgba(100, 100, 100, 0.2)",
                   transition: "box-shadow 0.3s ease",
@@ -50,9 +50,9 @@ const Step4Schedule = ({ regForm, onChange }) => {
               >
                 <input
                   type="checkbox"
-                  name="days"
+                  name="weekdays"
                   value={day}
-                  checked={regForm.days.includes(day)}
+                  checked={regForm.weekdays.includes(day)}
                   onChange={onChange}
                   style={{ display: "none" }}
                 />

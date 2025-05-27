@@ -16,7 +16,7 @@ const Search = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
   const [filter, setFilter] = useState({
-    search: "",
+    //search: "",
     systems: [],
     playstyles: [],
     experience: [],
@@ -24,10 +24,10 @@ const Search = () => {
     dislikes: [],
     radius: 5,
     weekdays: [],
-    playMode: "",
-    frequency: 1,
+    playingModes: "",
+    frequencyPerMonth: 1,
     languages: [],
-    age: "",
+    //age: "",
   });
 
   useEffect(() => {

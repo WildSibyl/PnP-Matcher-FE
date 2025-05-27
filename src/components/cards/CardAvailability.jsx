@@ -1,21 +1,21 @@
-const CardAvailability = ({ days, frequencyPerMonth }) => {
-  const calculateDays = (days) => {
-    let daysTeaser = [];
-    if (days.length > 3) {
+const CardAvailability = ({ weekdays, frequencyPerMonth }) => {
+  const calculateDays = (weekdays) => {
+    let weekdaysTeaser = [];
+    if (weekdays.length > 3) {
       //Take the first two days
-      daysTeaser = [days[0], days[1], `+${days.length - 2}`];
-    } else if (days.length > 0) {
-      daysTeaser = [days[0], days[1], days[2]];
+      weekdaysTeaser = [weekdays[0], weekdays[1], `+${weekdays.length - 2}`];
+    } else if (weekdays.length > 0) {
+      weekdaysTeaser = [weekdays[0], weekdays[1], weekdays[2]];
     } else {
-      daysTeaser = [];
+      weekdaysTeaser = [];
     }
-    return daysTeaser;
+    return weekdaysTeaser;
   };
 
   return (
     <div className="flex">
       <div className="pnp-badge-white relative flex gap-1 pl-2 pt-0 pr-0 pb-0 justify-center items-center pnp-shadow rounded-[7px]">
-        {calculateDays(days).map((e, index) => (
+        {calculateDays(weekdays).map((e, index) => (
           <p key={index} className="text-sm font-extrabold  text-[#3E5466]">
             {e}
           </p>

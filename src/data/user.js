@@ -5,13 +5,25 @@ if (!API_URL) throw new Error("API URL is needed on the .env");
 const baseURL = `${API_URL}/users`;
 
 export const getFilteredUsers = async (radius, filters = {}) => {
+  // Remove empty arrays and empty strings from filters
+  const cleanFilters = Object.fromEntries(
+    Object.entries(filters).filter(([_, v]) => {
+      if (Array.isArray(v)) return v.length > 0;
+      return v !== "" && v != null;
+    })
+  );
+
   const res = await fetch(`${baseURL}?radius=${radius * 1000}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(filters),
+    body: JSON.stringify(cleanFilters),
   });
+  console.log(
+    `Fetching users with radius: ${radius} km and filters:`,
+    cleanFilters
+  );
 
   if (!res.ok) {
     const errorData = await res.json();
