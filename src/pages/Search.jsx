@@ -28,6 +28,7 @@ const Search = () => {
     frequencyPerMonth: 1,
     languages: [],
     age: "",
+    sortBy: "name",
   });
 
   const formatFilterForBackend = (filter) => {
@@ -85,6 +86,30 @@ const Search = () => {
         setIsModalOpen={setIsModalOpen}
         fetchUsers={fetchUsers}
       />
+      {/* SORTING */}
+      <div className="flex gap-4">
+        <p className="text-pnp-white ">Sort by:</p>
+        <select
+          name="sort"
+          id="sort"
+          className="text-pnp-white underline"
+          value={filter.sortBy}
+          onChange={(e) =>
+            setFilter((prev) => ({ ...prev, sortBy: e.target.value }))
+          }
+        >
+          <option value="userName" className="text-pnp-black">
+            Username
+          </option>
+          <option value="distance" className="text-pnp-black">
+            Distance
+          </option>
+          <option value="matchScore" className="text-pnp-black">
+            Match Score
+          </option>
+        </select>
+      </div>
+      {/* SORTING END */}
       {/* TAB */}
       {/* TAB END */}
       {/* RESULTS */}

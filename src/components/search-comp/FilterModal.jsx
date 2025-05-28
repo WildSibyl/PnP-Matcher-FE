@@ -13,7 +13,7 @@ const FilterModal = ({
   setFilterCount,
   fetchUsers,
 }) => {
-  const [currRadius, setCurrRadius] = useState(5);
+  const [currRadius, setCurrRadius] = useState(100);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -52,7 +52,7 @@ const FilterModal = ({
               <input type="checkbox" />
               <h3 className="collapse-title font-semibold">
                 LOCATION
-                {filter.radius > 5000 && (
+                {filter.radius < 100000 && (
                   <div className="pnp-badge-blue ml-2">Active</div>
                 )}
               </h3>
