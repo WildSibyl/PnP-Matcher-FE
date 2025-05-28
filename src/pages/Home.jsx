@@ -1,10 +1,9 @@
-import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
+import HomeMultiSelect from "../components/home-comp/HomeMultiSelect";
 import CrossedColoredSwords from "../assets/crossedColoredSwords.svg";
 import dragonImage from "../assets/dragonimage.png";
 import AvatarGrid from "../components/home-comp/AvatarGrid";
 import SystemList from "../components/home-comp/SystemList";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { useTagContext } from "../context/TagsContextProvider";
 
 const Home = () => {
@@ -41,10 +40,10 @@ const Home = () => {
                 What are you looking for?
               </p>
               <div className="w-[300px]">
-                <TagMultiSelect
+                <HomeMultiSelect
                   category="systems"
                   name="systems"
-                  placeholder="Select your games!"
+                  placeholder="Select up to 3 games!"
                   onChange={(values) =>
                     setHomeSearch((prev) => ({ ...prev, systems: values }))
                   }
