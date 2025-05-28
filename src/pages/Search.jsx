@@ -28,7 +28,6 @@ const Search = () => {
     frequencyPerMonth: 1,
     languages: [],
     age: "",
-    zipCode: "",
   });
 
   const formatFilterForBackend = (filter) => {
@@ -60,14 +59,15 @@ const Search = () => {
     }
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
   //Automatically fetch new, when search field content changes
   useEffect(() => {
     fetchUsers();
   }, [filter.search]);
+
+  //Automatically fetch new, when search field content changes
+  useEffect(() => {
+    fetchUsers();
+  }, [filterCount]);
 
   useEffect(() => {
     const currFilterCount = countActiveFilters(filter);

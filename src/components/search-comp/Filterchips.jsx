@@ -9,10 +9,9 @@ const Filterchips = ({
   setIsModalOpen,
   fetchUsers,
 }) => {
-  const handleRemove = (valToRemove) => {
-    const newFilter = removeFilter(filter, valToRemove);
+  const handleRemove = (valToRemove, key) => {
+    const newFilter = removeFilter(filter, valToRemove, key);
     setFilter(newFilter);
-    fetchUsers(newFilter);
   };
 
   return (
@@ -131,7 +130,7 @@ const Filterchips = ({
                 {e.value}
                 <button
                   className="*:w-[0.5rem]"
-                  onClick={() => handleRemove(e)}
+                  onClick={() => handleRemove(e, "systems")}
                 >
                   {getIcon("Close")}
                 </button>
@@ -148,7 +147,7 @@ const Filterchips = ({
                 {shortenExperienceLabel(e.value)}
                 <button
                   className="*:w-[0.5rem]"
-                  onClick={() => handleRemove(e)}
+                  onClick={() => handleRemove(e, "experience")}
                 >
                   {getIcon("Close")}
                 </button>
@@ -165,7 +164,7 @@ const Filterchips = ({
                 {e.value}
                 <button
                   className="*:w-[0.5rem]"
-                  onClick={() => handleRemove(e)}
+                  onClick={() => handleRemove(e, "playstyles")}
                 >
                   {getIcon("Close")}
                 </button>
@@ -182,7 +181,7 @@ const Filterchips = ({
                 {e.value}
                 <button
                   className="*:w-[0.5rem]"
-                  onClick={() => handleRemove(e)}
+                  onClick={() => handleRemove(e, "likes")}
                 >
                   {getIcon("Close")}
                 </button>
@@ -199,7 +198,7 @@ const Filterchips = ({
                 {e.value}
                 <button
                   className="*:w-[0.5rem]"
-                  onClick={() => handleRemove(e)}
+                  onClick={() => handleRemove(e, "dislikes")}
                 >
                   {getIcon("Close")}
                 </button>

@@ -322,7 +322,6 @@ const FilterModal = ({
               <button
                 className="btn-primary-light"
                 onClick={() => {
-                  fetchUsers();
                   onClose();
                 }}
               >

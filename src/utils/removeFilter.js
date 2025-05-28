@@ -1,4 +1,4 @@
-const removeFilter = (currentFilter, valToRemove) => {
+const removeFilter = (currentFilter, valToRemove, key) => {
   const newFilter = { ...currentFilter };
 
   for (const [key, value] of Object.entries(currentFilter)) {
@@ -6,18 +6,32 @@ const removeFilter = (currentFilter, valToRemove) => {
       if (value > 5000) {
         newFilter.radius = 5000;
       }
-    } else if (valToRemove === "age") {
+    } else if (key === "age") {
       newFilter.age = "";
-    } else if (valToRemove === "playingModes") {
+    } else if (key === "playingModes") {
       newFilter.playingModes = "";
-    } else if (valToRemove === "weekdays") {
+    } else if (key === "weekdays") {
       newFilter.weekdays = [];
-    } else if (valToRemove === "languages") {
+    } else if (key === "languages") {
       newFilter.languages = [];
-    } else if (Array.isArray(value)) {
-      newFilter[key] = value.filter((opt) => opt !== valToRemove);
+    } else if (
+      key === "languages" ||
+      key === "systems" ||
+      key === "experience" ||
+      key === "playstyles" ||
+      key === "likes" ||
+      key === "dislikes"
+    ) {
+      newFilter[key] = newFilter[key].filter((opt) => {
+        if (typeof valToRemove === "object" && valToRemove?.value) {
+          return opt.value !== valToRemove.value;
+        }
+        return opt !== valToRemove;
+      });
+    } else if (key === "frequencyPerMonth") {
+      newFilter.frequencyPerMonth = 0;
     } else {
-      if (value === valToRemove) {
+      if (newFilter[key] === valToRemove) {
         newFilter[key] = "";
       }
     }
