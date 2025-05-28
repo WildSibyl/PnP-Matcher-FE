@@ -120,7 +120,7 @@ const Home = () => {
             Find a group that matches your playstyle!
           </h3>
 
-          <p className="font-bold">
+          <p className="font-extrabold">
             We know that finding players and scheduling sessions can be the
             hardest part of playing roleplay games — that’s why we built
             PnPMatch!
