@@ -11,8 +11,7 @@ import getIcon from "../../utils/getIcon";
 
 const PlayerCard = ({ details }) => {
   // const [currUser, setCurrUser] = useState(null);
-  // console.log("User ", details);
-  const matchValue = 85;
+  console.log("User ", details);
 
   // useEffect(() => setCurrUser(dummy), []);
 
@@ -23,7 +22,7 @@ const PlayerCard = ({ details }) => {
       className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] min-w-[350px] max-w-[500px] px-4
     mx-auto pb-6 mb-5"
     >
-      <MatchingValue matchValue={matchValue} />
+      <MatchingValue matchScore={details.matchScore} />
 
       {/* LFG, AVAILABILITY */}
       <div className="flex justify-between  pt-4 mb-4">
