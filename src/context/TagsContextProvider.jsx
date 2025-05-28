@@ -17,6 +17,10 @@ const TagsContextProvider = ({ children }) => {
     dislikes: [],
   });
 
+  const [homeSearch, setHomeSearch] = useState({
+    systems: [],
+  });
+
   useEffect(() => {
     const fetchOptions = async () => {
       try {
@@ -56,6 +60,8 @@ const TagsContextProvider = ({ children }) => {
     playstyles: options.playstyles,
     likes: options.likes,
     dislikes: options.dislikes,
+    homeSearch,
+    setHomeSearch,
   };
 
   return <TagContext.Provider value={values}>{children}</TagContext.Provider>;
