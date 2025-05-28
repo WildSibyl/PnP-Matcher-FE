@@ -1,5 +1,6 @@
 import getIcon from "../../utils/getIcon";
 import removeFilter from "../../utils/removeFilter";
+import shortenExperienceLabel from "../../utils/shortenExperience";
 
 const Filterchips = ({
   filter,
@@ -8,10 +9,9 @@ const Filterchips = ({
   setIsModalOpen,
   fetchUsers,
 }) => {
-  const handleRemove = (valToRemove) => {
-    const newFilter = removeFilter(filter, valToRemove);
+  const handleRemove = (valToRemove, key) => {
+    const newFilter = removeFilter(filter, valToRemove, key);
     setFilter(newFilter);
-    fetchUsers(newFilter);
   };
 
   return (
@@ -20,12 +20,12 @@ const Filterchips = ({
         onClick={() => setIsModalOpen(true)}
         className="pnp-badge-white h-[2.2rem] ml-8 cursor-pointer hover:scale-95 !hover:bg-pnp-blue *:ease-in-out duration-200"
       >
-        {getIcon("Filter")}Filter{filterCount > 0 ? "s" : ""}
+        {getIcon("Filter")}
+        {filterCount > 0 ? "Filters" : "Filter: Search for games, radius..."}
         {filterCount > 0 ? `(${filterCount})` : ""}
       </div>
-
       {/* Radius Badge */}
-      {filter.radius > 5000 ? (
+      {filter.radius < 100000 ? (
         <div className="pnp-badge-white cursor-pointer shrink-0">
           Radius: {filter.radius / 1000}km
           <button
@@ -41,7 +41,7 @@ const Filterchips = ({
         ""
       )}
 
-      {/* Age Badge
+      {/* Age Badge */}
       {filter.age !== "" && filter.age !== "All ages" ? (
         <div className="pnp-badge-white cursor-pointer shrink-0">
           Age: {filter.age}
@@ -51,8 +51,7 @@ const Filterchips = ({
         </div>
       ) : (
         ""
-      )} */}
-
+      )}
       {/* playingModes badge */}
       {filter.playingModes !== "" &&
       filter.playingModes !== "Online & On-site" ? (
@@ -68,7 +67,6 @@ const Filterchips = ({
       ) : (
         ""
       )}
-
       {/* Weekday Badge */}
       {filter.weekdays.length > 0 && (
         <div className="pnp-badge-white cursor-pointer shrink-0">
@@ -88,7 +86,6 @@ const Filterchips = ({
           </button>
         </div>
       )}
-
       {/* Frequency Badge */}
       {filter.frequencyPerMonth > 0 && (
         <div className="pnp-badge-white cursor-pointer shrink-0">
@@ -101,7 +98,6 @@ const Filterchips = ({
           </button>
         </div>
       )}
-
       {/* Language Badge */}
       {filter.languages.length > 0 && (
         <div className="pnp-badge-white cursor-pointer shrink-0">
@@ -121,7 +117,6 @@ const Filterchips = ({
           </button>
         </div>
       )}
-
       {/* Game Systems Badges */}
       {filter.systems.length > 0
         ? filter.systems.map((e, index) => {
@@ -130,7 +125,7 @@ const Filterchips = ({
                 {e.value}
                 <button
                   className="*:w-[0.5rem]"
-                  onClick={() => handleRemove(e)}
+                  onClick={() => handleRemove(e, "systems")}
                 >
                   {getIcon("Close")}
                 </button>
@@ -138,16 +133,15 @@ const Filterchips = ({
             );
           })
         : ""}
-
       {/* Experience Badges */}
       {filter.experience.length > 0
         ? filter.experience.map((e, index) => {
             return (
               <div key={index} className="pnp-badge-white shrink-0">
-                {e.value}
+                {shortenExperienceLabel(e.value)}
                 <button
                   className="*:w-[0.5rem]"
-                  onClick={() => handleRemove(e)}
+                  onClick={() => handleRemove(e, "experience")}
                 >
                   {getIcon("Close")}
                 </button>
@@ -155,7 +149,6 @@ const Filterchips = ({
             );
           })
         : ""}
-
       {/* Playstyles Badges */}
       {filter.playstyles.length > 0
         ? filter.playstyles.map((e, index) => {
@@ -164,7 +157,7 @@ const Filterchips = ({
                 {e.value}
                 <button
                   className="*:w-[0.5rem]"
-                  onClick={() => handleRemove(e)}
+                  onClick={() => handleRemove(e, "playstyles")}
                 >
                   {getIcon("Close")}
                 </button>
@@ -172,7 +165,6 @@ const Filterchips = ({
             );
           })
         : ""}
-
       {/* Likes Badges */}
       {filter.likes.length > 0
         ? filter.likes.map((e, index) => {
@@ -181,7 +173,7 @@ const Filterchips = ({
                 {e.value}
                 <button
                   className="*:w-[0.5rem]"
-                  onClick={() => handleRemove(e)}
+                  onClick={() => handleRemove(e, "likes")}
                 >
                   {getIcon("Close")}
                 </button>
@@ -189,7 +181,6 @@ const Filterchips = ({
             );
           })
         : ""}
-
       {/* Disike Badges */}
       {filter.dislikes.length > 0
         ? filter.dislikes.map((e, index) => {
@@ -198,7 +189,7 @@ const Filterchips = ({
                 {e.value}
                 <button
                   className="*:w-[0.5rem]"
-                  onClick={() => handleRemove(e)}
+                  onClick={() => handleRemove(e, "dislikes")}
                 >
                   {getIcon("Close")}
                 </button>

@@ -28,6 +28,7 @@ const Search = () => {
     frequencyPerMonth: 1,
     languages: [],
     age: "",
+    sortBy: "name",
   });
 
   const formatFilterForBackend = (filter) => {
@@ -59,9 +60,15 @@ const Search = () => {
     }
   };
 
+  //Automatically fetch new, when search field content changes
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [filter.search]);
+
+  //Automatically fetch new, when search field content changes
+  useEffect(() => {
+    fetchUsers();
+  }, [filterCount]);
 
   useEffect(() => {
     const currFilterCount = countActiveFilters(filter);
@@ -71,7 +78,7 @@ const Search = () => {
   return (
     <div className="flex flex-col w-full items-center justify-center gap-4">
       <h2 className="text-pnp-white">FIND PLAYERS</h2>
-      <Searchbar />
+      <Searchbar setFilter={setFilter} filter={filter} />
       <Filterchips
         filter={filter}
         setFilter={setFilter}
@@ -79,6 +86,30 @@ const Search = () => {
         setIsModalOpen={setIsModalOpen}
         fetchUsers={fetchUsers}
       />
+      {/* SORTING */}
+      <div className="flex gap-4">
+        <p className="text-pnp-white ">Sort by:</p>
+        <select
+          name="sort"
+          id="sort"
+          className="text-pnp-white underline"
+          value={filter.sortBy}
+          onChange={(e) =>
+            setFilter((prev) => ({ ...prev, sortBy: e.target.value }))
+          }
+        >
+          <option value="userName" className="text-pnp-black">
+            Username
+          </option>
+          <option value="distance" className="text-pnp-black">
+            Distance
+          </option>
+          <option value="matchScore" className="text-pnp-black">
+            Match Score
+          </option>
+        </select>
+      </div>
+      {/* SORTING END */}
       {/* TAB */}
       {/* TAB END */}
       {/* RESULTS */}
@@ -98,8 +129,8 @@ const Search = () => {
           })}
         </div>
       </div>
-      {console.log(filter)};{/* Filter selection modal */}
-      {console.log(filterCount)};
+      {/* {console.log(filter)}; */}
+      {/* {console.log(filterCount)}; */}
       <FilterModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

@@ -3,6 +3,7 @@ import CardAvailability from "./CardAvailability";
 import calculateAge from "../../utils/calculateAge";
 import MatchingValue from "./MatchingValue";
 import CardBadges from "./CardBadges";
+import shortenExperienceLabel from "../../utils/shortenExperience";
 
 import profilePic from "../../assets/exampleProfilePic.jpg";
 import Usersvg from "../../assets/user.svg?react";
@@ -10,8 +11,7 @@ import getIcon from "../../utils/getIcon";
 
 const PlayerCard = ({ details }) => {
   // const [currUser, setCurrUser] = useState(null);
-  // console.log("User ", details);
-  const matchValue = 85;
+  console.log("User ", details);
 
   // useEffect(() => setCurrUser(dummy), []);
 
@@ -22,7 +22,7 @@ const PlayerCard = ({ details }) => {
       className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] min-w-[350px] max-w-[500px] px-4
     mx-auto pb-6 mb-5"
     >
-      <MatchingValue matchValue={matchValue} />
+      <MatchingValue matchScore={details.matchScore} />
 
       {/* LFG, AVAILABILITY */}
       <div className="flex justify-between  pt-4 mb-4">
@@ -55,14 +55,24 @@ const PlayerCard = ({ details }) => {
 
       {/* PLAYER OPTIONS */}
       <div className="flex flex-wrap pb-3 ">
-        <div className="pnp-badge-green">
-          {getIcon("Dice")} {details.playerRole}
-        </div>
-        <div className="pnp-badge-purple">
-          {getIcon("Experience")} {details.playerRole}
-        </div>
+        {details.playerRole && (
+          <div className="pnp-badge-green">
+            {getIcon("Dice")} {details.playerRole}
+          </div>
+        )}
 
-        <div className="pnp-badge-blue">{getIcon("On-site")} On-site</div>
+        {details.experience && (
+          <div className="pnp-badge-purple">
+            {getIcon("Experience")}{" "}
+            {shortenExperienceLabel(details.experience?.value)}
+          </div>
+        )}
+
+        {details.playingModes && (
+          <div className="pnp-badge-blue">
+            {getIcon(details.playingModes?.value)} {details.playingModes?.value}
+          </div>
+        )}
       </div>
       <CardBadges details={details} className="mb-3" />
     </div>

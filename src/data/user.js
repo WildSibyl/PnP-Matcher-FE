@@ -13,7 +13,7 @@ export const getFilteredUsers = async (radius, filters = {}) => {
     })
   );
 
-  const res = await fetch(`${baseURL}?radius=${radius * 1000}`, {
+  const res = await fetch(`${baseURL}?radius=${radius}`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -22,7 +22,7 @@ export const getFilteredUsers = async (radius, filters = {}) => {
     body: JSON.stringify(cleanFilters),
   });
   console.log(
-    `Fetching users with radius: ${radius} km and filters:`,
+    `Fetching users with radius: ${radius} m and filters:`,
     cleanFilters
   );
 

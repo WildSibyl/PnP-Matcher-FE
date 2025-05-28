@@ -14,13 +14,21 @@ const CardAvailability = ({ weekdays, frequencyPerMonth }) => {
 
   return (
     <div className="flex">
-      <div className="pnp-badge-white relative flex gap-1 pl-2 pt-0 pr-0 pb-0 justify-center items-center pnp-shadow rounded-[7px]">
+      <div
+        className={` relative flex  ${
+          weekdays.length > 0 && "gap-1 pl-2 pnp-badge-white"
+        } pt-0 pr-0 pb-0 justify-center items-center pnp-shadow rounded-[7px]`}
+      >
         {calculateDays(weekdays).map((e, index) => (
           <p key={index} className="text-sm font-extrabold  text-[#3E5466]">
             {e}
           </p>
         ))}
-        <div className="bg-pnp-blue ml-2 pnp-shadow px-3 rounded-[7px] text-sm font-extrabold text-pnp-white z-[5]">{`${frequencyPerMonth}x / mo`}</div>
+        <div
+          className={`bg-pnp-blue ${
+            weekdays.length > 0 && "ml-2"
+          } pnp-shadow px-3 rounded-[7px] text-sm font-extrabold text-pnp-white z-[5]`}
+        >{`${frequencyPerMonth}x / mo`}</div>
       </div>
     </div>
   );

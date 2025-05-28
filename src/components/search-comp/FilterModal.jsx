@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import TagMultiSelect from "../edit-comp/TagMultiSelect";
 import WeekdaySelector from "../WeekdaySelector";
@@ -12,6 +13,15 @@ const FilterModal = ({
   setFilterCount,
   fetchUsers,
 }) => {
+  const [currRadius, setCurrRadius] = useState(100);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setFilter((prev) => ({ ...filter, radius: currRadius * 1000 }));
+    }, 400);
+    return () => clearTimeout(timeout);
+  }, [currRadius]);
+
   const mToKm = (value) => {
     const km = value / 1000;
     return km;
@@ -42,7 +52,7 @@ const FilterModal = ({
               <input type="checkbox" />
               <h3 className="collapse-title font-semibold">
                 LOCATION
-                {filter.radius > 5000 && (
+                {filter.radius < 100000 && (
                   <div className="pnp-badge-blue ml-2">Active</div>
                 )}
               </h3>
@@ -50,19 +60,14 @@ const FilterModal = ({
                 <label className="label">SEARCH RADIUS</label>
                 <div className="flex justify-between gap-4 items-center">
                   <label className="label">
-                    <span className="ml-2">{filter.radius / 1000} km</span>
+                    <span className="ml-2">{currRadius} km</span>
                   </label>
                   <input
                     type="range"
                     min={5}
                     max={100}
-                    value={mToKm(filter.radius)}
-                    onInput={(e) =>
-                      setFilter((prev) => ({
-                        ...prev,
-                        radius: kmToM(Number(e.target.value)),
-                      }))
-                    }
+                    value={currRadius}
+                    onInput={(e) => setCurrRadius(e.target.value)}
                     className="range range-neutral"
                   />
                 </div>
@@ -145,7 +150,7 @@ const FilterModal = ({
                     <option>Younger than 20</option>
                     <option>20 - 30</option>
                     <option>30 - 40</option>
-                    <option>50 and older</option>
+                    <option>40 and older</option>
                   </select>
                   <TagMultiSelect
                     category="experience"
@@ -302,6 +307,7 @@ const FilterModal = ({
               <button
                 className="btn-secondary-dark"
                 onClick={() => {
+                  setCurrRadius(5);
                   setFilter({
                     radius: 5000,
                     weekdays: [],
@@ -322,7 +328,6 @@ const FilterModal = ({
               <button
                 className="btn-primary-light"
                 onClick={() => {
-                  fetchUsers();
                   onClose();
                 }}
               >

@@ -2,8 +2,9 @@ const countActiveFilters = (filters) => {
   let count = 0;
 
   for (const [key, value] of Object.entries(filters)) {
-    if (key === "radius" && typeof value === "number" && value > 5000) {
-      count++; //radius will only count as a filter if it is bigger than 5km
+    if (key === "radius" && typeof value === "number" && value < 100000) {
+      count++; //radius will only count as a filter if it is lower than 100km
+    } else if (key === "sortBy") {
     } else if (Array.isArray(value) && value.length > 0) {
       count += value.length; //if entry is an array, how long is it?
     } else if (typeof value === "string" && value.trim() !== "") {
