@@ -59,13 +59,13 @@
     font-family: "Inter Variable", sans-serif;
   }
   h1 {
-    @apply text-5xl font-extrabold uppercase;
+    @apply text-5xl font-extrabold;
   }
   h2 {
-    @apply text-3xl font-extrabold uppercase;
+    @apply text-3xl font-extrabold;
   }
   h3 {
-    @apply text-2xl font-extrabold uppercase;
+    @apply text-2xl font-extrabold;
   }
   p {
     @apply text-lg font-semibold;
