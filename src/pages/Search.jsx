@@ -28,6 +28,7 @@ const Search = () => {
     frequencyPerMonth: 1,
     languages: [],
     age: "",
+    zipCode: "",
   });
 
   const formatFilterForBackend = (filter) => {
@@ -63,6 +64,11 @@ const Search = () => {
     fetchUsers();
   }, []);
 
+  //Automatically fetch new, when search field content changes
+  useEffect(() => {
+    fetchUsers();
+  }, [filter.search]);
+
   useEffect(() => {
     const currFilterCount = countActiveFilters(filter);
     setFilterCount(currFilterCount);
@@ -71,7 +77,7 @@ const Search = () => {
   return (
     <div className="flex flex-col w-full items-center justify-center gap-4">
       <h2 className="text-pnp-white">FIND PLAYERS</h2>
-      <Searchbar />
+      <Searchbar setFilter={setFilter} filter={filter} />
       <Filterchips
         filter={filter}
         setFilter={setFilter}

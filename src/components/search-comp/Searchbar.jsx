@@ -1,4 +1,18 @@
-const Searchbar = () => {
+import { useState, useEffect } from "react";
+
+const Searchbar = ({ setFilter, filter }) => {
+  const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setFilter((prev) => ({ ...prev, search: inputValue }));
+    }, 400);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [inputValue]);
+
   return (
     <label className="input">
       <svg
@@ -17,7 +31,13 @@ const Searchbar = () => {
           <path d="m21 21-4.3-4.3"></path>
         </g>
       </svg>
-      <input type="search" required placeholder="Search" />
+      <input
+        type="search"
+        required
+        placeholder="Search"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
     </label>
   );
 };

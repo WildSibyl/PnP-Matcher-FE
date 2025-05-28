@@ -16,7 +16,7 @@ const CardBadges = ({ details }) => {
     let maxBadges = 8;
 
     const pickFrom = (list, count) => {
-      console.log("List ", list);
+      // console.log("List ", list);
       //If there are more elements than "count", take count elements, else take all
       if (list && list.length > 0) {
         const arrValues = list.map((s) => s.value);
@@ -38,7 +38,7 @@ const CardBadges = ({ details }) => {
     setDispBadges(badgeSelection);
   }, []);
 
-  console.log("Details ", details);
+  // console.log("Details ", details);
 
   return (
     <>
