@@ -12,6 +12,9 @@ module.exports = {
       animation: {
         "tooltip-pop": "tooltip-pop 0.5s ease-out forwards",
       },
+      fontFamily: {
+        sans: ["Inter", "ui-sans-serif", "system-ui"],
+      },
     },
   },
 };
