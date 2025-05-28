@@ -4,6 +4,13 @@ import getIcon from "../../utils/getIcon";
 const CardBadges = ({ details }) => {
   const [dispBadges, setDispBadges] = useState([]);
 
+  if (!details)
+    return (
+      <>
+        <h3>Loading users</h3>
+      </>
+    );
+
   useEffect(() => {
     let badgeSelection = [];
     let maxBadges = 8;
@@ -29,7 +36,9 @@ const CardBadges = ({ details }) => {
 
     //set the selected badges
     setDispBadges(badgeSelection);
-  }, [details]);
+  }, []);
+
+  console.log("Details ", details);
 
   return (
     <>
@@ -44,9 +53,9 @@ const CardBadges = ({ details }) => {
           {e}
         </div>
       ))}
-      {details.length > dispBadges.length ? (
+      {details?.length > dispBadges.length ? (
         <div className="badge pnp-badge-white text-base">
-          +{details.length - dispBadges.length}
+          +{details?.length - dispBadges.length}
         </div>
       ) : (
         ""
