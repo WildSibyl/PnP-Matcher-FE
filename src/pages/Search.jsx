@@ -130,6 +130,34 @@ const Search = () => {
             </>
           )}
         </div>
+
+        {!user && (
+          <div>
+            <div className="flex">
+              <div className="flex flex-col pl-4 py-4">
+                <p className="text-pnp-white pb-2">
+                  Roll the{" "}
+                  <span className="font-extrabold text-[#FCFC3B]">
+                    MAGIC DICE
+                  </span>{" "}
+                  and the wizard will find you players that fit your group
+                  perfectly
+                </p>
+                <button className="btn-primary-light self-start">
+                  <D20svg className="w-[3rem]" />
+                  ROLL NOW!
+                </button>
+              </div>
+              <div className="flex justify-end overflow-hidden h-auto min-w-[150px] w-[50%] relative">
+                <img
+                  src={renimg}
+                  alt="Ren, our mascot"
+                  className="absolute mx-auto w-auto max-h-[100%] bottom-0 translate-y-2"
+                ></img>
+              </div>
+            </div>
+          </div>
+        )}
         <div>
           {results.map((e) => {
             return <PlayerCard key={e._id} details={e} />;

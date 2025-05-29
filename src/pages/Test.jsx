@@ -5,6 +5,7 @@ import SystemList from "../components/home-comp/SystemList";
 import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
 import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
 import PlayerCard from "../components/cards/PlayerCard";
+import RollForGroup from "../components/group-comp/RollForGroup";
 
 import Loader from "../components/Loader";
 import { useState } from "react";
@@ -29,6 +30,8 @@ const Test = () => {
           placeholder="Select preferences"
           onChange={(values) => setUser((prev) => ({ ...prev, likes: values }))}
         />
+
+        <RollForGroup />
 
         <h1 className="text-pnp-white">This is the H1</h1>
         <h2 className="text-pnp-white">This is the H2</h2>
