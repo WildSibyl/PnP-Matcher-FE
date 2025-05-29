@@ -21,6 +21,7 @@ const Privacy = lazy(() => import("./pages/Privacy"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Error = lazy(() => import("./pages/Error"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const Test = lazy(() => import("./pages/Test"));
 
 const App = () => {
@@ -49,6 +50,7 @@ const App = () => {
           <Route element={<ProtectedLayout />}>
             <Route path="/create" element={<CreateGroup />} />
             <Route path="/edit/:id" element={<UpdateGroup />} />
+            <Route path="/admin" element={<AdminDashboard />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Route>
