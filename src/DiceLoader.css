@@ -1,0 +1,66 @@
+.dice-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  width: 140px;
+  perspective: 600px;
+}
+
+.dice {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform-style: preserve-3d;
+  animation: rotateDice 1.5s linear infinite;
+}
+
+.side {
+  position: absolute;
+  background-color: #fff;
+  width: 80px;
+  height: 80px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.side.one {
+  transform: rotateY(0deg) translateZ(40px);
+}
+.side.two {
+  transform: rotateY(90deg) translateZ(40px);
+}
+.side.three {
+  transform: rotateY(180deg) translateZ(40px);
+}
+.side.four {
+  transform: rotateY(-90deg) translateZ(40px);
+}
+.side.five {
+  transform: rotateX(90deg) translateZ(40px);
+}
+.side.six {
+  transform: rotateX(-90deg) translateZ(40px);
+}
+
+@keyframes rotateDice {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: rotateX(100deg) rotateY(130deg);
+  }
+  50% {
+    transform: rotateX(190deg) rotateY(240deg);
+  }
+  75% {
+    transform: rotateX(270deg) rotateY(310deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
