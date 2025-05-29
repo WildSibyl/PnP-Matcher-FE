@@ -137,11 +137,11 @@ const Search = () => {
               return (
                 <div key={e._id}>
                   <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl mb-4">
+                    <h2 className="text-pnp-white pt-4 px-4">
+                      Get the most out of it
+                    </h2>
                     <div className="flex">
                       <div className="flex flex-col pl-4 py-4">
-                        <h2 className="text-pnp-white">
-                          Get the most out of it
-                        </h2>
                         <p className="text-pnp-white pb-2">
                           Register to find players near you and see how good
                           they match your playstyle!

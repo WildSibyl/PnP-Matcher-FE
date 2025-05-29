@@ -217,13 +217,13 @@
       @apply bg-[#02080D];
     }
     h1 {
-      @apply text-4xl font-extrabold uppercase;
+      @apply text-4xl font-extrabold;
     }
     h2 {
-      @apply text-2xl font-extrabold uppercase;
+      @apply text-2xl font-extrabold;
     }
     h3 {
-      @apply text-lg font-extrabold uppercase;
+      @apply text-lg font-extrabold;
     }
     p {
       @apply text-base font-semibold;
