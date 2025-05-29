@@ -11,6 +11,7 @@ import Loader from "../components/Loader";
 import countActiveFilters from "../utils/filterCount";
 import Searchbar from "../components/search-comp/Searchbar";
 import Filterchips from "../components/search-comp/Filterchips";
+import renimg from "../assets/ren/Ren-die.png";
 
 const Search = () => {
   const [results, setResults] = useState([]);
@@ -130,35 +131,40 @@ const Search = () => {
           )}
         </div>
 
-        {!user && (
-          <div>
-            <div className="flex">
-              <div className="flex flex-col pl-4 py-4">
-                <p className="text-pnp-white pb-2">
-                  Roll the{" "}
-                  <span className="font-extrabold text-[#FCFC3B]">
-                    MAGIC DICE
-                  </span>{" "}
-                  and the wizard will find you players that fit your group
-                  perfectly
-                </p>
-                <button className="btn-primary-light self-start">
-                  <D20svg className="w-[3rem]" />
-                  ROLL NOW!
-                </button>
-              </div>
-              <div className="flex justify-end overflow-hidden h-auto min-w-[150px] w-[50%] relative">
-                <img
-                  src={renimg}
-                  alt="Ren, our mascot"
-                  className="absolute mx-auto w-auto max-h-[100%] bottom-0 translate-y-2"
-                ></img>
-              </div>
-            </div>
-          </div>
-        )}
         <div>
-          {results.map((e) => {
+          {results.map((e, index) => {
+            if (index === 2) {
+              return (
+                <div key={e._id}>
+                  <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl mb-4">
+                    <div className="flex">
+                      <div className="flex flex-col pl-4 py-4">
+                        <h2 className="text-pnp-white">
+                          Get the most out of it
+                        </h2>
+                        <p className="text-pnp-white pb-2">
+                          Register to find players near you and see how good
+                          they match your playstyle!
+                        </p>
+                        <button className="btn-primary-light self-start">
+                          {getIcon("Sword")}
+                          Sign Up!
+                        </button>
+                      </div>
+                      <div className="flex justify-end overflow-hidden h-auto min-w-[150px] w-[50%] relative">
+                        <img
+                          src={renimg}
+                          alt="Ren, our mascot"
+                          className="absolute mx-auto w-auto max-h-[100%] bottom-0 translate-y-2"
+                        ></img>
+                      </div>
+                    </div>
+                  </div>
+                  <PlayerCard key={e._id} details={e} />
+                </div>
+              );
+            }
+
             return <PlayerCard key={e._id} details={e} />;
           })}
         </div>
