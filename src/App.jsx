@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router";
 //LAYOUTS & PAGES
 import MainLayout from "./layouts/MainLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
+import AdminRoute from "./layouts/AdminRoute";
 import Loader from "./components/Loader";
 
 const Home = lazy(() => import("./pages/Home"));
@@ -22,6 +23,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Error = lazy(() => import("./pages/Error"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+
 const Test = lazy(() => import("./pages/Test"));
 
 const App = () => {
@@ -50,7 +52,9 @@ const App = () => {
           <Route element={<ProtectedLayout />}>
             <Route path="/create" element={<CreateGroup />} />
             <Route path="/edit/:id" element={<UpdateGroup />} />
-            <Route path="/admin" element={<AdminDashboard />} />
+            <Route element={<AdminRoute />}>
+              <Route path="/admin" element={<AdminDashboard />} />
+            </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
         </Route>
