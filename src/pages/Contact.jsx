@@ -30,7 +30,7 @@ const Contact = () => {
           href="https://discord.gg/your-invite-code"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 underline"
+          className="text-pnp-purple underline"
         >
           discord.gg/pnpmatch
         </a>
@@ -42,7 +42,7 @@ const Contact = () => {
           href="https://github.com/your-project/issues"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 underline"
+          className="text-pnp-purple underline"
         >
           GitHub Issues page
         </a>
