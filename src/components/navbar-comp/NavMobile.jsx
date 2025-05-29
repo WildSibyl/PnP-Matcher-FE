@@ -24,11 +24,13 @@ const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
       <div className="flex gap-6">
         {user ? (
           <div className="flex items-center gap-2">
-            <Link to="/admin">
-              <div className="btn-secondary-light btn-icon p-2 h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
-                👑
-              </div>
-            </Link>
+            {user.permission === "admin" ? (
+              <Link to="/admin">
+                <div className="btn-secondary-light btn-icon p-2 h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
+                  👑
+                </div>
+              </Link>
+            ) : null}
             <Chatbubblesvg
               className={`min-w-[8vw] fill-current cursor-pointer text-pnp-white`}
             />
