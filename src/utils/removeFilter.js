@@ -3,8 +3,8 @@ const removeFilter = (currentFilter, valToRemove, key) => {
 
   for (const [key, value] of Object.entries(currentFilter)) {
     if (valToRemove === "radius") {
-      if (value > 5000) {
-        newFilter.radius = 5000;
+      if (value < 100000) {
+        newFilter.radius = 100000;
       }
     } else if (key === "age") {
       newFilter.age = "";

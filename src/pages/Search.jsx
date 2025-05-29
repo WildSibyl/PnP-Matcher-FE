@@ -3,6 +3,7 @@ import { useTagContext } from "../context/TagsContextProvider";
 import getIcon from "../utils/getIcon";
 import { getFilteredUsers } from "../data/user";
 import FilterModal from "../components/search-comp/FilterModal";
+import { useAuth } from "../hooks/useAuth";
 
 import PlayerCard from "../components/cards/PlayerCard";
 import GroupCard from "../components/cards/Groupcard";
@@ -17,6 +18,7 @@ const Search = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
   const { homeSearch, setHomeSearch } = useTagContext();
+  const { user, logOut } = useAuth();
   const [filter, setFilter] = useState({
     search: "",
     systems: homeSearch.systems || [],
@@ -24,10 +26,10 @@ const Search = () => {
     experience: [],
     likes: [],
     dislikes: [],
-    radius: 5000,
+    radius: 100000,
     weekdays: [],
     playingModes: "",
-    frequencyPerMonth: 1,
+    frequencyPerMonth: null,
     languages: [],
     age: "",
     sortBy: "name",
@@ -67,15 +69,10 @@ const Search = () => {
     setHomeSearch({ systems: [] });
   }, []);
 
-  //Automatically fetch new, when search field content changes
+  //Automatically fetch new, when search field content or filter count changes
   useEffect(() => {
     fetchUsers();
-  }, [filter.search]);
-
-  //Automatically fetch new, when search field content changes
-  useEffect(() => {
-    fetchUsers();
-  }, [filterCount]);
+  }, [filterCount, filter.search]);
 
   useEffect(() => {
     const currFilterCount = countActiveFilters(filter);
@@ -94,28 +91,30 @@ const Search = () => {
         fetchUsers={fetchUsers}
       />
       {/* SORTING */}
-      <div className="flex gap-4">
-        <p className="text-pnp-white ">Sort by:</p>
-        <select
-          name="sort"
-          id="sort"
-          className="text-pnp-white underline"
-          value={filter.sortBy}
-          onChange={(e) =>
-            setFilter((prev) => ({ ...prev, sortBy: e.target.value }))
-          }
-        >
-          <option value="userName" className="text-pnp-black">
-            Username
-          </option>
-          <option value="distance" className="text-pnp-black">
-            Distance
-          </option>
-          <option value="matchScore" className="text-pnp-black">
-            Match Score
-          </option>
-        </select>
-      </div>
+      {user && (
+        <div className="flex gap-4">
+          <p className="text-pnp-white ">Sort by:</p>
+          <select
+            name="sort"
+            id="sort"
+            className="text-pnp-white underline"
+            value={filter.sortBy}
+            onChange={(e) =>
+              setFilter((prev) => ({ ...prev, sortBy: e.target.value }))
+            }
+          >
+            <option value="userName" className="text-pnp-black">
+              Username
+            </option>
+            <option value="distance" className="text-pnp-black">
+              Distance
+            </option>
+            <option value="matchScore" className="text-pnp-black">
+              Match Score
+            </option>
+          </select>
+        </div>
+      )}
       {/* SORTING END */}
       {/* TAB */}
       {/* TAB END */}
