@@ -17,15 +17,22 @@ const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
       </Link>
       {/* Test Link for debugging */}
       <Link to="/test">
-        <div className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
+        <div className="btn-secondary-light btn-icon p-3 h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
           🛠
         </div>
       </Link>
       <div className="flex gap-6">
         {user ? (
-          <Chatbubblesvg
-            className={`min-w-[8vw] fill-current cursor-pointer text-pnp-white`}
-          />
+          <div className="flex items-center gap-2">
+            <Link to="/admin">
+              <div className="btn-secondary-light btn-icon p-2 h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
+                👑
+              </div>
+            </Link>
+            <Chatbubblesvg
+              className={`min-w-[8vw] fill-current cursor-pointer text-pnp-white`}
+            />
+          </div>
         ) : (
           <NavLink
             onClick={() => setMenuOpen(false)}
