@@ -1,24 +1,14 @@
-import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
-import { useAuth } from "../hooks/useAuth";
-import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
+import HomeMultiSelect from "../components/home-comp/HomeMultiSelect";
 import CrossedColoredSwords from "../assets/crossedColoredSwords.svg";
 import dragonImage from "../assets/dragonimage.png";
-import PlayerCard from "../components/cards/PlayerCard";
-import GroupCard from "../components/cards/Groupcard";
-import getIcon from "../utils/getIcon";
 import AvatarGrid from "../components/home-comp/AvatarGrid";
 import SystemList from "../components/home-comp/SystemList";
-
-import Loader from "../components/Loader";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTagContext } from "../context/TagsContextProvider";
 
 const Home = () => {
-  const [guestUser, setGuestUser] = useState({
-    systems: [],
-    address: {
-      city: "",
-    },
-  });
+  const navigate = useNavigate();
+  const { homeSearch, setHomeSearch } = useTagContext();
 
   return (
     <>
@@ -50,28 +40,20 @@ const Home = () => {
                 What are you looking for?
               </p>
               <div className="w-[300px]">
-                <input
-                  className="input-bordered bg-white w-full mb-2"
-                  name="city"
-                  value={guestUser.address.city}
-                  onChange={(e) =>
-                    onChange({
-                      target: { name: "address.city", value: e.target.value },
-                    })
-                  }
-                  placeholder="Your city"
-                />
-                <TagMultiSelect
+                <HomeMultiSelect
                   category="systems"
                   name="systems"
-                  placeholder="Select your games!"
+                  placeholder="Select up to 3 games!"
                   onChange={(values) =>
-                    setGuestUser((prev) => ({ ...prev, systems: values }))
+                    setHomeSearch((prev) => ({ ...prev, systems: values }))
                   }
                 />
               </div>
 
-              <button className="btn-primary-light m-0 -translate-y-1">
+              <button
+                className="btn-primary-light m-0 -translate-y-1"
+                onClick={() => navigate("/search")}
+              >
                 Find players
               </button>
             </div>
@@ -140,7 +122,12 @@ const Home = () => {
             begin!
           </p>
 
-          <button className="btn-primary-dark">Find players</button>
+          <button
+            className="btn-primary-dark"
+            onClick={() => navigate("/search")}
+          >
+            Find players
+          </button>
         </div>
       </div>
     </>

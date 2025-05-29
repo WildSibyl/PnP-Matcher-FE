@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTagContext } from "../context/TagsContextProvider";
 import getIcon from "../utils/getIcon";
 import { getFilteredUsers } from "../data/user";
 import FilterModal from "../components/search-comp/FilterModal";
@@ -15,9 +16,10 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
+  const { homeSearch, setHomeSearch } = useTagContext();
   const [filter, setFilter] = useState({
     search: "",
-    systems: [],
+    systems: homeSearch.systems || [],
     playstyles: [],
     experience: [],
     likes: [],
@@ -59,6 +61,11 @@ const Search = () => {
       setLoading(false);
     }
   };
+
+  //Reset homeSearch so it doesn't affect future searches
+  useEffect(() => {
+    setHomeSearch({ systems: [] });
+  }, []);
 
   //Automatically fetch new, when search field content changes
   useEffect(() => {

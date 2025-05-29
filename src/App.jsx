@@ -16,6 +16,9 @@ const UpdateGroup = lazy(() => import("./pages/UpdateGroup"));
 const Group = lazy(() => import("./pages/Group"));
 const Grouplist = lazy(() => import("./pages/Grouplist"));
 const Chat = lazy(() => import("./pages/Chat"));
+const Imprint = lazy(() => import("./pages/Imprint"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Error = lazy(() => import("./pages/Error"));
 const Test = lazy(() => import("./pages/Test"));
@@ -39,6 +42,9 @@ const App = () => {
           <Route path="/group/:id" element={<Group />} />
           <Route path="/grouplist" element={<Grouplist />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/imprint" element={<Imprint />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/test" element={<Test />} />
           <Route element={<ProtectedLayout />}>
             <Route path="/create" element={<CreateGroup />} />
