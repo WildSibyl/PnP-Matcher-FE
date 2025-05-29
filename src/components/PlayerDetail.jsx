@@ -277,6 +277,7 @@ const PlayerDetail = () => {
 
         const data = await res.json();
         setUser(data);
+        console.log("Initial editedUser.experience:", data.experience);
         setEditedUser(data);
       } catch (err) {
         console.error("Error loading user:", err);
@@ -298,6 +299,7 @@ const PlayerDetail = () => {
       const updated = await res.json();
       setUser(updated);
       setEditedUser(updated);
+      console.log("Saved editedUser.experience:", updated.experience);
       setIsEditing(false);
     } catch (err) {
       console.error(err);
@@ -451,9 +453,11 @@ const PlayerDetail = () => {
                   <div className="flex flex-wrap gap-2 mt-2">
                     <div
                       className="badge badge-outline text-white bg-[#02080d]"
-                      key={editedUser.experience}
+                      key={
+                        editedUser.experience?.value || editedUser.experience
+                      }
                     >
-                      {editedUser.experience}
+                      {editedUser.experience?.label || editedUser.experience}
                     </div>
                   </div>
                 )}
@@ -663,9 +667,11 @@ const PlayerDetail = () => {
                       {(editedUser.languages || []).map((language) => (
                         <div
                           className="badge badge-outline text-white bg-[#02080d]"
-                          key={language}
+                          // key={language}
+                          key={language?.value || language}
                         >
-                          {language}
+                          {/* {language} */}
+                          {language?.label || language}
                         </div>
                       ))}
                     </div>
@@ -690,9 +696,9 @@ const PlayerDetail = () => {
                       {(editedUser.playstyles || []).map((style) => (
                         <div
                           className="badge badge-outline text-white bg-[#02080d]"
-                          key={style}
+                          key={style?.value || style}
                         >
-                          {style}
+                          {style?.label || style}
                         </div>
                       ))}
                     </div>
@@ -717,9 +723,9 @@ const PlayerDetail = () => {
                       {(editedUser.systems || []).map((system) => (
                         <div
                           className="badge badge-outline text-white bg-[#02080d]"
-                          key={system}
+                          key={system?.value || system}
                         >
-                          {system}
+                          {system?.label || system}
                         </div>
                       ))}
                     </div>
@@ -751,9 +757,9 @@ const PlayerDetail = () => {
                       {(editedUser.likes || []).map((likeItem) => (
                         <div
                           className="badge bg-gray-100 text-black"
-                          key={likeItem}
+                          key={likeItem?.value || likeItem}
                         >
-                          {likeItem}
+                          {likeItem?.label || likeItem}
                         </div>
                       ))}
                     </div>
@@ -790,9 +796,9 @@ const PlayerDetail = () => {
                       {(editedUser.dislikes || []).map((dislikeItem) => (
                         <div
                           className="badge bg-gray-100 text-black"
-                          key={dislikeItem}
+                          key={dislikeItem?.value || dislikeItem}
                         >
-                          {dislikeItem}
+                          {dislikeItem?.label || dislikeItem}
                         </div>
                       ))}
                     </div>
