@@ -11,7 +11,7 @@ import getIcon from "../../utils/getIcon";
 
 const PlayerCard = ({ details }) => {
   // const [currUser, setCurrUser] = useState(null);
-  console.log("User ", details);
+  // console.log("User ", details);
 
   // useEffect(() => setCurrUser(dummy), []);
 
