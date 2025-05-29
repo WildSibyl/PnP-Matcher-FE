@@ -116,10 +116,9 @@ const TermsModal = ({ isOpen, onClose }) => (
               <strong>Banishing Misuse</strong>
               <div>
                 We reserve the right to restrict or ban accounts that break
-                these terms, summon chaos, or otherwise disrupt the tavern.
-                {/* If you feel wronged, you can appeal by sending a raven (or email)
-              to our support team. We’ll review your case with the wisdom of a
-              thousand sages. */}
+                these terms, summon chaos, or otherwise disrupt the tavern. You
+                can appeal by sending a raven (or email) to our contact channel.
+                We’ll review your case with the wisdom of a thousand sages.
               </div>
             </li>
 
@@ -142,9 +141,11 @@ const TermsModal = ({ isOpen, onClose }) => (
             </li>
           </ol>
           <p>
-            By using PnP Match, you agree to these terms and conditions. If you
-            do not agree, please do not use the app. We wish you safe travels
-            and may your dice always roll true.
+            By using PnP Match, you agree to these terms and conditions as well
+            as to the ones mentioned in a more boring and official language in
+            our website's Imprint section. If you do not agree, please do not
+            use the app. We wish you safe travels and may your dice always roll
+            true.
           </p>
         </div>
       </Dialog.Panel>
