@@ -39,6 +39,30 @@ export const getFilteredUsers = async (radius, filters = {}) => {
   return data;
 };
 
+//for RollForGroup
+export const getRollMatches = async (radius) => {
+  const res = await fetch(`${baseURL}/matches?radius=${radius}`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log(`Rolling users with radius: ${radius} m`);
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(
+      errorData.error ||
+        errorData.message ||
+        "An error occurred while fetching users"
+    );
+  }
+
+  const data = await res.json();
+  return data;
+};
+
 // not the same url, but related to user data
 export const checkUsername = async (username) => {
   const res = await fetch(`${API_URL}/check-username?username=${username}`);
