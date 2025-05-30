@@ -12,22 +12,23 @@
   width: 80px;
   height: 80px;
   transform-style: preserve-3d;
-  animation: rotateDice 1.5s linear infinite;
+  animation: rotateDice 2s linear infinite;
 }
 
 .side {
   position: absolute;
-  background-color: #fff;
   width: 80px;
   height: 80px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 2rem;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  backface-visibility: hidden;
 }
 
+/* Seitenplatzierung */
 .side.one {
   transform: rotateY(0deg) translateZ(40px);
 }
@@ -52,13 +53,13 @@
     transform: rotateX(0deg) rotateY(0deg);
   }
   25% {
-    transform: rotateX(100deg) rotateY(130deg);
+    transform: rotateX(90deg) rotateY(90deg);
   }
   50% {
-    transform: rotateX(190deg) rotateY(240deg);
+    transform: rotateX(180deg) rotateY(180deg);
   }
   75% {
-    transform: rotateX(270deg) rotateY(310deg);
+    transform: rotateX(270deg) rotateY(270deg);
   }
   100% {
     transform: rotateX(360deg) rotateY(360deg);

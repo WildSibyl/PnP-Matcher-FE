@@ -41,7 +41,7 @@ export const getFilteredUsers = async (radius, filters = {}) => {
 
 //for RollForGroup
 export const getRollMatches = async (radius) => {
-  const res = await fetch(`${baseURL}/matches?radius=${radius}`, {
+  const res = await fetch(`${baseURL}?radius=${radius}`, {
     method: "GET",
     credentials: "include",
     headers: {
