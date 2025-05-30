@@ -77,3 +77,23 @@ export const checkUsername = async (username) => {
   const data = await res.json();
   return data.isAvailable;
 };
+
+export const getUserById = async (userId) => {
+  const res = await fetch(`${baseURL}/${userId}`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(
+      errorData.error || "An error occurred while fetching user data"
+    );
+  }
+
+  const data = await res.json();
+  return data;
+};

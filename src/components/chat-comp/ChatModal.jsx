@@ -1,8 +1,9 @@
 import { Dialog } from "@headlessui/react";
 import { useWebSocketContext } from "../../context/WSContextProvider";
 import { useState } from "react";
+import { sendChat } from "../../data/chat";
 
-const ChatModal = ({ isOpen, onClose, chatId }) => {
+const ChatModal = ({ isOpen, onClose, chatId, username }) => {
   const { messages, sendMessage } = useWebSocketContext();
   const [input, setInput] = useState("");
 
@@ -10,22 +11,34 @@ const ChatModal = ({ isOpen, onClose, chatId }) => {
 
   const chatMessages = messages.filter((m) => m.chatId === chatId);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    sendMessage({
-      type: "message",
+    const messageObj = {
       chatId,
       text: input,
       timestamp: Date.now(),
       from: "currentUserId", // Replace with actual current user ID
-      to: "otherUserId", // Replace with actual recipient
-    });
+      to: "otherUserId", // Replace with actual recipient ID
+    };
 
-    setInput("");
+    try {
+      // Save message to backend DB
+      await sendChat(messageObj);
+
+      // Then send through WebSocket for real-time update
+      sendMessage({
+        type: "message",
+        ...messageObj,
+      });
+
+      setInput("");
+    } catch (error) {
+      console.error("Failed to send message:", error.message);
+      // Optionally show a UI error here
+    }
   };
-
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
@@ -38,7 +51,7 @@ const ChatModal = ({ isOpen, onClose, chatId }) => {
             ✕
           </button>
           <Dialog.Title className="flex flex-col text-lg font-bold mb-4">
-            Chat: {chatId}
+            Send a message to: {username ?? chatId}
           </Dialog.Title>
 
           <div className="flex-grow overflow-y-auto mb-4 space-y-2">
