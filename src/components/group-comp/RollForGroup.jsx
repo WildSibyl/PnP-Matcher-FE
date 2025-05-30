@@ -65,7 +65,7 @@ const RollForGroup = () => {
   }, [state]);
 
   return (
-    <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl">
+    <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[520px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl">
       <p className="text-2xl font-extrabold text-pnp-white pt-4 px-4">
         {state === "results"
           ? "THE DICE HAVE SPOKEN!"

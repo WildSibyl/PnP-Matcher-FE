@@ -11,7 +11,7 @@ import getIcon from "../../utils/getIcon";
 
 const PlayerCard = ({ details }) => {
   // const [currUser, setCurrUser] = useState(null);
-  // console.log("User ", details);
+  console.log("User ", details);
 
   // useEffect(() => setCurrUser(dummy), []);
 
@@ -36,14 +36,14 @@ const PlayerCard = ({ details }) => {
       </div>
 
       {/* PLAYER INFOS */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-4 text-left">
         <img
           src={profilePic}
           className="rounded-full w-24 h-24 object-cover border-2 border-pnp-white pnp-shadow"
           alt="user"
         ></img>
         <div>
-          <h2 className="normal-case">{details.userName}</h2>
+          <h2 className="normal-case text-pnp-black">{details.userName}</h2>
           <p className="font-semibold">{details.tagline}</p>
           <p className="font-medium text-[#3E5466]">{`${
             details.address.postalCode
