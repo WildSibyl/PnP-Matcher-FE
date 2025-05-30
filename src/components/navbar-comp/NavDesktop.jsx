@@ -9,7 +9,7 @@ import Logoutsvg from "../../assets/logout.svg?react";
 
 const NavDesktop = ({ logo, user, logOut }) => {
   return (
-    <div className="flex justify-between items-center h-[8vh]">
+    <div className="flex justify-between items-center h-[8vh] overscroll-none">
       <Link to="/">
         <img
           src={logo}
@@ -25,7 +25,7 @@ const NavDesktop = ({ logo, user, logOut }) => {
       </Link>
       {/* Navigation Links */}
       {user ? (
-        <div className="flex items-center gap-8 xl:gap-10">
+        <div className="flex items-center gap-8 xl:gap-10 mr-2">
           {user.permission === "admin" ? (
             <Link to="/admin">
               <div className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">

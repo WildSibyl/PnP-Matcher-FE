@@ -29,7 +29,7 @@ const Register = () => {
     frequencyPerMonth: 1,
     terms: false,
     avatarUrl: "",
-    playingRoles: [],
+    playingRoles: null,
     playingModes: null,
     languages: [],
     playstyles: [],
@@ -180,7 +180,7 @@ const Register = () => {
         groups: [],
       };
 
-      //console.log("Payload being sent to backend:", payload);
+      console.log("Payload being sent to backend:", payload);
 
       await signUp(payload);
       toast.success("Account created successfully. Please log in.");
