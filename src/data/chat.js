@@ -38,15 +38,17 @@ export const getSingleChat = async (id) => {
   return data;
 };
 
-export const sendChat = async (formData) => {
+export const sendChat = async (chatData) => {
   const res = await fetch(baseURL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
+    body: JSON.stringify(chatData),
     credentials: "include",
   });
+
+  console.log("Sending chat data:", chatData);
 
   if (!res.ok) {
     const errorData = await res.json();
@@ -61,14 +63,14 @@ export const sendChat = async (formData) => {
   return data;
 };
 
-export const updateChat = async (id, formData) => {
-  console.log(id, formData);
+export const updateChat = async (id, chatData) => {
+  console.log(id, chatData);
   const res = await fetch(`${baseURL}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
+    body: JSON.stringify(chatData),
     credentials: "include",
   });
 

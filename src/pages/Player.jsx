@@ -14,8 +14,8 @@ const Player = () => {
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [chatUsername, setChatUsername] = useState(null);
 
-  const openChat = (chatId) => {
-    setSelectedChatId(chatId);
+  const openChat = (receiverId) => {
+    setSelectedChatId(receiverId);
     setIsModalOpen(true);
   };
 
@@ -24,6 +24,7 @@ const Player = () => {
       try {
         const user = await getUserById(id);
         setDetails(user);
+        setChatUsername(user.userName);
       } catch (err) {
         console.error(err);
       } finally {
@@ -57,7 +58,7 @@ const Player = () => {
 
       {/* Chat button */}
       <button
-        onClick={() => openChat(details.userName)}
+        onClick={() => openChat(details._id)}
         className="btn-primary-light flex items-center justify-center p-2 rounded-lg hover:bg-pnp-purple hover:text-white transition-colors"
       >
         {/* Chat icon SVG */}
@@ -80,7 +81,7 @@ const Player = () => {
       <ChatModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        chatId={selectedChatId}
+        receiverId={selectedChatId}
         username={chatUsername}
       />
     </div>

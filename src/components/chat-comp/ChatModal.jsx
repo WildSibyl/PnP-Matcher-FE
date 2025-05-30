@@ -2,12 +2,17 @@ import { Dialog } from "@headlessui/react";
 import { useWebSocketContext } from "../../context/WSContextProvider";
 import { useState } from "react";
 import { sendChat } from "../../data/chat";
+import { useAuth } from "../../hooks/useAuth";
 
-const ChatModal = ({ isOpen, onClose, chatId, username }) => {
+const ChatModal = ({ isOpen, onClose, receiverId, username }) => {
   const { messages, sendMessage } = useWebSocketContext();
   const [input, setInput] = useState("");
+  const { user } = useAuth();
 
-  if (!chatId) return null; // No chat selected
+  const senderId = user._id;
+  const chatId = [senderId, receiverId].sort().join("-");
+
+  if (!senderId || !receiverId) return null; // Ensure both IDs are available
 
   const chatMessages = messages.filter((m) => m.chatId === chatId);
 
@@ -16,11 +21,10 @@ const ChatModal = ({ isOpen, onClose, chatId, username }) => {
     if (!input.trim()) return;
 
     const messageObj = {
-      chatId,
+      chatId: chatId,
+      sender: senderId,
+      recipient: receiverId,
       text: input,
-      timestamp: Date.now(),
-      from: "currentUserId", // Replace with actual current user ID
-      to: "otherUserId", // Replace with actual recipient ID
     };
 
     try {
@@ -51,22 +55,30 @@ const ChatModal = ({ isOpen, onClose, chatId, username }) => {
             ✕
           </button>
           <Dialog.Title className="flex flex-col text-lg font-bold mb-4">
-            Send a message to: {username ?? chatId}
+            Send a message to: {username}
           </Dialog.Title>
 
-          <div className="flex-grow overflow-y-auto mb-4 space-y-2">
-            {chatMessages.map((msg, i) => (
-              <div
-                key={i}
-                className={`p-2 rounded ${
-                  msg.from === "currentUserId"
-                    ? "bg-pnp-purple text-white self-end"
-                    : "bg-gray-200"
-                }`}
-              >
-                {msg.text}
-              </div>
-            ))}
+          <div className="flex flex-col flex-grow space-y-4 border border-gray-300 rounded-lg p-4 mb-4">
+            {chatMessages.length === 0 && (
+              <p className="text-center text-gray-400 my-auto">
+                No messages yet. Say hi 👋
+              </p>
+            )}
+
+            <div className="flex-grow overflow-y-auto mb-4 space-y-2">
+              {chatMessages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`p-2 rounded ${
+                    msg.from === senderId
+                      ? "bg-pnp-purple text-white self-end"
+                      : "bg-gray-200"
+                  }`}
+                >
+                  {msg.text}
+                </div>
+              ))}
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="flex items-center space-x-2">
