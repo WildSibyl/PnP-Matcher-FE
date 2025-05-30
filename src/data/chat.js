@@ -22,6 +22,31 @@ export const getChats = async () => {
   return data;
 };
 
+export const getChatMessages = async () => {
+  const res = await fetch(`${baseURL}`, {
+    credentials: "include", // crucial for auth cookies
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData?.error || "Failed to fetch messages");
+  }
+
+  return res.json();
+};
+
+// export const getMessagesByUser = async (userId) => {
+//   const res = await fetch(`${API_URL}/chats/user/${userId}`, {
+//     credentials: "include",
+//   });
+
+//   if (!res.ok) {
+//     throw new Error("Failed to fetch messages");
+//   }
+
+//   return res.json();
+// };
+
 export const getSingleChat = async (id) => {
   const res = await fetch(`${baseURL}/${id}`);
 

@@ -30,12 +30,13 @@ const WSContextProvider = ({ children }) => {
     }
   };
 
-  const openChat = (chatId) => {
-    setSelectedChatId(chatId);
-    setIsModalOpen(true);
+  const values = {
+    ws,
+    messages,
+    setMessages,
+    sendMessage,
+    notifications,
   };
-
-  const values = { ws, messages, sendMessage, notifications, openChat };
 
   return (
     <WebSocketContext.Provider value={values}>
