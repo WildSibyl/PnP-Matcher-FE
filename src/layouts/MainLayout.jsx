@@ -14,7 +14,7 @@ const MainLayout = () => {
 
       <TagsContextProvider>
         <Navbar />
-        <div className="flex-1">
+        <div className="flex-1 overflow-x-hidden">
           <Outlet />
         </div>
         <Footer />
