@@ -43,7 +43,7 @@ const RollForGroup = () => {
               clearInterval(rollInterval);
               setTimeout(() => {
                 setState("results");
-              }, 3000);
+              }, 1000);
             }
           }, 700);
         } catch (error) {
@@ -65,7 +65,7 @@ const RollForGroup = () => {
   }, [state]);
 
   return (
-    <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl">
+    <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[520px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl">
       <p className="text-2xl font-extrabold text-pnp-white pt-4 px-4">
         {state === "results"
           ? "THE DICE HAVE SPOKEN!"
@@ -76,13 +76,18 @@ const RollForGroup = () => {
         <div className="flex">
           <div className="flex flex-col pl-4 py-4">
             <p className="text-pnp-white pb-2">
-              {state === "results"
-                ? "These players should be a perfect match for your group!"
-                : `Roll the ${(
-                    <span className="font-extrabold text-[#FCFC3B]">
-                      MAGIC DICE
-                    </span>
-                  )} and the wizard will find you players that fit your group perfectly`}
+              {state === "results" ? (
+                "These players should be a perfect match for your group!"
+              ) : (
+                <>
+                  Roll the{" "}
+                  <span className="font-extrabold text-[#FCFC3B]">
+                    MAGIC DICE
+                  </span>{" "}
+                  and the wizard will find you players that fit your group
+                  perfectly
+                </>
+              )}
             </p>
             {state === "default" ? (
               <button
@@ -106,16 +111,37 @@ const RollForGroup = () => {
         </div>
       </div>
 
-      {/* Results */}
-      <div className="flex justify-center text-pnp-white text-center">
+      {/* Loading */}
+      <div className="flex flex-col justify-center text-pnp-white text-center">
         {state === "roll" && (
-          <div className="flex flex-col justify-center items-center">
-            <DiceLoader />
-            <h3>
-              Rolling for players ({playerNum} / {maxPlayerNum})...
-            </h3>
-          </div>
+          <>
+            <div className="flex flex-col justify-center items-center">
+              <DiceLoader />
+              <h3>
+                Rolling for players ({playerNum} / {maxPlayerNum})...
+              </h3>
+            </div>
+          </>
         )}
+        <div className="flex justify-center gap-2">
+          {state === "roll" &&
+            playerResults &&
+            playerResults.map((e) => (
+              <img
+                key={e.id}
+                className="rounded-full h-auto w-[80px] border-2 my-4"
+                style={{
+                  animationName: "fadeIn",
+                  animationDuration: "0.5s",
+                  animationFillMode: "forwards",
+                  animationTimingFunction: "ease",
+                  opacity: 0,
+                }}
+                src={e.avatarUrl}
+              />
+            ))}
+        </div>
+        {/* Results */}
         <div className="flex flex-col">
           {state === "error" && (
             <p className="label-italic text-pnp-white bg-pnp-darkpurple/50 mb-2 rounded-2xl p-2 px-3 mx-2">
@@ -123,9 +149,21 @@ const RollForGroup = () => {
               come again later...
             </p>
           )}
-          {playerResults &&
-            playerResults.map((e) => (
-              <div key={e.id}>
+          {state === "results" &&
+            playerResults &&
+            playerResults.map((e, index) => (
+              <div
+                key={e.id}
+                style={{
+                  animationName: "fadeIn",
+                  animationDuration: "0.5s",
+                  animationFillMode: "forwards",
+                  animationTimingFunction: "ease",
+                  animationDelay: `${index * 200}ms`,
+                  opacity: 0,
+                }}
+                className="animate-fade-in"
+              >
                 <PlayerCard details={e} />
               </div>
             ))}

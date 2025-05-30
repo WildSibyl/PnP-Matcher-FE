@@ -41,7 +41,7 @@ const CardBadges = ({ details }) => {
   // console.log("Details ", details);
 
   return (
-    <>
+    <div className="text-left">
       {dispBadges?.map((e, index) => (
         <div
           key={index}
@@ -60,7 +60,7 @@ const CardBadges = ({ details }) => {
       ) : (
         ""
       )}
-    </>
+    </div>
   );
 };
 
