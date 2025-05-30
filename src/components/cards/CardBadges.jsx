@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import getIcon from "../../utils/getIcon";
+import countBadges from "../../utils/countBadges";
+import { AuthContext } from "../../context/AuthContextProvider";
 
 const CardBadges = ({ details }) => {
   const [dispBadges, setDispBadges] = useState([]);
+  const badgeCount = countBadges(details);
+  const { user: currentUser } = useContext(AuthContext);
 
   if (!details)
     return (
@@ -13,29 +17,47 @@ const CardBadges = ({ details }) => {
 
   useEffect(() => {
     let badgeSelection = [];
-    let maxBadges = 8;
+    let maxBadges = 6;
 
-    const pickFrom = (list, count) => {
-      // console.log("List ", list);
-      //If there are more elements than "count", take count elements, else take all
-      if (list && list.length > 0) {
-        const arrValues = list.map((s) => s.value);
-        const slice = arrValues.slice(0, Math.min(count, list.length));
-        badgeSelection.push(...slice);
-        //substract number of taken elements from maxBadges
-        maxBadges -= slice.length;
+    const pickFrom = (list, count, cat) => {
+      let matches = [];
+      let rest = [];
+
+      //check matches with current user
+      if (currentUser && currentUser[cat]) {
+        const userValues = currentUser[cat].map((item) =>
+          typeof item === "object" ? item.value : item
+        );
+
+        matches = list.filter((item) => userValues.includes(item));
+        rest = list.filter((item) => !userValues.includes(item));
+      } else {
+        //if not logged in
+        rest = list;
       }
+
+      //If there are more elements than "count", take count elements, else take all
+      const sorted = [...matches, ...rest].slice(
+        0,
+        Math.min(count, list.length)
+      );
+
+      const arrValues = sorted.map((s) => ({ ...s, category: cat }));
+      badgeSelection.push(...arrValues);
+      //substract number of taken elements from maxBadges
+      maxBadges -= arrValues.length;
     };
 
     //Pick up to 3 Systems and Playstyles
-    pickFrom(details.systems, 3);
-    pickFrom(details.playstyles, 3);
+    pickFrom(details.systems, 3, "systems");
+    pickFrom(details.playstyles, 3, "playstyles");
 
     //Fill remaining space with likes
-    pickFrom(details.likes, maxBadges);
+    pickFrom(details.likes, maxBadges, "likes");
 
     //set the selected badges
     setDispBadges(badgeSelection);
+    console.log("badge", badgeSelection);
   }, []);
 
   // console.log("Details ", details);
@@ -45,17 +67,17 @@ const CardBadges = ({ details }) => {
       {dispBadges?.map((e, index) => (
         <div
           key={index}
-          className={`badge ${
+          className={`badge mb-1 ${
             e.category === "likes" ? "pnp-badge-white" : "pnp-badge-black"
           } text-base`}
         >
-          {getIcon(e)}
-          {e}
+          {getIcon(e.value)}
+          {e.value}
         </div>
       ))}
-      {details?.length > dispBadges.length ? (
-        <div className="badge pnp-badge-white text-base">
-          +{details?.length - dispBadges.length}
+      {badgeCount > dispBadges.length ? (
+        <div className="badge mb-1 pnp-badge-white text-base text-pnp-black">
+          +{badgeCount - dispBadges.length}
         </div>
       ) : (
         ""

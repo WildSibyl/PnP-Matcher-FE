@@ -11,8 +11,6 @@ import getIcon from "../../utils/getIcon";
 
 const PlayerCard = ({ details }) => {
   // const [currUser, setCurrUser] = useState(null);
-  console.log("User ", details);
-
   // useEffect(() => setCurrUser(dummy), []);
 
   if (!details) return <p>LOADING</p>;
@@ -44,7 +42,7 @@ const PlayerCard = ({ details }) => {
         ></img>
         <div>
           <h2 className="normal-case text-pnp-black">{details.userName}</h2>
-          <p className="font-semibold">{details.tagline}</p>
+          <p className="font-semibold text-pnp-black">{details.tagline}</p>
           <p className="font-medium text-[#3E5466]">{`${
             details.address.postalCode
           } ${details.address.city} | ${calculateAge(

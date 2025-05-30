@@ -24,6 +24,7 @@ const RollForGroup = () => {
       const startRolling = async () => {
         try {
           const rolledUsers = await getRollMatches(30000);
+          setMaxPlayerNum(Math.min(rolledUsers.length, 4));
 
           if (!rolledUsers || rolledUsers.length === 0) {
             throw new Error("No users rolled");
@@ -128,7 +129,7 @@ const RollForGroup = () => {
             playerResults &&
             playerResults.map((e) => (
               <img
-                key={e.id}
+                key={e._id}
                 className="rounded-full h-auto w-[80px] border-2 my-4"
                 style={{
                   animationName: "fadeIn",
@@ -153,7 +154,7 @@ const RollForGroup = () => {
             playerResults &&
             playerResults.map((e, index) => (
               <div
-                key={e.id}
+                key={e._id}
                 style={{
                   animationName: "fadeIn",
                   animationDuration: "0.5s",

@@ -73,7 +73,7 @@ const Search = () => {
   //Automatically fetch new, when search field content or filter count changes
   useEffect(() => {
     fetchUsers();
-  }, [filterCount, filter.search]);
+  }, [filterCount, filter.search, filter.sortBy]);
 
   useEffect(() => {
     const currFilterCount = countActiveFilters(filter);
