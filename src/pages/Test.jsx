@@ -61,7 +61,7 @@ const Test = () => {
       <Loader />
 
       {/* CARDS */}
-      <PlayerCard />
+
       <GroupCard />
       <div>
         <h1 className="text-pnp-white">
