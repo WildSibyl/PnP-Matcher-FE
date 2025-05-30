@@ -16,7 +16,7 @@ const CreateGroup = lazy(() => import("./pages/CreateGroup"));
 const UpdateGroup = lazy(() => import("./pages/UpdateGroup"));
 const Group = lazy(() => import("./pages/Group"));
 const Grouplist = lazy(() => import("./pages/Grouplist"));
-const Chat = lazy(() => import("./pages/Chat"));
+const ChatList = lazy(() => import("./pages/ChatList"));
 const Imprint = lazy(() => import("./pages/Imprint"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -44,7 +44,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/group/:id" element={<Group />} />
           <Route path="/grouplist" element={<Grouplist />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat" element={<ChatList />} />
           <Route path="/imprint" element={<Imprint />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/contact" element={<Contact />} />
