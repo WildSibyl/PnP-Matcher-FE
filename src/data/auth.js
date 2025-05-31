@@ -18,7 +18,7 @@ export const me = async () => {
   }
 
   const data = await res.json();
-
+  console.log("me data", data);
   return data;
 };
 

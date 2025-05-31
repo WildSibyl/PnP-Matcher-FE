@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { me, signOut } from "../data/auth";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
-const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -13,6 +13,7 @@ const AuthContextProvider = ({ children }) => {
       try {
         const userData = await me();
         setUser(userData);
+        console.log("User data fetched:", userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
         console.error("User not logged in or session expired.");
@@ -35,13 +36,33 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const fetchUserId = async () => {
+    setLoading(true);
+    try {
+      const userData = await me();
+      const userId = userData._id; // extract _id
+      setUser({ _id: userId }); // store only the _id
+      console.log("User refreshed with _id:", userId);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const values = {
     user,
     setUser,
     logOut,
     loading,
+    fetchUserId,
   };
+
+  console.log("AuthContextProvider values:", values);
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
-export { AuthContext, AuthContextProvider };
+//export { AuthContext, AuthContextProvider };
+
+console.log("AuthContext", AuthContext);
