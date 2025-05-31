@@ -1,11 +1,29 @@
 const CardAvailability = ({ weekdays, frequencyPerMonth }) => {
   const calculateDays = (weekdays) => {
+    const weekdayOrder = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
+
+    const normalizedWeekdays = weekdays
+      .map((day) => day.trim().toUpperCase()) // normalize casing & trim whitespace
+      .filter((day) => weekdayOrder.includes(day)); // remove invalid days
+
+    const sortedWeekdays = [...normalizedWeekdays].sort(
+      (a, b) => weekdayOrder.indexOf(a) - weekdayOrder.indexOf(b)
+    );
+
     let weekdaysTeaser = [];
-    if (weekdays.length > 3) {
+    if (sortedWeekdays.length > 3) {
       //Take the first two days
-      weekdaysTeaser = [weekdays[0], weekdays[1], `+${weekdays.length - 2}`];
+      weekdaysTeaser = [
+        sortedWeekdays[0],
+        sortedWeekdays[1],
+        `+${sortedWeekdays.length - 2}`,
+      ];
     } else if (weekdays.length > 0) {
-      weekdaysTeaser = [weekdays[0], weekdays[1], weekdays[2]];
+      weekdaysTeaser = [
+        sortedWeekdays[0],
+        sortedWeekdays[1],
+        sortedWeekdays[2],
+      ];
     } else {
       weekdaysTeaser = [];
     }
