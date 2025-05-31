@@ -50,30 +50,6 @@ const PlayerCard = ({ details }) => {
               details.birthday
             )} years`}</p>
           </div>
-
-          {/* PLAYER OPTIONS */}
-          <div className="flex flex-wrap pb-3 ">
-            {details.playerRole && (
-              <div className="pnp-badge-green">
-                {getIcon("Dice")} {details.playerRole}
-              </div>
-            )}
-
-            {details.experience && (
-              <div className="pnp-badge-purple">
-                {getIcon("Experience")}{" "}
-                {shortenExperienceLabel(details.experience?.value)}
-              </div>
-            )}
-
-            {details.playingModes && (
-              <div className="pnp-badge-blue">
-                {getIcon(details.playingModes?.value)}{" "}
-                {details.playingModes?.value}
-              </div>
-            )}
-          </div>
-          <CardBadges details={details} className="mb-3" />
         </div>
 
         {/* PLAYER OPTIONS */}
