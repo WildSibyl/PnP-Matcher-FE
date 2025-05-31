@@ -36,7 +36,7 @@ const PlayerCard = ({ details }) => {
       {/* PLAYER INFOS */}
       <div className="flex gap-2 mb-4 text-left">
         <img
-          src={profilePic}
+          src={details.avatarUrl}
           className="rounded-full w-24 h-24 object-cover border-2 border-pnp-white pnp-shadow"
           alt="user"
         ></img>
@@ -53,9 +53,9 @@ const PlayerCard = ({ details }) => {
 
       {/* PLAYER OPTIONS */}
       <div className="flex flex-wrap pb-3 ">
-        {details.playerRole && (
+        {details.playingRoles && (
           <div className="pnp-badge-green">
-            {getIcon("Dice")} {details.playerRole}
+            {getIcon("Dice")} {details.playingRoles?.value}
           </div>
         )}
 
@@ -68,7 +68,9 @@ const PlayerCard = ({ details }) => {
 
         {details.playingModes && (
           <div className="pnp-badge-blue">
-            {getIcon(details.playingModes?.value)} {details.playingModes?.value}
+            {getIcon(details.playingModes?.value)}{" "}
+            {details.playingModes?.value === "Both" && getIcon("Online")}{" "}
+            {details.playingModes?.value}
           </div>
         )}
       </div>
