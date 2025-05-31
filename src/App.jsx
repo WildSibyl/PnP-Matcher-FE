@@ -23,6 +23,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Error = lazy(() => import("./pages/Error"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const Player = lazy(() => import("./pages/Player"));
 
 const Test = lazy(() => import("./pages/Test"));
 
@@ -38,13 +39,10 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainLayout />} errorElement={<Error />}>
           <Route index element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/group/:id" element={<Group />} />
           <Route path="/grouplist" element={<Grouplist />} />
-          <Route path="/chat" element={<ChatList />} />
           <Route path="/imprint" element={<Imprint />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/contact" element={<Contact />} />
@@ -52,6 +50,10 @@ const App = () => {
           <Route element={<ProtectedLayout />}>
             <Route path="/create" element={<CreateGroup />} />
             <Route path="/edit/:id" element={<UpdateGroup />} />
+            <Route path="/group/:id" element={<Group />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/player/:id" element={<Player />} />
+            <Route path="/chat" element={<ChatList />} />
             <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AdminDashboard />} />
             </Route>
