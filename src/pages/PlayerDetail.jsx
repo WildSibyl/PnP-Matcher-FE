@@ -7,7 +7,7 @@ import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
 import calculateAge from "../utils/calculateAge";
 import profile from "../assets/profile.png";
 import { useTagContext } from "../context/TagsContextProvider";
-import SingleSelect from "./edit-comp/SingleSelect";
+import SingleSelect from "../components/edit-comp/SingleSelect";
 
 const PlayerDetail = () => {
   const [user, setUser] = useState(null);
