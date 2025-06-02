@@ -14,7 +14,7 @@ export const WSContextProvider = ({ children }) => {
   const { user, loading: authLoading } = useAuth();
 
   useEffect(() => {
-    if (authLoading || !user) return;
+    if (authLoading || !user?.id) return;
     const socket = new WebSocket("ws://localhost:8000");
     setWs(socket);
 
@@ -56,7 +56,6 @@ export const WSContextProvider = ({ children }) => {
     notifications,
     fetched,
     setFetched,
-    user,
     authLoading,
   };
 

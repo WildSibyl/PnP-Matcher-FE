@@ -13,14 +13,9 @@ const ChatList = () => {
     messages,
     setMessages,
     fetched,
-    user,
     loading: authLoading,
   } = useWebSocketContext();
-  const { fetchUserId } = useAuth();
-
-  useEffect(() => {
-    fetchUserId();
-  }, []);
+  const { user } = useAuth();
 
   //get the user id from the auth context
   const currentUserId = user._id;
@@ -72,6 +67,7 @@ const ChatList = () => {
             }))
           )
         );
+        console.log("Fetched user IDs:", usersToFetch);
 
         const newUsers = {};
         results.forEach(({ id, username, avatar }) => {
