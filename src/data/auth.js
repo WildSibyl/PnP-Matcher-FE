@@ -116,3 +116,21 @@ export const updatePassword = async (formData) => {
 
   return await res.json();
 };
+
+export const deleteAccount = async (formData) => {
+  const res = await fetch(`${baseUrl}/delete-account`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(formData),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.error || "Failed to update password");
+  }
+
+  return await res.json();
+};

@@ -1,13 +1,17 @@
 import CharCountInput from "../components/edit-comp/CharCountInput";
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { updateEmail, updatePassword } from "../data/auth";
+import { updateEmail, updatePassword, deleteAccount } from "../data/auth";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "../data/auth";
 
 const AccountSettings = () => {
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
-  const { user } = useAuth();
+  const [isDeletingAccount, setIsDeletingAccount] = useState(false);
+  const { user, setUser } = useAuth();
+  const navigate = useNavigate();
 
   const userEmail = user?.email || "";
 
@@ -30,6 +34,11 @@ const AccountSettings = () => {
     confirmNewPassword: "",
   });
 
+  const [deleteForm, setDeleteForm] = useState({
+    email: "",
+    password: "",
+  });
+
   const handleEmailChange = (e) => {
     const { name, value } = e.target;
     setEmailForm((prev) => ({ ...prev, [name]: value }));
@@ -38,6 +47,11 @@ const AccountSettings = () => {
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
     setPasswordForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleDeleteChange = (e) => {
+    const { name, value } = e.target;
+    setDeleteForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCancelEmail = () => {
@@ -56,6 +70,14 @@ const AccountSettings = () => {
       currentPassword: "",
       newPassword: "",
       confirmNewPassword: "",
+    });
+  };
+
+  const handleCancelDelete = () => {
+    setIsDeletingAccount(false);
+    setDeleteForm({
+      email: "",
+      password: "",
     });
   };
 
@@ -96,6 +118,25 @@ const AccountSettings = () => {
     }
     console.log("Updating password", passwordForm);
     setIsEditingPassword(false);
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      await deleteAccount(deleteForm); // you’ll implement this in your API layer
+      toast.success("Account deleted");
+
+      // Reset fields
+      setDeleteForm({
+        email: "",
+        password: "",
+      });
+
+      signOut();
+      setUser(null);
+      navigate("/");
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   return (
@@ -211,6 +252,64 @@ const AccountSettings = () => {
               </button>
               <button
                 onClick={handleCancelPassword}
+                className="text-gray-500 font-medium"
+              >
+                Cancel
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+      {/* DELETE ACCOUNT */}
+      <div
+        className={`p-6 rounded-2xl shadow-md ${
+          isDeletingAccount ? "bg-red-100 border border-red-400" : "bg-white"
+        }`}
+      >
+        <h2 className="text-lg font-bold mb-4 text-red-700">Delete Account</h2>
+        {!isDeletingAccount ? (
+          <div className="flex justify-between items-center">
+            <p className="text-red-700">Permanently remove your account</p>
+            <button
+              onClick={() => setIsDeletingAccount(true)}
+              className="text-red-700 font-semibold"
+            >
+              Delete
+            </button>
+          </div>
+        ) : (
+          <>
+            <CharCountInput
+              name="email"
+              type="text"
+              value={deleteForm.email}
+              onChange={handleDeleteChange}
+              maxLength={250}
+              placeholder="Enter your e-mail"
+              label="E-MAIL"
+            />
+            <CharCountInput
+              name="password"
+              type="password"
+              value={deleteForm.password}
+              onChange={handleDeleteChange}
+              maxLength={250}
+              placeholder="Enter your password"
+              label="PASSWORD"
+            />
+            <p className="text-red-700">
+              By clicking the button below you will permanently delete your
+              account! No take-backsies!
+            </p>
+            <div className="flex gap-4 mt-4">
+              <button
+                onClick={handleDeleteAccount}
+                className="bg-red-600 text-white px-4 py-2 rounded-xl"
+              >
+                Confirm Account Deletion
+              </button>
+              <button
+                onClick={handleCancelDelete}
                 className="text-gray-500 font-medium"
               >
                 Cancel
