@@ -43,23 +43,25 @@ const TagMultiSelect = ({
 
   useEffect(() => {
     if (!options.length || !Array.isArray(value)) return; //are options and or value initialized, is value an array?
-    // const mapped = options.filter((e) => value?.includes(e.value)); //Match values with entries in options
-    // testing
 
     const initialSelected = value
       .map((val) => {
-        const option = options.find((opt) => opt.id === val);
-        return option
-          ? { id: option.id, label: option.label, value: option.value }
-          : null;
+        if (typeof val === "string") {
+          //if only a id string is passed
+          const option = options.find((opt) => opt.id === val);
+          return option
+            ? { id: option.id, label: option.label, value: option.value }
+            : null;
+        } else if (typeof val === "object" && val !== null && val.id) {
+          //if a whole object with id, label and value is passed
+          return val;
+        }
+        return null;
       })
       .filter(Boolean); // Filter out any nulls if an ID doesn't match an option
 
     setSelected(initialSelected);
   }, [value, options]);
-
-  //   setSelected(value); // Update selected
-  // }, [value, options]);
 
   const handleSelectChange = (selectedOptions) => {
     const newSelections = selectedOptions || [];
