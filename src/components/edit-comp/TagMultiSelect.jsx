@@ -24,11 +24,13 @@ const TagMultiSelect = ({
     const fetchOptions = async () => {
       try {
         const data = await getOptionsByCategory(category);
+        console.log(`Options for ${category}:`, data);
         setOptions(
           data.map((opt) => ({
             id: opt._id,
             label: opt.label,
             value: opt.value,
+            //value: opt._id,
           }))
         );
       } catch (err) {
@@ -42,8 +44,22 @@ const TagMultiSelect = ({
   useEffect(() => {
     if (!options.length || !Array.isArray(value)) return; //are options and or value initialized, is value an array?
     // const mapped = options.filter((e) => value?.includes(e.value)); //Match values with entries in options
-    setSelected(value); // Update selected
+    // testing
+
+    const initialSelected = value
+      .map((val) => {
+        const option = options.find((opt) => opt.id === val);
+        return option
+          ? { id: option.id, label: option.label, value: option.value }
+          : null;
+      })
+      .filter(Boolean); // Filter out any nulls if an ID doesn't match an option
+
+    setSelected(initialSelected);
   }, [value, options]);
+
+  //   setSelected(value); // Update selected
+  // }, [value, options]);
 
   const handleSelectChange = (selectedOptions) => {
     const newSelections = selectedOptions || [];
@@ -55,6 +71,7 @@ const TagMultiSelect = ({
       }
     });
 
+    console.log("handleSelectChange - updatedSelections:", updatedSelections);
     setSelected(updatedSelections);
     onChange(updatedSelections.map((o) => ({ ...o })));
   };
@@ -63,6 +80,7 @@ const TagMultiSelect = ({
     const updatedSelections = selected.filter(
       (opt) => opt.value !== valToRemove
     );
+    console.log("handleRemove - updatedSelections:", updatedSelections);
     setSelected(updatedSelections);
     onChange(updatedSelections.map((o) => ({ ...o })));
   };
