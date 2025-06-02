@@ -80,3 +80,39 @@ export const signOut = async () => {
 
   return data;
 };
+
+export const updateEmail = async (formData) => {
+  const res = await fetch(`${baseUrl}/update-email`, {
+    method: "PATCH", // PATCH is typical for partial updates
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(formData),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.error || "Failed to update email");
+  }
+
+  return await res.json();
+};
+
+export const updatePassword = async (formData) => {
+  const res = await fetch(`${baseUrl}/update-password`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(formData),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.error || "Failed to update password");
+  }
+
+  return await res.json();
+};
