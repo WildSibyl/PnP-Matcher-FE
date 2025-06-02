@@ -3,6 +3,7 @@ import { useWebSocketContext } from "../../context/WSContextProvider";
 import { useState, useEffect, useRef } from "react";
 import { sendChat } from "../../data/chat";
 import { useAuth } from "../../hooks/useAuth";
+import send_icon from "../../assets/send_icon.png";
 
 const ChatModal = ({ isOpen, onClose, receiverId, username }) => {
   const { messages, sendMessage } = useWebSocketContext();
@@ -56,7 +57,7 @@ const ChatModal = ({ isOpen, onClose, receiverId, username }) => {
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-pnp-black/70" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="bg-pnp-white w-full max-w-md max-h-[70vh] rounded-2xl shadow-lg p-6 relative flex flex-col">
+        <Dialog.Panel className="bg-white w-full max-w-md max-h-[70vh] rounded-2xl shadow-lg p-6 relative flex flex-col">
           <button
             onClick={onClose}
             className="absolute top-5 right-6 text-gray-600 hover:text-black text-xl"
@@ -105,20 +106,7 @@ const ChatModal = ({ isOpen, onClose, receiverId, username }) => {
               type="submit"
               className="btn-primary-light flex items-center justify-center h-[44px] w-[50px] p-0 rounded-lg hover:bg-pnp-purple transition-colors"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 12L3.27 3.12A59.77 59.77 0 0 1 21.49 12 59.77 59.77 0 0 1 3.27 20.88L6 12Z"
-                />
-              </svg>
+              <img src={send_icon} alt="send icon" />
             </button>
           </form>
         </Dialog.Panel>
