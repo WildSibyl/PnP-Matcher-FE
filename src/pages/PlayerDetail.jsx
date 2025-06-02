@@ -7,13 +7,9 @@ import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
 import calculateAge from "../utils/calculateAge";
 import profile from "../assets/profile.png";
 import { useTagContext } from "../context/TagsContextProvider";
-<<<<<<< Updated upstream:src/pages/PlayerDetail.jsx
 import SingleSelect from "../components/edit-comp/SingleSelect";
-=======
-import SingleSelect from "./edit-comp/SingleSelect";
 import shortenExperienceLabel from "../utils/shortenExperience";
-import WeekdaySelector from "./WeekdaySelector";
->>>>>>> Stashed changes:src/components/PlayerDetail.jsx
+import WeekdaySelector from "../components/WeekdaySelector";
 
 const PlayerDetail = () => {
   const [user, setUser] = useState(null);
