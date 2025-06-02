@@ -69,6 +69,15 @@ const NavDesktop = ({ logo, user, logOut }) => {
 
           <div className="tooltip tooltip-bottom group">
             <div className="tooltip-content opacity-0 group-hover:opacity-100 pointer-events-none absolute bottom-full mb-2 px-3 py-1 rounded-xl text-pnp-white text-sm font-semibold bg-pnp-blue shadow-lg animate-none group-hover:animate-tooltip-pop transition-all">
+              SETTINGS
+            </div>
+            <Link to="/settings">
+              <Accountsvg className={`btn-desktopnavi`} />
+            </Link>
+          </div>
+
+          <div className="tooltip tooltip-bottom group">
+            <div className="tooltip-content opacity-0 group-hover:opacity-100 pointer-events-none absolute bottom-full mb-2 px-3 py-1 rounded-xl text-pnp-white text-sm font-semibold bg-pnp-blue shadow-lg animate-none group-hover:animate-tooltip-pop transition-all">
               LOGOUT
             </div>
             <button

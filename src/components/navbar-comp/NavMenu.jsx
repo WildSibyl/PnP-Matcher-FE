@@ -67,12 +67,12 @@ const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
               <h3 className="font-semibold normal-case ">Groups</h3>
             </Link>
             <Link
-              to="/account"
+              to="/settings"
               className="btn-navi"
               onClick={() => setMenuOpen(false)}
             >
               <Accountsvg />
-              <h3 className="font-semibold normal-case ">Account</h3>
+              <h3 className="font-semibold normal-case ">Settings</h3>
             </Link>
           </>
         ) : (
