@@ -2,6 +2,7 @@ import CharCountInput from "../components/edit-comp/CharCountInput";
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { updateEmail, updatePassword } from "../data/auth";
+import { toast } from "react-toastify";
 
 const AccountSettings = () => {
   const [isEditingEmail, setIsEditingEmail] = useState(false);
@@ -59,21 +60,36 @@ const AccountSettings = () => {
   };
 
   const handleUpdateEmail = async () => {
+    const { newEmail, confirmNewEmail, currentPassword } = emailForm;
     try {
-      await updateEmail(emailForm);
+      await updateEmail({ newEmail, confirmNewEmail, currentPassword });
       toast.success("Email updated!");
+
+      // Reset fields
+      setEmailForm({
+        newEmail: "",
+        confirmNewEmail: "",
+        currentPassword: "",
+      });
+
       setIsEditingEmail(false);
     } catch (err) {
       toast.error(err.message);
     }
-    console.log("Updating email", emailForm);
-    setIsEditingEmail(false);
   };
 
   const handleUpdatePassword = async () => {
     try {
       await updatePassword(passwordForm);
       toast.success("Password updated!");
+
+      // Reset fields
+      setPasswordForm({
+        currentPassword: "",
+        newPassword: "",
+        confirmNewPassword: "",
+      });
+
       setIsEditingPassword(false);
     } catch (err) {
       toast.error(err.message);
