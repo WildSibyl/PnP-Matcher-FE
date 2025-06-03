@@ -4,19 +4,30 @@ import calculateAge from "../../utils/calculateAge";
 import MatchingValue from "./MatchingValue";
 import CardBadges from "./CardBadges";
 import shortenExperienceLabel from "../../utils/shortenExperience";
-import { Link } from "react-router-dom";
-import profilePic from "../../assets/exampleProfilePic.jpg";
-import Usersvg from "../../assets/user.svg?react";
+import { useNavigate } from "react-router-dom";
 import getIcon from "../../utils/getIcon";
+import { useAuth } from "../../hooks/useAuth";
+import RenDie from "../../assets/ren/Ren-die.png";
+import { useTeleport } from "../../context/TeleportContextProvider";
 
 const PlayerCard = ({ details }) => {
   // const [currUser, setCurrUser] = useState(null);
   // useEffect(() => setCurrUser(dummy), []);
+  const { user } = useAuth();
+  const { startTeleport } = useTeleport();
 
   if (!details) return <p>LOADING</p>;
 
+  const handleClick = () => {
+    if (user) {
+      navigate(`/player/${details._id}`);
+    } else {
+      startTeleport("/login");
+    }
+  };
+
   return (
-    <Link to={`/player/${details._id}`}>
+    <div onClick={handleClick} className="cursor-pointer">
       <div
         className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] min-w-[350px] max-w-[500px] px-4
     mx-auto pb-6 mb-5"
@@ -77,7 +88,7 @@ const PlayerCard = ({ details }) => {
         </div>
         <CardBadges details={details} className="mb-3" />
       </div>
-    </Link>
+    </div>
   );
 };
 
