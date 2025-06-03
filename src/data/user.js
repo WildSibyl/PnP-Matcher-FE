@@ -220,7 +220,7 @@ export const leaveGroup = async (groupId) => {
 };
 
 export const getGroupsAuthoredByMe = async () => {
-  const res = await fetch(`${baseURL}/${userId}/groups/authored`, {
+  const res = await fetch(`${baseURL}/groups/authored`, {
     credentials: "include",
   });
 

@@ -59,39 +59,41 @@ const SelectUser = () => {
 
   return (
     <>
-      <input
-        value={input.search}
-        onChange={(e) =>
-          setInput((prev) => ({ ...prev, search: e.target.value }))
-        }
-        className="input-bordered ml-2"
-      ></input>
-      {results && input.search !== "" ? (
-        <div className="bg-pnp-white rounded-xl pnp-shadow">
-          {loading ? (
-            "Loading"
-          ) : (
-            <div>
-              {results.slice(0, 5).map((e, index) => (
-                <div
-                  key={e._id}
-                  className="flex items-center gap-4 hover-pointer"
-                  onClick={() => setSelected(e)}
-                >
-                  <img
-                    className="h-auto w-[50px] rounded-full"
-                    src={e.avatarUrl}
-                    alt={e.userName}
-                  />
-                  {e.userName}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      ) : (
-        ""
-      )}
+      <div className="relative w-full max-w-md ml-2">
+        <input
+          value={input.search}
+          onChange={(e) =>
+            setInput((prev) => ({ ...prev, search: e.target.value }))
+          }
+          className="input-bordered ml-2"
+        ></input>
+        {results && input.search !== "" ? (
+          <div className="absolute top-full left-0 w-full z-50 bg-pnp-white rounded-xl pnp-shadow mt-1">
+            {loading ? (
+              "Loading"
+            ) : (
+              <div>
+                {results.slice(0, 5).map((e, index) => (
+                  <div
+                    key={e._id}
+                    className="flex items-center gap-4 hover-pointer"
+                    onClick={() => setSelected(e)}
+                  >
+                    <img
+                      className="h-auto w-[50px] rounded-full"
+                      src={e.avatarUrl}
+                      alt={e.userName}
+                    />
+                    {e.userName}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
     </>
   );
 };
