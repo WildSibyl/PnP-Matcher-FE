@@ -17,7 +17,7 @@ const Group = () => {
   useEffect(() => {
     (async () => {
       try {
-        const data = await getSingleGroup(id);
+        // const data = await getSingleGroup(id);
         setGroup(data);
       } catch (error) {
         toast.error(error.message);
