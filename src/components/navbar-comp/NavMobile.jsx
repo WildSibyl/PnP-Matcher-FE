@@ -1,11 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
-
+import { useWebSocketContext } from "../../context/WSContextProvider";
 import logo from "../../assets/logo.svg";
 import Chatbubblesvg from "../../assets/chatbubble.svg?react";
 import Closesvg from "../../assets/close.svg?react";
 import Burgermenuesvg from "../../assets/burgermenu.svg?react";
 
 const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
+  const { hasUnreadMessages } = useWebSocketContext();
+
   return (
     <div className="flex justify-between items-center h-[7vh]">
       <Link to="/">
@@ -31,9 +33,14 @@ const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
                 </div>
               </Link>
             ) : null}
-            <Chatbubblesvg
-              className={`min-w-[8vw] fill-current cursor-pointer text-pnp-white`}
-            />
+            <Link to="/chat" className="relative">
+              <Chatbubblesvg
+                className={`min-w-[8vw] fill-current cursor-pointer text-pnp-white`}
+              />
+              {hasUnreadMessages && (
+                <span className="absolute top-0 right-0 w-2 h-2 bg-pnp-purple rounded-full"></span>
+              )}
+            </Link>
           </div>
         ) : (
           <NavLink

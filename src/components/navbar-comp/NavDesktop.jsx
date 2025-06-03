@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-
+import { useWebSocketContext } from "../../context/WSContextProvider";
 import CrossedSwordssvg from "../../assets/crossedSwords.svg?react";
 import Groupssvg from "../../assets/groups.svg?react";
 import Accountsvg from "../../assets/account.svg?react";
@@ -8,6 +8,8 @@ import Chatbubblesvg from "../../assets/chatbubble.svg?react";
 import Logoutsvg from "../../assets/logout.svg?react";
 
 const NavDesktop = ({ logo, user, logOut }) => {
+  const { hasUnreadMessages } = useWebSocketContext();
+
   return (
     <div className="flex justify-between items-center h-[8vh] overscroll-none">
       <Link to="/">
@@ -44,8 +46,11 @@ const NavDesktop = ({ logo, user, logOut }) => {
             <div className="tooltip-content opacity-0 group-hover:opacity-100 pointer-events-none absolute bottom-full mb-2 px-3 py-1 rounded-xl text-pnp-white text-sm font-semibold bg-pnp-blue shadow-lg animate-none group-hover:animate-tooltip-pop transition-all">
               CHAT
             </div>
-            <Link to="/chat">
+            <Link to="/chat" className="relative">
               <Chatbubblesvg className={`btn-desktopnavi`} />
+              {hasUnreadMessages && (
+                <span className="absolute top-0 right-0 w-2 h-2 bg-pnp-purple rounded-full"></span>
+              )}
             </Link>
           </div>
 

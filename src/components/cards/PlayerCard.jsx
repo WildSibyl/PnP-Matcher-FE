@@ -16,6 +16,8 @@ const PlayerCard = ({ details }) => {
   const { user } = useAuth();
   const { startTeleport } = useTeleport();
 
+  const navigate = useNavigate();
+
   if (!details) return <p>LOADING</p>;
 
   const handleClick = () => {
