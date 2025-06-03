@@ -15,7 +15,7 @@ export const WSContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (authLoading || !user?._id) return;
-    const socket = new WebSocket("ws://localhost:8000");
+    const socket = new WebSocket("wss://plothook-api.onrender.com");
     setWs(socket);
 
     const fetchInitialMessages = async () => {

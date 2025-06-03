@@ -1,12 +1,11 @@
 import { getFilteredUsers } from "../data/user";
 import { useState, useEffect } from "react";
 
-const SelectUser = () => {
+const SelectUser = ({ selected, onChange, setSelected }) => {
   const [input, setInput] = useState({ search: "" });
   const [inputTimer, setInputTimer] = useState({ search: "" });
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(null);
-  const [selected, setSelected] = useState(null);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -40,15 +39,18 @@ const SelectUser = () => {
   if (selected)
     return (
       <div className="flex flex-col items-center">
-        <img
-          src={selected.avatarUrl}
-          className="rounded-full h-auto w-[70px]"
-          alt={selected.userName}
-        ></img>
+        {selected.avatarUrl && (
+          <img
+            src={selected.avatarUrl}
+            className="rounded-full h-auto w-[70px]"
+            alt={selected.userName}
+          />
+        )}
         <p>{selected.userName}</p>
         <button
           onClick={() => {
             setInput({ search: "" });
+            onChange({ search: "" });
             setSelected(null);
           }}
         >
@@ -77,7 +79,9 @@ const SelectUser = () => {
                   <div
                     key={e._id}
                     className="flex items-center gap-4 hover-pointer"
-                    onClick={() => setSelected(e)}
+                    onClick={() => {
+                      onChange?.(e);
+                    }}
                   >
                     <img
                       className="h-auto w-[50px] rounded-full"

@@ -3,10 +3,35 @@ import { Dialog } from "@headlessui/react";
 import { useInviteModal } from "../context/InviteModalContextProvider";
 import SelectUser from "./SelectUser";
 import GroupSelect from "./edit-comp/GroupSelect";
+import { useState } from "react";
+import { sendInvite } from "../data/user";
+import { toast } from "react-toastify";
 
 const InviteToGroupModal = () => {
   const { isInviteModalOpen, activeGroupId, invitedUserId, closeInviteModal } =
     useInviteModal();
+
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedGroup, setSelectedGroup] = useState(null);
+
+  const handleInvite = async () => {
+    if (!selectedUser || !selectedGroup) {
+      console.log("User or group not selected.");
+      return;
+    }
+
+    console.log("Selected User", selectedUser);
+    console.log("Selected Group", selectedGroup);
+    try {
+      await sendInvite(selectedUser._id, selectedGroup.id);
+      toast("Invite sent!", {
+        theme: "light",
+      });
+      closeInviteModal();
+    } catch (error) {
+      console.log("Error sending invite", error.message);
+    }
+  };
 
   return (
     <Dialog
@@ -31,19 +56,31 @@ const InviteToGroupModal = () => {
 
           <div className="flex flex-col justify-center text-center">
             <p>Select user</p>
-            <SelectUser />
+            <SelectUser
+              selected={selectedUser}
+              setSelected={setSelectedUser}
+              onChange={(user) => setSelectedUser(user)}
+            />
           </div>
 
-          <div className="flex flex-col justify-center text-center">
-            <p>Invite to:</p>
-            <GroupSelect />
+          <div className="flex flex-col justify-center text-center mt-4">
+            <p>Invite to group:</p>
+            <GroupSelect
+              value={selectedGroup}
+              onChange={(e) => setSelectedGroup(e)}
+            />
           </div>
 
-          <div className="mt-4 flex justify-end gap-2">
+          <div className="mt-4 flex justify-center gap-2">
             <button className="btn-secondary-dark" onClick={closeInviteModal}>
               Cancel
             </button>
-            <button className="btn-primary-light">Send Invite</button>
+            <button
+              onClick={() => handleInvite()}
+              className="btn-primary-light"
+            >
+              Send Invite
+            </button>
           </div>
         </Dialog.Panel>
       </div>

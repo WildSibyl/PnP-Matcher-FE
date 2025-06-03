@@ -105,7 +105,7 @@ export const sendInvite = async (invitedUserId, groupId) => {
   };
 
   try {
-    const res = await fetch(`${baseURL}/users/invite`, {
+    const res = await fetch(`${baseURL}/invite`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -124,7 +124,7 @@ export const sendInvite = async (invitedUserId, groupId) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error in sendInvite:", err);
+    console.error("Error in sendInvite:", error);
     throw error;
   }
 };
