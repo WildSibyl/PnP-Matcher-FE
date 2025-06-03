@@ -6,12 +6,15 @@ const SelectUser = () => {
   const [inputTimer, setInputTimer] = useState({ search: "" });
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(null);
+  const [selected, setSelected] = useState(null);
 
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const data = await getFilteredUsers(inputTimer);
+      console.log("Fetching users with filter:", inputTimer);
+      const data = await getFilteredUsers(0, inputTimer);
       setResults(data);
+      console.log("Name results ", data);
     } catch (error) {
       console.error("Error fetching users:", error.message);
       setResults([]);
@@ -34,12 +37,57 @@ const SelectUser = () => {
     fetchUsers();
   }, [inputTimer]);
 
+  if (selected)
+    return (
+      <div className="flex flex-col items-center">
+        <img
+          src={selected.avatarUrl}
+          className="rounded-full h-auto w-[70px]"
+          alt={selected.userName}
+        ></img>
+        <p>{selected.userName}</p>
+        <button
+          onClick={() => {
+            setInput({ search: "" });
+            setSelected(null);
+          }}
+        >
+          (remove)
+        </button>
+      </div>
+    );
+
   return (
     <>
-      <input className="input-bordered ml-2"></input>
-      {results ? (
+      <input
+        value={input.search}
+        onChange={(e) =>
+          setInput((prev) => ({ ...prev, search: e.target.value }))
+        }
+        className="input-bordered ml-2"
+      ></input>
+      {results && input.search !== "" ? (
         <div className="bg-pnp-white rounded-xl pnp-shadow">
-          {loading ? "Loading" : "Results"}
+          {loading ? (
+            "Loading"
+          ) : (
+            <div>
+              {results.slice(0, 5).map((e, index) => (
+                <div
+                  key={e._id}
+                  className="flex items-center gap-4 hover-pointer"
+                  onClick={() => setSelected(e)}
+                >
+                  <img
+                    className="h-auto w-[50px] rounded-full"
+                    src={e.avatarUrl}
+                    alt={e.userName}
+                  />
+                  {e.userName}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       ) : (
         ""

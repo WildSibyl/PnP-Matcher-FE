@@ -2,6 +2,7 @@ import React from "react";
 import { Dialog } from "@headlessui/react";
 import { useInviteModal } from "../context/InviteModalContextProvider";
 import SelectUser from "./SelectUser";
+import GroupSelect from "./edit-comp/GroupSelect";
 
 const InviteToGroupModal = () => {
   const { isInviteModalOpen, activeGroupId, invitedUserId, closeInviteModal } =
@@ -27,13 +28,15 @@ const InviteToGroupModal = () => {
           <Dialog.Title className="text-lg font-bold mb-4">
             Invite to group
           </Dialog.Title>
-          <p>
-            This is the invite modal for user <strong>{invitedUserId}</strong>{" "}
-            in group <strong>{activeGroupId}</strong>.
-          </p>
+
           <div className="flex flex-col justify-center text-center">
             <p>Select user</p>
             <SelectUser />
+          </div>
+
+          <div className="flex flex-col justify-center text-center">
+            <p>Invite to:</p>
+            <GroupSelect />
           </div>
 
           <div className="mt-4 flex justify-end gap-2">

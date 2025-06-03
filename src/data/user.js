@@ -218,3 +218,16 @@ export const leaveGroup = async (groupId) => {
     throw error;
   }
 };
+
+export const getGroupsAuthoredByMe = async () => {
+  const res = await fetch(`${baseURL}/${userId}/groups/authored`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || "Error fetching groups");
+  }
+
+  return res.json();
+};
