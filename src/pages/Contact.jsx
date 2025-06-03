@@ -13,14 +13,14 @@ const Contact = () => {
       <p className="font-semibold">
         ✉️ Email us anytime at:{" "}
         <a
-          href="mailto:support@pnpmatch.com"
+          href="mailto:support@plothook.com"
           className="text-pnp-purple underline flex my-4 items-center justify-center"
         >
           support
           <span className="h-[20px] w-[20px]">
             <img src={purpleAt} alt="at" />
           </span>
-          pnpmatch.com
+          plothook.com
         </a>
       </p>
 
@@ -32,7 +32,7 @@ const Contact = () => {
           rel="noopener noreferrer"
           className="text-pnp-purple underline"
         >
-          discord.gg/pnpmatch
+          discord.gg/plothook
         </a>
       </p>
 

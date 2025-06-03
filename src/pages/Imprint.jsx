@@ -9,10 +9,10 @@ const Imprint = () => {
           <strong>User Responsibility</strong>{" "}
           <p>
             {" "}
-            By accessing and using PnP Match, you acknowledge and accept that
-            you do so at your own risk. The platform facilitates connections
-            among users but does not monitor user conduct or interactions. Users
-            are expected to engage respectfully, honestly, and responsibly.{" "}
+            By accessing and using PlotHook, you acknowledge and accept that you
+            do so at your own risk. The platform facilitates connections among
+            users but does not monitor user conduct or interactions. Users are
+            expected to engage respectfully, honestly, and responsibly.{" "}
           </p>{" "}
         </li>{" "}
         <li>
@@ -20,7 +20,7 @@ const Imprint = () => {
           <strong>Cost and Usage</strong>{" "}
           <p>
             {" "}
-            PnP Match is provided free of charge. There are no fees,
+            PlotHook is provided free of charge. There are no fees,
             subscriptions, or hidden costs. This platform is a student-led
             initiative designed for community building and entertainment.{" "}
           </p>{" "}
@@ -30,10 +30,10 @@ const Imprint = () => {
           <strong>Eligibility</strong>{" "}
           <p>
             {" "}
-            Users must be at least 16 years old, or meet the local legal age of
-            majority, or be at all times supervised by their responsible parent
-            or guardian to use the service. Users warrant that the information
-            they provide is accurate and truthful.{" "}
+            Users must meet the local legal age of majority, or be at all times
+            supervised by their responsible parent or guardian to use the
+            service. Users warrant that the information they provide is accurate
+            and truthful.{" "}
           </p>{" "}
         </li>{" "}
         <li>
@@ -53,7 +53,7 @@ const Imprint = () => {
             {" "}
             User data collected—including but not limited to email addresses,
             age, and location—is used exclusively to facilitate matchmaking
-            within the platform. PnP Match complies with applicable data
+            within the platform. PlotHook complies with applicable data
             protection laws, including the EU General Data Protection Regulation
             (GDPR). User data will not be sold, shared, or misused.{" "}
           </p>{" "}
@@ -74,9 +74,9 @@ const Imprint = () => {
           <strong>Disclaimer of Warranty</strong>{" "}
           <p>
             {" "}
-            PnP Match is provided "as is" as a student project without
-            warranties or guarantees. Users acknowledge that bugs or service
-            interruptions may occur.{" "}
+            PlotHook is provided "as is" as a student project without warranties
+            or guarantees. Users acknowledge that bugs or service interruptions
+            may occur.{" "}
           </p>{" "}
         </li>{" "}
         <li>
@@ -102,9 +102,9 @@ const Imprint = () => {
           <strong>Changes to Terms</strong>{" "}
           <p>
             {" "}
-            PnP Match reserves the right to modify these terms at any time.
-            Users will be notified of significant changes and given the
-            opportunity to review and accept the updated terms.{" "}
+            PlotHook reserves the right to modify these terms at any time. Users
+            will be notified of significant changes and given the opportunity to
+            review and accept the updated terms.{" "}
           </p>{" "}
         </li>{" "}
         <li>
@@ -120,7 +120,7 @@ const Imprint = () => {
       </ol>{" "}
       <p>
         {" "}
-        By using PnP Match, you confirm that you have read, understood, and
+        By using PlotHook, you confirm that you have read, understood, and
         agreed to these Terms and Conditions. If you do not agree, please
         refrain from using the service. We wish you enjoyable and safe gaming
         experiences.{" "}

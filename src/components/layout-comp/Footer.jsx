@@ -9,7 +9,7 @@ const Footer = () => {
         </h1>
         <div className="border border-pnp-white w-full"></div>
         <div className="flex flex-col gap-3 w-full">
-          <p>2025 - PnPMatch</p>
+          <p>2025 - PlotHook</p>
           <div className="text-pnp-white underline flex flex-wrap gap-4 ">
             <Link to="/login" className="hover:text-pnp-purple">
               Login

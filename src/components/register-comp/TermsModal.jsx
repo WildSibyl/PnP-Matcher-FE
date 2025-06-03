@@ -17,7 +17,7 @@ const TermsModal = ({ isOpen, onClose }) => (
         </Dialog.Title>
         <div className="space-y-3 text-sm">
           <p>
-            Welcome, brave soul. By using PnP Match, you agree to embark on this
+            Welcome, brave soul. By using PlotHook, you agree to embark on this
             journey with kindness, courage, and curiosity.
           </p>
 
@@ -39,7 +39,7 @@ const TermsModal = ({ isOpen, onClose }) => (
             <li>
               <strong>Your Quest, Your Responsibility</strong>
               <div>
-                You use PnP Match at your own risk — but with great vibes. We’re
+                You use PlotHook at your own risk — but with great vibes. We’re
                 here to help you find fellow adventurers, not to monitor the
                 dragons you may encounter. Be kind, be honest, and be excellent
                 to each other.
@@ -49,7 +49,7 @@ const TermsModal = ({ isOpen, onClose }) => (
             <li>
               <strong>Free to Roam</strong>
               <div>
-                PnP Match is completely free. No gold, gems, subscriptions, or
+                PlotHook is completely free. No gold, gems, subscriptions, or
                 hidden costs. This is a student-built project made for fun and
                 connection — not profit.
               </div>
@@ -58,9 +58,10 @@ const TermsModal = ({ isOpen, onClose }) => (
             <li>
               <strong>Who Can Join the Party</strong>
               <div>
-                To use the app, you must be at least 16 years old (or your local
-                legal age). You agree that all information you provide is true,
-                especially when you describe your race/class/real-life self.
+                To use the app, you must be of your local legal age, or
+                supervised by your parent or guardian. You agree that all
+                information you provide is true, especially when you describe
+                your real-life self.
               </div>
             </li>
 
@@ -141,7 +142,7 @@ const TermsModal = ({ isOpen, onClose }) => (
             </li>
           </ol>
           <p>
-            By using PnP Match, you agree to these terms and conditions as well
+            By using PlotHook, you agree to these terms and conditions as well
             as to the ones mentioned in a more boring and official language in
             our website's Imprint section. If you do not agree, please do not
             use the app. We wish you safe travels and may your dice always roll

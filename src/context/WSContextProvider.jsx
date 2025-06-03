@@ -11,11 +11,14 @@ export const WSContextProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [fetched, setFetched] = useState(false);
+  const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
   const { user, loading: authLoading } = useAuth();
 
   useEffect(() => {
     if (authLoading || !user?._id) return;
-    const socket = new WebSocket("ws://localhost:8000");
+    const socket = new WebSocket(
+      `${import.meta.env.VITE_APP_PLOT_HOOK_WS_URL}`
+    );
     setWs(socket);
 
     const fetchInitialMessages = async () => {
@@ -40,6 +43,7 @@ export const WSContextProvider = ({ children }) => {
         console.log("WebSocket received:", data);
         setMessages((prev) => [...prev, data]);
         setNotifications((prev) => [...prev, { type: "message", data }]);
+        setHasUnreadMessages(true); // set unread
       } catch (err) {
         console.error("Failed to parse WebSocket message:", err);
       }
@@ -63,6 +67,8 @@ export const WSContextProvider = ({ children }) => {
     fetched,
     setFetched,
     authLoading,
+    hasUnreadMessages,
+    setHasUnreadMessages,
   };
 
   return (
