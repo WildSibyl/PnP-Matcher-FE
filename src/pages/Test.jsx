@@ -8,7 +8,7 @@ import PlayerCard from "../components/cards/PlayerCard";
 import RollForGroup from "../components/group-comp/RollForGroup";
 
 import Loader from "../components/Loader";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Test = () => {
   const [guestUser, setGuestUser] = useState({
@@ -17,6 +17,11 @@ const Test = () => {
       city: "",
     },
   });
+
+  const testgroup = {
+    _id: "683d9ed5e83520e34b7a43dc",
+    author: "68388d38527cb89d6f71f3ce",
+  };
 
   return (
     <>
@@ -62,7 +67,7 @@ const Test = () => {
 
       {/* CARDS */}
 
-      <GroupCard />
+      <GroupCard details={testgroup} />
       <div>
         <h1 className="text-pnp-white">
           A very long text to test navbar & scroll

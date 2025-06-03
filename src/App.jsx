@@ -15,6 +15,7 @@ const Register = lazy(() => import("./pages/Register"));
 const CreateGroup = lazy(() => import("./pages/CreateGroup"));
 const UpdateGroup = lazy(() => import("./pages/UpdateGroup"));
 const Group = lazy(() => import("./pages/Group"));
+const GroupDetail = lazy(() => import("./pages/GroupDetail"));
 const Grouplist = lazy(() => import("./pages/Grouplist"));
 const ChatList = lazy(() => import("./pages/ChatList"));
 const Imprint = lazy(() => import("./pages/Imprint"));
@@ -23,8 +24,6 @@ const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Error = lazy(() => import("./pages/Error"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
-const Player = lazy(() => import("./pages/Player"));
-const GroupDetail = lazy(() => import("./components/GroupDetail"));
 const PlayerDetail = lazy(() => import("./pages/PlayerDetail"));
 const SearchedPlayer = lazy(() => import("./pages/SearchedPlayer"));
 
@@ -57,7 +56,7 @@ const App = () => {
           <Route element={<ProtectedLayout />}>
             <Route path="/create" element={<CreateGroup />} />
             <Route path="/edit/:id" element={<UpdateGroup />} />
-            <Route path="/group/:id" element={<Group />} />
+            <Route path="/group/:id" element={<GroupDetail />} />
             <Route path="/settings" element={<AccountSettings />} />
             <Route path="/profile" element={<PlayerDetail />} />
             <Route path="/player/:id" element={<SearchedPlayer />} />
@@ -69,8 +68,6 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
-
-      {/* Seperate Routes for the group modal so it can be placed over the current page */}
     </Suspense>
   );
 };
