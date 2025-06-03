@@ -24,6 +24,10 @@ export const getGroups = async () => {
 };
 
 export const getSingleGroup = async (id) => {
+  if (!id) {
+    throw new Error("No ID provided to fetch single group");
+  }
+
   const res = await fetch(`${baseURL}/${id}`);
 
   if (!res.ok) {

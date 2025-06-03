@@ -97,3 +97,124 @@ export const getUserById = async (userId) => {
   const data = await res.json();
   return data;
 };
+
+export const sendInvite = async (invitedUserId, groupId) => {
+  const formData = {
+    invitedUserId,
+    groupId,
+  };
+
+  try {
+    const res = await fetch(`${baseURL}/users/invite`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(
+        errorData.error || "An error occurred while fetching user data"
+      );
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error in sendInvite:", err);
+    throw error;
+  }
+};
+
+export const acceptInvite = async (groupId) => {
+  const formData = {
+    groupId,
+  };
+
+  try {
+    const res = await fetch(`${baseURL}/users/acceptinvite`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(
+        errorData.error || "An error occurred while fetching user data"
+      );
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error in acceptInvite:", err);
+    throw error;
+  }
+};
+
+export const rejectInvite = async (groupId) => {
+  const formData = {
+    groupId,
+  };
+
+  try {
+    const res = await fetch(`${baseURL}/users/removeinvite`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(
+        errorData.error || "An error occurred while fetching user data"
+      );
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error in rejectInvite:", err);
+    throw error;
+  }
+};
+
+export const leaveGroup = async (groupId) => {
+  const formData = {
+    groupId,
+  };
+
+  try {
+    const res = await fetch(`${baseURL}/users/leavegroup`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(
+        errorData.error || "An error occurred while fetching user data"
+      );
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error in rejectInvite:", err);
+    throw error;
+  }
+};

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import CardAvailability from "./CardAvailability";
 import MatchingValue from "./MatchingValue";
 import CardBadges from "./CardBadges";
@@ -6,7 +7,7 @@ import CardBadges from "./CardBadges";
 import getIcon from "../../utils/getIcon";
 import groupdummy from "../../assets/groupdummy.png";
 
-const GroupCard = () => {
+const GroupCard = ({ details }) => {
   const [currUser, setCurrUser] = useState(null);
 
   const playerOptions = [
@@ -86,47 +87,49 @@ const GroupCard = () => {
   if (!currUser) return <p>LOADING</p>;
 
   return (
-    <div
-      className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] min-w-[350px] max-w-[500px]
-    mx-auto pb-6 mb-5"
-    >
-      <MatchingValue matchValue={matchValue} />
-
-      {/* LFG, AVAILABILITY */}
+    <Link to={`/group/${details._id}`}>
       <div
-        style={{ backgroundImage: `url(${groupdummy})` }}
-        className=" pt-4 mb-4 rounded-t-lg bg-cover"
+        className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] min-w-[350px] max-w-[500px]
+    mx-auto pb-6 mb-5"
       >
-        <div className="flex justify-between h-[18vh] px-3">
-          <div className="pnp-badge-green">{getIcon("User")}LFG</div>
-          <CardAvailability
-            weekdays={currUser.weekdays}
-            frequencyPerMonth={currUser.frequencyPerMonth}
-          />
-        </div>
-      </div>
+        <MatchingValue matchValue={matchValue} />
 
-      {/* PLAYER INFOS */}
-
-      <div className="px-4">
-        <h2 className="normal-case">{currUser.userName}</h2>
-        <p className="font-medium text-[#3E5466]">{`${currUser.zipCode}`}</p>
-        <p className="font-normal pb-3">{currUser.tagline}</p>
-      </div>
-
-      {/* GROUP OPTIONS */}
-      <div className="flex flex-wrap pb-3 px-3 ">
-        <div className="pnp-badge-green">{getIcon("Dice")} Player & GM</div>
-        <div className="pnp-badge-purple">
-          {getIcon("Experience")} Adventurer
+        {/* LFG, AVAILABILITY */}
+        <div
+          style={{ backgroundImage: `url(${groupdummy})` }}
+          className=" pt-4 mb-4 rounded-t-lg bg-cover"
+        >
+          <div className="flex justify-between h-[18vh] px-3">
+            <div className="pnp-badge-green">{getIcon("User")}LFG</div>
+            <CardAvailability
+              weekdays={currUser.weekdays}
+              frequencyPerMonth={currUser.frequencyPerMonth}
+            />
+          </div>
         </div>
 
-        <div className="pnp-badge-blue">{getIcon("On-site")} On-site</div>
+        {/* PLAYER INFOS */}
+
+        <div className="px-4">
+          <h2 className="normal-case">{currUser.userName}</h2>
+          <p className="font-medium text-[#3E5466]">{`${currUser.zipCode}`}</p>
+          <p className="font-normal pb-3">{currUser.tagline}</p>
+        </div>
+
+        {/* GROUP OPTIONS */}
+        <div className="flex flex-wrap pb-3 px-3 ">
+          <div className="pnp-badge-green">{getIcon("Dice")} Player & GM</div>
+          <div className="pnp-badge-purple">
+            {getIcon("Experience")} Adventurer
+          </div>
+
+          <div className="pnp-badge-blue">{getIcon("On-site")} On-site</div>
+        </div>
+        <div className="px-3">
+          <CardBadges options={playerOptions} />
+        </div>
       </div>
-      <div className="px-3">
-        <CardBadges options={playerOptions} />
-      </div>
-    </div>
+    </Link>
   );
 };
 
