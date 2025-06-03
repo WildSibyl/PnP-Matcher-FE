@@ -1,5 +1,5 @@
 import { useContext, lazy, Suspense } from "react";
-import { Routes, Route } from "react-router";
+import { Routes, Route, useLocation } from "react-router";
 
 //LAYOUTS & PAGES
 import MainLayout from "./layouts/MainLayout";
@@ -24,10 +24,14 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const Error = lazy(() => import("./pages/Error"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const Player = lazy(() => import("./pages/Player"));
-
+const GroupDetail = lazy(() => import("./components/GroupDetail"));
 const Test = lazy(() => import("./pages/Test"));
 
 const App = () => {
+  //Remember on which page the user is/was
+  const location = useLocation();
+  const state = location.state;
+
   return (
     <Suspense
       fallback={
@@ -50,7 +54,10 @@ const App = () => {
           <Route element={<ProtectedLayout />}>
             <Route path="/create" element={<CreateGroup />} />
             <Route path="/edit/:id" element={<UpdateGroup />} />
-            <Route path="/group/:id" element={<Group />} />
+            <Route
+              path="/group/:id"
+              element={<GroupDetail fullPage={true} />}
+            />
             <Route path="/profile" element={<Profile />} />
             <Route path="/player/:id" element={<Player />} />
             <Route path="/chat" element={<ChatList />} />
@@ -61,6 +68,8 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
+
+      {/* Seperate Routes for the group modal so it can be placed over the current page */}
     </Suspense>
   );
 };
