@@ -33,10 +33,16 @@ export const WSContextProvider = ({ children }) => {
 
     fetchInitialMessages();
 
-    socket.addEventListener("message", (event) => {
-      const data = JSON.parse(event.data);
-      setMessages((prev) => [...prev, data]);
-      setNotifications((prev) => [...prev, { type: "message", data }]);
+    socket.addEventListener("message", async (event) => {
+      try {
+        const text = await event.data.text();
+        const data = JSON.parse(text);
+        console.log("WebSocket received:", data);
+        setMessages((prev) => [...prev, data]);
+        setNotifications((prev) => [...prev, { type: "message", data }]);
+      } catch (err) {
+        console.error("Failed to parse WebSocket message:", err);
+      }
     });
 
     return () => socket.close();
