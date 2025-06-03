@@ -16,7 +16,7 @@ const NavDesktop = ({ logo, user, logOut }) => {
         <img
           src={logo}
           className="cursor-pointer hover:scale-98 *:ease-in-out duration-200"
-          alt="pnpmatch logo"
+          alt="plothook logo"
         ></img>
       </Link>
       {/* Test Link for debugging */}

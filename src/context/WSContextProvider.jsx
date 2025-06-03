@@ -17,9 +17,8 @@ export const WSContextProvider = ({ children }) => {
   useEffect(() => {
     if (authLoading || !user?._id) return;
     const socket = new WebSocket(
-      `${import.meta.env.VITE_APP_PNP_MATCHER_WS_URL}`
+      `${import.meta.env.VITE_APP_PLOT_HOOK_WS_URL}`
     );
-    //const socket = new WebSocket("wss://plothook-api.onrender.com");
     setWs(socket);
 
     const fetchInitialMessages = async () => {
