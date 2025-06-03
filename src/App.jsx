@@ -8,7 +8,7 @@ import AdminRoute from "./layouts/AdminRoute";
 import Loader from "./components/Loader";
 
 const Home = lazy(() => import("./pages/Home"));
-const Profile = lazy(() => import("./pages/Profile"));
+const AccountSettings = lazy(() => import("./pages/AccountSettings"));
 const Search = lazy(() => import("./pages/Search"));
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
@@ -25,6 +25,9 @@ const Error = lazy(() => import("./pages/Error"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const Player = lazy(() => import("./pages/Player"));
 const GroupDetail = lazy(() => import("./components/GroupDetail"));
+const PlayerDetail = lazy(() => import("./pages/PlayerDetail"));
+const SearchedPlayer = lazy(() => import("./pages/SearchedPlayer"));
+
 const Test = lazy(() => import("./pages/Test"));
 
 const App = () => {
@@ -54,12 +57,10 @@ const App = () => {
           <Route element={<ProtectedLayout />}>
             <Route path="/create" element={<CreateGroup />} />
             <Route path="/edit/:id" element={<UpdateGroup />} />
-            <Route
-              path="/group/:id"
-              element={<GroupDetail fullPage={true} />}
-            />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/player/:id" element={<Player />} />
+            <Route path="/group/:id" element={<Group />} />
+            <Route path="/settings" element={<AccountSettings />} />
+            <Route path="/profile" element={<PlayerDetail />} />
+            <Route path="/player/:id" element={<SearchedPlayer />} />
             <Route path="/chat" element={<ChatList />} />
             <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AdminDashboard />} />

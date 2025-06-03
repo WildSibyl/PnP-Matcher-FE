@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import roles_icon from "../assets/roles_icon.svg";
 import send_icon from "../assets/send_icon.png";
 import like from "../assets/like_icon.svg";
 import dislike from "../assets/dislike_icon.svg";
+import getIcon from "../utils/getIcon";
 import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
 import calculateAge from "../utils/calculateAge";
 import profile from "../assets/profile.png";
 import { useTagContext } from "../context/TagsContextProvider";
-import SingleSelect from "./edit-comp/SingleSelect";
+import SingleSelect from "../components/edit-comp/SingleSelect";
+import shortenExperienceLabel from "../utils/shortenExperience";
+import WeekdaySelector from "../components/WeekdaySelector";
 
 const PlayerDetail = () => {
   const [user, setUser] = useState(null);
@@ -32,17 +34,6 @@ const PlayerDetail = () => {
   const MAX_LENGTH = 300;
 
   const toggleAboutText = () => setShowFullAbout((prev) => !prev);
-
-  const getBadgeColor = (role) => {
-    const colorMap = {
-      Player: "var(--color-pnp-green)",
-      "Game Master": "#C59AFD",
-      Rookie: "var(--color-pnp-blue)",
-    };
-    return colorMap[role] || "white";
-  };
-
-  const allDays = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -90,14 +81,11 @@ const PlayerDetail = () => {
         postalCode: editedUser.address.postalCode,
         city: editedUser.address.city,
       },
-      //address: editedUser.address,
-      //experience: editedUser.experience,
+
       experience: editedUser.experience?.id || editedUser.experience,
 
       playingModes: editedUser.playingModes,
       playingRoles: editedUser.playingRoles?.id || editedUser.playingRoles,
-
-      //experience: editedUser.experience?.map((exp) => exp.id || exp) ?? [],
 
       systems: editedUser.systems?.map((system) => system.id || system) ?? [],
       weekdays: editedUser.weekdays,
@@ -178,7 +166,7 @@ const PlayerDetail = () => {
         <div className="w-full lg:w-[40%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
           {/* <div className="flex flex-col items-center text-center gap-4 lg:flex-row lg:items-start lg:text-left"> */}
           <div className="flex flex-col lg:flex-row items-start gap-4">
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 ">
               <label htmlFor="avatar-upload">
                 <img
                   src={previewImage || user.avatarUrl || profile}
@@ -337,25 +325,6 @@ const PlayerDetail = () => {
                           })
                         }
                       />
-                      {/* {experiencesOptions.length > 0 &&
-                        editedUser.experience !== undefined && (
-                          <SingleSelect
-                            category="experience"
-                            value={
-                              typeof editedUser.experience === "object"
-                                ? editedUser.experience
-                                : experiencesOptions.find(
-                                    (opt) => opt._id === editedUser.experience
-                                  )
-                            }
-                            onChange={(selected) =>
-                              setEditedUser({
-                                ...editedUser,
-                                experience: selected?._id ?? "",
-                              })
-                            }
-                          />
-                        )} */}
                     </div>
 
                     {/* PLAYING MODES */}
@@ -373,18 +342,6 @@ const PlayerDetail = () => {
                           })
                         }
                       />
-                      {/* <SingleSelect
-                        category="playingModes"
-                        value={playingModesOptions.find(
-                          (opt) => opt._id === editedUser.playingModes
-                        )}
-                        onChange={(selected) =>
-                          setEditedUser({
-                            ...editedUser,
-                            playingModes: selected?._id,
-                          })
-                        }
-                      /> */}
                     </div>
 
                     {/* PLAYING ROLES */}
@@ -402,61 +359,72 @@ const PlayerDetail = () => {
                           })
                         }
                       />
-                      {/* <SingleSelect
-                        category="playingRoles"
-                        value={playingRolesOptions.find(
-                          (opt) => opt._id === editedUser.playingRoles
-                        )}
-                        onChange={(selected) =>
-                          setEditedUser({
-                            ...editedUser,
-                            playingRoles: selected?._id ?? "",
-                          })
-                        }
-                      /> */}
                     </div>
                   </div>
                 ) : (
                   <div className="flex flex-wrap items-center gap-2">
-                    {/* EXPERIENCE */}
                     {editedUser.experience && (
-                      <div className="badge badge-outline text-white bg-[#02080d]">
-                        {editedUser.experience?.label || editedUser.experience}
+                      <div className="pnp-badge-purple flex items-center gap-1">
+                        {getIcon("Experience")}
+                        {shortenExperienceLabel(
+                          experiencesOptions.find(
+                            (opt) =>
+                              opt._id === editedUser.experience ||
+                              opt._id === editedUser.experience?.id
+                          )?.label ||
+                            editedUser.experience?.label ||
+                            editedUser.experience
+                        )}
                       </div>
                     )}
 
                     {/* PLAYING MODES */}
+
                     {editedUser.playingModes && (
-                      <div className="badge badge-outline text-white bg-[#02080d]">
-                        {editedUser.playingModes?.label ||
+                      <div className="pnp-badge-blue flex items-center gap-1">
+                        {(() => {
+                          const label =
+                            playingModesOptions.find(
+                              (opt) =>
+                                opt._id === editedUser.playingModes ||
+                                opt._id === editedUser.playingModes?.id
+                            )?.label ||
+                            editedUser.playingModes?.label ||
+                            editedUser.playingModes;
+
+                          if (label === "Both") {
+                            return (
+                              <>
+                                {getIcon("On-site")}
+                                {getIcon("Online")}
+                              </>
+                            );
+                          }
+
+                          return getIcon(label);
+                        })()}
+                        {playingModesOptions.find(
+                          (opt) =>
+                            opt._id === editedUser.playingModes ||
+                            opt._id === editedUser.playingModes?.id
+                        )?.label ||
+                          editedUser.playingModes?.label ||
                           editedUser.playingModes}
                       </div>
                     )}
-                    {/* {editedUser.playingModes && (
-                      <div className="badge badge-outline text-white bg-[#02080d]">
-                        {
-                          playingModesOptions.find(
-                            (opt) => opt._id === editedUser.playingModes
-                          )?.label
-                        }
-                      </div>
-                    )} */}
-                    {/* PLAYING ROLES */}
+
                     {editedUser.playingRoles && (
-                      <div className="badge badge-outline text-white bg-[#02080d]">
-                        {editedUser.playingRoles?.label ||
+                      <div className="pnp-badge-green flex items-center gap-1">
+                        {getIcon("Dice")}
+                        {playingRolesOptions.find(
+                          (opt) =>
+                            opt._id === editedUser.playingRoles ||
+                            opt._id === editedUser.playingRoles?.id
+                        )?.label ||
+                          editedUser.playingRoles?.label ||
                           editedUser.playingRoles}
                       </div>
                     )}
-                    {/* {editedUser.playingRoles && (
-                      <div className="badge badge-outline text-white bg-[#02080d]">
-                        {
-                          playingRolesOptions.find(
-                            (opt) => opt._id === editedUser.playingRoles
-                          )?.label
-                        }
-                      </div>
-                    )} */}
                   </div>
                 )}
               </div>
@@ -485,47 +453,43 @@ const PlayerDetail = () => {
                   </p>
                 )}
               </div>
-              <div className="mt-4">
-                <h3 className="font-semibold text-sm text-gray-700">
-                  AVAILABILITY
-                </h3>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {allDays.map((day) => {
-                    const isActive = editedUser.weekdays?.includes(day);
-                    const toggleDay = () => {
-                      const updatedDays = isActive
-                        ? editedUser.weekdays.filter((d) => d !== day)
-                        : [...(editedUser.weekdays || []), day];
-                      setEditedUser({ ...editedUser, weekdays: updatedDays });
-                    };
 
-                    return isEditing ? (
-                      <button
-                        key={day}
-                        onClick={toggleDay}
-                        type="button"
-                        className={`badge font-semibold px-3 py-1 rounded-full ${
-                          isActive
-                            ? "bg-[var(--color-pnp-blue)] text-white"
-                            : "bg-gray-300 text-gray-700"
-                        }`}
-                      >
-                        {day}
-                      </button>
-                    ) : (
+              <div className="mt-4">
+                {!isEditing && (
+                  <h3 className="font-semibold text-sm text-gray-700">
+                    Availability
+                  </h3>
+                )}
+
+                {isEditing ? (
+                  <WeekdaySelector
+                    weekdays={editedUser.weekdays || []} // correct prop name here
+                    onChange={(updatedDays) => {
+                      // Only update if changed (optional but good)
+                      setEditedUser((prev) => {
+                        const oldDays = prev.weekdays || [];
+                        if (
+                          updatedDays.length === oldDays.length &&
+                          updatedDays.every((day) => oldDays.includes(day))
+                        ) {
+                          return prev; // no change, skip update
+                        }
+                        return { ...prev, weekdays: updatedDays };
+                      });
+                    }}
+                  />
+                ) : (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {(editedUser.weekdays || []).map((day) => (
                       <span
                         key={day}
-                        className={`badge font-semibold ${
-                          isActive
-                            ? "bg-[var(--color-pnp-blue)] text-white"
-                            : "bg-[#aadff3] text-white"
-                        }`}
+                        className="badge font-semibold bg-[var(--color-pnp-blue)] text-white"
                       >
                         {day}
                       </span>
-                    );
-                  })}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="mt-4">
@@ -646,10 +610,7 @@ const PlayerDetail = () => {
                           (opt) => opt._id === langId
                         );
                         return languageOption ? (
-                          <div
-                            className="badge badge-outline text-white bg-[#02080d]"
-                            key={langId}
-                          >
+                          <div className="pnp-badge-black" key={langId}>
                             {languageOption.label}
                           </div>
                         ) : null;
@@ -685,10 +646,7 @@ const PlayerDetail = () => {
                           (opt) => opt._id === style
                         );
                         return playstyleOption ? (
-                          <div
-                            className="badge badge-outline text-white bg-[#02080d]"
-                            key={style}
-                          >
+                          <div className="pnp-badge-black" key={style}>
                             {playstyleOption.label}
                           </div>
                         ) : null;
@@ -720,10 +678,7 @@ const PlayerDetail = () => {
                           (opt) => opt._id === system
                         );
                         return systemOption ? (
-                          <div
-                            className="badge badge-outline text-white bg-[#02080d]"
-                            key={system}
-                          >
+                          <div className="pnp-badge-black" key={system}>
                             {systemOption.label}
                           </div>
                         ) : null;
@@ -763,10 +718,7 @@ const PlayerDetail = () => {
                           (opt) => opt._id === likes
                         );
                         return likeOption ? (
-                          <div
-                            className="badge badge-outline bg-gray-100 text-black"
-                            key={likes}
-                          >
+                          <div className="pnp-badge-white" key={likes}>
                             {likeOption.label}
                           </div>
                         ) : null;
@@ -812,10 +764,7 @@ const PlayerDetail = () => {
                           (opt) => opt._id === dislikes
                         );
                         return dislikeOption ? (
-                          <div
-                            className="badge badge-outline bg-gray-100 text-black"
-                            key={dislikes}
-                          >
+                          <div className="pnp-badge-white" key={dislikes}>
                             {dislikeOption.label}
                           </div>
                         ) : null;

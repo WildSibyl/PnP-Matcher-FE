@@ -36,27 +36,11 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const fetchUserId = async () => {
-    setLoading(true);
-    try {
-      const userData = await me();
-      const userId = userData._id; // extract _id
-      setUser({ _id: userId }); // store only the _id
-      console.log("User refreshed with _id:", userId);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const values = {
     user,
     setUser,
     logOut,
     loading,
-    fetchUserId,
   };
 
   console.log("AuthContextProvider values:", values);
@@ -64,5 +48,3 @@ export const AuthContextProvider = ({ children }) => {
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 //export { AuthContext, AuthContextProvider };
-
-console.log("AuthContext", AuthContext);
