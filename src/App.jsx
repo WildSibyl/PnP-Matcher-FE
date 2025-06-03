@@ -1,5 +1,5 @@
 import { useContext, lazy, Suspense } from "react";
-import { Routes, Route, useLocation } from "react-router";
+import { Routes, Route } from "react-router";
 
 //LAYOUTS & PAGES
 import MainLayout from "./layouts/MainLayout";
@@ -30,10 +30,6 @@ const SearchedPlayer = lazy(() => import("./pages/SearchedPlayer"));
 const Test = lazy(() => import("./pages/Test"));
 
 const App = () => {
-  //Remember on which page the user is/was
-  const location = useLocation();
-  const state = location.state;
-
   return (
     <Suspense
       fallback={

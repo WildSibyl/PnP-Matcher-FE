@@ -1,5 +1,5 @@
 import { useAuth } from "../hooks/useAuth";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { getSingleGroup } from "../data/groups";
 
@@ -7,6 +7,7 @@ const GroupDetail = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const [groupDetails, setGroupDetails] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) return;
@@ -32,7 +33,7 @@ const GroupDetail = () => {
   return (
     <div className="!text-pnp-white">
       <p>{groupDetails.name}</p>
-      <button>Back</button>
+      <button onClick={() => navigate(-1)}>Back</button>
       {isAuthor ? <button>Edit</button> : <button>Send DM</button>}
     </div>
   );
