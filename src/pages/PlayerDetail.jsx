@@ -35,10 +35,12 @@ const PlayerDetail = () => {
 
   const toggleAboutText = () => setShowFullAbout((prev) => !prev);
 
+  const API_URL = import.meta.env.VITE_APP_PLOT_HOOK_API_URL;
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:8000/auth/me", {
+        const res = await fetch(`${API_URL}/auth/me`, {
           credentials: "include",
         });
 
@@ -109,7 +111,7 @@ const PlayerDetail = () => {
     ); // Log the data being sent
 
     try {
-      const res = await fetch(`http://localhost:8000/users/${editedUser._id}`, {
+      const res = await fetch(`${API_URL}/users/${editedUser._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
