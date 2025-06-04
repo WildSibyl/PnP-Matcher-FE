@@ -57,7 +57,7 @@ const Grouplist = () => {
     };
 
     fetchGroups();
-    Promise.all(user?.invites.map((e) => fetchInvite(e)));
+    Promise.all(user?.invites?.map((e) => fetchInvite(e)));
   }, [user]);
 
   const handleAccept = async (id) => {
@@ -97,11 +97,6 @@ const Grouplist = () => {
   };
 
   if (!user) return <p>Loading user...</p>;
-
-  // if (!user.groups?.length) {
-  //   console.log("User not logged in or has no groups");
-  //   return;
-  // }
 
   return (
     <div className="flex flex-col w-full max-w-[100vw] items-center justify-center gap-4">
@@ -166,10 +161,13 @@ const Grouplist = () => {
         <Addsvg />
         <h3>CREATE A NEW GROUP</h3>
       </Link>
-      <div className="flex flex-col items-center justify-center gap-4 mx-auto">
-        {Array.isArray(groups) &&
-          groups.map((e) => <GroupCard key={e._id} details={e} />)}
-      </div>
+
+      {user.groups?.length && (
+        <div className="flex flex-col items-center justify-center gap-4 mx-auto">
+          {Array.isArray(groups) &&
+            groups.map((e) => <GroupCard key={e._id} details={e} />)}
+        </div>
+      )}
     </div>
   );
 };
