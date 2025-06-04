@@ -6,23 +6,12 @@ const Step2GroupLocation = ({ groupForm, onChange }) => (
     <div>
       <div className="flex items-center justify-center mx-4">
         <p className="label-italic text-pnp-white bg-pnp-darkpurple/50 rounded-2xl p-2 px-3 mx-2">
-          How many seasons have you seen pass, and where do you take your rest?
+          Splendid! Next, let's talk logistics, so adventurers can find you
+          easily!
         </p>
         <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
       </div>
       <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
-        <div className="flex flex-row justify-between">
-          <label className="label">BIRTHDAY</label>
-          <p className="label-italic">We will only display your age</p>
-        </div>
-        <input
-          type="date"
-          name="birthday"
-          value={groupForm.birthday}
-          onChange={onChange}
-          className="input-bordered"
-          max={new Date().toISOString().split("T")[0]}
-        />
         <CharCountInput
           name="street"
           value={groupForm.address.street}
@@ -33,7 +22,7 @@ const Step2GroupLocation = ({ groupForm, onChange }) => (
           }
           placeholder="Street"
           label="ADDRESS"
-          helperText="Where is your castle placed?"
+          helperText="We will only show your postal code and city."
           maxLength={100}
         />
         <CharCountInput
@@ -69,6 +58,11 @@ const Step2GroupLocation = ({ groupForm, onChange }) => (
           placeholder="City"
           maxLength={200}
         />
+        <p className="flex items-center justify-center text-sm text-gray-400 font-normal">
+          This allows players to search for groups in their area, making it
+          easier to find local adventures. You will be able to also exclusively
+          meet online!
+        </p>
       </div>
     </div>
   </>

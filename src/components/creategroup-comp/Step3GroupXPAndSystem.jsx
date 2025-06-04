@@ -2,7 +2,7 @@ import TagMultiSelect from "../edit-comp/TagMultiSelect";
 import { useTagContext } from "../../context/TagsContextProvider";
 import RenBook from "../../assets/ren/Ren-book.png";
 
-const Step3GroupXPAndSystem = ({ groupForm, setRegForm, onChange }) => {
+const Step3GroupXPAndSystem = ({ groupForm, setGroupForm, onChange }) => {
   const { experienceLevel } = useTagContext();
 
   return (
@@ -10,8 +10,8 @@ const Step3GroupXPAndSystem = ({ groupForm, setRegForm, onChange }) => {
       <div>
         <div className="flex items-center justify-center mx-4">
           <p className="label-italic text-pnp-white bg-pnp-darkpurple/50 rounded-2xl p-2 px-3 mx-2">
-            To cast my matchmaking magic I need to know a bit more about youre
-            previous experience.
+            How experienced do you expect your adventurers to be? And in what
+            worlds do you want to embark on your quests?
           </p>
           <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
         </div>
@@ -19,7 +19,7 @@ const Step3GroupXPAndSystem = ({ groupForm, setRegForm, onChange }) => {
           {/* <h3 className="title">YOU AS A PLAYER</h3> */}
           <div className="flex flex-row justify-between">
             <label className="label">EXPERIENCE</label>
-            <p className="label-italic">How many enemies did you slay?</p>
+            <p className="label-italic">The experience level of your party</p>
           </div>
           <select
             name="experience"
@@ -37,11 +37,11 @@ const Step3GroupXPAndSystem = ({ groupForm, setRegForm, onChange }) => {
           <TagMultiSelect
             category="systems"
             label="GAME SYSTEM"
-            helperText="What are you looking for?"
+            helperText="Where will you go?"
             name="systems"
             placeholder="Select preferences"
             onChange={(values) =>
-              setRegForm((prev) => ({
+              setGroupForm((prev) => ({
                 ...prev,
                 systems: values.map((s) => s),
               }))

@@ -1,20 +1,20 @@
+import TagMultiSelect from "../edit-comp/TagMultiSelect";
 import RenBook from "../../assets/ren/Ren-book.png";
 
 const daysOfWeek = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 
-const Step4GroupSchedule = ({ groupForm, onChange }) => {
+const Step4GroupSchedule = ({ groupForm, setGroupForm, onChange }) => {
   return (
     <>
       <div>
         <div className="flex items-center justify-center mx-4">
           <p className="label-italic text-pnp-white bg-pnp-darkpurple/50 rounded-2xl p-2 px-3 mx-2">
             We are nearly finished! But now for the real endboss of all P&P
-            groups: Availability!
+            groups: Availability and communication!
           </p>
           <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
         </div>
         <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
-          {/* <h3 className="title">WHEN ARE YOU AVAILABLE?</h3> */}
           <div className="flex flex-row justify-between">
             <label className="label">WEEKDAYS</label>
             <p className="label-italic">More days, more adventures!</p>
@@ -71,29 +71,20 @@ const Step4GroupSchedule = ({ groupForm, onChange }) => {
             <div className="label">TIMES</div>
             <div className="text-black font-bold">per Month</div>
           </div>
-
-          <div className="mt-6 space-y-2 text-sm">
-            <label className="flex justify-center items-center space-x-2">
-              <input
-                type="checkbox"
-                name="terms"
-                checked={groupForm.terms}
-                onChange={onChange}
-                className="h-5 w-5 focus:ring-pnp-purple focus:ring-2 cursor-pointer"
-                style={{ accentColor: "#6B46C1" }}
-              />
-              <span className="text-pnp-black font-semibold">
-                I agree to the{" "}
-                <button
-                  type="button"
-                  className="text-pnp-darkpurple underline hover:text-pnp-purple font-semibold cursor-pointer"
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  Terms and Conditions
-                </button>
-              </span>
-            </label>
-          </div>
+          <TagMultiSelect
+            category="languages"
+            label="LANGUAGES"
+            helperText="What is your common tongue?"
+            name="systems"
+            placeholder="Select preferences"
+            value={groupForm.languages}
+            onChange={(values) =>
+              setGroupForm({
+                ...groupForm,
+                languages: values.map((v) => v.id),
+              })
+            }
+          />
         </div>
       </div>
     </>

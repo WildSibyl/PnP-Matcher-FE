@@ -22,6 +22,38 @@ const Step1GroupDetails = ({ groupForm, onChange }) => {
             label="NAME"
             helperText="How should your group be called?"
           />
+          <CharCountInput
+            name="tagline"
+            value={groupForm.tagline}
+            onChange={onChange}
+            maxLength={150}
+            placeholder="A short tagline for your group"
+            label="TAGLINE"
+            helperText="A catchy phrase to get noticed!"
+          />
+          <div className="flex flex-row justify-between">
+            <label className="label">MAX MEMBERS</label>
+            <p className="label-italic">How many can join the party?</p>
+          </div>
+          <input
+            type="integer"
+            name="maxMembers"
+            className="input-bordered mb-0"
+            value={groupForm.maxMembers}
+            onChange={onChange}
+            max={30}
+            min={1}
+            placeholder="Your ideal party number, excluding you"
+          />
+          {groupForm.maxMembers < 1 || groupForm.maxMembers > 30 ? (
+            <p className="text-red-500 text-sm mt-1">
+              Party members must be between 1 and 30.
+            </p>
+          ) : (
+            <p className="text-gray-400 font-normal text-sm mt-1">
+              Your ideal party size, excluding you. We recommend 5
+            </p>
+          )}
         </div>
       </div>
     </>

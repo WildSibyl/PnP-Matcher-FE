@@ -25,10 +25,6 @@ const CreateGroup = () => {
       postalCode: "",
       city: "",
     },
-    location: {
-      type: "Point",
-      coordinates: [0, 0], // [longitude, latitude]
-    },
     experience: "",
     systems: [],
     weekdays: [],
@@ -46,7 +42,7 @@ const CreateGroup = () => {
   const validateStep = () => {
     switch (step) {
       case 1:
-        if (!groupForm.name || !groupForm.description || !groupForm.tagline)
+        if (!groupForm.name || !groupForm.tagline || !groupForm.maxMembers)
           return "Please fill in all group details.";
         break;
       case 2:
@@ -54,10 +50,9 @@ const CreateGroup = () => {
           !groupForm.address.street ||
           !groupForm.address.houseNumber ||
           !groupForm.address.postalCode ||
-          !groupForm.address.city ||
-          groupForm.location.coordinates.includes(0)
+          !groupForm.address.city
         )
-          return "Please complete the address and map location.";
+          return "Please complete the address correctly.";
         break;
       case 3:
         if (!groupForm.experience || groupForm.systems.length === 0)
@@ -130,12 +125,23 @@ const CreateGroup = () => {
     setLoading(true);
     try {
       const payload = {
-        ...groupForm,
-        systems: groupForm.systems.map((s) => s.id),
-        location: {
-          type: "Point",
-          coordinates: groupForm.location.coordinates,
+        name: groupForm.name,
+        image: groupForm.image,
+        address: {
+          ...groupForm.address,
         },
+        experience: groupForm.experience,
+        systems: groupForm.systems.map((s) => s.id ?? s), // fallback to raw value if no `.id`
+        weekdays: groupForm.weekdays,
+        frequencyPerMonth: groupForm.frequencyPerMonth,
+        playingModes: groupForm.playingModes?.id ?? groupForm.playingModes,
+        languages: groupForm.languages.map((l) => l.id ?? l),
+        playstyles: groupForm.playstyles.map((p) => p.id ?? p),
+        likes: groupForm.likes.map((l) => l.id ?? l),
+        dislikes: groupForm.dislikes.map((d) => d.id ?? d),
+        tagline: groupForm.tagline,
+        description: groupForm.description,
+        maxMembers: groupForm.maxMembers,
       };
 
       console.log("Submitting group:", payload);
@@ -157,7 +163,10 @@ const CreateGroup = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      className="my-5 md:w-1/2 mx-auto flex flex-col gap-4"
+      onSubmit={handleSubmit}
+    >
       {step === 1 && (
         <Step1GroupDetails groupForm={groupForm} onChange={handleChange} />
       )}
@@ -171,6 +180,7 @@ const CreateGroup = () => {
       {step === 3 && (
         <Step3GroupXPAndSystem
           groupForm={groupForm}
+          setGroupForm={setGroupForm}
           onChange={handleChange}
           setMultiSelect={setMultiSelect}
         />
@@ -178,6 +188,7 @@ const CreateGroup = () => {
       {step === 4 && (
         <Step4GroupSchedule
           groupForm={groupForm}
+          setGroupForm={setGroupForm}
           onChange={handleChange}
           setMultiSelect={setMultiSelect}
         />
@@ -199,6 +210,7 @@ const CreateGroup = () => {
         )}
         {step < 4 ? (
           <button
+            key="button" ////key to fix the event propagation bug
             type="button"
             onClick={handleNext}
             className="btn-primary-light"
@@ -208,6 +220,7 @@ const CreateGroup = () => {
           </button>
         ) : (
           <button
+            key="submit" //key to fix the event propagation bug
             type="submit"
             className="btn-primary-light"
             disabled={loading}
@@ -219,221 +232,5 @@ const CreateGroup = () => {
     </form>
   );
 };
+
 export default CreateGroup;
-
-//   const [form, setForm] = useState({
-//     name: "",
-//     image: "",
-//     description: "",
-//     zipCode: "",
-//     country: "",
-//     systems: "",
-//     playstyles: "",
-//     weekdays: [],
-//     frequencyPerMonth: 1,
-//     maxMembers: 10,
-//   });
-//   const [loading, setLoading] = useState(false);
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setForm((prev) => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleCheckboxChange = (e) => {
-//     const { value, checked } = e.target;
-//     setForm((prev) => ({
-//       ...prev,
-//       weekdays: checked
-//         ? [...prev.weekdays, value]
-//         : prev.weekdays.filter((day) => day !== value),
-//     }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const {
-//         name,
-//         image,
-//         description,
-//         zipCode,
-//         country,
-//         systems,
-//         playstyles,
-//         weekdays,
-//         frequencyPerMonth,
-//         maxMembers,
-//       } = form;
-
-//       if (
-//         !name ||
-//         !image ||
-//         !description ||
-//         !zipCode ||
-//         !country ||
-//         !systems ||
-//         !playstyles ||
-//         weekdays.length === 0 ||
-//         !frequencyPerMonth ||
-//         !maxMembers
-//       ) {
-//         throw new Error("All fields are required");
-//       }
-
-//       setLoading(true);
-//       const newGroup = await createGroup(form);
-//       setForm({
-//         name: "",
-//         image: "",
-//         description: "",
-//         zipCode: "",
-//         country: "",
-//         systems: "",
-//         playstyles: "",
-//         weekdays: [],
-//         frequencyPerMonth: 1,
-//         maxMembers: 10,
-//       });
-//       navigate(`/group/${newGroup._id}`);
-//     } catch (error) {
-//       toast.error(error.message);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <form
-//       className="md:w-1/2 mx-auto flex flex-col gap-3 bg-pnp-white"
-//       onSubmit={handleSubmit}
-//     >
-//       <label className="form-control">
-//         <div className="label-text">Group Name</div>
-//         <input
-//           name="name"
-//           value={form.name}
-//           onChange={handleChange}
-//           placeholder="Enter group name..."
-//           className="input-bordered"
-//         />
-//       </label>
-
-//       <label className="form-control">
-//         <div className="label-text">Image URL</div>
-//         <input
-//           name="image"
-//           value={form.image}
-//           onChange={handleChange}
-//           placeholder="Group image URL..."
-//           className="input-bordered"
-//         />
-//       </label>
-
-//       <label className="form-control">
-//         <div className="label-text">Description</div>
-//         <textarea
-//           name="description"
-//           value={form.description}
-//           onChange={handleChange}
-//           className="textarea textarea-bordered h-24"
-//         />
-//       </label>
-
-//       <label className="form-control">
-//         <div className="label-text">Zip Code</div>
-//         <input
-//           name="zipCode"
-//           value={form.zipCode}
-//           onChange={handleChange}
-//           className="input-bordered"
-//         />
-//       </label>
-
-//       <label className="form-control">
-//         <div className="label-text">Country</div>
-//         <input
-//           name="country"
-//           value={form.country}
-//           onChange={handleChange}
-//           className="input-bordered"
-//         />
-//       </label>
-
-//       <label className="form-control">
-//         <div className="label-text">System</div>
-//         <input
-//           name="systems"
-//           value={form.systems}
-//           onChange={handleChange}
-//           className="input-bordered"
-//         />
-//       </label>
-
-//       <label className="form-control">
-//         <div className="label-text">Playstyle</div>
-//         <input
-//           name="playstyles"
-//           value={form.playstyles}
-//           onChange={handleChange}
-//           className="input-bordered"
-//         />
-//       </label>
-
-//       <fieldset className="form-control">
-//         <div className="label-text mb-2">Days of the Week</div>
-//         <div className="flex gap-2 flex-wrap">
-//           {dayOptions.map((day) => (
-//             <label key={day} className="label cursor-pointer">
-//               <input
-//                 type="checkbox"
-//                 name="weekdays"
-//                 value={day}
-//                 checked={form.weekdays.includes(day)}
-//                 onChange={handleCheckboxChange}
-//                 className="checkbox checkbox-sm"
-//               />
-//               <span className="ml-2 capitalize">{day}</span>
-//             </label>
-//           ))}
-//         </div>
-//       </fieldset>
-
-//       <label className="form-control">
-//         <div className="label-text">Frequency per Month</div>
-//         <input
-//           type="number"
-//           name="frequencyPerMonth"
-//           value={form.frequencyPerMonth}
-//           onChange={handleChange}
-//           min={1}
-//           max={31}
-//           className="input-bordered"
-//         />
-//       </label>
-
-//       <label className="form-control">
-//         <div className="label-text">Max Members</div>
-//         <input
-//           type="number"
-//           name="maxMembers"
-//           value={form.maxMembers}
-//           onChange={handleChange}
-//           min={1}
-//           max={30}
-//           className="input-bordered"
-//         />
-//       </label>
-
-//       <button
-//         className="btn btn-primary self-center mt-4"
-//         type="submit"
-//         disabled={loading}
-//       >
-//         {loading ? "Creating..." : "Create Group"}
-//       </button>
-//     </form>
-//   );
-// };
-
-// export default CreateGroup;
