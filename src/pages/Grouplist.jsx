@@ -98,10 +98,10 @@ const Grouplist = () => {
 
   if (!user) return <p>Loading user...</p>;
 
-  if (!user.groups?.length) {
-    console.log("User not logged in or has no groups");
-    return;
-  }
+  // if (!user.groups?.length) {
+  //   console.log("User not logged in or has no groups");
+  //   return;
+  // }
 
   return (
     <div className="flex flex-col w-full max-w-[100vw] items-center justify-center gap-4">
@@ -159,7 +159,7 @@ const Grouplist = () => {
       {/* INVITE LIST END */}
 
       <Link
-        to="/search"
+        to="/create-group"
         style={{ backgroundImage: `url(${dragonImage})` }}
         className="bg-center bg-cover w-[80vw] max-w-[500px] rounded-2xl items-center justify-center h-[8vh] text-pnp-white flex gap-2 mx-10 mt-5 mb-5"
       >

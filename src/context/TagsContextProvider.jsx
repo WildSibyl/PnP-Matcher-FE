@@ -8,6 +8,7 @@ const useTagContext = () => useContext(TagContext);
 const TagsContextProvider = ({ children }) => {
   const [options, setOptions] = useState({
     experienceLevel: [],
+    groupExperience: [],
     systems: [],
     languages: [],
     playingRoles: [],
@@ -24,6 +25,9 @@ const TagsContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
+        const groupAddedExperience = await getOptionsByCategory(
+          "groupexperience"
+        );
         const experience = await getOptionsByCategory("experience");
         const systems = await getOptionsByCategory("systems");
         const languages = await getOptionsByCategory("languages");
@@ -35,6 +39,7 @@ const TagsContextProvider = ({ children }) => {
 
         setOptions({
           experienceLevel: experience,
+          groupExperience: [...experience, ...groupAddedExperience],
           systems,
           languages,
           playingRoles,
@@ -53,6 +58,7 @@ const TagsContextProvider = ({ children }) => {
 
   const values = {
     experienceLevel: options.experienceLevel,
+    groupExperience: options.groupExperience,
     systems: options.systems,
     languages: options.languages,
     playingRoles: options.playingRoles,
