@@ -26,7 +26,7 @@ const Grouplist = () => {
 
   useEffect(() => {
     const fetchGroups = async () => {
-      if (!user || user.groups.length === 0) {
+      if (!user || !Array.isArray(user.groups) || user.groups.length === 0) {
         console.log("User not logged in");
         return;
       }
@@ -167,9 +167,8 @@ const Grouplist = () => {
         <h3>CREATE A NEW GROUP</h3>
       </Link>
       <div className="flex flex-col items-center justify-center gap-4 mx-auto">
-        {groups.map((e) => (
-          <GroupCard key={e._id} details={e} />
-        ))}
+        {Array.isArray(groups) &&
+          groups.map((e) => <GroupCard key={e._id} details={e} />)}
       </div>
     </div>
   );
