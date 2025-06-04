@@ -36,8 +36,8 @@ const GroupCard = ({ details }) => {
                   : "pnp-badge-green"
               }`}
             >
-              {getIcon("User")} {currGroup.members.length} /{" "}
-              {currGroup.maxMembers}
+              {getIcon("User")} {currGroup.members.length + 1} /{" "}
+              {currGroup.maxMembers + 1} {/* +1 for the author */}
             </div>
             <CardAvailability
               weekdays={currGroup.weekdays}

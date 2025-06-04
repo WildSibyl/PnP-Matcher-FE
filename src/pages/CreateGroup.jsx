@@ -151,7 +151,7 @@ const CreateGroup = () => {
       console.log("Submitting group:", payload);
       await createGroup(payload); // Your custom API call
       toast.success("Group created successfully.");
-      navigate("/groups");
+      navigate("/grouplist");
     } catch (err) {
       toast.error(err.message || "Group creation failed.");
     } finally {
