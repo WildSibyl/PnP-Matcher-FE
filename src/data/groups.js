@@ -111,6 +111,20 @@ export const deleteGroup = async (id) => {
   return data;
 };
 
+export const checkGroupname = async (groupname) => {
+  const res = await fetch(`${API_URL}/groups/check-name?name=${groupname}`);
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(
+      errorData.error || "An error occurred while checking username"
+    );
+  }
+
+  const data = await res.json();
+  return data.isAvailable;
+};
+
 export const getFilteredGroups = async (radius, filters = {}) => {
   // Remove empty arrays and empty strings from filters
   const cleanFilters = Object.fromEntries(
