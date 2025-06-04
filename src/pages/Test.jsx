@@ -7,11 +7,13 @@ import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
 import PlayerCard from "../components/cards/PlayerCard";
 import RollForGroup from "../components/group-comp/RollForGroup";
 import Confetti from "../components/register-comp/Confetti";
+import RenNotif from "../assets/ren/Ren-notif.png";
 
 import Loader from "../components/Loader";
 import { useState, useEffect } from "react";
 import { useInviteModal } from "../context/InviteModalContextProvider";
 import InviteToGroupModal from "../components/InviteToGroupModal";
+import { toast } from "react-toastify";
 
 const Test = () => {
   const [guestUser, setGuestUser] = useState({
@@ -25,6 +27,57 @@ const Test = () => {
   const testgroup = {
     _id: "683d9ed5e83520e34b7a43dc",
     author: "68388d38527cb89d6f71f3ce",
+  };
+
+  const toastifyTest = () => {
+    toast("This is a test notification!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const toastSuccess = () => {
+    //toast.success("Success!", { theme: "light" });
+    toast.success(
+      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <img src={RenNotif} alt="Success" style={{ width: "50px" }} />
+        <span>Operation completed successfully!</span>
+      </div>
+    );
+  };
+  const toastError = () => {
+    toast.error("Error!", { theme: "light" });
+  };
+  const toastWarning = () => {
+    toast.warning("Warning!", { theme: "light" });
+  };
+  const toastInfo = () => {
+    toast.info("Info", { theme: "light" });
+  };
+  const toastGeneric = () => {
+    toast("Toast", { theme: "light" });
+  };
+
+  const toastSuccessD = () => {
+    toast.success("Success!", { theme: "colored" });
+  };
+  const toastErrorD = () => {
+    toast.error("Error!", { theme: "colored" });
+  };
+  const toastWarningD = () => {
+    toast.warning("Warning!", { theme: "colored" });
+  };
+  const toastInfoD = () => {
+    toast.info("Info", { theme: "colored" });
+  };
+  const toastGenericD = () => {
+    toast("Toast", { theme: "dark" });
   };
 
   return (
@@ -41,6 +94,114 @@ const Test = () => {
         />
         <Confetti />
         <RollForGroup />
+
+        {/* Toastify testing */}
+
+        <div className="flex flex-col items-center justify-center">
+          <h3>Toastify testing</h3>
+          <div className="flex items-center justify-center">
+            <button
+              className="btn-primary-light"
+              onClick={() => {
+                toastifyTest();
+              }}
+            >
+              Test
+            </button>
+            <button
+              className="btn-primary-light"
+              onClick={() => {
+                toastSuccess();
+              }}
+            >
+              Success
+            </button>
+            <button
+              className="btn-primary-light"
+              onClick={() => {
+                toastError();
+              }}
+            >
+              Error
+            </button>
+            <button
+              className="btn-primary-light"
+              onClick={() => {
+                toastWarning();
+              }}
+            >
+              Warning
+            </button>
+            <button
+              className="btn-primary-light"
+              onClick={() => {
+                toastInfo();
+              }}
+            >
+              Info
+            </button>
+            <button
+              className="btn-primary-light"
+              onClick={() => {
+                toastGeneric();
+              }}
+            >
+              Generic
+            </button>
+          </div>
+          <div className="flex items-center justify-center">
+            <button
+              className="btn-primary-dark"
+              onClick={() => {
+                toastifyTest();
+              }}
+            >
+              Test
+            </button>
+            <button
+              className="btn-primary-dark"
+              onClick={() => {
+                toastSuccessD();
+              }}
+            >
+              Success
+            </button>
+            <button
+              className="btn-primary-dark"
+              onClick={() => {
+                toastErrorD();
+              }}
+            >
+              Error
+            </button>
+            <button
+              className="btn-primary-dark"
+              onClick={() => {
+                toastWarningD();
+              }}
+            >
+              Warning
+            </button>
+            <button
+              className="btn-primary-dark"
+              onClick={() => {
+                toastInfoD();
+              }}
+            >
+              Info
+            </button>
+            <button
+              className="btn-primary-dark"
+              onClick={() => {
+                toastGenericD();
+              }}
+            >
+              Generic
+            </button>
+          </div>
+        </div>
+
+        {/* End of toastify testing */}
 
         <h1 className="text-pnp-white">This is the H1</h1>
         <h2 className="text-pnp-white">This is the H2</h2>
@@ -79,7 +240,7 @@ const Test = () => {
 
       {/* CARDS */}
 
-      <GroupCard details={testgroup} />
+      {/* <GroupCard details={testgroup} /> */}
       <div>
         <h1 className="text-pnp-white">
           A very long text to test navbar & scroll
