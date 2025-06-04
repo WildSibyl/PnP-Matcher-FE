@@ -78,7 +78,6 @@ const Test = () => {
 
       {/* CARDS */}
 
-      <GroupCard details={testgroup} />
       <div>
         <h1 className="text-pnp-white">
           A very long text to test navbar & scroll
