@@ -17,6 +17,7 @@ const CreateGroup = () => {
   const { user } = useAuth();
 
   const [groupForm, setGroupForm] = useState({
+    author: user._id,
     name: "",
     image: "",
     address: {
@@ -36,6 +37,7 @@ const CreateGroup = () => {
     dislikes: [],
     tagline: "",
     description: "",
+    members: [],
     maxMembers: 4,
   });
 
@@ -125,22 +127,24 @@ const CreateGroup = () => {
     setLoading(true);
     try {
       const payload = {
+        author: groupForm.author,
         name: groupForm.name,
         image: groupForm.image,
         address: {
           ...groupForm.address,
         },
         experience: groupForm.experience,
-        systems: groupForm.systems.map((s) => s.id ?? s), // fallback to raw value if no `.id`
+        systems: groupForm.systems.map((s) => s.id),
         weekdays: groupForm.weekdays,
         frequencyPerMonth: groupForm.frequencyPerMonth,
-        playingModes: groupForm.playingModes?.id ?? groupForm.playingModes,
-        languages: groupForm.languages.map((l) => l.id ?? l),
-        playstyles: groupForm.playstyles.map((p) => p.id ?? p),
-        likes: groupForm.likes.map((l) => l.id ?? l),
-        dislikes: groupForm.dislikes.map((d) => d.id ?? d),
+        playingModes: groupForm.playingModes,
+        languages: groupForm.languages.map((l) => l.id),
+        playstyles: groupForm.playstyles,
+        likes: groupForm.likes,
+        dislikes: groupForm.dislikes,
         tagline: groupForm.tagline,
         description: groupForm.description,
+        members: groupForm.members,
         maxMembers: groupForm.maxMembers,
       };
 

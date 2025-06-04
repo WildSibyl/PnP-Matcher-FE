@@ -21,11 +21,12 @@ const Step3GroupXPAndSystem = ({ groupForm, setGroupForm, onChange }) => {
             <label className="label">EXPERIENCE</label>
             <p className="label-italic">The experience level of your party</p>
           </div>
+
           <select
             name="experience"
             value={groupForm.experience}
             onChange={onChange}
-            className="input-bordered"
+            className="input-bordered-multi"
           >
             <option value="">Select experience</option>
             {groupExperience.map((level) => (
@@ -34,6 +35,7 @@ const Step3GroupXPAndSystem = ({ groupForm, setGroupForm, onChange }) => {
               </option>
             ))}
           </select>
+
           <TagMultiSelect
             category="systems"
             label="GAME SYSTEM"

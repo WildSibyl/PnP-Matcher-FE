@@ -75,13 +75,13 @@ const Step4GroupSchedule = ({ groupForm, setGroupForm, onChange }) => {
             category="languages"
             label="LANGUAGES"
             helperText="What is your common tongue?"
-            name="systems"
+            name="languages"
             placeholder="Select preferences"
             value={groupForm.languages}
             onChange={(values) =>
               setGroupForm({
                 ...groupForm,
-                languages: values.map((v) => v.id),
+                languages: values.map((l) => l),
               })
             }
           />

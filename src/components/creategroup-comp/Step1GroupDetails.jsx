@@ -1,4 +1,5 @@
 import RenBook from "../../assets/ren/Ren-book.png";
+import Select from "react-select";
 import GroupnameInput from "../edit-comp/GroupnameInput";
 import CharCountInput from "../edit-comp/CharCountInput";
 
@@ -8,7 +9,7 @@ const Step1GroupDetails = ({ groupForm, onChange }) => {
       <div>
         <div className="flex items-center justify-center mx-4">
           <p className="label-italic text-pnp-white bg-pnp-darkpurple/50 rounded-2xl p-2 px-3 mx-2">
-            Let’s make a group to go on adventures with!
+            Let’s summon a group to go on adventures with!
           </p>
           <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
         </div>
@@ -36,7 +37,7 @@ const Step1GroupDetails = ({ groupForm, onChange }) => {
             <p className="label-italic">How many can join the party?</p>
           </div>
           <input
-            type="integer"
+            type="number"
             name="maxMembers"
             className="input-bordered mb-0"
             value={groupForm.maxMembers}
