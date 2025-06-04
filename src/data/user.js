@@ -135,7 +135,7 @@ export const acceptInvite = async (groupId) => {
   };
 
   try {
-    const res = await fetch(`${baseURL}/users/acceptinvite`, {
+    const res = await fetch(`${baseURL}/acceptinvite`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -165,7 +165,7 @@ export const rejectInvite = async (groupId) => {
   };
 
   try {
-    const res = await fetch(`${baseURL}/users/removeinvite`, {
+    const res = await fetch(`${baseURL}/removeinvite`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -195,7 +195,7 @@ export const leaveGroup = async (groupId) => {
   };
 
   try {
-    const res = await fetch(`${baseURL}/users/leavegroup`, {
+    const res = await fetch(`${baseURL}/leavegroup`, {
       method: "POST",
       credentials: "include",
       headers: {
