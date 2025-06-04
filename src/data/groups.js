@@ -44,7 +44,7 @@ export const getSingleGroup = async (id) => {
 };
 
 export const createGroup = async (formData) => {
-  const res = await fetch(baseURL, {
+  const res = await fetch(`${baseURL}/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -105,6 +105,41 @@ export const deleteGroup = async (id) => {
       throw new Error("An error occurred while deleting the group");
     }
     throw new Error(errorData.error);
+  }
+
+  const data = await res.json();
+  return data;
+};
+
+export const getFilteredGroups = async (radius, filters = {}) => {
+  // Remove empty arrays and empty strings from filters
+  const cleanFilters = Object.fromEntries(
+    Object.entries(filters).filter(([_, v]) => {
+      if (Array.isArray(v)) return v.length > 0;
+      return v !== "" && v != null;
+    })
+  );
+
+  const res = await fetch(`${baseURL}?radius=${radius}`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(cleanFilters),
+  });
+  console.log(
+    `Fetching groups with radius: ${radius} m and filters:`,
+    cleanFilters
+  );
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(
+      errorData.error ||
+        errorData.message ||
+        "An error occurred while fetching groups"
+    );
   }
 
   const data = await res.json();
