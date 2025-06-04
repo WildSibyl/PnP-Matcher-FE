@@ -15,7 +15,6 @@ const PlayerCard = ({ details }) => {
   // useEffect(() => setCurrUser(dummy), []);
   const { user } = useAuth();
   const { startTeleport } = useTeleport();
-
   const navigate = useNavigate();
 
   if (!details) return <p>LOADING</p>;
