@@ -51,7 +51,7 @@ const Step1GroupDetails = ({ groupForm, onChange }) => {
             </p>
           ) : (
             <p className="text-gray-400 font-normal text-sm mt-1">
-              Your ideal party size, excluding you. We recommend 5
+              Your ideal party size, excluding you. We recommend 4.
             </p>
           )}
         </div>

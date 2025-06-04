@@ -36,7 +36,7 @@ const CreateGroup = () => {
     dislikes: [],
     tagline: "",
     description: "",
-    maxMembers: 5,
+    maxMembers: 4,
   });
 
   const validateStep = () => {

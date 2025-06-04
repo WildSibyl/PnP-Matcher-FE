@@ -3,7 +3,7 @@ import { useTagContext } from "../../context/TagsContextProvider";
 import RenBook from "../../assets/ren/Ren-book.png";
 
 const Step3GroupXPAndSystem = ({ groupForm, setGroupForm, onChange }) => {
-  const { experienceLevel } = useTagContext();
+  const { groupExperience } = useTagContext();
 
   return (
     <>
@@ -28,7 +28,7 @@ const Step3GroupXPAndSystem = ({ groupForm, setGroupForm, onChange }) => {
             className="input-bordered"
           >
             <option value="">Select experience</option>
-            {experienceLevel.map((level) => (
+            {groupExperience.map((level) => (
               <option key={level._id} value={level._id}>
                 {level.label}
               </option>
