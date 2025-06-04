@@ -9,6 +9,7 @@ import groupdummy from "../../assets/groupdummy.png";
 
 const GroupCard = ({ details }) => {
   const [currUser, setCurrUser] = useState(null);
+  console.log("Group Details", details);
 
   const playerOptions = [
     {

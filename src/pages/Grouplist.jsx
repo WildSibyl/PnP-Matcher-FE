@@ -1,10 +1,87 @@
+import Addsvg from "../assets/add.svg?react";
+import dragonImage from "../assets/dragonimage.png";
+import { Link } from "react-router";
+import { useAuth } from "../hooks/useAuth";
+import GroupCard from "../components/cards/Groupcard";
+import { getMyGroups } from "../data/user";
+import { useEffect, useState } from "react";
+import renimg from "../assets/ren/Ren-die.png";
+import D20svg from "../assets/d20.svg?react";
+
 const Grouplist = () => {
+  const { user } = useAuth();
+  const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    const fetchGroups = async () => {
+      if (!user || user.groups.length === 0) {
+        console.log("User not logged in");
+        return;
+      }
+      try {
+        const data = await getMyGroups();
+        setGroups(data);
+      } catch (error) {
+        console.log("Error fetching groups ", error.message);
+      }
+    };
+
+    fetchGroups();
+  }, [user]);
+
+  if (groups.length === 0) return <p>Loading</p>;
+
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-2xl font-bold lg:text-[16rem] text-transparent bg-gradient-to-r from-[#6054e8] to-[#f8485e] bg-clip-text">
-        GROUPS
-      </h1>
-      <p className="text-2xl font-bold text-gray-700">LIST OF YOUR GROUPS</p>
+    <div className="flex flex-col w-full max-w-[100vw] items-center justify-center gap-4">
+      <h2 className="text-pnp-white uppercase">Your groups</h2>
+      {/* INVITE LIST */}
+      <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[520px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl">
+        {/* Header mit Ren */}
+        <div className="flex w-full min-h-[20vh]">
+          <div className="flex pl-4 py-4">
+            <div className="w-4/5 ">
+              <p className="text-2xl font-extrabold text-pnp-white pt-4">
+                You got invites!
+              </p>
+              <p className="text-pnp-white pb-2">
+                Someone invited you to join their group! Are you ready for new
+                adventures?
+              </p>
+            </div>
+            <div className="w-2/5 relative flex justify-end items-end overflow-hidden">
+              <img
+                src={renimg}
+                alt="Ren, our mascot"
+                className="absolute mx-auto w-auto max-h-[100%] bottom-0 translate-y-2"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-between px-4 py-3 items-center bg-pnp-white text-pnp-black w-[95%] rounded-2xl pnp-shadow mx-auto my-2">
+          <h2>Groupname</h2>
+          <div className="flex gap-2">
+            <button className="btn-primary-light">Accept</button>{" "}
+            <button className="btn-secondary-dark">Decline</button>
+          </div>
+        </div>
+      </div>
+
+      {/* INVITE LIST END */}
+
+      <Link
+        to="/search"
+        style={{ backgroundImage: `url(${dragonImage})` }}
+        className="bg-center bg-cover w-[80vw] max-w-[500px] rounded-2xl items-center justify-center h-[8vh] text-pnp-white flex gap-2 mx-10 mt-5 mb-5"
+      >
+        <Addsvg />
+        <h3>CREATE A NEW GROUP</h3>
+      </Link>
+      <div className="flex flex-col items-center justify-center gap-4 mx-auto">
+        {groups.map((e) => (
+          <GroupCard key={e._id} details={e} />
+        ))}
+      </div>
     </div>
   );
 };

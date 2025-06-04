@@ -231,3 +231,16 @@ export const getGroupsAuthoredByMe = async () => {
 
   return res.json();
 };
+
+export const getMyGroups = async () => {
+  const res = await fetch(`${baseURL}/groups/`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || "Error fetching groups");
+  }
+
+  return res.json();
+};
