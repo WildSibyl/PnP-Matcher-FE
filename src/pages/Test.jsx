@@ -6,6 +6,7 @@ import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
 import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
 import PlayerCard from "../components/cards/PlayerCard";
 import RollForGroup from "../components/group-comp/RollForGroup";
+import Confetti from "../components/register-comp/Confetti";
 
 import Loader from "../components/Loader";
 import { useState, useEffect } from "react";
@@ -35,7 +36,7 @@ const Test = () => {
           placeholder="Select preferences"
           onChange={(values) => setUser((prev) => ({ ...prev, likes: values }))}
         />
-
+        <Confetti />
         <RollForGroup />
 
         <h1 className="text-pnp-white">This is the H1</h1>

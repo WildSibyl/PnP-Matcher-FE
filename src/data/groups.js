@@ -110,3 +110,17 @@ export const deleteGroup = async (id) => {
   const data = await res.json();
   return data;
 };
+
+export const checkGroupname = async (groupname) => {
+  const res = await fetch(`${API_URL}/groups/check-name?name=${groupname}`);
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(
+      errorData.error || "An error occurred while checking username"
+    );
+  }
+
+  const data = await res.json();
+  return data.isAvailable;
+};

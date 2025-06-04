@@ -50,7 +50,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/test" element={<Test />} />
           <Route element={<ProtectedLayout />}>
-            <Route path="/create" element={<CreateGroup />} />
+            <Route path="/create-group" element={<CreateGroup />} />
             <Route path="/edit/:id" element={<UpdateGroup />} />
             <Route path="/group/:id" element={<GroupDetail />} />
             <Route path="/settings" element={<AccountSettings />} />
