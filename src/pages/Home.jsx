@@ -73,7 +73,7 @@ const Home = () => {
 
           <div className="flex flex-col items-center justify-center mb-5 w-full">
             <p className="text-pnp-white mb-5 px-5 text-center">
-              Get to know PnPMatch!
+              Get to know PlotHook!
             </p>
 
             <div className="w-[380px] sm:w-full max-w-screen-md px-5 mb-5">
@@ -105,7 +105,7 @@ const Home = () => {
           <p className="font-extrabold">
             We know that finding players and scheduling sessions can be the
             hardest part of playing roleplay games — that’s why we built
-            PnPMatch!
+            PlotHook!
           </p>
 
           <p className="font-semibold">

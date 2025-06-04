@@ -6,7 +6,7 @@ const Privacy = () => {
       <h2 className="text-3xl font-bold mt-3 mb-4">Privacy Policy</h2>
 
       <p>
-        At <strong>PnPMatch</strong>, your privacy is important to us. We’re
+        At <strong>PlotHook</strong>, your privacy is important to us. We’re
         committed to protecting the personal information you share with us and
         ensuring your experience remains safe and transparent.
       </p>

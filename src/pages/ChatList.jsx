@@ -14,6 +14,7 @@ const ChatList = () => {
     setMessages,
     fetched,
     loading: authLoading,
+    setHasUnreadMessages,
   } = useWebSocketContext();
   const { user } = useAuth();
 
@@ -94,6 +95,7 @@ const ChatList = () => {
   const openChat = (chatId) => {
     setSelectedChatId(chatId);
     setIsModalOpen(true);
+    setHasUnreadMessages(false); // reset unread
   };
 
   return (
