@@ -33,7 +33,11 @@ const CardBadges = ({ details }) => {
         rest = list.filter((item) => !userValues.includes(item));
       } else {
         //if not logged in
-        rest = list;
+        if (list.length > 0) {
+          rest = list;
+        } else {
+          return;
+        }
       }
 
       //If there are more elements than "count", take count elements, else take all

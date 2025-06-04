@@ -48,11 +48,13 @@ const PlayerCard = ({ details }) => {
 
         {/* PLAYER INFOS */}
         <div className="flex gap-2 mb-4 text-left">
-          <img
-            src={details.avatarUrl}
-            className="rounded-full w-24 h-24 object-cover border-2 border-pnp-white pnp-shadow"
-            alt="user"
-          ></img>
+          {details?.avatarUrl && (
+            <img
+              src={details.avatarUrl}
+              className="rounded-full w-24 h-24 object-cover border-2 border-pnp-white pnp-shadow"
+              alt="user"
+            ></img>
+          )}
           <div>
             <h2 className="normal-case text-pnp-black">{details.userName}</h2>
             <p className="font-semibold text-pnp-black">{details.tagline}</p>
