@@ -4,12 +4,12 @@ export const InviteModalContext = createContext();
 
 export const InviteModalContextProvider = ({ children }) => {
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
-  const [activeGroup, setActiveGroup] = useState(false);
-  const [activeUser, setActiveUser] = useState(false);
+  const [activeGroup, setActiveGroup] = useState(null);
+  const [activeUser, setActiveUser] = useState(null);
 
-  const openInviteModal = ({ groupId, userId }) => {
-    setActiveGroup(groupId);
-    setActiveUser(userId);
+  const openInviteModal = ({ groupId = null, userId = null }) => {
+    if (groupId) setActiveGroup(groupId);
+    if (userId) setActiveUser(userId);
     setIsInviteModalOpen(true);
   };
 
@@ -21,7 +21,6 @@ export const InviteModalContextProvider = ({ children }) => {
 
   const values = {
     isInviteModalOpen,
-    setIsInviteModalOpen,
     activeGroup,
     activeUser,
     openInviteModal,
@@ -35,12 +34,4 @@ export const InviteModalContextProvider = ({ children }) => {
   );
 };
 
-export const useInviteModal = () => {
-  const context = useContext(InviteModalContext);
-  if (!context) {
-    throw new Error(
-      "useInviteModal must be used within InviteModalContextProvider"
-    );
-  }
-  return context;
-};
+export const useInviteModal = () => useContext(InviteModalContext);

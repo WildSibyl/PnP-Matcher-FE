@@ -105,7 +105,7 @@ export const sendInvite = async (invitedUserId, groupId) => {
   };
 
   try {
-    const res = await fetch(`${baseURL}/users/invite`, {
+    const res = await fetch(`${baseURL}/invite`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -124,7 +124,7 @@ export const sendInvite = async (invitedUserId, groupId) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error in sendInvite:", err);
+    console.error("Error in sendInvite:", error);
     throw error;
   }
 };
@@ -135,7 +135,7 @@ export const acceptInvite = async (groupId) => {
   };
 
   try {
-    const res = await fetch(`${baseURL}/users/acceptinvite`, {
+    const res = await fetch(`${baseURL}/acceptinvite`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -165,7 +165,7 @@ export const rejectInvite = async (groupId) => {
   };
 
   try {
-    const res = await fetch(`${baseURL}/users/removeinvite`, {
+    const res = await fetch(`${baseURL}/removeinvite`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -195,7 +195,7 @@ export const leaveGroup = async (groupId) => {
   };
 
   try {
-    const res = await fetch(`${baseURL}/users/leavegroup`, {
+    const res = await fetch(`${baseURL}/leavegroup`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -217,4 +217,30 @@ export const leaveGroup = async (groupId) => {
     console.error("Error in rejectInvite:", err);
     throw error;
   }
+};
+
+export const getGroupsAuthoredByMe = async () => {
+  const res = await fetch(`${baseURL}/groups/authored`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || "Error fetching groups");
+  }
+
+  return res.json();
+};
+
+export const getMyGroups = async () => {
+  const res = await fetch(`${baseURL}/groups/`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || "Error fetching groups");
+  }
+
+  return res.json();
 };

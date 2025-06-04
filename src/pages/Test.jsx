@@ -10,6 +10,8 @@ import Confetti from "../components/register-comp/Confetti";
 
 import Loader from "../components/Loader";
 import { useState, useEffect } from "react";
+import { useInviteModal } from "../context/InviteModalContextProvider";
+import InviteToGroupModal from "../components/InviteToGroupModal";
 
 const Test = () => {
   const [guestUser, setGuestUser] = useState({
@@ -18,6 +20,7 @@ const Test = () => {
       city: "",
     },
   });
+  const { openInviteModal } = useInviteModal();
 
   const testgroup = {
     _id: "683d9ed5e83520e34b7a43dc",
@@ -61,6 +64,14 @@ const Test = () => {
         <div className="pnp-badge-black my-5">
           {getIcon("Lorekeeper")} Lorekeeper
         </div>
+
+        {/* INVITE MODAL */}
+        <button
+          className="btn-primary-light"
+          onClick={() => openInviteModal({})}
+        >
+          Open Invite
+        </button>
       </div>
 
       {/* LOADING ANIMATION */}
@@ -95,6 +106,7 @@ const Test = () => {
           history after One Piece.
         </p>
       </div>
+      <InviteToGroupModal />
     </>
   );
 };

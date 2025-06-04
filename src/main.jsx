@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
+import { InviteModalContextProvider } from "./context/InviteModalContextProvider.jsx";
 import { AuthContextProvider } from "./context/AuthContextProvider.jsx";
 import "@fontsource-variable/inter";
 
