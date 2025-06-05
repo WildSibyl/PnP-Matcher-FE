@@ -12,7 +12,7 @@ const MainLayout = () => {
   return (
     <div className="w-full max-w-screen min-h-screen flex flex-col">
       <MenuIcons />
-      <ToastContainer position="top-center" autoClose={1500} theme="colored" />
+      <ToastContainer position="top-center" autoClose={1500} theme="light" />
 
       <TagsContextProvider>
         <WSContextProvider>
