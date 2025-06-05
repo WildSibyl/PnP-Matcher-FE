@@ -5,11 +5,11 @@ import dislike from "../assets/dislike_icon.svg";
 import getIcon from "../utils/getIcon";
 import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
 import calculateAge from "../utils/calculateAge";
-import profile from "../assets/profile.png";
 import { useTagContext } from "../context/TagsContextProvider";
 import SingleSelect from "../components/edit-comp/SingleSelect";
 import shortenExperienceLabel from "../utils/shortenExperience";
 import WeekdaySelector from "../components/WeekdaySelector";
+import Loader from "../components/Loader";
 
 const PlayerDetail = () => {
   const [user, setUser] = useState(null);
@@ -18,7 +18,6 @@ const PlayerDetail = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
 
   const {
     systems: systemsOptions,
@@ -52,7 +51,7 @@ const PlayerDetail = () => {
         setUser(data);
         console.log("Initial editedUser.experience:", data.experience);
         console.log("Data from /auth/me:", data);
-        // setEditedUser(data);
+
         setEditedUser({
           ...data,
           languages: data.languages || [],
@@ -86,7 +85,7 @@ const PlayerDetail = () => {
 
       experience: editedUser.experience?.id || editedUser.experience,
 
-      playingModes: editedUser.playingModes,
+      playingModes: editedUser.playingModes?.id || editedUser.playingModes,
       playingRoles: editedUser.playingRoles?.id || editedUser.playingRoles,
 
       systems: editedUser.systems?.map((system) => system.id || system) ?? [],
@@ -124,6 +123,7 @@ const PlayerDetail = () => {
       const updated = await res.json();
       setUser(updated);
       setEditedUser(updated);
+
       setIsEditing(false);
     } catch (err) {
       console.error(err);
@@ -144,45 +144,78 @@ const PlayerDetail = () => {
       ? user.description
       : `${user.description.slice(0, MAX_LENGTH)}...`;
 
-  const handleImageChange = (e) => {
+  const handleAvatarUpload = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setPreviewImage(imageUrl);
-      setSelectedFile(file);
+    if (!file) return;
 
-      setUser((prev) => ({
-        ...prev,
-        avatarUrl: imageUrl,
-      }));
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("http://localhost:8000/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setEditedUser((prev) => ({
+          ...prev,
+          avatarUrl: data.fileUrl,
+        }));
+      } else {
+        alert("Upload failed: " + data.error || "Unknown error");
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert("An error occurred during upload.");
     }
   };
-  if (!editedUser) {
-    return <div>Loading...</div>;
-  }
+  <Loader />;
+
+  // if (!editedUser) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div className="min-h-screen md:p-8 text-pnp-white">
       <div className="max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
         {/* Left Section */}
-        <div className="w-full lg:w-[40%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
-          {/* <div className="flex flex-col items-center text-center gap-4 lg:flex-row lg:items-start lg:text-left"> */}
-          <div className="flex flex-col lg:flex-row items-start gap-4">
+        <div className="w-full lg:w-[45%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
+          <div className="flex flex-col items-center text-center gap-4 lg:flex-row lg:items-start lg:text-left">
             <div className="flex-shrink-0 ">
-              <label htmlFor="avatar-upload">
+              {isEditing ? (
+                <>
+                  <label htmlFor="avatar-upload">
+                    <img
+                      src={
+                        previewImage ||
+                        editedUser.avatarUrl ||
+                        "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
+                      }
+                      alt="Avatar"
+                      className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer"
+                    />
+                  </label>
+                  <input
+                    id="avatar-upload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleAvatarUpload}
+                  />
+                </>
+              ) : (
                 <img
-                  src={previewImage || user.avatarUrl || profile}
+                  src={
+                    editedUser.avatarUrl ||
+                    "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
+                  }
                   alt="Avatar"
-                  className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer"
+                  className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
                 />
-              </label>
-              <input
-                id="avatar-upload"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleImageChange}
-              />
+              )}
             </div>
 
             <div className="flex flex-1 flex-col items-center lg:items-start">
@@ -320,10 +353,12 @@ const PlayerDetail = () => {
                       <SingleSelect
                         category="experience"
                         value={editedUser.experience}
+                        //className="input"
                         onChange={(selected) =>
                           setEditedUser({
                             ...editedUser,
                             experience: selected?.id,
+                            // experience: selected,
                           })
                         }
                       />
@@ -337,9 +372,11 @@ const PlayerDetail = () => {
                       <SingleSelect
                         category="playingModes"
                         value={editedUser.playingModes}
+                        //className="input"
                         onChange={(selected) =>
                           setEditedUser({
                             ...editedUser,
+                            //playingModes: selected,
                             playingModes: selected?.id,
                           })
                         }
@@ -354,9 +391,11 @@ const PlayerDetail = () => {
                       <SingleSelect
                         category="playingRoles"
                         value={editedUser.playingRoles}
+                        className="input"
                         onChange={(selected) =>
                           setEditedUser({
                             ...editedUser,
+                            // playingRoles: selected,
                             playingRoles: selected?.id,
                           })
                         }
@@ -433,7 +472,7 @@ const PlayerDetail = () => {
 
               <div className="mt-4">
                 <h3 className="font-semibold text-sm text-gray-700">
-                  Frequency
+                  FREQUENCY
                 </h3>
                 {isEditing ? (
                   <input
@@ -457,41 +496,32 @@ const PlayerDetail = () => {
               </div>
 
               <div className="mt-4">
-                {!isEditing && (
-                  <h3 className="font-semibold text-sm text-gray-700">
-                    Availability
-                  </h3>
-                )}
+                <h3 className="font-semibold text-sm text-gray-700 mb-2">
+                  AVIALABILITY
+                </h3>
 
-                {isEditing ? (
+                <div className={!isEditing ? "pointer-events-none" : ""}>
                   <WeekdaySelector
-                    weekdays={editedUser.weekdays || []} // correct prop name here
+                    weekdays={editedUser.weekdays || []}
                     onChange={(updatedDays) => {
-                      // Only update if changed (optional but good)
-                      setEditedUser((prev) => {
-                        const oldDays = prev.weekdays || [];
-                        if (
-                          updatedDays.length === oldDays.length &&
-                          updatedDays.every((day) => oldDays.includes(day))
-                        ) {
-                          return prev; // no change, skip update
-                        }
-                        return { ...prev, weekdays: updatedDays };
-                      });
+                      if (!isEditing) return; // Prevent changes in view mode
+
+                      const oldDays = editedUser.weekdays || [];
+                      if (
+                        updatedDays.length === oldDays.length &&
+                        updatedDays.every((day) => oldDays.includes(day))
+                      ) {
+                        return;
+                      }
+
+                      setEditedUser((prev) => ({
+                        ...prev,
+                        weekdays: updatedDays,
+                      }));
                     }}
+                    readOnly={!isEditing}
                   />
-                ) : (
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {(editedUser.weekdays || []).map((day) => (
-                      <span
-                        key={day}
-                        className="badge font-semibold bg-[var(--color-pnp-blue)] text-white"
-                      >
-                        {day}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                </div>
               </div>
 
               <div className="mt-4">
@@ -530,7 +560,7 @@ const PlayerDetail = () => {
 
         {/* Right Section */}
 
-        <div className="w-full lg:w-[60%] p-6 overflow-y-auto max-h-full">
+        <div className="w-full lg:w-[55%] p-6 overflow-y-auto max-h-full">
           <div className="mb-4">
             <div className="flex gap-4 font-semibold text-sm justify-center lg:justify-start">
               <button
@@ -592,7 +622,7 @@ const PlayerDetail = () => {
 
                 <div className="mt-4">
                   <h3 className="font-semibold text-sm text-gray-700">
-                    Language
+                    LANGUAGE
                   </h3>
                   {isEditing ? (
                     <TagMultiSelect
