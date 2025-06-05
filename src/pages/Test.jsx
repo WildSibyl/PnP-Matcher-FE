@@ -43,7 +43,7 @@ const Test = () => {
   };
 
   const toastSuccess = () => {
-    toast.success("Success!", { theme: "light" });
+    toast.success("Success!");
     // toast.success(
     //   <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
     //     <img src={RenNotif} alt="Success" style={{ width: "50px" }} />
