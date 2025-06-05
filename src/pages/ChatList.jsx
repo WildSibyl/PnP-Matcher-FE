@@ -37,7 +37,7 @@ const ChatList = () => {
 
     messages.forEach((msg) => {
       const chatId = msg.chatId;
-      if (msg.sender === currentUserId || msg.recipient === currentUserId) {
+      if (msg.chatId.includes(currentUserId)) {
         chatIds.push(chatId);
         lastMessages[chatId] = msg;
       }

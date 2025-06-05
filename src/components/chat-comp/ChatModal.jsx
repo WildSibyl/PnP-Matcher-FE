@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { sendChat } from "../../data/chat";
 import { useAuth } from "../../hooks/useAuth";
 import send_icon from "../../assets/send_icon.png";
+import RenChat from "../../assets/ren/Ren-chat.png"; // Assuming this is the image you want to use
 
 const ChatModal = ({ isOpen, onClose, receiverId, username }) => {
   const { messages, sendMessage } = useWebSocketContext();
@@ -18,10 +19,26 @@ const ChatModal = ({ isOpen, onClose, receiverId, username }) => {
   useAuth();
 
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [chatMessages]);
+    const timeout = setTimeout(() => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ behavior: "auto" });
+      }
+    }, 50); // small delay to ensure DOM is ready
+
+    return () => clearTimeout(timeout);
+  }, [isOpen, chatMessages]);
+
+  // useEffect(() => {
+  //   if (messagesEndRef.current) {
+  //     messagesEndRef.current.scrollIntoView({ behavior: "auto" });
+  //   }
+  // }, [isOpen]);
+
+  // useEffect(() => {
+  //   if (messagesEndRef.current) {
+  //     messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // }, [chatMessages]);
 
   if (!senderId || !receiverId) return null; // Ensure both IDs are available
 
@@ -57,7 +74,7 @@ const ChatModal = ({ isOpen, onClose, receiverId, username }) => {
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-pnp-black/70" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="bg-white w-full max-w-md max-h-[70vh] rounded-2xl shadow-lg p-6 relative flex flex-col">
+        <Dialog.Panel className="bg-white w-full md:w-[70vh] h-[70vh] rounded-2xl shadow-lg p-6 relative flex flex-col">
           <button
             onClick={onClose}
             className="absolute top-5 right-6 text-gray-600 hover:text-black text-xl"
@@ -69,27 +86,61 @@ const ChatModal = ({ isOpen, onClose, receiverId, username }) => {
           </Dialog.Title>
 
           <div className="flex flex-col flex-grow space-y-4 border border-pnp-purple rounded-lg p-4 mb-4 overflow-y-auto">
-            {chatMessages.map((msg, i) => {
-              const isSender = msg.sender === senderId;
-              return (
-                <div
-                  key={i}
-                  className={`flex m-0 mt-2 ${
-                    isSender ? "justify-end" : "justify-start"
-                  }`}
-                >
+            {chatMessages.length === 0 ? (
+              <div className="flex flex-col items-center justify-center text-center text-gray-500 italic select-none h-full">
+                <p>Start a conversation with {username}!</p>
+                <img
+                  src={RenChat}
+                  alt="Ren with a quill"
+                  className="h-[200px] mb-4"
+                />
+                <p className="mb-4">And remember:</p>
+                <ul className="list-none space-y-2 mb-4 font-semibold">
+                  {[
+                    "Be polite and respectful",
+                    "Follow the community guidelines",
+                    "Keep it friendly and fun",
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-center">
+                      <svg
+                        className="w-4 h-4 text-pnp-darkpurple mr-2 flex-shrink-0"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <polygon
+                          points="6,0 12,6 6,12 0,6"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      {text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              chatMessages.map((msg, i) => {
+                const isSender = msg.sender === senderId;
+                return (
                   <div
-                    className={`px-3 py-2 rounded-lg shadow-md max-w-[70%] ${
-                      isSender
-                        ? "bg-pnp-darkpurple text-pnp-white"
-                        : "bg-pnp-darkblue text-pnp-white"
+                    key={i}
+                    className={`flex m-0 mt-2 ${
+                      isSender ? "justify-end" : "justify-start"
                     }`}
                   >
-                    {msg.text}
+                    <div
+                      className={`px-3 py-2 rounded-lg shadow-md max-w-[70%] break-words ${
+                        isSender
+                          ? "bg-pnp-darkpurple text-pnp-white"
+                          : "bg-pnp-darkblue text-pnp-white"
+                      }`}
+                    >
+                      {msg.text}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
             {/* 👇 This dummy element triggers the scroll */}
             <div ref={messagesEndRef} />
           </div>
