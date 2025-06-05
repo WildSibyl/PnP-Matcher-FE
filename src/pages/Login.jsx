@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { signIn, me } from "../data/auth";
+import { signIn } from "../data/auth";
 import { useAuth } from "../hooks/useAuth";
 import RenBook from "../assets/ren/Ren-book.png";
 
@@ -23,8 +23,7 @@ const Login = () => {
       if (!email || !password) throw new Error("All fields are required");
       setLoading(true);
       const data = await signIn({ email, password });
-      const userData = await me();
-      setUser(userData);
+      setUser(data.user);
       navigate("/");
       toast.success(data.message);
       //console.log(email, password);
