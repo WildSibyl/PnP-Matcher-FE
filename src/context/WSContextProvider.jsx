@@ -20,6 +20,10 @@ export const WSContextProvider = ({ children }) => {
   const userRef = useRef();
   const activeChatIdRef = useRef();
   const isChatModalOpenRef = useRef();
+  const totalUnreadCount = Object.values(notifications).reduce(
+    (sum, count) => sum + count,
+    0
+  );
 
   useEffect(() => {
     userRef.current = user;
@@ -128,6 +132,7 @@ export const WSContextProvider = ({ children }) => {
     isChatModalOpen,
     setIsChatModalOpen,
     clearNotifications,
+    totalUnreadCount,
   };
 
   return (

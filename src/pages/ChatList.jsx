@@ -94,7 +94,7 @@ const ChatList = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 w-full max-w-md">
+    <div className="flex flex-col items-center justify-center space-y-4 w-full lg:max-w-[600px]">
       {recentChatIds.map((chatId) => {
         const otherUserId = getOtherUserId(chatId, currentUserId);
         const user = otherUsers[otherUserId];
@@ -126,7 +126,7 @@ const ChatList = () => {
             {/* Notification dot / badge */}
             {unreadCount > 0 && (
               <div
-                className="absolute top-3 right-3 bg-pnp-purple text-white rounded-full text-xs w-6 h-6 flex items-center justify-center font-bold select-none"
+                className="absolute top-3 right-3 bg-pnp-darkpurple text-white rounded-full text-xs w-5 h-5 flex items-center justify-center font-bold select-none"
                 title={`${unreadCount} unread message${
                   unreadCount > 1 ? "s" : ""
                 }`}
