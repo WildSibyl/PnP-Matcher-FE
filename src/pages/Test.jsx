@@ -7,7 +7,7 @@ import CrossedSwordssvg from "../assets/crossedSwords.svg?react";
 import PlayerCard from "../components/cards/PlayerCard";
 import RollForGroup from "../components/group-comp/RollForGroup";
 import Confetti from "../components/register-comp/Confetti";
-import RenNotif from "../assets/ren/Ren-notif.png";
+import RenNotif from "../assets/ren/Ren-notif-succ.png";
 
 import Loader from "../components/Loader";
 import { useState, useEffect } from "react";
@@ -43,25 +43,25 @@ const Test = () => {
   };
 
   const toastSuccess = () => {
-    //toast.success("Success!", { theme: "light" });
-    toast.success(
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <img src={RenNotif} alt="Success" style={{ width: "50px" }} />
-        <span>Operation completed successfully!</span>
-      </div>
-    );
+    toast.success("Success!");
+    // toast.success(
+    //   <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+    //     <img src={RenNotif} alt="Success" style={{ width: "50px" }} />
+    //     <span>Operation completed successfully!</span>
+    //   </div>
+    // );
   };
   const toastError = () => {
-    toast.error("Error!", { theme: "light" });
+    toast.error("Error!");
   };
   const toastWarning = () => {
-    toast.warning("Warning!", { theme: "light" });
+    toast.warning("Warning!");
   };
   const toastInfo = () => {
-    toast.info("Info", { theme: "light" });
+    toast.info("Info");
   };
   const toastGeneric = () => {
-    toast("Toast", { theme: "light" });
+    toast("Toast");
   };
 
   const toastSuccessD = () => {

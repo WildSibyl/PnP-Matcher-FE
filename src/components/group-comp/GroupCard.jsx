@@ -1,3 +1,5 @@
+//to be deleted
+
 import { Link } from "react-router-dom";
 
 const GroupCard = ({
