@@ -1,21 +1,45 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useRef } from "react";
 import { getChatMessages } from "../data/chat";
 import { useAuth } from "../hooks/useAuth";
 
 export const WebSocketContext = createContext(null);
-
 export const useWebSocketContext = () => useContext(WebSocketContext);
 
 export const WSContextProvider = ({ children }) => {
   const [ws, setWs] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [notifications, setNotifications] = useState([]);
+  // Notifications will be an object: { chatId: countOfUnreadMessages }
+  const [notifications, setNotifications] = useState({});
   const [fetched, setFetched] = useState(false);
-  const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
+
+  const [activeChatId, setActiveChatId] = useState(null);
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const { user, loading: authLoading } = useAuth();
+
+  // To access latest user and active chat inside WS listener
+  const userRef = useRef();
+  const activeChatIdRef = useRef();
+  const isChatModalOpenRef = useRef();
+  const totalUnreadCount = Object.values(notifications).reduce(
+    (sum, count) => sum + count,
+    0
+  );
+
+  useEffect(() => {
+    userRef.current = user;
+  }, [user]);
+
+  useEffect(() => {
+    activeChatIdRef.current = activeChatId;
+  }, [activeChatId]);
+
+  useEffect(() => {
+    isChatModalOpenRef.current = isChatModalOpen;
+  }, [isChatModalOpen]);
 
   useEffect(() => {
     if (authLoading || !user?._id) return;
+
     const socket = new WebSocket(
       `${import.meta.env.VITE_APP_PLOT_HOOK_WS_URL}`
     );
@@ -25,12 +49,12 @@ export const WSContextProvider = ({ children }) => {
       try {
         const msgs = await getChatMessages();
         setMessages(msgs);
-        setFetched(true); // Mark as loaded
+        setFetched(true);
         console.log("Initial messages fetched:", msgs);
         console.log(user, "WebSocket connection established");
       } catch (err) {
         console.error("Failed to fetch initial messages:", err);
-        setFetched(true); // Still mark fetched to avoid infinite loading
+        setFetched(true);
       }
     };
 
@@ -41,16 +65,52 @@ export const WSContextProvider = ({ children }) => {
         const text = await event.data.text();
         const data = JSON.parse(text);
         console.log("WebSocket received:", data);
+
+        // Add message to state
         setMessages((prev) => [...prev, data]);
-        setNotifications((prev) => [...prev, { type: "message", data }]);
-        setHasUnreadMessages(true); // set unread
+
+        const currentUserId = userRef.current?._id;
+        const isFromMe = data.sender === currentUserId;
+        const currentActiveChatId = activeChatIdRef.current;
+        const chatModalOpen = isChatModalOpenRef.current;
+
+        // If message is from others and chat is not currently open, update notifications
+        if (
+          !isFromMe &&
+          (data.chatId !== currentActiveChatId || !chatModalOpen)
+        ) {
+          setNotifications((prev) => ({
+            ...prev,
+            [data.chatId]: (prev[data.chatId] || 0) + 1,
+          }));
+        }
       } catch (err) {
         console.error("Failed to parse WebSocket message:", err);
       }
     });
 
-    return () => socket.close();
+    return () => {
+      socket.close();
+    };
   }, [authLoading, user?._id]);
+
+  // Clear notifications for a chat when user opens it
+  const clearNotifications = (chatId) => {
+    setNotifications((prev) => {
+      if (!prev[chatId]) return prev; // no notifications for this chat
+
+      const updated = { ...prev };
+      delete updated[chatId];
+      return updated;
+    });
+  };
+
+  // When user opens a chat (could be used externally)
+  useEffect(() => {
+    if (activeChatId && isChatModalOpen) {
+      clearNotifications(activeChatId);
+    }
+  }, [activeChatId, isChatModalOpen]);
 
   const sendMessage = (msg) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
@@ -67,8 +127,12 @@ export const WSContextProvider = ({ children }) => {
     fetched,
     setFetched,
     authLoading,
-    hasUnreadMessages,
-    setHasUnreadMessages,
+    activeChatId,
+    setActiveChatId,
+    isChatModalOpen,
+    setIsChatModalOpen,
+    clearNotifications,
+    totalUnreadCount,
   };
 
   return (
@@ -77,5 +141,3 @@ export const WSContextProvider = ({ children }) => {
     </WebSocketContext.Provider>
   );
 };
-
-//export { useWebSocketContext, WSContextProvider };
