@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router";
 
 import renimg from "../../assets/ren/Ren-die.png";
 import getIcon from "../../utils/getIcon";
@@ -17,19 +18,21 @@ const RollForGroup = () => {
 
   useEffect(() => {
     if (state === "roll" && !hasRolled.current) {
-      hasRolled.current = true;
       let currPlayerNum = 1;
       let rollInterval;
+      let currMaxPlayer;
 
       const startRolling = async () => {
         try {
-          const rolledUsers = await getRollMatches(30000);
-          setMaxPlayerNum(Math.min(rolledUsers.length, 4));
+          const rolledUsers = await getRollMatches(10000000);
+          currMaxPlayer = Math.min(rolledUsers.length, 4);
+          setMaxPlayerNum(currMaxPlayer);
 
           if (!rolledUsers || rolledUsers.length === 0) {
             throw new Error("No users rolled");
           }
           console.log("Rolled ", rolledUsers);
+          hasRolled.current = true;
 
           // Start Intervall, nachdem Daten da sind
           setPlayerResults([rolledUsers[0]]);
@@ -40,7 +43,7 @@ const RollForGroup = () => {
               ...prev,
               rolledUsers[currPlayerNum - 1],
             ]);
-            if (currPlayerNum >= maxPlayerNum) {
+            if (currPlayerNum >= currMaxPlayer) {
               clearInterval(rollInterval);
               setTimeout(() => {
                 setState("results");
@@ -52,9 +55,11 @@ const RollForGroup = () => {
           if (error.message === "Not enough users nearby") {
             setTimeout(() => {
               setState("error");
+              hasRolled.current = false;
             }, 3000);
           } else {
             setState("default");
+            hasRolled.current = false;
           }
         }
       };
@@ -150,24 +155,44 @@ const RollForGroup = () => {
               come again later...
             </p>
           )}
-          {state === "results" &&
-            playerResults &&
-            playerResults.map((e, index) => (
-              <div
-                key={e._id}
-                style={{
-                  animationName: "fadeIn",
-                  animationDuration: "0.5s",
-                  animationFillMode: "forwards",
-                  animationTimingFunction: "ease",
-                  animationDelay: `${index * 200}ms`,
-                  opacity: 0,
-                }}
-                className="animate-fade-in"
-              >
-                <PlayerCard details={e} />
+          {state === "results" && (
+            <>
+              {playerResults &&
+                playerResults.map((e, index) => (
+                  <div
+                    key={e._id}
+                    style={{
+                      animationName: "fadeIn",
+                      animationDuration: "0.5s",
+                      animationFillMode: "forwards",
+                      animationTimingFunction: "ease",
+                      animationDelay: `${index * 200}ms`,
+                      opacity: 0,
+                    }}
+                    className="animate-fade-in"
+                  >
+                    <PlayerCard details={e} />
+                  </div>
+                ))}
+              <div className="relative w-full flex flex-col items-center justify-center pb-4">
+                <h3>Not what you've been looking for?</h3>
+                <div className="flex w-[75%] gap-3 justify-center">
+                  <Link to="/search" className="btn-secondary-light">
+                    {getIcon("Search")} Go to Search
+                  </Link>
+                  <button
+                    className="btn-secondary-light"
+                    onClick={() => {
+                      hasRolled.current = false;
+                      setState("roll");
+                    }}
+                  >
+                    {getIcon("Refresh")} Reroll Players
+                  </button>
+                </div>
               </div>
-            ))}
+            </>
+          )}
         </div>
       </div>
     </div>
