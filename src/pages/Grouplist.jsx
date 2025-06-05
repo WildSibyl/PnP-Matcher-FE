@@ -57,7 +57,7 @@ const Grouplist = () => {
     };
 
     fetchGroups();
-    Promise.all(user?.invites?.map((e) => fetchInvite(e)));
+    Promise.all((user?.invites || []).map((e) => fetchInvite(e)));
   }, [user]);
 
   const handleAccept = async (id) => {
@@ -96,7 +96,7 @@ const Grouplist = () => {
     }
   };
 
-  if (!user) return <p>Loading user...</p>;
+  if (!user) return <p className="text-pnp-white">Loading user...</p>;
 
   return (
     <div className="flex flex-col w-full max-w-[100vw] items-center justify-center gap-4">
@@ -162,11 +162,19 @@ const Grouplist = () => {
         <h3>CREATE A NEW GROUP</h3>
       </Link>
 
-      {user.groups?.length && (
+      {user?.groups?.length > 0 ? (
         <div className="flex flex-col items-center justify-center gap-4 mx-auto">
           {Array.isArray(groups) &&
             groups.map((e) => <GroupCard key={e._id} details={e} />)}
         </div>
+      ) : (
+        <>
+          <h3 className="text-pnp-white mt-6">You currently have no groups!</h3>
+          <p className="text-pnp-white">
+            {" "}
+            Find players or create your own group to start adventuring!
+          </p>
+        </>
       )}
     </div>
   );
