@@ -8,30 +8,20 @@ const AiTextSuggest = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-4",
-            messages: [
-              {
-                role: "user",
-                content:
-                  "Give me one group name suggestion for a pen&paper playing group playing dark fantasy with a lot of dungeoncrawling",
-              },
-            ],
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:8000/api/suggest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          prompt: "short, cool tagline",
+        }),
+      });
 
       const data = await response.json(); // Convert to JSON
-
-      const result = data.choices[0].message.content.trim();
+      console.log("AI data", data);
+      const result = data.suggestion;
       setSuggestion(result);
     } catch (error) {
       console.error("Error:", error);
