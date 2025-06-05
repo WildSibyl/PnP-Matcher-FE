@@ -81,6 +81,13 @@ const PlayerDetail = () => {
         houseNumber: editedUser.address.houseNumber,
         postalCode: editedUser.address.postalCode,
         city: editedUser.address.city,
+        location: {
+          type: "Point",
+          coordinates: [
+            user?.address?.location?.coordinates[0],
+            user?.address?.location?.coordinates[1],
+          ],
+        },
       },
 
       experience: editedUser.experience?.id || editedUser.experience,
