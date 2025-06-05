@@ -25,7 +25,7 @@ const Login = () => {
       const data = await signIn({ email, password });
       setUser(data.user);
       navigate("/");
-      toast.success(data.message);
+      toast.success(`Welcome, ${data.user.userName}!`);
       //console.log(email, password);
     } catch (error) {
       toast.error(error.message);
