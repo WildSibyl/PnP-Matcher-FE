@@ -15,6 +15,7 @@ const RollForGroup = () => {
   const [playerResults, setPlayerResults] = useState([]);
 
   const hasRolled = useRef(false);
+  const topRef = useRef(false);
 
   useEffect(() => {
     if (state === "roll" && !hasRolled.current) {
@@ -24,7 +25,7 @@ const RollForGroup = () => {
 
       const startRolling = async () => {
         try {
-          const rolledUsers = await getRollMatches(10000000);
+          const rolledUsers = await getRollMatches(1000000);
           currMaxPlayer = Math.min(rolledUsers.length, 4);
           setMaxPlayerNum(currMaxPlayer);
 
@@ -71,7 +72,10 @@ const RollForGroup = () => {
   }, [state]);
 
   return (
-    <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[520px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl">
+    <div
+      ref={topRef}
+      className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[520px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl"
+    >
       <p className="text-2xl font-extrabold text-pnp-white pt-4 px-4">
         {state === "results"
           ? "THE DICE HAVE SPOKEN!"
@@ -132,20 +136,34 @@ const RollForGroup = () => {
         <div className="flex justify-center gap-2">
           {state === "roll" &&
             playerResults &&
-            playerResults.map((e) => (
-              <img
-                key={e._id}
-                className="rounded-full h-auto w-[80px] border-2 my-4"
-                style={{
-                  animationName: "fadeIn",
-                  animationDuration: "0.5s",
-                  animationFillMode: "forwards",
-                  animationTimingFunction: "ease",
-                  opacity: 0,
-                }}
-                src={e.avatarUrl}
-              />
-            ))}
+            playerResults.map((e) =>
+              e.avatarUrl ? (
+                <img
+                  key={e._id}
+                  className="rounded-full h-auto w-[80px] border-2 my-4"
+                  style={{
+                    animationName: "fadeIn",
+                    animationDuration: "0.5s",
+                    animationFillMode: "forwards",
+                    animationTimingFunction: "ease",
+                    opacity: 0,
+                  }}
+                  src={e.avatarUrl}
+                />
+              ) : (
+                <div
+                  key={e._id}
+                  className="rounded-full bg-pnp-darkpurple h-auto w-[80px] border-2 my-4"
+                  style={{
+                    animationName: "fadeIn",
+                    animationDuration: "0.5s",
+                    animationFillMode: "forwards",
+                    animationTimingFunction: "ease",
+                    opacity: 0,
+                  }}
+                ></div>
+              )
+            )}
         </div>
         {/* Results */}
         <div className="flex flex-col">
@@ -185,6 +203,7 @@ const RollForGroup = () => {
                     onClick={() => {
                       hasRolled.current = false;
                       setState("roll");
+                      topRef.current?.scrollIntoView({ behavior: "smooth" });
                     }}
                   >
                     {getIcon("Refresh")} Reroll Players
