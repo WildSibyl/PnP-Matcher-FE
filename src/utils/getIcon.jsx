@@ -15,6 +15,10 @@ import Experiencesvg from "../assets/experience.svg?react";
 import Closesvg from "../assets/close.svg?react";
 import Filtersvg from "../assets/filter.svg?react";
 import D20svg from "../assets/d20.svg?react";
+import Addsvg from "../assets/add.svg?react";
+import Chatsvg from "../assets/chatbubble.svg?react";
+import Refreshsvg from "../assets/refresh.svg?react";
+import Searchsvg from "../assets/search.svg?react";
 
 const getIcon = (tag) => {
   const icons = {
@@ -36,6 +40,10 @@ const getIcon = (tag) => {
     Filter: Filtersvg,
     Close: Closesvg,
     D20: D20svg,
+    Chat: Chatsvg,
+    Add: Addsvg,
+    Refresh: Refreshsvg,
+    Search: Searchsvg,
   };
 
   const IconComponent = icons[tag];
