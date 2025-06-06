@@ -22,8 +22,9 @@ const GroupnameInput = ({
       return;
     }
 
-    if (/^[A-Za-z0-9\s]+$/.test(value)) {
-      // allow letters, numbers, and spaces
+    if (/^[A-Za-z0-9\s!:\-,&?"']+$/.test(value)) {
+      //allow letters, numbers, spaces and ":-',&?!
+
       setValidationError("");
 
       const timeout = setTimeout(() => {
@@ -40,7 +41,9 @@ const GroupnameInput = ({
 
       return () => clearTimeout(timeout);
     } else {
-      setValidationError("Only letters, numbers, and spaces are allowed.");
+      setValidationError(
+        "Only the following special characters allowed: -',&?!"
+      );
       setIsGroupnameAvailable(null);
     }
   }, [value]);

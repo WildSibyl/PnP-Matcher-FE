@@ -134,11 +134,17 @@ const CreateGroup = () => {
           ...groupForm.address,
         },
         experience: groupForm.experience,
-        systems: groupForm.systems.map((s) => s.id),
+        systems: groupForm.systems.map((s) => {
+          if (typeof s === "string") return s;
+          return s.id;
+        }),
         weekdays: groupForm.weekdays,
         frequencyPerMonth: groupForm.frequencyPerMonth,
         playingModes: groupForm.playingModes,
-        languages: groupForm.languages.map((l) => l.id),
+        languages: groupForm.languages.map((l) => {
+          if (typeof l === "string") return l;
+          return l.id;
+        }),
         playstyles: groupForm.playstyles,
         likes: groupForm.likes,
         dislikes: groupForm.dislikes,

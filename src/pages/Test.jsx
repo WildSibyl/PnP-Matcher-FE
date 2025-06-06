@@ -8,6 +8,7 @@ import PlayerCard from "../components/cards/PlayerCard";
 import RollForGroup from "../components/group-comp/RollForGroup";
 import Confetti from "../components/register-comp/Confetti";
 import RenNotif from "../assets/ren/Ren-notif-succ.png";
+import AiTextSuggest from "../components/group-comp/AiTextSuggest";
 
 import Loader from "../components/Loader";
 import { useState, useEffect } from "react";
@@ -94,6 +95,8 @@ const Test = () => {
         />
         <Confetti />
         <RollForGroup />
+
+        <AiTextSuggest />
 
         {/* Toastify testing */}
 
