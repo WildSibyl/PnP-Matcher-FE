@@ -84,11 +84,16 @@ const SelectUser = ({ selected, onChange, setSelected }) => {
                       onChange?.(e);
                     }}
                   >
-                    <img
-                      className="h-auto w-[50px] rounded-full"
-                      src={e.avatarUrl}
-                      alt={e.userName}
-                    />
+                    {e?.avatarUrl != "" ? (
+                      <img
+                        className="h-auto w-[50px] rounded-full"
+                        src={e.avatarUrl}
+                        alt={e.userName}
+                      />
+                    ) : (
+                      <div className="bg-pnp-darkpurple h-[50px] w-[50px] rounded-full"></div>
+                    )}
+
                     {e.userName}
                   </div>
                 ))}
