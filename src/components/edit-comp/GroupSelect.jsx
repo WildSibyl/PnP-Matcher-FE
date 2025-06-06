@@ -15,7 +15,6 @@ const GroupAuthorSelect = ({
       try {
         const data = await getGroupsAuthoredByMe();
         const mapped = data.map((group) => ({
-          id: group._id,
           label: group.name,
           value: group._id,
         }));
@@ -29,7 +28,7 @@ const GroupAuthorSelect = ({
   }, []);
 
   useEffect(() => {
-    if (!value) return setSelected(null);
+    if (!value || options.length === 0) return;
     const match = options.find(
       (opt) => opt.id === value || opt.value === value
     );
@@ -38,7 +37,7 @@ const GroupAuthorSelect = ({
 
   const handleChange = (selectedOption) => {
     setSelected(selectedOption);
-    onChange(selectedOption);
+    onChange(selectedOption?.value || null);
   };
 
   return (
@@ -47,7 +46,12 @@ const GroupAuthorSelect = ({
       value={selected}
       onChange={handleChange}
       placeholder={placeholder}
-      className="input-bordered-multi"
+      menuPortalTarget={document.body}
+      menuPosition="fixed"
+      styles={{
+        menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+      }}
+      className="input-bordered-multi text-left"
       isClearable
     />
   );
