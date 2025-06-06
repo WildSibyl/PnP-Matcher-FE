@@ -20,7 +20,7 @@ const PlayerDetail = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const [groups, setGroups] = useState(null);
+  const [groups, setGroups] = useState([]);
 
   const {
     systems: systemsOptions,
