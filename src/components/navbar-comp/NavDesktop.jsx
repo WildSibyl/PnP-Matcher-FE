@@ -8,7 +8,7 @@ import Chatbubblesvg from "../../assets/chatbubble.svg?react";
 import Logoutsvg from "../../assets/logout.svg?react";
 
 const NavDesktop = ({ logo, user, logOut }) => {
-  const { totalUnreadCount } = useWebSocketContext();
+  const { totalUnreadCount, totalInvitesCount } = useWebSocketContext();
 
   return (
     <div className="flex justify-between items-center h-[8vh] overscroll-none">
@@ -76,7 +76,18 @@ const NavDesktop = ({ logo, user, logOut }) => {
               GROUPS
             </div>
             <Link to="/grouplist">
-              <Groupssvg className={`btn-desktopnavi`} />
+              <div className="relative">
+                <Groupssvg className={`btn-desktopnavi`} />
+                {totalInvitesCount > 0 && (
+                  <div
+                    className="absolute top-[12px] left-3.5 min-w-[18px] w-5 h-5 rounded-full bg-pnp-darkpurple text-white text-xs font-bold flex items-center justify-center select-none"
+                    aria-label={`${totalInvitesCount} group invites pending`}
+                    title={`${totalInvitesCount} group invites pending`}
+                  >
+                    {totalInvitesCount}
+                  </div>
+                )}
+              </div>
             </Link>
           </div>
 
