@@ -6,37 +6,60 @@ import WeekdaySelector from "../components/WeekdaySelector";
 import CardAvailability from "../components/cards/CardAvailability";
 import calculateAge from "../utils/calculateAge";
 import TagMultiSelect from "../components/edit-comp/TagMultiSelect";
+import SingleSelect from "../components/edit-comp/SingleSelect";
 import like from "../assets/like_icon.svg";
 import dislike from "../assets/dislike_icon.svg";
 import getIcon from "../utils/getIcon";
 import shortenExperienceLabel from "../utils/shortenExperience";
+import { useTagContext } from "../context/TagsContextProvider";
+import Loader from "../components/Loader";
 
 const GroupDetail = () => {
   const { user } = useAuth();
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [groupDetails, setGroupDetails] = useState(null);
+  const [editedGroup, setEditedGroup] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("about");
   const [showFullAbout, setShowFullAbout] = useState(false);
-  // const [showFullDescription, setShowFullDescription] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const {
+    systems: systemsOptions,
+    languages: languagesOptions, // Languages are not used in this component
+    playstyles: playstylesOptions,
+    likes: likesOptions,
+    dislikes: dislikesOptions,
+    groupExperience: experiencesOptions,
+    playingModes: playingModesOptions, // Playing modes are not used in this component
+  } = useTagContext();
 
   const MAX_LENGTH = 300;
   const toggleAboutText = () => setShowFullAbout((prev) => !prev);
 
+  const API_URL = import.meta.env.VITE_APP_PLOT_HOOK_API_URL;
+
   useEffect(() => {
-    if (!id) {
-      setLoading(false);
-      return;
-    }
+    if (!id) return setLoading(false);
 
     const fetchData = async () => {
       try {
         setLoading(true);
         const data = await getSingleGroup(id);
-        console.log("Fetched Group Data:", data);
         setGroupDetails(data);
+        setEditedGroup({
+          ...data,
+          playstyles: data.playstyles || [],
+          systems: data.systems || [],
+          likes: data.likes || [],
+          dislikes: data.dislikes || [],
+          experience: data.experience || "",
+          weekdays: data.weekdays || [],
+        });
       } catch (err) {
         console.error("Error fetching group:", err);
         setError("Failed to load group details.");
@@ -48,153 +71,430 @@ const GroupDetail = () => {
     fetchData();
   }, [id]);
 
-  if (loading) {
-    return (
-      <p className="!text-pnp-white text-center py-8">
-        Loading group details...
-      </p>
-    );
-  }
+  const isAuthor =
+    user && groupDetails?.author && groupDetails.author._id === user._id;
 
-  if (error) {
-    return <p className="!text-pnp-white text-center py-8">{error}</p>;
-  }
+  const handleSave = async () => {
+    try {
+      const updateData = {
+        name: editedGroup.name,
+        tagline: editedGroup.tagline,
+        description: editedGroup.description,
+        experience: editedGroup.experience?.id || editedGroup.experience,
+        playingModes: editedGroup.playingModes?.id || editedGroup.playingModes,
+        systems: editedGroup.systems?.map((s) => s.id || s) ?? [],
+        playstyles: editedGroup.playstyles?.map((p) => p.id || p) ?? [],
+        likes: editedGroup.likes?.map((l) => l.id || l) ?? [],
+        dislikes: editedGroup.dislikes?.map((d) => d.id || d) ?? [],
+        frequencyPerMonth: editedGroup.frequencyPerMonth,
+        languages:
+          editedGroup.languages?.map((language) => language.id || language) ??
+          [],
+        weekdays: editedGroup.weekdays,
+        address: {
+          ...editedGroup.address,
+        },
+        image: editedGroup.image,
+      };
 
-  if (!groupDetails) {
+      const res = await fetch(`${API_URL}/groups/${editedGroup._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(updateData),
+      });
+
+      if (!res.ok) throw new Error("Failed to update group");
+      const updated = await res.json();
+      setGroupDetails(updated);
+      setEditedGroup(updated);
+      setIsEditing(false);
+    } catch (err) {
+      console.error("Save error:", err);
+    }
+  };
+
+  const handleCancel = () => {
+    setEditedGroup(groupDetails);
+    setIsEditing(false);
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch(`${API_URL}/upload`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setEditedGroup((prev) => ({ ...prev, image: data.fileUrl }));
+      } else {
+        alert("Upload failed: " + data.error || "Unknown error");
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert("An error occurred during upload.");
+    }
+  };
+
+  if (loading) return <Loader />;
+  if (error) return <p className="text-white text-center py-8">{error}</p>;
+  if (!groupDetails)
     return (
-      <p className="!text-pnp-white text-center py-8">
+      <p className="text-white text-center py-8">
         No group found with this ID.
       </p>
     );
-  }
-
-  // Check if User is Author of the Group
-  // Ensure user and groupDetails.author are available before accessing properties
-  const isAuthor =
-    user && groupDetails.author && groupDetails.author._id === user._id;
-  const isMember =
-    user && groupDetails.members.some((member) => member._id === user._id);
-  const canJoin =
-    user &&
-    !isAuthor &&
-    !isMember &&
-    groupDetails.members.length < groupDetails.maxMembers;
 
   const displayedAbout =
-    showFullAbout || groupDetails.description.length <= MAX_LENGTH
-      ? groupDetails.description
-      : `${groupDetails.description.slice(0, MAX_LENGTH)}...`;
-
-  // const descriptionText = groupDetails.description || "";
-  // const truncatedDescription =
-  //   showFullDescription || descriptionText.length <= MAX_DESCRIPTION_LENGTH
-  //     ? descriptionText
-  //     : `${descriptionText.slice(0, MAX_DESCRIPTION_LENGTH)}...`;
-
-  const TagDisplay = ({ label, items }) => {
-    if (!items || items.length === 0) {
-      return null; // Don't render if no items
-    }
-  };
+    showFullAbout || editedGroup.description.length <= MAX_LENGTH
+      ? editedGroup.description
+      : `${editedGroup.description.slice(0, MAX_LENGTH)}...`;
 
   return (
     <div className="min-h-screen md:p-8 text-pnp-white">
       {/* Main Card */}
-      <div className="max-w-7xl px-5 mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row ">
-        {/* Left Sidebar */}
-        <div className="w-full lg:w-[45%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
-          {/*
-           */}
-          {/* <img
-              src={user.avatarUrl}
-              alt="Avatar"
-              className="w-32 h-32 rounded-full border-4 border-white shadow-lg"
-            /> */}
-          <div>
-            {groupDetails.image && (
+      <div className="max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row ">
+        <div className="flex flex-col lg:w-[45%]">
+          <div className="flex-shrink-0">
+            {isEditing ? (
+              <label htmlFor="group-image-upload">
+                <img
+                  src={previewImage || editedGroup.image}
+                  alt="Group"
+                  className="w-full h-[300px] shadow-lg object-cover cursor-pointer lg:h-[250px]"
+                />
+                <input
+                  id="group-image-upload"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                />
+              </label>
+            ) : (
               <div className="mb-4 -mx-12 lg:mx-0">
                 <img
-                  src={groupDetails.image}
-                  alt={`${groupDetails.name} Group Image`}
-                  className="w-full h-48 object-cover rounded-lg shadow-md"
+                  src={editedGroup.image}
+                  alt={`${editedGroup.name} Group Image`}
+                  className="w-full h-[300px] object-cover rounded-lg shadow-md lg:h-[250px]"
                 />
               </div>
             )}
+          </div>
+          {/* Left Sidebar */}
+          <div className="w-full p-6 border-b border-gray-100 lg:border-b-0  ">
+            <div className="flex flex-col items-center text-center gap-4 lg:flex-row lg:items-start lg:text-left">
+              <div className="flex flex-1 flex-col items-center lg:items-start">
+                {isEditing ? (
+                  <>
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      GROUP NAME
+                    </h3>
+                    <input
+                      type="text"
+                      value={editedGroup.name}
+                      onChange={(e) =>
+                        setEditedGroup({ ...editedGroup, name: e.target.value })
+                      }
+                      className="input capitalize"
+                    />
+                  </>
+                ) : (
+                  <h3>{editedGroup.name}</h3>
+                )}
 
-            <div className=" flex flex-col items-center text-center lg:items-start lg:text-left">
-              <h3>{groupDetails.name}</h3>
-              <small className="mt-2">
-                "{groupDetails.tagline}" <br />
-              </small>
+                {isEditing ? (
+                  <>
+                    <h3 className="font-semibold text-sm text-gray-700 mt-4">
+                      TAGLINE
+                    </h3>
+                    <input
+                      type="text"
+                      placeholder="Tagline"
+                      value={editedGroup.tagline}
+                      onChange={(e) =>
+                        setEditedGroup({
+                          ...editedGroup,
+                          tagline: e.target.value,
+                        })
+                      }
+                      className="input"
+                    />
+                  </>
+                ) : (
+                  <small className="mt-2">{editedGroup.tagline}</small>
+                )}
 
-              <div
-                className={`mt-4 text-sm flex gap-2 ${
-                  groupDetails.members.length >= groupDetails.maxMembers
-                    ? "pnp-badge-white"
-                    : "pnp-badge-green"
-                }`}
-              >
-                {getIcon("User")} {groupDetails.members.length + 1} /{" "}
-                {groupDetails.maxMembers + 1} {/* +1 for the author */}
-              </div>
+                {isEditing ? (
+                  <div className="flex flex-col w-full">
+                    <h3 className="font-semibold text-sm text-gray-700 mt-4">
+                      YOUR ADDRESS
+                    </h3>
+                    <div className="flex flex-col gap-4 w-full">
+                      <input
+                        type="text"
+                        value={editedGroup.address?.street || ""}
+                        onChange={(e) =>
+                          setEditedUser((prev) => ({
+                            ...prev,
+                            address: {
+                              ...prev.address,
+                              street: e.target.value,
+                            },
+                          }))
+                        }
+                        placeholder="Street"
+                        className="input"
+                      />
+                      <input
+                        type="text"
+                        value={editedGroup.address?.houseNumber || ""}
+                        onChange={(e) =>
+                          setEditedUser((prev) => ({
+                            ...prev,
+                            address: {
+                              ...prev.address,
+                              houseNumber: e.target.value,
+                            },
+                          }))
+                        }
+                        placeholder="House Number"
+                        className="input"
+                      />
+                      <input
+                        type="text"
+                        value={editedGroup.address?.postalCode || ""}
+                        onChange={(e) =>
+                          setEditedUser((prev) => ({
+                            ...prev,
+                            address: {
+                              ...prev.address,
+                              postalCode: e.target.value,
+                            },
+                          }))
+                        }
+                        placeholder="Postal Code"
+                        className="input"
+                      />
 
-              <div className="flex flex-wrap mt-4 ">
-                <div className="pnp-badge-purple">
-                  {getIcon("Experience")}{" "}
-                  {shortenExperienceLabel(groupDetails.experience.value)}
+                      <input
+                        type="text"
+                        value={editedGroup.address?.city || ""}
+                        onChange={(e) =>
+                          setEditedUser((prev) => ({
+                            ...prev,
+                            address: {
+                              ...prev.address,
+                              city: e.target.value,
+                            },
+                          }))
+                        }
+                        placeholder="City"
+                        className="input"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-sm text-gray-700 mt-2">
+                    {(editedGroup.address?.postalCode ||
+                      editedGroup.address?.street) && (
+                      <span>
+                        {editedGroup.address?.postalCode || ""},{" "}
+                        {editedGroup.address?.city || ""}
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                <div className="mt-4 w-[320px]">
+                  {isEditing ? (
+                    <>
+                      <h3 className="font-semibold text-sm text-gray-700">
+                        EXPERIENCE
+                      </h3>
+                      <SingleSelect
+                        category="experience"
+                        value={editedGroup.experience}
+                        onChange={(selected) =>
+                          setEditedGroup({
+                            ...editedGroup,
+                            experience: selected?.id,
+                          })
+                        }
+                      />
+                    </>
+                  ) : (
+                    <div className="pnp-badge-purple flex items-center gap-1">
+                      {getIcon("Experience")}{" "}
+                      {shortenExperienceLabel(
+                        experiencesOptions.find(
+                          (opt) =>
+                            opt._id === editedGroup.experience ||
+                            opt._id === editedGroup.experience?.id
+                        )?.label ||
+                          editedGroup.experience?.label ||
+                          editedGroup.experience
+                      )}
+                    </div>
+                  )}
                 </div>
 
-                <div className="pnp-badge-blue">
-                  {getIcon("On-site")} On-site
+                {/* PLAYING MODES */}
+                <div className="mt-4 w-[320px]">
+                  {isEditing ? (
+                    <>
+                      <h3 className="font-semibold text-sm text-gray-700">
+                        PLAYING MODES
+                      </h3>
+                      <SingleSelect
+                        category="playingModes"
+                        value={editedGroup.playingModes}
+                        //className="input"
+                        onChange={(selected) =>
+                          setEditedUser({
+                            ...editedGroup,
+                            //playingModes: selected,
+                            playingModes: selected?.id,
+                          })
+                        }
+                      />
+                    </>
+                  ) : (
+                    <>
+                      {editedGroup.playingModes && (
+                        <div className="pnp-badge-blue flex items-center gap-1">
+                          {(() => {
+                            const label =
+                              playingModesOptions.find(
+                                (opt) =>
+                                  opt._id === editedGroup.playingModes ||
+                                  opt._id === editedGroup.playingModes?.id
+                              )?.label ||
+                              editedGroup.playingModes?.label ||
+                              editedGroup.playingModes;
+
+                            if (label === "Both") {
+                              return (
+                                <>
+                                  {getIcon("On-site")}
+                                  {getIcon("Online")}
+                                </>
+                              );
+                            }
+
+                            return getIcon(label);
+                          })()}
+                          {playingModesOptions.find(
+                            (opt) =>
+                              opt._id === editedGroup.playingModes ||
+                              opt._id === editedGroup.playingModes?.id
+                          )?.label ||
+                            editedGroup.playingModes?.label ||
+                            editedGroup.playingModes}
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
-              </div>
 
-              <small className="text-gray-700 mt-4">
-                {groupDetails.maxMembers - groupDetails.members.length} {""}{" "}
-                open slots | {groupDetails.address.postalCode}{" "}
-                {groupDetails.address.city}
-              </small>
-
-              <div className="mt-4 flex flex-wrap space-x-10">
-                <h3 className="font-semibold text-sm uppercase">
-                  Availability
-                </h3>
-                <p className="text-sm text-gray-700 ">
-                  {groupDetails.frequencyPerMonth || "Not set"} x per month
-                </p>
-
-                <div className="mt-4 pointer-events-none">
-                  <WeekdaySelector
-                    weekdays={groupDetails.weekdays} // Pass the group's availability data
-                    readOnly={true} // Crucially, set to true for display-only
-                  />
+                <div className="mt-4">
+                  <h3 className="font-semibold text-sm text-gray-700 mb-2">
+                    AVAILABILITY
+                  </h3>
+                  {isEditing ? (
+                    <WeekdaySelector
+                      weekdays={editedGroup.weekdays || []}
+                      onChange={(updatedDays) => {
+                        if (!isEditing) return;
+                        setEditedGroup((prev) => ({
+                          ...prev,
+                          weekdays: updatedDays,
+                        }));
+                      }}
+                      readOnly={!isEditing}
+                    />
+                  ) : (
+                    <div className="mt-4 pointer-events-none">
+                      <WeekdaySelector
+                        weekdays={editedGroup.weekdays} // Pass the group's availability data
+                        readOnly={true} // Crucially, set to true for display-only
+                      />
+                    </div>
+                  )}
                 </div>
-              </div>
 
-              {/* <div className="flex justify-start flex-wrap gap-2 mt-2"></div>
-               </div> 
-              
-              //   <WeekdaySelector */}
-              {/* //     weekdays={groupDetails.weekdays} // Pass the group's availability data
-              //     readOnly={true} // Crucially, set to true for display-only
-              //   />
-              // </div> */}
-              <div className="flex mx-0 gap-4">
-                <button className="btn-primary-dark w-auto h-auto mt-4 gap-2 mx-auto lg:mx-0">
-                  Add Players
-                </button>
-                <button className="btn-primary-dark w-auto h-auto mt-4 gap-2 mx-auto lg:mx-0">
-                  Edit Group
-                </button>
+                <div className="mt-4">
+                  <h3 className="font-semibold text-sm text-gray-700">
+                    FREQUENCY
+                  </h3>
+                  {isEditing ? (
+                    <div className="flex flex-row items-center gap-2">
+                      <input
+                        type="number"
+                        min="1"
+                        max="31"
+                        className="input w-[70px]"
+                        value={editedGroup.frequencyPerMonth || ""}
+                        onChange={(e) =>
+                          setEditedGroup({
+                            ...editedGroup,
+                            frequencyPerMonth: e.target.value,
+                          })
+                        }
+                      />
+                      <p className="text-sm text-gray-700 font-semibold w-[100px]">
+                        per Month
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-gray-700 font-semibold mt-2">
+                      {editedGroup.frequencyPerMonth || "Not set"} sessions per
+                      Month
+                    </p>
+                  )}
+                </div>
+
+                {isAuthor && (
+                  <div className="flex gap-4 mt-4">
+                    {isEditing ? (
+                      <>
+                        <button
+                          onClick={handleSave}
+                          className="btn-primary-dark"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={handleCancel}
+                          className="btn-primary-dark bg-gray-300 text-black"
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => setIsEditing(true)}
+                        className="btn-primary-dark"
+                      >
+                        Edit Group
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Content Area */}
-
-        <div className="w-full lg:w-[55%] p-6 overflow-y-auto max-h-full">
-          {/* Tabs */}
+        {/* Right Content */}
+        <div className="w-full lg:w-[55%] p-6 overflow-y-auto max-h-full lg:border-l lg:border-gray-100">
           <div className="mb-4">
             <div className="flex gap-4 font-semibold text-sm justify-center lg:justify-start">
               <button
@@ -208,77 +508,216 @@ const GroupDetail = () => {
                 ABOUT
               </button>
               <button
-                onClick={() => setActiveTab("groups")}
+                onClick={() => setActiveTab("members")}
                 className={`pb-2 cursor-pointer ${
-                  activeTab === "groups"
+                  activeTab === "members"
                     ? "border-b-2 border-black"
                     : "text-gray-400"
                 }`}
               >
-                Players ()
+                MEMBERS ()
               </button>
             </div>
 
             {activeTab === "about" && (
-              // <p className="text-sm text-gray-700 mt-2">{user.about}</p>
               <>
-                <p className="text-sm text-gray-700 mt-4 whitespace-pre-wrap">
-                  {displayedAbout}
-                </p>
-                {groupDetails.description.length > MAX_LENGTH && (
-                  <button
-                    onClick={toggleAboutText}
-                    className="mt-2 text-blue-600 font-semibold text-sm underline cursor-pointer"
-                  >
-                    {showFullAbout ? "Show less" : "Show more"}
-                  </button>
+                <h3 className="font-semibold text-sm text-gray-700 mt-4">
+                  MORE ABOUT THIS GROUP
+                </h3>
+                {isEditing ? (
+                  <>
+                    <textarea
+                      className="input w-full"
+                      value={editedGroup.description}
+                      onChange={(e) =>
+                        setEditedGroup({
+                          ...editedGroup,
+                          description: e.target.value,
+                        })
+                      }
+                    />
+                  </>
+                ) : (
+                  <p className="text-sm text-gray-700 mt-4 whitespace-pre-wrap">
+                    ...to be filled in!
+                  </p>
+                )}
+
+                <div className="mt-4">
+                  <h3 className="font-semibold text-sm text-gray-700">
+                    LANGUAGE
+                  </h3>
+                  {isEditing ? (
+                    <TagMultiSelect
+                      category="languages"
+                      value={editedGroup.languages}
+                      onChange={(values) =>
+                        setEditedUser({
+                          ...editedGroup,
+                          languages: values.map((v) => v.id),
+                        })
+                      }
+                    />
+                  ) : (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {(editedGroup.languages || []).map((langId) => {
+                        const languageOption = languagesOptions?.find(
+                          (opt) => opt._id === langId
+                        );
+                        return languageOption ? (
+                          <div className="pnp-badge-black" key={langId}>
+                            {languageOption.label}
+                          </div>
+                        ) : null;
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                <h3 className="font-semibold text-sm text-gray-700 mt-4">
+                  PLAYSTYLES
+                </h3>
+                {isEditing ? (
+                  <TagMultiSelect
+                    category="playstyles"
+                    value={editedGroup.playstyles}
+                    onChange={(values) =>
+                      setEditedGroup({
+                        ...editedGroup,
+                        playstyles: values.map((v) => v.id),
+                      })
+                    }
+                  />
+                ) : (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {editedGroup.playstyles.length > 0 ? (
+                      editedGroup.playstyles.map((d) => {
+                        const playstylesOption = playstylesOptions?.find(
+                          (opt) => opt._id === d
+                        );
+                        return (
+                          playstylesOption && (
+                            <div key={d} className="pnp-badge-white">
+                              {playstylesOption.label}
+                            </div>
+                          )
+                        );
+                      })
+                    ) : (
+                      <div className="pnp-badge-white">None specified</div>
+                    )}
+                  </div>
+                )}
+
+                {/* 📚 Game Systems */}
+                <div className="mt-4">
+                  <h3 className="font-semibold text-sm text-gray-700">
+                    GAME SYSTEMS
+                  </h3>
+                  {isEditing ? (
+                    <TagMultiSelect
+                      category="systems"
+                      value={editedGroup.systems}
+                      onChange={(values) =>
+                        setEditedUser({
+                          ...editedGroup,
+                          systems: values.map((v) => v.id),
+                        })
+                      }
+                    />
+                  ) : (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {(editedGroup.systems || []).map((system) => {
+                        const systemOption = systemsOptions?.find(
+                          (opt) => opt._id === system
+                        );
+                        return systemOption ? (
+                          <div className="pnp-badge-black" key={system}>
+                            {systemOption.label}
+                          </div>
+                        ) : null;
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                <h3 className="font-semibold text-sm text-gray-700 mt-4 flex gap-2">
+                  LIKES <img src={like} alt="like" className="w-5 h-5" />
+                </h3>
+                {isEditing ? (
+                  <TagMultiSelect
+                    category="likes"
+                    value={editedGroup.likes}
+                    onChange={(values) =>
+                      setEditedGroup({
+                        ...editedGroup,
+                        likes: values.map((v) => v.id),
+                      })
+                    }
+                  />
+                ) : (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {editedGroup.likes.length > 0 ? (
+                      editedGroup.likes.map((d) => {
+                        const likeOption = likesOptions?.find(
+                          (opt) => opt._id === d
+                        );
+                        return (
+                          likeOption && (
+                            <div key={d} className="pnp-badge-white">
+                              {likeOption.label}
+                            </div>
+                          )
+                        );
+                      })
+                    ) : (
+                      <div className="pnp-badge-white">None specified</div>
+                    )}
+                  </div>
+                )}
+
+                <h3 className="font-semibold text-sm text-gray-700 mt-4 flex gap-2">
+                  DISLIKES{" "}
+                  <img src={dislike} alt="dislike" className="w-5 h-5" />
+                </h3>
+                {isEditing ? (
+                  <TagMultiSelect
+                    category="dislikes"
+                    value={editedGroup.dislikes}
+                    onChange={(values) =>
+                      setEditedGroup({
+                        ...editedGroup,
+                        dislikes: values.map((v) => v.id),
+                      })
+                    }
+                  />
+                ) : (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {editedGroup.dislikes.length > 0 ? (
+                          editedGroup.dislikes.map((d) => {
+                            const dislikeOption = dislikesOptions?.find(
+                              (opt) => opt._id === d
+                            );
+                            return (
+                              dislikeOption && (
+                                <div key={d} className="pnp-badge-white">
+                                  {dislikeOption.label}
+                                </div>
+                              )
+                            );
+                          })
+                        ) : (
+                          <div className="pnp-badge-white">None specified</div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 )}
               </>
             )}
-
-            {activeTab === "players" && (
-              <div className="text-sm text-gray-700 mt-2">
-                <p>Group list and details go here.</p>
-              </div>
-            )}
           </div>
-
-          {activeTab === "about" && (
-            <>
-              <h3 className="font-semibold text-sm uppercase mt-4">
-                Playstyles
-              </h3>
-              <div className="pnp-badge-black text-sm mt-2">
-                {groupDetails.playstyles.map((p) => p.label).join(", ") ||
-                  "N/A"}
-              </div>
-
-              <h3 className="font-semibold text-sm uppercase mt-4">
-                Game system
-              </h3>
-              <div className="pnp-badge-black text-sm mt-2">
-                {groupDetails.systems.map((s) => s.label) || "N/A"}
-              </div>
-
-              <h3 className="font-semibold text-sm uppercase mt-4 flex gap-2">
-                Likes
-                <img src={like} alt="like icon" className="w-5 h-5 " />
-              </h3>
-              <div className="pnp-badge-white text-sm mt-2">
-                {groupDetails.likes.map((l) => l.label).join(", ") ||
-                  "None specified"}
-              </div>
-
-              <h3 className="font-semibold text-sm uppercase mt-4 flex gap-2">
-                dislike
-                <img src={dislike} alt="like icon" className="w-5 h-5 " />
-              </h3>
-              <div className="pnp-badge-white text-sm mt-2">
-                {groupDetails.dislikes.map((d) => d.label).join(", ") ||
-                  "None specified"}
-              </div>
-            </>
-          )}
         </div>
       </div>
     </div>

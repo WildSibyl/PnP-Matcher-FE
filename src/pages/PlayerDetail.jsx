@@ -159,7 +159,7 @@ const PlayerDetail = () => {
     formData.append("file", file);
 
     try {
-      const res = await fetch("http://localhost:8000/upload", {
+      const res = await fetch(`${API_URL}/upload`, {
         method: "POST",
         body: formData,
       });
@@ -227,112 +227,132 @@ const PlayerDetail = () => {
 
             <div className="flex flex-1 flex-col items-center lg:items-start">
               {isEditing ? (
-                <input
-                  type="text"
-                  value={editedUser.userName}
-                  onChange={(e) =>
-                    setEditedUser((prev) => ({
-                      ...prev,
-                      editedUserName: e.target.value,
-                    }))
-                  }
-                  className="input capitalize "
-                />
+                <>
+                  <h3 className="font-semibold text-sm text-gray-700">
+                    USERNAME
+                  </h3>
+                  <input
+                    type="text"
+                    value={editedUser.userName}
+                    onChange={(e) =>
+                      setEditedUser((prev) => ({
+                        ...prev,
+                        editedUserName: e.target.value,
+                      }))
+                    }
+                    className="input capitalize"
+                  />
+                </>
               ) : (
                 <h3>{editedUser.userName}</h3>
               )}
               {isEditing ? (
-                <input
-                  type="text"
-                  placeholder="Tagline"
-                  value={editedUser.tagline}
-                  onChange={(e) =>
-                    setEditedUser((prev) => ({
-                      ...prev,
-                      tagline: e.target.value,
-                    }))
-                  }
-                  className="input mt-4"
-                />
+                <>
+                  <h3 className="font-semibold text-sm text-gray-700 mt-4">
+                    TAGLINE
+                  </h3>
+                  <input
+                    type="text"
+                    placeholder="Tagline"
+                    value={editedUser.tagline}
+                    onChange={(e) =>
+                      setEditedUser((prev) => ({
+                        ...prev,
+                        tagline: e.target.value,
+                      }))
+                    }
+                    className="input"
+                  />
+                </>
               ) : (
                 <small className="mt-2">{editedUser.tagline}</small>
               )}
 
               {isEditing ? (
-                <div className="flex flex-wrap gap-4 mt-4">
-                  <input
-                    type="text"
-                    value={editedUser.address?.street || ""}
-                    onChange={(e) =>
-                      setEditedUser((prev) => ({
-                        ...prev,
-                        address: {
-                          ...prev.address,
-                          street: e.target.value,
-                        },
-                      }))
-                    }
-                    placeholder="Street"
-                    className="input"
-                  />
-                  <input
-                    type="text"
-                    value={editedUser.address?.houseNumber || ""}
-                    onChange={(e) =>
-                      setEditedUser((prev) => ({
-                        ...prev,
-                        address: {
-                          ...prev.address,
-                          houseNumber: e.target.value,
-                        },
-                      }))
-                    }
-                    placeholder="House Number"
-                    className="input"
-                  />
-                  <input
-                    type="text"
-                    value={editedUser.address?.postalCode || ""}
-                    onChange={(e) =>
-                      setEditedUser((prev) => ({
-                        ...prev,
-                        address: {
-                          ...prev.address,
-                          postalCode: e.target.value,
-                        },
-                      }))
-                    }
-                    placeholder="Postal Code"
-                    className="input"
-                  />
+                <>
+                  <h3 className="font-semibold text-sm text-gray-700 mt-4">
+                    ADDRESS
+                  </h3>
+                  <div className="flex flex-wrap gap-4">
+                    <input
+                      type="text"
+                      value={editedUser.address?.street || ""}
+                      onChange={(e) =>
+                        setEditedUser((prev) => ({
+                          ...prev,
+                          address: {
+                            ...prev.address,
+                            street: e.target.value,
+                          },
+                        }))
+                      }
+                      placeholder="Street"
+                      className="input"
+                    />
+                    <input
+                      type="text"
+                      value={editedUser.address?.houseNumber || ""}
+                      onChange={(e) =>
+                        setEditedUser((prev) => ({
+                          ...prev,
+                          address: {
+                            ...prev.address,
+                            houseNumber: e.target.value,
+                          },
+                        }))
+                      }
+                      placeholder="House Number"
+                      className="input"
+                    />
+                    <input
+                      type="text"
+                      value={editedUser.address?.postalCode || ""}
+                      onChange={(e) =>
+                        setEditedUser((prev) => ({
+                          ...prev,
+                          address: {
+                            ...prev.address,
+                            postalCode: e.target.value,
+                          },
+                        }))
+                      }
+                      placeholder="Postal Code"
+                      className="input"
+                    />
 
-                  <input
-                    type="text"
-                    value={editedUser.address?.city || ""}
-                    onChange={(e) =>
-                      setEditedUser((prev) => ({
-                        ...prev,
-                        address: {
-                          ...prev.address,
-                          city: e.target.value,
-                        },
-                      }))
-                    }
-                    placeholder="City"
-                    className="input"
-                  />
-                  <input
-                    type="date"
-                    className="input"
-                    value={editedUser.birthday?.slice(0, 10) || ""}
-                    onChange={(e) =>
-                      setEditedUser((prev) => ({
-                        ...prev,
-                        birthday: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
+                    <input
+                      type="text"
+                      value={editedUser.address?.city || ""}
+                      onChange={(e) =>
+                        setEditedUser((prev) => ({
+                          ...prev,
+                          address: {
+                            ...prev.address,
+                            city: e.target.value,
+                          },
+                        }))
+                      }
+                      placeholder="City"
+                      className="input"
+                    />
+                    <div className=" w-full">
+                      <h3 className="font-semibold text-sm text-gray-700">
+                        BIRTHDAY
+                      </h3>
+                      <input
+                        type="date"
+                        className="input"
+                        value={editedUser.birthday?.slice(0, 10) || ""}
+                        onChange={(e) =>
+                          setEditedUser((prev) => ({
+                            ...prev,
+                            birthday: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                  </div>
+                </>
               ) : (
                 <div className="text-sm text-gray-700 mt-2">
                   {(editedUser.address?.postalCode ||
@@ -496,8 +516,9 @@ const PlayerDetail = () => {
                     }
                   />
                 ) : (
-                  <p className="text-sm text-gray-700 mt-2">
-                    {editedUser.frequencyPerMonth || "Not set"}
+                  <p className="text-sm text-gray-700 font-semibold mt-2">
+                    {editedUser.frequencyPerMonth || "Not set"} sessions per
+                    Month
                   </p>
                 )}
               </div>
@@ -548,13 +569,13 @@ const PlayerDetail = () => {
                 ) : (
                   // View mode: Send DM and Edit buttons in the same row
                   <div className="flex gap-4">
-                    <button className="btn-primary-dark w-auto h-auto gap-2 flex">
+                    <button className="btn-primary-dark w-auto gap-2 flex">
                       <img src={send_icon} alt="" />
                       Send DM
                     </button>
                     <button
                       onClick={() => setIsEditing(true)}
-                      className="btn-primary-dark w-auto h-auto gap-2 flex"
+                      className="btn-primary-dark w-auto gap-2 flex"
                     >
                       Edit
                     </button>
@@ -578,7 +599,7 @@ const PlayerDetail = () => {
                     : "text-gray-400"
                 }`}
               >
-                ABOUT
+                MORE ABOUT ME
               </button>
               <button
                 onClick={() => setActiveTab("groups")}
