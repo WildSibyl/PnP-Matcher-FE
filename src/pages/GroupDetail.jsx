@@ -10,6 +10,7 @@ import like from "../assets/like_icon.svg";
 import dislike from "../assets/dislike_icon.svg";
 import getIcon from "../utils/getIcon";
 import shortenExperienceLabel from "../utils/shortenExperience";
+import { useInviteModal } from "../context/InviteModalContextProvider";
 
 const GroupDetail = () => {
   const { user } = useAuth();
@@ -21,6 +22,7 @@ const GroupDetail = () => {
   const [activeTab, setActiveTab] = useState("about");
   const [showFullAbout, setShowFullAbout] = useState(false);
   // const [showFullDescription, setShowFullDescription] = useState(false);
+  const { openInviteModal } = useInviteModal();
 
   const MAX_LENGTH = 300;
   const toggleAboutText = () => setShowFullAbout((prev) => !prev);
@@ -179,14 +181,21 @@ const GroupDetail = () => {
               //     readOnly={true} // Crucially, set to true for display-only
               //   />
               // </div> */}
-              <div className="flex mx-0 gap-4">
-                <button className="btn-primary-dark w-auto h-auto mt-4 gap-2 mx-auto lg:mx-0">
-                  Add Players
-                </button>
-                <button className="btn-primary-dark w-auto h-auto mt-4 gap-2 mx-auto lg:mx-0">
-                  Edit Group
-                </button>
-              </div>
+              {isAuthor && (
+                <div className="flex mx-0 gap-4">
+                  <button
+                    className="btn-primary-dark w-auto h-auto mt-4 gap-2 mx-auto lg:mx-0"
+                    onClick={() =>
+                      openInviteModal({ groupId: groupDetails._id })
+                    }
+                  >
+                    Add Players
+                  </button>
+                  <button className="btn-primary-dark w-auto h-auto mt-4 gap-2 mx-auto lg:mx-0">
+                    Edit Group
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
