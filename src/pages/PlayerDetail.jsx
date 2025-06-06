@@ -339,7 +339,7 @@ const PlayerDetail = () => {
                     editedUser.address?.street) && (
                     <span>
                       {editedUser.address?.postalCode || ""},{" "}
-                      {editedUser.address?.street || ""}
+                      {editedUser.address?.city || ""}
                     </span>
                   )}
                   {editedUser.birthday && <span className="mx-1">|</span>}
