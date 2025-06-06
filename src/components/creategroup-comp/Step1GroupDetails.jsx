@@ -2,6 +2,7 @@ import RenBook from "../../assets/ren/Ren-book.png";
 import Select from "react-select";
 import GroupnameInput from "../edit-comp/GroupnameInput";
 import CharCountInput from "../edit-comp/CharCountInput";
+import AiTextSuggest from "../group-comp/AiTextSuggest";
 
 const Step1GroupDetails = ({ groupForm, onChange }) => {
   return (
@@ -14,24 +15,48 @@ const Step1GroupDetails = ({ groupForm, onChange }) => {
           <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
         </div>
         <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
-          <GroupnameInput
-            name="name"
-            value={groupForm.name}
-            onChange={onChange}
-            maxLength={30}
-            placeholder="Your group name"
-            label="NAME"
-            helperText="How should your group be called?"
-          />
-          <CharCountInput
-            name="tagline"
-            value={groupForm.tagline}
-            onChange={onChange}
-            maxLength={150}
-            placeholder="A short tagline for your group"
-            label="TAGLINE"
-            helperText="A catchy phrase to get noticed!"
-          />
+          <div className="flex gap-2 items-center">
+            <div className="flex-grow relative">
+              <GroupnameInput
+                name="name"
+                value={groupForm.name}
+                onChange={onChange}
+                maxLength={50}
+                placeholder="Your group name"
+                label="NAME"
+                helperText="How should your group be called?"
+              />
+            </div>
+            <div className="self-center -mt-3">
+              <AiTextSuggest
+                onChange={onChange}
+                prompt="very short pen&paper group name"
+                name="name"
+              />
+            </div>
+          </div>
+          <div className="flex gap-2 items-center">
+            <div className="flex-grow relative">
+              <CharCountInput
+                name="tagline"
+                value={groupForm.tagline}
+                onChange={onChange}
+                maxLength={150}
+                placeholder="A short tagline for your group"
+                label="TAGLINE"
+                helperText="A catchy phrase to get noticed!"
+              />
+            </div>
+            <div className="self-center -mt-3">
+              {" "}
+              <AiTextSuggest
+                onChange={onChange}
+                prompt="very short cool tagline"
+                name="tagline"
+              />
+            </div>
+          </div>
+
           <div className="flex flex-row justify-between">
             <label className="label">MAX MEMBERS</label>
             <p className="label-italic">How many can join the party?</p>
