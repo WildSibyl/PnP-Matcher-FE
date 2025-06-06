@@ -8,7 +8,7 @@ import Chatbubblesvg from "../../assets/chatbubble.svg?react";
 import Logoutsvg from "../../assets/logout.svg?react";
 
 const NavDesktop = ({ logo, user, logOut }) => {
-  const { hasUnreadMessages } = useWebSocketContext();
+  const { totalUnreadCount } = useWebSocketContext();
 
   return (
     <div className="flex justify-between items-center h-[8vh] overscroll-none">
@@ -46,11 +46,19 @@ const NavDesktop = ({ logo, user, logOut }) => {
             <div className="tooltip-content opacity-0 group-hover:opacity-100 pointer-events-none absolute bottom-full mb-2 px-3 py-1 rounded-xl text-pnp-white text-sm font-semibold bg-pnp-blue shadow-lg animate-none group-hover:animate-tooltip-pop transition-all">
               CHAT
             </div>
-            <Link to="/chat" className="relative">
-              <Chatbubblesvg className={`btn-desktopnavi`} />
-              {hasUnreadMessages && (
-                <span className="absolute top-0 right-0 w-2 h-2 bg-pnp-purple rounded-full"></span>
-              )}
+            <Link to="/chat">
+              <div className="relative">
+                <Chatbubblesvg className={`btn-desktopnavi`} />
+                {totalUnreadCount > 0 && (
+                  <div
+                    className="absolute top-3 left-3.5 min-w-[18px] w-5 h-5 rounded-full bg-pnp-darkpurple text-white text-xs font-bold flex items-center justify-center select-none"
+                    aria-label={`${totalUnreadCount} unread messages`}
+                    title={`${totalUnreadCount} unread messages`}
+                  >
+                    {totalUnreadCount}
+                  </div>
+                )}
+              </div>
             </Link>
           </div>
 

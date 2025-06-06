@@ -5,6 +5,7 @@ import { getFilteredUsers } from "../data/user";
 import { getFilteredGroups } from "../data/groups";
 import FilterModal from "../components/search-comp/FilterModal";
 import { useAuth } from "../hooks/useAuth";
+import { useNavigate, Link } from "react-router-dom";
 
 import PlayerCard from "../components/cards/PlayerCard";
 import GroupCard from "../components/cards/Groupcard";
@@ -25,6 +26,7 @@ const Search = () => {
   const { homeSearch, setHomeSearch } = useTagContext();
   const [activeTab, setActiveTab] = useState("players");
   const { user, logOut } = useAuth();
+  const navigate = useNavigate();
   const [filter, setFilter] = useState({
     search: "",
     systems: homeSearch.systems || [],
@@ -108,157 +110,171 @@ const Search = () => {
   }, [filter]);
 
   return (
-    <div className="flex flex-col w-full items-center justify-center gap-4">
-      <h2 className="text-pnp-white">FIND PLAYERS</h2>
-      <Searchbar setFilter={setFilter} filter={filter} />
-      <Filterchips
-        filter={filter}
-        setFilter={setFilter}
-        filterCount={filterCount}
-        setIsModalOpen={setIsModalOpen}
-        fetchUsers={fetchUsers}
-      />
-      {/* SORTING */}
-      {user && (
-        <div className="flex gap-4">
-          <p className="text-pnp-white ">Sort by:</p>
-          <select
-            name="sort"
-            id="sort"
-            className="text-pnp-white underline"
-            value={filter.sortBy}
-            onChange={(e) =>
-              setFilter((prev) => ({ ...prev, sortBy: e.target.value }))
-            }
+    <>
+      <div className="flex flex-col w-full items-center justify-center gap-4">
+        {/* {loading && (
+          <div>
+            <Loader />
+            <div className="absolute bg-pnp-black w-full h-full"></div>
+          </div>
+        )} */}
+        <h2 className="text-pnp-white">FIND PLAYERS</h2>
+        <Searchbar setFilter={setFilter} filter={filter} />
+        <Filterchips
+          filter={filter}
+          setFilter={setFilter}
+          filterCount={filterCount}
+          setIsModalOpen={setIsModalOpen}
+          fetchUsers={fetchUsers}
+        />
+        {/* SORTING */}
+        {user && (
+          <div className="flex gap-4">
+            <p className="text-pnp-white ">Sort by:</p>
+            <select
+              name="sort"
+              id="sort"
+              className="text-pnp-white underline"
+              value={filter.sortBy}
+              onChange={(e) =>
+                setFilter((prev) => ({ ...prev, sortBy: e.target.value }))
+              }
+            >
+              <option value="userName" className="text-pnp-black">
+                Name
+              </option>
+              <option value="distance" className="text-pnp-black">
+                Distance
+              </option>
+              <option value="matchScore" className="text-pnp-black">
+                Match Score
+              </option>
+            </select>
+          </div>
+        )}
+        {/* SORTING END */}
+        {/* TAB */}
+        <div className="flex gap-4 font-semibold text-sm justify-center lg:justify-start">
+          <button
+            onClick={() => setActiveTab("players")}
+            className={`pb-2 cursor-pointer ${
+              activeTab === "players"
+                ? "border-b-2 border-pnp-white text-pnp-white"
+                : "text-gray-400"
+            }`}
           >
-            <option value="userName" className="text-pnp-black">
-              Name
-            </option>
-            <option value="distance" className="text-pnp-black">
-              Distance
-            </option>
-            <option value="matchScore" className="text-pnp-black">
-              Match Score
-            </option>
-          </select>
+            ABOUT
+          </button>
+          <button
+            onClick={() => setActiveTab("groups")}
+            className={`pb-2 cursor-pointer ${
+              activeTab === "groups"
+                ? "border-b-2 border-pnp-white text-pnp-white"
+                : "text-gray-400"
+            }`}
+          >
+            GROUPS
+          </button>
         </div>
-      )}
-      {/* SORTING END */}
-      {/* TAB */}
-      <div className="flex gap-4 font-semibold text-sm justify-center lg:justify-start">
-        <button
-          onClick={() => setActiveTab("players")}
-          className={`pb-2 cursor-pointer ${
-            activeTab === "players"
-              ? "border-b-2 border-pnp-white text-pnp-white"
-              : "text-gray-400"
-          }`}
-        >
-          ABOUT
-        </button>
-        <button
-          onClick={() => setActiveTab("groups")}
-          className={`pb-2 cursor-pointer ${
-            activeTab === "groups"
-              ? "border-b-2 border-pnp-white text-pnp-white"
-              : "text-gray-400"
-          }`}
-        >
-          GROUPS
-        </button>
-      </div>
-      {/* TAB END */}
-      {/* RESULTS */}
+        {/* TAB END */}
+        {/* RESULTS */}
 
-      {activeTab === "players" && (
-        <div className="mt-2 flex flex-col items-center">
-          <div className="my-8 text-pnp-white font-normal text-center ">
-            {results.length > 0 ? (
-              <h3>{results.length} results</h3>
+        {activeTab === "players" && (
+          <div className="mt-2 flex flex-col items-center">
+            <div className="my-8 text-pnp-white font-normal text-center ">
+              {results.length > 0 ? (
+                <h3>{results.length} results</h3>
+              ) : (
+                <>
+                  <h3>No users found!</h3> <p>Please change your filters.</p>
+                </>
+              )}
+            </div>
+
+            <div>
+              {results.map((e, index) => {
+                if (index === 2) {
+                  return (
+                    <div key={e._id}>
+                      {!user && (
+                        <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl mb-4">
+                          <h2 className="text-pnp-white pt-4 px-4">
+                            Get the most out of it
+                          </h2>
+                          <div className="flex">
+                            <div className="flex flex-col pl-4 py-4">
+                              <p className="text-pnp-white pb-2">
+                                Register to find players near you and see how
+                                good they match your playstyle!
+                              </p>
+                              <button
+                                onClick={() => {
+                                  navigate("/register");
+                                }}
+                                disabled={loading}
+                                className="btn-primary-light self-start"
+                              >
+                                {getIcon("Sword")}
+                                Sign Up!
+                              </button>
+                            </div>
+                            <div className="flex justify-end overflow-hidden h-auto min-w-[150px] w-[50%] relative">
+                              <img
+                                src={renimg}
+                                alt="Ren, our mascot"
+                                className="absolute mx-auto w-auto max-h-[100%] bottom-0 translate-y-2"
+                              ></img>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      <PlayerCard key={e._id} details={e} />
+                    </div>
+                  );
+                }
+
+                return <PlayerCard key={e._id} details={e} />;
+              })}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "groups" && (
+          <div className="mt-2 flex flex-col items-center">
+            {groupLoading ? (
+              <Loader />
             ) : (
               <>
-                <h3>No users found!</h3> <p>Please change your filters.</p>
+                <div className="my-8 text-pnp-white font-normal text-center">
+                  {groupResults.length > 0 ? (
+                    <h3>{groupResults.length} groups found</h3>
+                  ) : (
+                    <>
+                      <h3>No groups found!</h3>
+                      <p>Please change your filters.</p>
+                    </>
+                  )}
+                </div>
+                {groupResults.map((g) => (
+                  <GroupCard key={g._id} details={g} />
+                ))}
               </>
             )}
           </div>
+        )}
 
-          <div>
-            {results.map((e, index) => {
-              if (index === 2) {
-                return (
-                  <div key={e._id}>
-                    {!user && (
-                      <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl mb-4">
-                        <h2 className="text-pnp-white pt-4 px-4">
-                          Get the most out of it
-                        </h2>
-                        <div className="flex">
-                          <div className="flex flex-col pl-4 py-4">
-                            <p className="text-pnp-white pb-2">
-                              Register to find players near you and see how good
-                              they match your playstyle!
-                            </p>
-                            <button className="btn-primary-light self-start">
-                              {getIcon("Sword")}
-                              Sign Up!
-                            </button>
-                          </div>
-                          <div className="flex justify-end overflow-hidden h-auto min-w-[150px] w-[50%] relative">
-                            <img
-                              src={renimg}
-                              alt="Ren, our mascot"
-                              className="absolute mx-auto w-auto max-h-[100%] bottom-0 translate-y-2"
-                            ></img>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    <PlayerCard key={e._id} details={e} />
-                  </div>
-                );
-              }
-
-              return <PlayerCard key={e._id} details={e} />;
-            })}
-          </div>
-        </div>
-      )}
-
-      {activeTab === "groups" && (
-        <div className="mt-2 flex flex-col items-center">
-          {groupLoading ? (
-            <Loader />
-          ) : (
-            <>
-              <div className="my-8 text-pnp-white font-normal text-center">
-                {groupResults.length > 0 ? (
-                  <h3>{groupResults.length} groups found</h3>
-                ) : (
-                  <>
-                    <h3>No groups found!</h3>
-                    <p>Please change your filters.</p>
-                  </>
-                )}
-              </div>
-              {groupResults.map((g) => (
-                <GroupCard key={g._id} details={g} />
-              ))}
-            </>
-          )}
-        </div>
-      )}
-
-      <FilterModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        setFilter={setFilter}
-        filter={filter}
-        filterCount={filterCount}
-        setFilterCount={setFilterCount}
-        fetchUsers={fetchUsers}
-      />
-    </div>
+        <FilterModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          setFilter={setFilter}
+          filter={filter}
+          filterCount={filterCount}
+          setFilterCount={setFilterCount}
+          fetchUsers={fetchUsers}
+        />
+      </div>
+    </>
   );
 };
 

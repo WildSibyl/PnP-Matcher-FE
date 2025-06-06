@@ -6,7 +6,7 @@ import Closesvg from "../../assets/close.svg?react";
 import Burgermenuesvg from "../../assets/burgermenu.svg?react";
 
 const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
-  const { hasUnreadMessages } = useWebSocketContext();
+  const { totalUnreadCount } = useWebSocketContext();
 
   return (
     <div className="flex justify-between items-center h-[7vh]">
@@ -33,13 +33,19 @@ const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
                 </div>
               </Link>
             ) : null}
-            <Link to="/chat" className="relative">
-              <Chatbubblesvg
-                className={`min-w-[8vw] fill-current cursor-pointer text-pnp-white`}
-              />
-              {hasUnreadMessages && (
-                <span className="absolute top-0 right-0 w-2 h-2 bg-pnp-purple rounded-full"></span>
-              )}
+            <Link to="/chat">
+              <div className="relative">
+                <Chatbubblesvg className={`btn-desktopnavi`} />
+                {totalUnreadCount > 0 && (
+                  <div
+                    className="absolute top-3 left-3.5 min-w-[18px] w-5 h-5 rounded-full bg-pnp-darkpurple text-white text-xs font-bold flex items-center justify-center select-none"
+                    aria-label={`${totalUnreadCount} unread messages`}
+                    title={`${totalUnreadCount} unread messages`}
+                  >
+                    {totalUnreadCount}
+                  </div>
+                )}
+              </div>
             </Link>
           </div>
         ) : (
