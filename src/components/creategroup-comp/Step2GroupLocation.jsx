@@ -1,5 +1,6 @@
 import RenBook from "../../assets/ren/Ren-book.png";
 import CharCountInput from "../edit-comp/CharCountInput";
+import TakeOverValues from "../group-comp/TakeOverValues";
 
 const Step2GroupLocation = ({ groupForm, onChange }) => (
   <>
@@ -12,19 +13,27 @@ const Step2GroupLocation = ({ groupForm, onChange }) => (
         <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
       </div>
       <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
-        <CharCountInput
-          name="street"
-          value={groupForm.address.street}
-          onChange={(e) =>
-            onChange({
-              target: { name: "address.street", value: e.target.value },
-            })
-          }
-          placeholder="Street"
-          label="ADDRESS"
-          helperText="We will only show your postal code and city."
-          maxLength={100}
-        />
+        <div className="flex gap-2 items-center">
+          <div className="flex-grow relative">
+            <CharCountInput
+              name="street"
+              value={groupForm.address.street}
+              onChange={(e) =>
+                onChange({
+                  target: { name: "address.street", value: e.target.value },
+                })
+              }
+              placeholder="Street"
+              label="ADDRESS"
+              helperText="We will only show your postal code and city."
+              maxLength={100}
+            />
+          </div>
+          <div className="self-center -mt-3">
+            <TakeOverValues name={"address"} onChange={onChange} />
+          </div>
+        </div>
+
         <CharCountInput
           name="houseNumber"
           value={groupForm.address.houseNumber}

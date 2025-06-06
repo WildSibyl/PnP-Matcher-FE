@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Wizardhat from "../../assets/wizardhat.svg?react";
 
-const AiTextSuggest = () => {
+const AiTextSuggest = ({ onChange, prompt, name }) => {
   const [suggestion, setSuggestion] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -15,7 +16,7 @@ const AiTextSuggest = () => {
         },
         credentials: "include",
         body: JSON.stringify({
-          prompt: "short, cool tagline",
+          prompt: `${prompt}`,
         }),
       });
 
@@ -23,6 +24,12 @@ const AiTextSuggest = () => {
       console.log("AI data", data);
       const result = data.suggestion;
       setSuggestion(result);
+      onChange({
+        target: {
+          name: name,
+          value: result,
+        },
+      });
     } catch (error) {
       console.error("Error:", error);
       setSuggestion("The Error Hunters");
@@ -32,15 +39,18 @@ const AiTextSuggest = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-800 text-white rounded shadow">
+    <div>
       <button
+        type="button"
         onClick={fetchSuggestion}
-        className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
+        className="box-border border-2 rounded-sm border-pnp-darkpurple p-2 pnp-shadow"
       >
-        Generate Text
+        {loading ? (
+          <span className="loading loading-spinner loading-sm"></span>
+        ) : (
+          <Wizardhat />
+        )}
       </button>
-      {loading && <p>Loading...</p>}
-      {suggestion && <p className="mt-4 text-xl italic">💡 {suggestion}</p>}
     </div>
   );
 };

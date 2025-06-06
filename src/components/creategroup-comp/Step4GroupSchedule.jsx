@@ -1,5 +1,6 @@
 import TagMultiSelect from "../edit-comp/TagMultiSelect";
 import RenBook from "../../assets/ren/Ren-book.png";
+import TakeOverValues from "../group-comp/TakeOverValues";
 
 const daysOfWeek = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 
@@ -71,20 +72,28 @@ const Step4GroupSchedule = ({ groupForm, setGroupForm, onChange }) => {
             <div className="label">TIMES</div>
             <div className="text-black font-bold">per Month</div>
           </div>
-          <TagMultiSelect
-            category="languages"
-            label="LANGUAGES"
-            helperText="What is your common tongue?"
-            name="languages"
-            placeholder="Select preferences"
-            value={groupForm.languages}
-            onChange={(values) =>
-              setGroupForm({
-                ...groupForm,
-                languages: values.map((l) => l),
-              })
-            }
-          />
+          <div className="flex gap-2 items-center">
+            <div className="flex-grow relative">
+              {" "}
+              <TagMultiSelect
+                category="languages"
+                label="LANGUAGES"
+                helperText="What is your common tongue?"
+                name="languages"
+                placeholder="Select preferences"
+                value={groupForm.languages}
+                onChange={(values) =>
+                  setGroupForm({
+                    ...groupForm,
+                    languages: values.map((l) => l),
+                  })
+                }
+              />
+            </div>
+            <div className="self-start mt-4">
+              <TakeOverValues onChange={onChange} name={"languages"} />
+            </div>
+          </div>
         </div>
       </div>
     </>
