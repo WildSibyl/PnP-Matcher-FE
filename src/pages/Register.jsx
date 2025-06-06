@@ -183,7 +183,7 @@ const Register = () => {
       console.log("Payload being sent to backend:", payload);
 
       await signUp(payload);
-      toast.success("Account created successfully. Please log in.");
+      toast.success("One of us! You can now log in!");
       navigate("/login");
     } catch (error) {
       toast.error(error.message);

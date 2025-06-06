@@ -24,6 +24,7 @@ export const WSContextProvider = ({ children }) => {
     (sum, count) => sum + count,
     0
   );
+  const totalInvitesCount = user?.invites?.length || 0;
 
   useEffect(() => {
     userRef.current = user;
@@ -133,6 +134,7 @@ export const WSContextProvider = ({ children }) => {
     setIsChatModalOpen,
     clearNotifications,
     totalUnreadCount,
+    totalInvitesCount,
   };
 
   return (

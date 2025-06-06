@@ -33,7 +33,7 @@ const Group = () => {
     if (window.confirm("Are you sure you want to delete this group?")) {
       try {
         await deleteGroup(id);
-        toast.success("Group deleted successfully");
+        toast.success("Group deleted successfully.");
         navigate("/");
       } catch (error) {
         toast.error(error.message);

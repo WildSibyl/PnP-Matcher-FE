@@ -128,7 +128,7 @@ const AdminDashboard = () => {
       };
 
       await signUp(payload);
-      toast.success("Account created successfully. Please log in.");
+      toast.success("Account created successfully.");
       navigate("/login");
     } catch (error) {
       toast.error(error.message);
