@@ -12,6 +12,8 @@ import send_icon from "../assets/send_icon.png";
 import shortenExperienceLabel from "../utils/shortenExperience";
 import InviteToGroupModal from "../components/InviteToGroupModal";
 import { useInviteModal } from "../context/InviteModalContextProvider";
+import { getSingleGroup } from "../data/groups";
+import GroupCard from "../components/cards/Groupcard";
 
 const SearchedPlayer = () => {
   const { id } = useParams();
@@ -36,6 +38,7 @@ const SearchedPlayer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [chatUsername, setChatUsername] = useState(null);
+  const [groups, setGroups] = useState([]);
   const toggleAboutText = () => setShowFullAbout((prev) => !prev);
 
   const MAX_LENGTH = 300;
@@ -46,13 +49,32 @@ const SearchedPlayer = () => {
   };
 
   useEffect(() => {
+    // const fetchGroups = async (id) => {
+    //   try {
+    //     const data = await getSingleGroup(id);
+    //     console.log("Groupdata: ", data);
+    //     //set Groups and make sure each group is only displayed once
+    //     setGroups((prev) => {
+    //       const safeGroups = prev || [];
+    //       if (safeGroups.find((g) => g._id === data._id)) return safeGroups;
+    //       return [...safeGroups, data];
+    //     });
+    //   } catch (error) {
+    //     console.log("User group could not be fetched ", error);
+    //   }
+    // };
+
     const fetchData = async () => {
       try {
         const user = await getUserById(id);
+        console.log("User ", user);
         setDetails(user);
         setChatUsername(user.userName);
+        // await Promise.all(
+        //   (user?.groups || []).map((groupId) => fetchGroups(groupId))
+        // );
       } catch (err) {
-        console.error(err);
+        console.error("Fetch error: ", err);
       } finally {
         setLoading(false);
       }
@@ -232,7 +254,7 @@ const SearchedPlayer = () => {
                       : "text-gray-400"
                   }`}
                 >
-                  GROUPS ()
+                  GROUPS ({details?.groups?.length})
                 </button>
               </div>
 
@@ -344,6 +366,14 @@ const SearchedPlayer = () => {
                     </div>
                   </div>
                 </>
+              )}
+
+              {activeTab === "groups" && (
+                <div className="pt-4 flex flex-col justify-start items-start">
+                  {details?.groups?.map((e) => (
+                    <GroupCard key={e._id} details={e} />
+                  ))}
+                </div>
               )}
             </div>
           </div>
