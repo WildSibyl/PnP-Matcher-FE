@@ -58,30 +58,30 @@ const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
           </NavLink>
         )}
 
-        <button onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? (
+        {menuOpen ? (
+          <button onClick={() => setMenuOpen(!menuOpen)}>
             <Closesvg
               className={`fill-current cursor-pointer text-pnp-white `}
             />
-          ) : (
-            <button onClick={() => setMenuOpen(!menuOpen)}>
-              <div className="relative translate-y-[3px]">
-                <Burgermenuesvg
-                  className={`fill-current cursor-pointer text-pnp-white`}
-                />
-                {totalInvitesCount > 0 && (
-                  <div
-                    className="absolute top-[16px] left-4.5 min-w-[18px] w-5 h-5 rounded-full bg-pnp-darkpurple text-white text-xs font-bold flex items-center justify-center select-none"
-                    aria-label={`${totalInvitesCount} group invites pending`}
-                    title={`${totalInvitesCount} group invites pending`}
-                  >
-                    {totalInvitesCount}
-                  </div>
-                )}
-              </div>
-            </button>
-          )}
-        </button>
+          </button>
+        ) : (
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            <div className="relative translate-y-[3px]">
+              <Burgermenuesvg
+                className={`fill-current cursor-pointer text-pnp-white`}
+              />
+              {totalInvitesCount > 0 && (
+                <div
+                  className="absolute top-[16px] left-4.5 min-w-[18px] w-5 h-5 rounded-full bg-pnp-darkpurple text-white text-xs font-bold flex items-center justify-center select-none"
+                  aria-label={`${totalInvitesCount} group invites pending`}
+                  title={`${totalInvitesCount} group invites pending`}
+                >
+                  {totalInvitesCount}
+                </div>
+              )}
+            </div>
+          </button>
+        )}
       </div>
     </div>
   );

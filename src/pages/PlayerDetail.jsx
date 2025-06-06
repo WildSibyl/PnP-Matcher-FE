@@ -657,7 +657,7 @@ const PlayerDetail = () => {
 
                 <div className="mt-4">
                   <h3 className="font-semibold text-sm text-gray-700">
-                    LANGUAGE
+                    LANGUAGES
                   </h3>
                   {isEditing ? (
                     <TagMultiSelect

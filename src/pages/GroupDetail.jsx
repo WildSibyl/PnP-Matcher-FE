@@ -31,13 +31,14 @@ const GroupDetail = () => {
 
   const {
     systems: systemsOptions,
-    languages: languagesOptions, // Languages are not used in this component
+    languages: languagesOptions,
     playstyles: playstylesOptions,
     likes: likesOptions,
     dislikes: dislikesOptions,
     groupExperience: experiencesOptions,
     playingModes: playingModesOptions, // Playing modes are not used in this component
   } = useTagContext();
+
   // const [showFullDescription, setShowFullDescription] = useState(false);
   const { openInviteModal } = useInviteModal();
 
@@ -184,7 +185,7 @@ const GroupDetail = () => {
                 />
               </label>
             ) : (
-              <div className="mb-4 -mx-12 lg:mx-0">
+              <div className=" -mx-12 lg:mx-0">
                 <img
                   src={editedGroup.image}
                   alt={`${editedGroup.name} Group Image`}
@@ -193,6 +194,7 @@ const GroupDetail = () => {
               </div>
             )}
           </div>
+
           {/* Group details */}
           <div className="w-full p-6 border-b border-gray-100 lg:border-b-0 ">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
@@ -237,9 +239,74 @@ const GroupDetail = () => {
                   <small className="mt-2">{editedGroup.tagline}</small>
                 )}
 
+                {/* Groupcount, experience and Playing modes */}
+                <div className="mt-4">
+                  {isEditing ? (
+                    <div className="w-[320px]">
+                      <h3 className="font-semibold text-sm text-gray-700">
+                        EXPERIENCE
+                      </h3>
+                      <SingleSelect
+                        category="experience"
+                        value={editedGroup.experience}
+                        onChange={(selected) =>
+                          setEditedGroup({
+                            ...editedGroup,
+                            experience: selected?.id,
+                          })
+                        }
+                      />
+                      <h3 className="font-semibold text-sm text-gray-700">
+                        PLAYING MODES
+                      </h3>
+                      <SingleSelect
+                        category="playingModes"
+                        value={editedGroup.playingModes}
+                        //className="input"
+                        onChange={(selected) =>
+                          setEditedUser({
+                            ...editedGroup,
+                            //playingModes: selected,
+                            playingModes: selected?.id,
+                          })
+                        }
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex flex-wrap">
+                        <div
+                          className={`text-sm flex gap-2 ${
+                            groupDetails.members.length >=
+                            groupDetails.maxMembers
+                              ? "pnp-badge-white"
+                              : "pnp-badge-green"
+                          }`}
+                        >
+                          {getIcon("User")} {groupDetails.members.length + 1} /{" "}
+                          {groupDetails.maxMembers + 1}{" "}
+                          {/* +1 for the author */}
+                        </div>
+
+                        <div className="pnp-badge-purple">
+                          {getIcon("Experience")}{" "}
+                          {shortenExperienceLabel(
+                            groupDetails.experience.value
+                          )}
+                        </div>
+
+                        <div className="pnp-badge-blue">
+                          {getIcon("On-site")} On-site
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Address and open slots */}
                 {isEditing ? (
                   <div className="flex flex-col w-full">
-                    <h3 className="font-semibold text-sm text-gray-700 mt-4">
+                    <h3 className="font-semibold text-sm text-gray-700">
                       YOUR ADDRESS
                     </h3>
                     <div className="flex flex-col gap-4 w-full">
@@ -307,112 +374,18 @@ const GroupDetail = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="text-sm text-gray-700 mt-2">
-                    {(editedGroup.address?.postalCode ||
-                      editedGroup.address?.street) && (
-                      <span>
-                        {editedGroup.address?.postalCode || ""},{" "}
-                        {editedGroup.address?.city || ""}
-                      </span>
-                    )}
-                  </div>
+                  <small className="text-gray-700 mt-4">
+                    {groupDetails.maxMembers - groupDetails.members.length} {""}{" "}
+                    open slots | {groupDetails.address.postalCode}{" "}
+                    {groupDetails.address.city}
+                  </small>
                 )}
 
-                <div className="mt-4 w-[320px]">
-                  {isEditing ? (
-                    <>
-                      <h3 className="font-semibold text-sm text-gray-700">
-                        EXPERIENCE
-                      </h3>
-                      <SingleSelect
-                        category="experience"
-                        value={editedGroup.experience}
-                        onChange={(selected) =>
-                          setEditedGroup({
-                            ...editedGroup,
-                            experience: selected?.id,
-                          })
-                        }
-                      />
-                    </>
-                  ) : (
-                    <div className="pnp-badge-purple flex items-center gap-1">
-                      {getIcon("Experience")}{" "}
-                      {shortenExperienceLabel(
-                        experiencesOptions.find(
-                          (opt) =>
-                            opt._id === editedGroup.experience ||
-                            opt._id === editedGroup.experience?.id
-                        )?.label ||
-                          editedGroup.experience?.label ||
-                          editedGroup.experience
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {/* PLAYING MODES */}
-                <div className="mt-4 w-[320px]">
-                  {isEditing ? (
-                    <>
-                      <h3 className="font-semibold text-sm text-gray-700">
-                        PLAYING MODES
-                      </h3>
-                      <SingleSelect
-                        category="playingModes"
-                        value={editedGroup.playingModes}
-                        //className="input"
-                        onChange={(selected) =>
-                          setEditedUser({
-                            ...editedGroup,
-                            //playingModes: selected,
-                            playingModes: selected?.id,
-                          })
-                        }
-                      />
-                    </>
-                  ) : (
-                    <>
-                      {editedGroup.playingModes && (
-                        <div className="pnp-badge-blue flex items-center gap-1">
-                          {(() => {
-                            const label =
-                              playingModesOptions.find(
-                                (opt) =>
-                                  opt._id === editedGroup.playingModes ||
-                                  opt._id === editedGroup.playingModes?.id
-                              )?.label ||
-                              editedGroup.playingModes?.label ||
-                              editedGroup.playingModes;
-
-                            if (label === "Both") {
-                              return (
-                                <>
-                                  {getIcon("On-site")}
-                                  {getIcon("Online")}
-                                </>
-                              );
-                            }
-
-                            return getIcon(label);
-                          })()}
-                          {playingModesOptions.find(
-                            (opt) =>
-                              opt._id === editedGroup.playingModes ||
-                              opt._id === editedGroup.playingModes?.id
-                          )?.label ||
-                            editedGroup.playingModes?.label ||
-                            editedGroup.playingModes}
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-
+                {/* Availability and Frequency */}
                 <div>
                   {isEditing ? (
-                    <div className="">
-                      <h3 className="font-semibold text-sm text-gray-700 mb-2">
+                    <div>
+                      <h3 className="font-semibold text-sm text-gray-700 mb-2 mt-4">
                         AVAILABILITY
                       </h3>
                       <WeekdaySelector
@@ -445,14 +418,14 @@ const GroupDetail = () => {
                           }
                         />
 
-                        <p className="text-sm text-gray-700 font-semibold w-[100px]">
-                          per Month
+                        <p className="text-sm text-gray-700 font-semibold w-[200px]">
+                          sessions per Month
                         </p>
                       </div>
                     </div>
                   ) : (
                     <div>
-                      <div className="flex flex-row items-center text-center gap-2">
+                      <div className="flex flex-row items-center text-center gap-2 mt-4">
                         <h3 className="font-semibold text-sm text-gray-700">
                           AVAILABILITY
                         </h3>
@@ -510,6 +483,7 @@ const GroupDetail = () => {
             </div>
           </div>
         </div>
+
         {/* Right Content */}
         <div className="w-full lg:w-[55%] p-6 overflow-y-auto max-h-full lg:border-l lg:border-gray-100">
           <div className="mb-4">
@@ -562,7 +536,7 @@ const GroupDetail = () => {
 
                 <div className="mt-4">
                   <h3 className="font-semibold text-sm text-gray-700">
-                    LANGUAGE
+                    LANGUAGES
                   </h3>
                   {isEditing ? (
                     <TagMultiSelect
