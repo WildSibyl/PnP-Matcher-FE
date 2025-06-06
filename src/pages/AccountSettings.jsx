@@ -123,7 +123,7 @@ const AccountSettings = () => {
   const handleDeleteAccount = async () => {
     try {
       await deleteAccount(deleteForm); // you’ll implement this in your API layer
-      toast.success("Account deleted");
+      toast.success("Account deleted. Sorry to see you go!");
 
       // Reset fields
       setDeleteForm({

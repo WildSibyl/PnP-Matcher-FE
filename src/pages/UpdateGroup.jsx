@@ -56,7 +56,7 @@ const UpdateGroup = () => {
       try {
         setLoading(true);
         const updatedGroup = await updateGroup(id, form);
-        toast.success("Group updated successfully");
+        toast.success("Group updated!");
         navigate(`/group/${updatedGroup._id}`);
       } catch (error) {
         toast.error(error.message);

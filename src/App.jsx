@@ -1,13 +1,11 @@
 import { useContext, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router";
-import { InviteModalContextProvider } from "./context/InviteModalContextProvider";
 
 //LAYOUTS & PAGES
 import MainLayout from "./layouts/MainLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import AdminRoute from "./layouts/AdminRoute";
 import Loader from "./components/Loader";
-import InviteToGroupModal from "./components/InviteToGroupModal";
 import ScrollToTop from "./utils/ScrollToTop";
 
 const Home = lazy(() => import("./pages/Home"));
@@ -41,37 +39,34 @@ const App = () => {
         </div>
       }
     >
-      <InviteModalContextProvider>
-        <ScrollToTop>
-          <Routes>
-            <Route path="/" element={<MainLayout />} errorElement={<Error />}>
-              <Route index element={<Home />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+      <ScrollToTop>
+        <Routes>
+          <Route path="/" element={<MainLayout />} errorElement={<Error />}>
+            <Route index element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/imprint" element={<Imprint />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/test" element={<Test />} />
+            <Route element={<ProtectedLayout />}>
               <Route path="/grouplist" element={<Grouplist />} />
-              <Route path="/imprint" element={<Imprint />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/test" element={<Test />} />
-              <Route element={<ProtectedLayout />}>
-                <Route path="/create-group" element={<CreateGroup />} />
-                <Route path="/edit/:id" element={<UpdateGroup />} />
-                <Route path="/group/:id" element={<GroupDetail />} />
-                <Route path="/settings" element={<AccountSettings />} />
-                <Route path="/profile" element={<PlayerDetail />} />
-                <Route path="/player/:id" element={<SearchedPlayer />} />
-                <Route path="/chat" element={<ChatList />} />
-                <Route element={<AdminRoute />}>
-                  <Route path="/admin" element={<AdminDashboard />} />
-                </Route>
+              <Route path="/create-group" element={<CreateGroup />} />
+              <Route path="/edit/:id" element={<UpdateGroup />} />
+              <Route path="/group/:id" element={<GroupDetail />} />
+              <Route path="/settings" element={<AccountSettings />} />
+              <Route path="/profile" element={<PlayerDetail />} />
+              <Route path="/player/:id" element={<SearchedPlayer />} />
+              <Route path="/chat" element={<ChatList />} />
+              <Route element={<AdminRoute />}>
+                <Route path="/admin" element={<AdminDashboard />} />
               </Route>
-              <Route path="*" element={<NotFound />} />
             </Route>
-          </Routes>
-        </ScrollToTop>
-        <InviteToGroupModal />
-      </InviteModalContextProvider>
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </ScrollToTop>
     </Suspense>
   );
 };
