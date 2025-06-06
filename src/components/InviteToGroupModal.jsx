@@ -3,18 +3,21 @@ import { Dialog } from "@headlessui/react";
 import { useInviteModal } from "../context/InviteModalContextProvider";
 import SelectUser from "./SelectUser";
 import GroupSelect from "./edit-comp/GroupSelect";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { sendInvite } from "../data/user";
 import { toast } from "react-toastify";
 
-const InviteToGroupModal = ({ group, user }) => {
-  const { isInviteModalOpen, closeInviteModal } = useInviteModal();
+const InviteToGroupModal = () => {
+  const { isInviteModalOpen, closeInviteModal, activeGroup, activeUser } =
+    useInviteModal();
 
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
-  if (group) setSelectedGroup(group);
-  if (user) setSelectedUser(user);
+  useEffect(() => {
+    setSelectedUser(activeUser);
+    setSelectedGroup(activeGroup);
+  }, [activeGroup, activeUser]);
 
   const handleInvite = async () => {
     if (!selectedUser || !selectedGroup) {
@@ -26,12 +29,13 @@ const InviteToGroupModal = ({ group, user }) => {
     console.log("Selected Group", selectedGroup);
     try {
       await sendInvite(selectedUser._id, selectedGroup.id);
-      toast("Invite sent!", {
-        theme: "light",
-      });
+      toast.success(
+        `You've invited ${selectedUser.userName} to ${selectedGroup.label}`
+      );
       closeInviteModal();
     } catch (error) {
       console.log("Error sending invite", error.message);
+      toast.error(`${error.message}`);
     }
   };
 
