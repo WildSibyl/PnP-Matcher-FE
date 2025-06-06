@@ -4,9 +4,11 @@ import { Outlet } from "react-router";
 import { TagsContextProvider } from "../context/TagsContextProvider";
 import { WSContextProvider } from "../context/WSContextProvider";
 import { TeleportContextProvider } from "../context/TeleportContextProvider";
+import { InviteModalContextProvider } from "../context/InviteModalContextProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MenuIcons from "../components/navbar-comp/MenuIcons";
+import InviteToGroupModal from "../components/InviteToGroupModal";
 
 const MainLayout = () => {
   return (
@@ -17,11 +19,14 @@ const MainLayout = () => {
       <TagsContextProvider>
         <WSContextProvider>
           <TeleportContextProvider>
-            <Navbar />
-            <div className="flex-1 overflow-x-hidden">
-              <Outlet />
-            </div>
-            <Footer />
+            <InviteModalContextProvider>
+              <Navbar />
+              <div className="flex-1 overflow-x-hidden">
+                <Outlet />
+              </div>
+              <Footer />
+              <InviteToGroupModal />
+            </InviteModalContextProvider>
           </TeleportContextProvider>
         </WSContextProvider>
       </TagsContextProvider>
