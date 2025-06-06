@@ -7,12 +7,14 @@ import { useState } from "react";
 import { sendInvite } from "../data/user";
 import { toast } from "react-toastify";
 
-const InviteToGroupModal = () => {
-  const { isInviteModalOpen, activeGroupId, invitedUserId, closeInviteModal } =
-    useInviteModal();
+const InviteToGroupModal = ({ group, user }) => {
+  const { isInviteModalOpen, closeInviteModal } = useInviteModal();
 
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
+
+  if (group) setSelectedGroup(group);
+  if (user) setSelectedUser(user);
 
   const handleInvite = async () => {
     if (!selectedUser || !selectedGroup) {
