@@ -10,6 +10,8 @@ import dislike from "../assets/dislike_icon.svg";
 import getIcon from "../utils/getIcon";
 import send_icon from "../assets/send_icon.png";
 import shortenExperienceLabel from "../utils/shortenExperience";
+import InviteToGroupModal from "../components/InviteToGroupModal";
+import { useInviteModal } from "../context/InviteModalContextProvider";
 
 const SearchedPlayer = () => {
   const { id } = useParams();
@@ -27,6 +29,8 @@ const SearchedPlayer = () => {
     playingRoles,
     playingModes,
   } = useTagContext();
+
+  const { openInviteModal } = useInviteModal();
 
   // Chat modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -191,6 +195,13 @@ const SearchedPlayer = () => {
                     >
                       <img src={send_icon} alt="send icon" />
                       Send DM
+                    </button>
+                    {/* Invite to Group button */}
+                    <button
+                      onClick={() => openInviteModal({ userId: details })}
+                      className="btn-secondary-dark w-auto gap-2 flex"
+                    >
+                      Invite to Group
                     </button>
                   </div>
                 </div>

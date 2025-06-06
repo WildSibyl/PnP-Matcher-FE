@@ -1,4 +1,4 @@
-import { getFilteredUsers } from "../data/user";
+import { getFilteredUsers } from "../../data/user";
 import { useState, useEffect } from "react";
 
 const SelectUser = ({ selected, onChange, setSelected }) => {
@@ -61,33 +61,39 @@ const SelectUser = ({ selected, onChange, setSelected }) => {
 
   return (
     <>
-      <div className="relative w-full max-w-md ml-2">
+      <div className="relative w-full max-w-md">
         <input
           value={input.search}
+          placeholder="Search playername"
           onChange={(e) =>
             setInput((prev) => ({ ...prev, search: e.target.value }))
           }
-          className="input-bordered ml-2"
+          className="input-bordered w-full"
         ></input>
         {results && input.search !== "" ? (
-          <div className="absolute top-full left-0 w-full z-50 bg-pnp-white rounded-xl pnp-shadow mt-1">
+          <div className="absolute top-full left-0 w-full z-[999] bg-pnp-white rounded-xl pnp-shadow mt-1">
             {loading ? (
               "Loading"
             ) : (
               <div>
-                {results.slice(0, 5).map((e, index) => (
+                {results.slice(0, 3).map((e, index) => (
                   <div
                     key={e._id}
-                    className="flex items-center gap-4 hover-pointer"
+                    className="flex items-center gap-4 cursor-pointer"
                     onClick={() => {
                       onChange?.(e);
                     }}
                   >
-                    <img
-                      className="h-auto w-[50px] rounded-full"
-                      src={e.avatarUrl}
-                      alt={e.userName}
-                    />
+                    {e?.avatarUrl != "" ? (
+                      <img
+                        className="h-auto w-[50px] rounded-full"
+                        src={e.avatarUrl}
+                        alt={e.userName}
+                      />
+                    ) : (
+                      <div className="bg-pnp-darkpurple h-[50px] w-[50px] rounded-full"></div>
+                    )}
+
                     {e.userName}
                   </div>
                 ))}

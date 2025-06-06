@@ -411,7 +411,7 @@ const PlayerDetail = () => {
                     </div>
 
                     {/* PLAYING ROLES */}
-                    <div>
+                    <div className="w-[320px]">
                       <h3 className="font-semibold text-sm text-gray-700">
                         PLAYING ROLES
                       </h3>
@@ -497,65 +497,72 @@ const PlayerDetail = () => {
                 )}
               </div>
 
-              <div className="mt-4">
-                <h3 className="font-semibold text-sm text-gray-700">
-                  FREQUENCY
-                </h3>
+              <div>
                 {isEditing ? (
-                  <input
-                    type="number"
-                    min="1"
-                    max="31"
-                    className="input"
-                    value={editedUser.frequencyPerMonth}
-                    onChange={(e) =>
-                      setEditedUser({
-                        ...editedUser,
-                        frequencyPerMonth: e.target.value,
-                      })
-                    }
-                  />
+                  <div className="">
+                    <h3 className="font-semibold text-sm text-gray-700 mb-2">
+                      AVAILABILITY
+                    </h3>
+                    <WeekdaySelector
+                      weekdays={editedUser.weekdays || []}
+                      onChange={(updatedDays) => {
+                        if (!isEditing) return;
+                        setEditedGroup((prev) => ({
+                          ...prev,
+                          weekdays: updatedDays,
+                        }));
+                      }}
+                      readOnly={!isEditing}
+                    />
+
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      FREQUENCY
+                    </h3>
+                    <div className="flex flex-row items-center gap-2">
+                      <input
+                        type="number"
+                        min="1"
+                        max="31"
+                        className="input w-[70px]"
+                        value={editedUser.frequencyPerMonth || ""}
+                        onChange={(e) =>
+                          setEditedGroup({
+                            ...editedUser,
+                            frequencyPerMonth: e.target.value,
+                          })
+                        }
+                      />
+
+                      <p className="text-sm text-gray-700 font-semibold w-[100px]">
+                        per Month
+                      </p>
+                    </div>
+                  </div>
                 ) : (
-                  <p className="text-sm text-gray-700 font-semibold mt-2">
-                    {editedUser.frequencyPerMonth || "Not set"} sessions per
-                    Month
-                  </p>
+                  <div>
+                    <div className="flex flex-row items-center text-center gap-2 mt-4">
+                      <h3 className="font-semibold text-sm text-gray-700">
+                        AVAILABILITY
+                      </h3>
+                      <p className="text-sm text-gray-700 font-semibold">
+                        {editedUser.frequencyPerMonth || "Not set"} sessions per
+                        Month
+                      </p>
+                    </div>
+                    <div className="mt-4 pointer-events-none">
+                      <WeekdaySelector
+                        weekdays={editedUser.weekdays} // Pass the group's availability data
+                        readOnly={true} // Crucially, set to true for display-only
+                      />
+                    </div>
+                  </div>
                 )}
               </div>
 
-              <div className="mt-4">
-                <h3 className="font-semibold text-sm text-gray-700 mb-2">
-                  AVIALABILITY
-                </h3>
-
-                <div className={!isEditing ? "pointer-events-none" : ""}>
-                  <WeekdaySelector
-                    weekdays={editedUser.weekdays || []}
-                    onChange={(updatedDays) => {
-                      if (!isEditing) return; // Prevent changes in view mode
-
-                      const oldDays = editedUser.weekdays || [];
-                      if (
-                        updatedDays.length === oldDays.length &&
-                        updatedDays.every((day) => oldDays.includes(day))
-                      ) {
-                        return;
-                      }
-
-                      setEditedUser((prev) => ({
-                        ...prev,
-                        weekdays: updatedDays,
-                      }));
-                    }}
-                    readOnly={!isEditing}
-                  />
-                </div>
-              </div>
-
-              <div className="mt-4">
+              <div className="">
                 {isEditing ? (
                   // Edit mode: Save and Cancel buttons in the same row
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 mt-4">
                     <button onClick={handleSave} className="btn-primary-dark">
                       Save
                     </button>

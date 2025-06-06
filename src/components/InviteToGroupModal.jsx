@@ -1,20 +1,23 @@
 import React from "react";
 import { Dialog } from "@headlessui/react";
 import { useInviteModal } from "../context/InviteModalContextProvider";
-import SelectUser from "./SelectUser";
+import SelectUser from "./edit-comp/SelectUser";
 import GroupSelect from "./edit-comp/GroupSelect";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { sendInvite } from "../data/user";
 import { toast } from "react-toastify";
 
-const InviteToGroupModal = ({ group, user }) => {
-  const { isInviteModalOpen, closeInviteModal } = useInviteModal();
+const InviteToGroupModal = () => {
+  const { isInviteModalOpen, closeInviteModal, activeGroup, activeUser } =
+    useInviteModal();
 
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
-  if (group) setSelectedGroup(group);
-  if (user) setSelectedUser(user);
+  useEffect(() => {
+    setSelectedUser(activeUser);
+    setSelectedGroup(activeGroup);
+  }, [activeGroup, activeUser]);
 
   const handleInvite = async () => {
     if (!selectedUser || !selectedGroup) {
@@ -25,13 +28,12 @@ const InviteToGroupModal = ({ group, user }) => {
     console.log("Selected User", selectedUser);
     console.log("Selected Group", selectedGroup);
     try {
-      await sendInvite(selectedUser._id, selectedGroup.id);
-      toast("Invite sent!", {
-        theme: "light",
-      });
+      await sendInvite(selectedUser._id, selectedGroup);
+      toast.success(`You've invited ${selectedUser.userName}!`);
       closeInviteModal();
     } catch (error) {
       console.log("Error sending invite", error.message);
+      toast.error(`${error.message}`);
     }
   };
 
@@ -44,8 +46,8 @@ const InviteToGroupModal = ({ group, user }) => {
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
       {/* Modal-Panel */}
-      <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="bg-white w-full max-w-md max-h-[80vh] rounded-2xl shadow-lg overflow-y-auto p-6 relative">
+      <div className="fixed inset-0 flex items-center justify-center">
+        <Dialog.Panel className="bg-white relative z-[90] w-full max-w-md max-h-[80vh] rounded-2xl shadow-lg overflow-y-auto p-6 ">
           <button
             onClick={closeInviteModal}
             className="absolute top-3 right-4 text-gray-600 hover:text-black text-xl"

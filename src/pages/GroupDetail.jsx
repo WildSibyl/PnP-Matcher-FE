@@ -13,6 +13,7 @@ import getIcon from "../utils/getIcon";
 import shortenExperienceLabel from "../utils/shortenExperience";
 import { useTagContext } from "../context/TagsContextProvider";
 import Loader from "../components/Loader";
+import { useInviteModal } from "../context/InviteModalContextProvider";
 
 const GroupDetail = () => {
   const { user } = useAuth();
@@ -37,6 +38,8 @@ const GroupDetail = () => {
     groupExperience: experiencesOptions,
     playingModes: playingModesOptions, // Playing modes are not used in this component
   } = useTagContext();
+  // const [showFullDescription, setShowFullDescription] = useState(false);
+  const { openInviteModal } = useInviteModal();
 
   const MAX_LENGTH = 300;
   const toggleAboutText = () => setShowFullAbout((prev) => !prev);
@@ -160,8 +163,10 @@ const GroupDetail = () => {
   return (
     <div className="min-h-screen md:p-8 text-pnp-white">
       {/* Main Card */}
-      <div className="max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row ">
+      <div className="max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
+        {/* Left Content */}
         <div className="flex flex-col lg:w-[45%]">
+          {/* Group image */}
           <div className="flex-shrink-0">
             {isEditing ? (
               <label htmlFor="group-image-upload">
@@ -188,9 +193,9 @@ const GroupDetail = () => {
               </div>
             )}
           </div>
-          {/* Left Sidebar */}
-          <div className="w-full p-6 border-b border-gray-100 lg:border-b-0  ">
-            <div className="flex flex-col items-center text-center gap-4 lg:flex-row lg:items-start lg:text-left">
+          {/* Group details */}
+          <div className="w-full p-6 border-b border-gray-100 lg:border-b-0 ">
+            <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
               <div className="flex flex-1 flex-col items-center lg:items-start">
                 {isEditing ? (
                   <>
@@ -404,95 +409,107 @@ const GroupDetail = () => {
                   )}
                 </div>
 
-                <div className="mt-4">
-                  <h3 className="font-semibold text-sm text-gray-700 mb-2">
-                    AVAILABILITY
-                  </h3>
+                <div>
                   {isEditing ? (
-                    <WeekdaySelector
-                      weekdays={editedGroup.weekdays || []}
-                      onChange={(updatedDays) => {
-                        if (!isEditing) return;
-                        setEditedGroup((prev) => ({
-                          ...prev,
-                          weekdays: updatedDays,
-                        }));
-                      }}
-                      readOnly={!isEditing}
-                    />
-                  ) : (
-                    <div className="mt-4 pointer-events-none">
+                    <div className="">
+                      <h3 className="font-semibold text-sm text-gray-700 mb-2">
+                        AVAILABILITY
+                      </h3>
                       <WeekdaySelector
-                        weekdays={editedGroup.weekdays} // Pass the group's availability data
-                        readOnly={true} // Crucially, set to true for display-only
+                        weekdays={editedGroup.weekdays || []}
+                        onChange={(updatedDays) => {
+                          if (!isEditing) return;
+                          setEditedGroup((prev) => ({
+                            ...prev,
+                            weekdays: updatedDays,
+                          }));
+                        }}
+                        readOnly={!isEditing}
                       />
-                    </div>
-                  )}
-                </div>
 
-                <div className="mt-4">
-                  <h3 className="font-semibold text-sm text-gray-700">
-                    FREQUENCY
-                  </h3>
-                  {isEditing ? (
-                    <div className="flex flex-row items-center gap-2">
-                      <input
-                        type="number"
-                        min="1"
-                        max="31"
-                        className="input w-[70px]"
-                        value={editedGroup.frequencyPerMonth || ""}
-                        onChange={(e) =>
-                          setEditedGroup({
-                            ...editedGroup,
-                            frequencyPerMonth: e.target.value,
-                          })
-                        }
-                      />
-                      <p className="text-sm text-gray-700 font-semibold w-[100px]">
-                        per Month
-                      </p>
+                      <h3 className="font-semibold text-sm text-gray-700">
+                        FREQUENCY
+                      </h3>
+                      <div className="flex flex-row items-center gap-2">
+                        <input
+                          type="number"
+                          min="1"
+                          max="31"
+                          className="input w-[70px]"
+                          value={editedGroup.frequencyPerMonth || ""}
+                          onChange={(e) =>
+                            setEditedGroup({
+                              ...editedGroup,
+                              frequencyPerMonth: e.target.value,
+                            })
+                          }
+                        />
+
+                        <p className="text-sm text-gray-700 font-semibold w-[100px]">
+                          per Month
+                        </p>
+                      </div>
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-700 font-semibold mt-2">
-                      {editedGroup.frequencyPerMonth || "Not set"} sessions per
-                      Month
-                    </p>
+                    <div>
+                      <div className="flex flex-row items-center text-center gap-2">
+                        <h3 className="font-semibold text-sm text-gray-700">
+                          AVAILABILITY
+                        </h3>
+                        <p className="text-sm text-gray-700 font-semibold">
+                          {editedGroup.frequencyPerMonth || "Not set"} sessions
+                          per Month
+                        </p>
+                      </div>
+                      <div className="mt-4 pointer-events-none">
+                        <WeekdaySelector
+                          weekdays={editedGroup.weekdays} // Pass the group's availability data
+                          readOnly={true} // Crucially, set to true for display-only
+                        />
+                      </div>
+                    </div>
                   )}
                 </div>
+              </div>
 
-                {isAuthor && (
-                  <div className="flex gap-4 mt-4">
-                    {isEditing ? (
-                      <>
-                        <button
-                          onClick={handleSave}
-                          className="btn-primary-dark"
-                        >
-                          Save
-                        </button>
-                        <button
-                          onClick={handleCancel}
-                          className="btn-primary-dark bg-gray-300 text-black"
-                        >
-                          Cancel
-                        </button>
-                      </>
-                    ) : (
+              {isAuthor && (
+                <div className="flex gap-4 mt-4">
+                  {isEditing ? (
+                    <>
+                      <button onClick={handleSave} className="btn-primary-dark">
+                        Save
+                      </button>
+                      <button
+                        onClick={handleCancel}
+                        className="btn-primary-dark bg-gray-300 text-black"
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        className="btn-primary-dark"
+                        onClick={() =>
+                          openInviteModal({ groupId: groupDetails._id })
+                        }
+                      >
+                        Add Players
+                      </button>
+
                       <button
                         onClick={() => setIsEditing(true)}
                         className="btn-primary-dark"
                       >
                         Edit Group
                       </button>
-                    )}
-                  </div>
-                )}
-              </div>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
-
         {/* Right Content */}
         <div className="w-full lg:w-[55%] p-6 overflow-y-auto max-h-full lg:border-l lg:border-gray-100">
           <div className="mb-4">
