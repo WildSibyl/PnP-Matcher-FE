@@ -14,6 +14,7 @@ import shortenExperienceLabel from "../utils/shortenExperience";
 import { useTagContext } from "../context/TagsContextProvider";
 import Loader from "../components/Loader";
 import { useInviteModal } from "../context/InviteModalContextProvider";
+import PlayerCard from "../components/cards/PlayerCard";
 
 const GroupDetail = () => {
   const { user } = useAuth();
@@ -54,6 +55,7 @@ const GroupDetail = () => {
       try {
         setLoading(true);
         const data = await getSingleGroup(id);
+        console.log("Group Data: ", data);
         setGroupDetails(data);
         setEditedGroup({
           ...data,
@@ -510,7 +512,7 @@ const GroupDetail = () => {
                       : "text-gray-400"
                   }`}
                 >
-                  MEMBERS ()
+                  MEMBERS ({groupDetails?.members?.length + 1})
                 </button>
               </div>
 
@@ -713,6 +715,17 @@ const GroupDetail = () => {
                     </div>
                   )}
                 </>
+              )}
+              {activeTab === "members" && (
+                <div className="pt-4 flex flex-col justify-start items-start">
+                  {groupDetails?.author && (
+                    <PlayerCard details={groupDetails?.author} />
+                  )}
+
+                  {groupDetails?.members?.map((e) => (
+                    <PlayerCard key={e._id} details={e} />
+                  ))}
+                </div>
               )}
             </div>
           </div>

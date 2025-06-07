@@ -10,6 +10,8 @@ import SingleSelect from "../components/edit-comp/SingleSelect";
 import shortenExperienceLabel from "../utils/shortenExperience";
 import WeekdaySelector from "../components/WeekdaySelector";
 import Loader from "../components/Loader";
+import { getMyGroups } from "../data/user";
+import Groupcard from "../components/cards/Groupcard";
 
 const PlayerDetail = () => {
   const [user, setUser] = useState(null);
@@ -18,6 +20,7 @@ const PlayerDetail = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [groups, setGroups] = useState([]);
 
   const {
     systems: systemsOptions,
@@ -37,6 +40,7 @@ const PlayerDetail = () => {
   const API_URL = import.meta.env.VITE_APP_PLOT_HOOK_API_URL;
 
   useEffect(() => {
+    let data;
     const fetchUser = async () => {
       try {
         const res = await fetch(`${API_URL}/auth/me`, {
@@ -45,7 +49,7 @@ const PlayerDetail = () => {
 
         if (!res.ok) throw new Error("Failed to fetch user");
 
-        const data = await res.json();
+        data = await res.json();
         console.log("Fetched user data:", data);
 
         setUser(data);
@@ -63,6 +67,10 @@ const PlayerDetail = () => {
           playingModes: data.playingModes || "",
           playingRoles: data.playingRoles || "",
         });
+
+        const dataGroups = await getMyGroups();
+        setGroups(dataGroups);
+        console.log("User Groups", dataGroups);
       } catch (err) {
         console.error("Error loading user:", err);
       }
@@ -608,7 +616,7 @@ const PlayerDetail = () => {
                       : "text-gray-400"
                   }`}
                 >
-                  GROUPS ()
+                  GROUPS ({groups?.length || 0})
                 </button>
               </div>
 
@@ -834,6 +842,14 @@ const PlayerDetail = () => {
                     )}
                   </div>
                 </>
+              )}
+
+              {activeTab === "groups" && (
+                <div className="pt-4 flex flex-col justify-start items-start">
+                  {groups?.map((e) => (
+                    <Groupcard key={e._id} details={e} />
+                  ))}
+                </div>
               )}
             </div>
           </div>
