@@ -31,7 +31,7 @@ const PlayerCard = ({ details }) => {
     <div onClick={handleClick} className="cursor-pointer w-full">
       <div
         className="flex flex-row bg-pnp-white pnp-shadow items-center justify-center rounded-xl w-full h-[170px] max-w-[500px]
-    mx-auto m-4"
+    mx-auto mt-6"
       >
         {/* PLAYER INFOS */}
         <div className="flex gap-2 p-4 text-left items-center justify-center">
@@ -49,12 +49,11 @@ const PlayerCard = ({ details }) => {
             ></img>
           )}
           <div>
-            <div className="flex flex-col pb-3 ">
-              {details.playingRoles && (
-                <div className="pnp-badge-green">
-                  {getIcon("Dice")} Game Master
-                </div>
-              )}
+            <div className="flex flex-col">
+              <div className="pnp-badge-green mb-2">
+                {getIcon("Dice")} Game Master
+              </div>
+
               <h2 className="normal-case text-pnp-black">{details.userName}</h2>
               <p className="font-semibold text-pnp-black">{details.tagline}</p>
               <p className="font-medium text-[#3E5466]">{`${
