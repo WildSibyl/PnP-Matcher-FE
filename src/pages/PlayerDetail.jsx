@@ -590,7 +590,7 @@ const PlayerDetail = () => {
                   {!isEditing && <ProfileChecker user={user} />}
                   {isEditing ? null : (
                     // View mode: Send DM and Edit buttons in the same row
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 justify-center lg:justify-start">
                       <button
                         onClick={() => setIsEditing(true)}
                         className="btn-primary-dark w-auto gap-2 flex"
