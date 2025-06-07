@@ -72,7 +72,9 @@ const CardBadges = ({ details }) => {
         <div
           key={index}
           className={`badge mb-1 ${
-            e.category === "likes" ? "pnp-badge-white" : "pnp-badge-black"
+            e.category === "likes" || e.category === "playstyles"
+              ? "pnp-badge-white"
+              : "pnp-badge-black"
           } text-base`}
         >
           {getIcon(e.value)}
