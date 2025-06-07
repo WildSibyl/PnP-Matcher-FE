@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import send_icon from "../assets/send_icon.png";
 import like from "../assets/like_icon.svg";
 import dislike from "../assets/dislike_icon.svg";
@@ -13,6 +13,8 @@ import Loader from "../components/Loader";
 import { getMyGroups } from "../data/user";
 import Groupcard from "../components/cards/Groupcard";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContextProvider";
+import ProfileChecker from "../components/player-comp/ProfileChecker";
 
 const PlayerDetail = () => {
   const [user, setUser] = useState(null);
@@ -23,6 +25,7 @@ const PlayerDetail = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [groups, setGroups] = useState([]);
   const navigate = useNavigate();
+  const { setUser: setAuthUser } = useContext(AuthContext);
 
   const {
     systems: systemsOptions,
@@ -140,6 +143,7 @@ const PlayerDetail = () => {
       const updated = await res.json();
       setUser(updated);
       setEditedUser(updated);
+      setAuthUser(updated);
 
       setIsEditing(false);
     } catch (err) {
@@ -447,15 +451,14 @@ const PlayerDetail = () => {
                           onChange={(selected) =>
                             setEditedUser({
                               ...editedUser,
-                              // playingRoles: selected,
-                              playingRoles: selected?.id,
+                              playingRoles: selected?.id ?? null,
                             })
                           }
                         />
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex flex-wrap  text-center justify-center lg:justify-start items-center gap-2">
                       {editedUser.experience && (
                         <div className="pnp-badge-purple flex items-center gap-1">
                           {getIcon("Experience")}
@@ -584,9 +587,10 @@ const PlayerDetail = () => {
                 </div>
 
                 <div>
+                  {!isEditing && <ProfileChecker user={user} />}
                   {isEditing ? null : (
                     // View mode: Send DM and Edit buttons in the same row
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 justify-center lg:justify-start">
                       <button
                         onClick={() => setIsEditing(true)}
                         className="btn-primary-dark w-auto gap-2 flex"
@@ -723,6 +727,7 @@ const PlayerDetail = () => {
                           );
                           return playstyleOption ? (
                             <div className="pnp-badge-black" key={style}>
+                              {getIcon(playstyleOption.label)}
                               {playstyleOption.label}
                             </div>
                           ) : null;
