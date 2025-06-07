@@ -1,7 +1,7 @@
 import { useAuth } from "../hooks/useAuth";
 import { useParams, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
-import { getSingleGroup } from "../data/groups";
+import { getSingleGroup, updateGroup, postGroupImage } from "../data/groups";
 import Loader from "../components/Loader";
 import { useInviteModal } from "../context/InviteModalContextProvider";
 import ChatModal from "../components/chat-comp/ChatModal";
@@ -32,8 +32,6 @@ const GroupDetail = () => {
     setSelectedChatId(receiverId);
     setIsModalOpen(true);
   };
-
-  const API_URL = import.meta.env.VITE_APP_PLOT_HOOK_API_URL;
 
   useEffect(() => {
     if (!id) {
@@ -92,12 +90,7 @@ const GroupDetail = () => {
         image: editedGroup.image,
       };
 
-      const res = await fetch(`${API_URL}/groups/${editedGroup._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(updateData),
-      });
+      const res = await updateGroup(id);
 
       if (!res.ok) throw new Error("Failed to update group");
       const updated = await res.json();
@@ -123,18 +116,9 @@ const GroupDetail = () => {
     formData.append("file", file);
 
     try {
-      const res = await fetch(`${API_URL}/upload`, {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        setPreviewImage(data.fileUrl);
-        setEditedGroup((prev) => ({ ...prev, image: data.fileUrl }));
-      } else {
-        alert("Upload failed: " + (data.error || "Unknown error"));
-      }
+      const data = await postGroupImage(formData);
+      setPreviewImage(data.fileUrl);
+      setEditedGroup((prev) => ({ ...prev, image: data.fileUrl }));
     } catch (err) {
       console.error("Upload error:", err);
       alert("An error occurred during upload.");
