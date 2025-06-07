@@ -459,7 +459,7 @@ const PlayerDetail = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex flex-wrap  text-center justify-center lg:justify-start items-center gap-2">
                       {editedUser.experience && (
                         <div className="pnp-badge-purple flex items-center gap-1">
                           {getIcon("Experience")}
