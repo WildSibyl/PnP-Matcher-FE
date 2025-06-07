@@ -36,7 +36,7 @@ const GroupDetail = () => {
   // Chat modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState(null);
-  const [chatUsername, setChatUsername] = useState(null);
+  const chatUsername = groupDetails?.author?.userName || "Unknown User";
 
   const {
     systems: systemsOptions,
@@ -53,6 +53,11 @@ const GroupDetail = () => {
 
   const MAX_LENGTH = 300;
   const toggleAboutText = () => setShowFullAbout((prev) => !prev);
+
+  const openChat = (receiverId) => {
+    setSelectedChatId(receiverId);
+    setIsModalOpen(true);
+  };
 
   const API_URL = import.meta.env.VITE_APP_PLOT_HOOK_API_URL;
 
@@ -434,10 +439,10 @@ const GroupDetail = () => {
                             readOnly={!isEditing}
                           />
 
-                          <h3 className="font-semibold text-sm text-gray-700">
+                          <h3 className="font-semibold text-sm text-gray-700 mt-5">
                             FREQUENCY
                           </h3>
-                          <div className="flex flex-row items-center gap-2">
+                          <div className="flex flex-row items-center justify-center gap-2">
                             <input
                               type="number"
                               min="1"
@@ -452,7 +457,7 @@ const GroupDetail = () => {
                               }
                             />
 
-                            <p className="text-sm text-gray-700 font-semibold w-[200px]">
+                            <p className="text-sm text-gray-700 font-semibold text-left w-[120px]">
                               times per month
                             </p>
                           </div>
@@ -477,15 +482,14 @@ const GroupDetail = () => {
                       )}
                     </div>
                   </div>
-
-                  {/* Game master card */}
-                  {groupDetails?.author && (
-                    <PlayerCardSmall details={groupDetails?.author} />
+                  {/* Game master card and buttons*/}
+                  {!isEditing && groupDetails?.author && (
+                    <PlayerCardSmall details={groupDetails.author} />
                   )}
                 </div>
 
                 {isAuthor ? (
-                  <div className="flex gap-4 mt-4">
+                  <div className="flex items-center justify-center w-full gap-4 mt-4">
                     {isEditing ? null : (
                       <>
                         <button
@@ -507,9 +511,9 @@ const GroupDetail = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="flex gap-4">
+                  <div className="flex items-center justify-center w-full gap-4">
                     <button
-                      onClick={() => openChat(details._id)}
+                      onClick={() => openChat(groupDetails.author._id)}
                       className="btn-primary-dark w-auto gap-2 flex"
                     >
                       <img src={send_icon} alt="send icon" />
