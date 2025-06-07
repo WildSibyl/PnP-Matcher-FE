@@ -451,15 +451,14 @@ const PlayerDetail = () => {
                           onChange={(selected) =>
                             setEditedUser({
                               ...editedUser,
-                              // playingRoles: selected,
-                              playingRoles: selected?.id,
+                              playingRoles: selected?.id ?? null,
                             })
                           }
                         />
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex flex-wrap  text-center justify-center lg:justify-start items-center gap-2">
                       {editedUser.experience && (
                         <div className="pnp-badge-purple flex items-center gap-1">
                           {getIcon("Experience")}
@@ -591,7 +590,7 @@ const PlayerDetail = () => {
                   {!isEditing && <ProfileChecker user={user} />}
                   {isEditing ? null : (
                     // View mode: Send DM and Edit buttons in the same row
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 justify-center lg:justify-start">
                       <button
                         onClick={() => setIsEditing(true)}
                         className="btn-primary-dark w-auto gap-2 flex"

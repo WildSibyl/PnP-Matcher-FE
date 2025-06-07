@@ -18,6 +18,13 @@ const SingleSelect = ({
     menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   };
 
+  //Error handling
+  useEffect(() => {
+    console.log("value in parent:", value);
+    console.log("label in parent:", label);
+    console.log("mapped options:", options);
+  }, [value, options]);
+
   useEffect(() => {
     if (!category) return;
 
@@ -31,6 +38,7 @@ const SingleSelect = ({
             value: opt._id,
           }))
         );
+        console.log("Fetched raw data:", data);
       } catch (err) {
         console.error(`Failed to load options for ${category}:`, err.message);
       }

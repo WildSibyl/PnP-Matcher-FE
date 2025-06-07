@@ -54,7 +54,7 @@ const ProfileChecker = ({ user }) => {
     <div className="flex flex-col mx-auto w-[100%] min-w-[350px] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl mb-4">
       <div className="flex">
         <div>
-          <h2 className="text-pnp-white pt-4 px-4">
+          <h2 className="text-pnp-white pt-4 px-4 lg:text-2xl">
             Profile is{" "}
             <span className="font-extrabold text-[#FCFC3B]"> {perc}% </span>{" "}
             completed
@@ -70,7 +70,7 @@ const ProfileChecker = ({ user }) => {
           </div>
 
           <div className="flex flex-col pl-4 py-4">
-            <p className="text-pnp-white pb-2">
+            <p className="text-pnp-white pb-2 text-[0.9rem]">
               Make sure to fill in more information so we can match you with
               players.
             </p>
