@@ -71,10 +71,10 @@ const ChatModal = ({ isOpen, onClose, receiverId, username }) => {
           aria-hidden="true"
         />
         <div className="fixed inset-0 flex items-center justify-center p-4 lg:justify-end">
-          <Dialog.Panel className="bg-white w-full h-[70vh] rounded-2xl shadow-lg p-6 relative flex flex-col lg:w-[50%] lg:h-[62vh] lg:-translate-y-[14.5%] xl:w-[50%] xl:mr-11 2xl:w-[50%] 2xl:mr-15">
+          <Dialog.Panel className="bg-pnp-white w-full h-[70vh] rounded-2xl shadow-lg p-6 relative flex flex-col lg:w-[50%] lg:h-[62vh] lg:-translate-y-[14.5%] xl:w-[50%] xl:mr-11 2xl:w-[50%] 2xl:mr-15">
             <button
               onClick={onClose}
-              className="absolute top-5 right-6 text-gray-600 hover:text-black text-xl"
+              className="absolute top-5 right-6 text-gray-600 hover:text-pnp-black text-xl"
             >
               ✕
             </button>

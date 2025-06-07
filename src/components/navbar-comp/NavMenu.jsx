@@ -61,7 +61,7 @@ const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
                 <Chatbubblesvg />
                 {totalUnreadCount > 0 && (
                   <div
-                    className="absolute top-3 left-3.5 min-w-[18px] w-5 h-5 rounded-full bg-pnp-darkpurple text-white text-xs font-bold flex items-center justify-center select-none"
+                    className="absolute top-3 left-3.5 min-w-[18px] w-5 h-5 rounded-full bg-pnp-darkpurple text-pnp-white text-xs font-bold flex items-center justify-center select-none"
                     aria-label={`${totalUnreadCount} unread messages`}
                     title={`${totalUnreadCount} unread messages`}
                   >
@@ -80,7 +80,7 @@ const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
                 <Groupssvg />
                 {totalInvitesCount > 0 && (
                   <div
-                    className="absolute top-[16px] left-4.5 min-w-[18px] w-5 h-5 rounded-full bg-pnp-darkpurple text-white text-xs font-bold flex items-center justify-center select-none"
+                    className="absolute top-[16px] left-4.5 min-w-[18px] w-5 h-5 rounded-full bg-pnp-darkpurple text-pnp-white text-xs font-bold flex items-center justify-center select-none"
                     aria-label={`${totalInvitesCount} group invites pending`}
                     title={`${totalInvitesCount} group invites pending`}
                   >

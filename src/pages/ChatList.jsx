@@ -127,7 +127,7 @@ const ChatList = () => {
               {/* Notification dot / badge */}
               {unreadCount > 0 && (
                 <div
-                  className="absolute top-3 right-3 bg-pnp-darkpurple text-white rounded-full text-xs w-5 h-5 flex items-center justify-center font-bold select-none"
+                  className="absolute top-3 right-3 bg-pnp-darkpurple text-pnp-white rounded-full text-xs w-5 h-5 flex items-center justify-center font-bold select-none"
                   title={`${unreadCount} unread message${
                     unreadCount > 1 ? "s" : ""
                   }`}

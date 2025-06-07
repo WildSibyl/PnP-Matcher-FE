@@ -153,7 +153,7 @@ const PlayerDetail = () => {
   };
 
   if (!user) {
-    return <div className="text-white p-4">Loading user...</div>;
+    return <div className="text-pnp-white p-4">Loading user...</div>;
   }
 
   const displayedAbout =
@@ -193,10 +193,10 @@ const PlayerDetail = () => {
 
   return (
     <div className="min-h-screen md:p-8 text-pnp-white">
-      <div className="relative flex flex-col items-center justify-center max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden">
+      <div className="relative flex flex-col items-center justify-center max-w-7xl mx-auto bg-pnp-white text-pnp-black rounded-2xl shadow-xl overflow-hidden">
         <button
           onClick={() => navigate(-1)}
-          className="absolute top-5 right-6 text-gray-600 hover:text-black text-xl cursor-pointer"
+          className="absolute top-5 right-6 text-gray-600 hover:text-pnp-black text-xl cursor-pointer"
         >
           ✕
         </button>
@@ -216,9 +216,9 @@ const PlayerDetail = () => {
                             "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
                           }
                           alt="Avatar"
-                          className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer"
+                          className="w-32 h-32 rounded-full border-4 border-pnp-white shadow-lg object-cover cursor-pointer"
                         />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-white opacity-70">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-pnp-white opacity-70">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -245,7 +245,7 @@ const PlayerDetail = () => {
                       "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
                     }
                     alt="Avatar"
-                    className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
+                    className="w-32 h-32 rounded-full border-4 border-pnp-white shadow-lg object-cover"
                   />
                 )}
               </div>
@@ -609,7 +609,7 @@ const PlayerDetail = () => {
                   onClick={() => setActiveTab("about")}
                   className={`pb-2 cursor-pointer ${
                     activeTab === "about"
-                      ? "border-b-2 border-black"
+                      ? "border-b-2 border-pnp-black"
                       : "text-gray-400"
                   }`}
                 >
@@ -619,7 +619,7 @@ const PlayerDetail = () => {
                   onClick={() => setActiveTab("groups")}
                   className={`pb-2 cursor-pointer ${
                     activeTab === "groups"
-                      ? "border-b-2 border-black"
+                      ? "border-b-2 border-pnp-black"
                       : "text-gray-400"
                   }`}
                 >
@@ -870,7 +870,7 @@ const PlayerDetail = () => {
               </button>
               <button
                 onClick={handleCancel}
-                className="btn-primary-dark bg-gray-300 text-black hover:bg-gray-400"
+                className="btn-primary-dark bg-gray-300 text-pnp-black hover:bg-gray-400"
               >
                 Cancel
               </button>

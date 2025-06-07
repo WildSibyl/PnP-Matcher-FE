@@ -15,7 +15,7 @@ const Step4GroupSchedule = ({ groupForm, setGroupForm, onChange }) => {
           </p>
           <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
         </div>
-        <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+        <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
           <div className="flex flex-row justify-between">
             <label className="label">WEEKDAYS</label>
             <p className="label-italic">More days, more adventures!</p>
@@ -70,7 +70,7 @@ const Step4GroupSchedule = ({ groupForm, setGroupForm, onChange }) => {
               className="input-bordered ml-2"
             />
             <div className="label">TIMES</div>
-            <div className="text-black font-bold">per Month</div>
+            <div className="text-pnp-black font-bold">per Month</div>
           </div>
           <div className="flex gap-2 items-center">
             <div className="flex-grow relative">

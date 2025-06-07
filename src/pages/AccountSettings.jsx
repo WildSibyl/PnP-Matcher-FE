@@ -142,7 +142,7 @@ const AccountSettings = () => {
   return (
     <div className="max-w-xl mx-auto p-6 flex flex-col gap-10">
       {/* EMAIL */}
-      <div className="bg-white p-6 rounded-2xl shadow-md">
+      <div className="bg-pnp-white p-6 rounded-2xl shadow-md">
         <h2 className="text-lg text-pnp-black font-bold mb-4">Email</h2>
         {!isEditingEmail ? (
           <div className="flex justify-between items-center">
@@ -186,7 +186,7 @@ const AccountSettings = () => {
             <div className="flex gap-4 mt-4">
               <button
                 onClick={handleUpdateEmail}
-                className="bg-pnp-darkpurple text-white px-4 py-2 rounded-xl"
+                className="bg-pnp-darkpurple text-pnp-white px-4 py-2 rounded-xl"
               >
                 Save
               </button>
@@ -202,7 +202,7 @@ const AccountSettings = () => {
       </div>
 
       {/* PASSWORD */}
-      <div className="bg-white p-6 rounded-2xl shadow-md">
+      <div className="bg-pnp-white p-6 rounded-2xl shadow-md">
         <h2 className="text-lg font-bold mb-4">Password</h2>
         {!isEditingPassword ? (
           <div className="flex justify-between items-center">
@@ -246,7 +246,7 @@ const AccountSettings = () => {
             <div className="flex gap-4 mt-4">
               <button
                 onClick={handleUpdatePassword}
-                className="bg-pnp-darkpurple text-white px-4 py-2 rounded-xl"
+                className="bg-pnp-darkpurple text-pnp-white px-4 py-2 rounded-xl"
               >
                 Save
               </button>
@@ -263,7 +263,9 @@ const AccountSettings = () => {
       {/* DELETE ACCOUNT */}
       <div
         className={`p-6 rounded-2xl shadow-md ${
-          isDeletingAccount ? "bg-red-100 border border-red-400" : "bg-white"
+          isDeletingAccount
+            ? "bg-red-100 border border-red-400"
+            : "bg-pnp-white"
         }`}
       >
         <h2 className="text-lg font-bold mb-4 text-red-700">Delete Account</h2>
@@ -304,7 +306,7 @@ const AccountSettings = () => {
             <div className="flex gap-4 mt-4">
               <button
                 onClick={handleDeleteAccount}
-                className="bg-red-600 text-white px-4 py-2 rounded-xl"
+                className="bg-red-600 text-pnp-white px-4 py-2 rounded-xl"
               >
                 Confirm Account Deletion
               </button>

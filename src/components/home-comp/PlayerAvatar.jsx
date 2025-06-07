@@ -1,6 +1,6 @@
 const PlayerAvatar = ({ avatar }) => {
   return (
-    <div className="h-[100px] w-[100px] rounded-full border-6 border-white overflow-hidden shrink-0">
+    <div className="h-[100px] w-[100px] rounded-full border-6 border-pnp-white overflow-hidden shrink-0">
       <img
         src={avatar}
         alt="random avatar"

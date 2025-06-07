@@ -151,10 +151,10 @@ const GroupDetail = () => {
   };
 
   if (loading) return <Loader />;
-  if (error) return <p className="text-white text-center py-8">{error}</p>;
+  if (error) return <p className="text-pnp-white text-center py-8">{error}</p>;
   if (!groupDetails)
     return (
-      <p className="text-white text-center py-8">
+      <p className="text-pnp-white text-center py-8">
         No group found with this ID.
       </p>
     );
@@ -167,10 +167,10 @@ const GroupDetail = () => {
   return (
     <div className="min-h-screen md:p-8 text-pnp-white">
       {/* Main Card */}
-      <div className="relative max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col">
+      <div className="relative max-w-7xl mx-auto bg-pnp-white text-pnp-black rounded-2xl shadow-xl overflow-hidden flex flex-col">
         <button
           onClick={() => navigate(-1)}
-          className="absolute top-5 right-6 text-gray-600 hover:text-black text-xl cursor-pointer"
+          className="absolute top-5 right-6 text-gray-600 hover:text-pnp-black text-xl cursor-pointer"
         >
           ✕
         </button>
@@ -187,7 +187,7 @@ const GroupDetail = () => {
                       alt="Group"
                       className="w-full h-[300px] shadow-lg object-cover cursor-pointer lg:h-[250px]"
                     />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-white opacity-70">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-pnp-white opacity-70">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -509,7 +509,7 @@ const GroupDetail = () => {
                   onClick={() => setActiveTab("about")}
                   className={`pb-2 cursor-pointer ${
                     activeTab === "about"
-                      ? "border-b-2 border-black"
+                      ? "border-b-2 border-pnp-black"
                       : "text-gray-400"
                   }`}
                 >
@@ -519,7 +519,7 @@ const GroupDetail = () => {
                   onClick={() => setActiveTab("members")}
                   className={`pb-2 cursor-pointer ${
                     activeTab === "members"
-                      ? "border-b-2 border-black"
+                      ? "border-b-2 border-pnp-black"
                       : "text-gray-400"
                   }`}
                 >
@@ -750,7 +750,7 @@ const GroupDetail = () => {
                 </button>
                 <button
                   onClick={handleCancel}
-                  className="btn-primary-dark bg-gray-300 text-black"
+                  className="btn-primary-dark bg-gray-300 text-pnp-black"
                 >
                   Cancel
                 </button>

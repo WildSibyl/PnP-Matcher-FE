@@ -48,7 +48,7 @@ const Login = () => {
           </p>
           <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
         </div>
-        <div className="flex flex-col gap-1 rounded-3xl bg-white px-6 pt-3 pb-4 w-full">
+        <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white px-6 pt-3 pb-4 w-full">
           {/* <h3 className="title">HELLO ADVENTURER!</h3> */}
           <svg
             xmlns="http://www.w3.org/2000/svg"

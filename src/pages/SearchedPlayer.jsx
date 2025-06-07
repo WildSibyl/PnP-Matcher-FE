@@ -119,10 +119,10 @@ const SearchedPlayer = () => {
   return (
     <>
       <div className="min-h-screen md:p-8 text-pnp-white">
-        <div className="relative max-w-7xl mx-auto bg-pnp-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
+        <div className="relative max-w-7xl mx-auto bg-pnp-white text-pnp-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
           <button
             onClick={() => navigate(-1)}
-            className="absolute top-5 right-6 text-gray-600 hover:text-black text-xl"
+            className="absolute top-5 right-6 text-gray-600 hover:text-pnp-black text-xl"
           >
             ✕
           </button>
@@ -135,7 +135,7 @@ const SearchedPlayer = () => {
                   <img
                     src={details.avatarUrl}
                     alt="Avatar"
-                    className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer"
+                    className="w-32 h-32 rounded-full border-4 border-pnp-white shadow-lg object-cover cursor-pointer"
                   />
                 </label>
               </div>
@@ -241,7 +241,7 @@ const SearchedPlayer = () => {
                   onClick={() => setActiveTab("about")}
                   className={`pb-2 cursor-pointer ${
                     activeTab === "about"
-                      ? "border-b-2 border-black"
+                      ? "border-b-2 border-pnp-black"
                       : "text-gray-400"
                   }`}
                 >
@@ -251,7 +251,7 @@ const SearchedPlayer = () => {
                   onClick={() => setActiveTab("groups")}
                   className={`pb-2 cursor-pointer ${
                     activeTab === "groups"
-                      ? "border-b-2 border-black"
+                      ? "border-b-2 border-pnp-black"
                       : "text-gray-400"
                   }`}
                 >

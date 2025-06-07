@@ -17,7 +17,7 @@ const Step4Schedule = ({ regForm, onChange }) => {
           </p>
           <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
         </div>
-        <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+        <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
           {/* <h3 className="title">WHEN ARE YOU AVAILABLE?</h3> */}
           <div className="flex flex-row justify-between">
             <label className="label">WEEKDAYS</label>
@@ -73,7 +73,7 @@ const Step4Schedule = ({ regForm, onChange }) => {
               className="input-bordered ml-2"
             />
             <div className="label">TIMES</div>
-            <div className="text-black font-bold">per Month</div>
+            <div className="text-pnp-black font-bold">per Month</div>
           </div>
 
           <div className="mt-6 space-y-2 text-sm">

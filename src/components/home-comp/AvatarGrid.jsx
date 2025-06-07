@@ -18,7 +18,7 @@ const AvatarGrid = () => {
   return (
     <div className="relative w-full">
       <div className="z-20 absolute top-[10%] left-1/2 -translate-x-1/2 flex flex-col items-center justify-center space-y-2">
-        <div className="h-[170px] w-[170px] rounded-full border-6 border-white overflow-hidden">
+        <div className="h-[170px] w-[170px] rounded-full border-6 border-pnp-white overflow-hidden">
           <img
             src={randomAvatar}
             alt="random avatar"

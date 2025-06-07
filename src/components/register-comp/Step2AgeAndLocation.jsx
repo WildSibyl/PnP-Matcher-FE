@@ -10,7 +10,7 @@ const Step2AgeAndLocation = ({ regForm, onChange }) => (
         </p>
         <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
       </div>
-      <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+      <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
         <div className="flex flex-row justify-between">
           <label className="label">BIRTHDAY</label>
           <p className="label-italic">We will only display your age</p>

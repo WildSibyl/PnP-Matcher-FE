@@ -34,7 +34,7 @@ const App = () => {
   return (
     <Suspense
       fallback={
-        <div className="fixed inset-0 flex flex-col items-center justify-center bg-black z-50">
+        <div className="fixed inset-0 flex flex-col items-center justify-center bg-pnp-black z-50">
           <Loader />
         </div>
       }

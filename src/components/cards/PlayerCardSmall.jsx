@@ -51,7 +51,7 @@ const PlayerCard = ({ details }) => {
           <div>
             <div className="flex flex-col pb-3 ">
               {details.playingRoles && (
-                <div className="pnp-badge-purple">
+                <div className="pnp-badge-green">
                   {getIcon("Dice")} Game Master
                 </div>
               )}
