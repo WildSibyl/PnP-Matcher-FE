@@ -5,6 +5,9 @@ import PlayerCard from "../cards/PlayerCard";
 import { useTagContext } from "../../context/TagsContextProvider";
 import { useState } from "react";
 import RollForGroup from "../group-comp/RollForGroup";
+import TakeOverValues from "../group-comp/TakeOverValues";
+import AiTextSuggest from "../group-comp/AiTextSuggest";
+import CharCountInput from "../edit-comp/CharCountInput";
 
 const Part2Right = ({
   isEditing,
@@ -14,6 +17,7 @@ const Part2Right = ({
   isAuthor,
   activeTab,
   setActiveTab,
+  onChange,
 }) => {
   const [showFullAbout, setShowFullAbout] = useState(false);
   const {
@@ -64,37 +68,61 @@ const Part2Right = ({
               MORE ABOUT THIS GROUP
             </h3>
             {isEditing ? (
-              <>
-                <textarea
-                  className="input w-full"
-                  value={editedGroup.description || ""}
-                  onChange={(e) =>
-                    setEditedGroup({
-                      ...editedGroup,
-                      description: e.target.value,
-                    })
-                  }
-                />
-              </>
+              <div className="flex gap-2 items-center">
+                <div className="flex-grow relative">
+                  <CharCountInput
+                    name="description"
+                    value={editedGroup.description}
+                    onChange={onChange}
+                    maxLength={500}
+                  />
+                </div>
+                <div className="self-center -mt-3">
+                  {" "}
+                  <AiTextSuggest
+                    onChange={onChange}
+                    prompt="a nice description for your group"
+                    name="description"
+                  />
+                </div>
+              </div>
             ) : (
               <p className="text-sm text-gray-700 mt-4 whitespace-pre-wrap">
                 {`${displayedAbout}` || "...to be filled in!"}
+                {!isEditing && editedGroup.description?.length > MAX_LENGTH && (
+                  <button
+                    onClick={toggleAboutText}
+                    className="text-sm text-blue-600 hover:underline mt-2"
+                  >
+                    {showFullAbout ? "Show less" : "Show more"}
+                  </button>
+                )}
               </p>
             )}
 
             <div className="mt-4">
               <h3 className="font-semibold text-sm text-gray-700">LANGUAGES</h3>
               {isEditing ? (
-                <TagMultiSelect
-                  category="languages"
-                  value={editedGroup.languages || []}
-                  onChange={(values) =>
-                    setEditedGroup({
-                      ...editedGroup,
-                      languages: values.map((v) => v.id),
-                    })
-                  }
-                />
+                <div className="flex gap-2 items-center">
+                  <div className="flex-grow relative">
+                    {" "}
+                    <TagMultiSelect
+                      category="languages"
+                      name="languages"
+                      placeholder="Select preferences"
+                      value={editedGroup.languages}
+                      onChange={(values) =>
+                        setGroupForm({
+                          ...editedGroup,
+                          languages: values.map((l) => l),
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="self-start mt-4">
+                    <TakeOverValues onChange={onChange} name={"languages"} />
+                  </div>
+                </div>
               ) : (
                 <div className="flex flex-wrap gap-2 mt-2">
                   {(editedGroup.languages || []).map((langId) => {
@@ -151,16 +179,25 @@ const Part2Right = ({
                 GAME SYSTEMS
               </h3>
               {isEditing ? (
-                <TagMultiSelect
-                  category="systems"
-                  value={editedGroup.systems || []}
-                  onChange={(values) =>
-                    setEditedGroup({
-                      ...editedGroup,
-                      systems: values.map((v) => v.id),
-                    })
-                  }
-                />
+                <div className="flex gap-2 items-center">
+                  <div className="flex-grow relative">
+                    <TagMultiSelect
+                      category="systems"
+                      name="systems"
+                      placeholder="Select preferences"
+                      onChange={(values) =>
+                        setGroupForm((prev) => ({
+                          ...prev,
+                          systems: values.map((s) => s),
+                        }))
+                      }
+                      value={editedGroup.systems}
+                    />
+                  </div>
+                  <div className="self-start mt-4">
+                    <TakeOverValues onChange={onChange} name={"systems"} />
+                  </div>
+                </div>
               ) : (
                 <div className="flex flex-wrap gap-2 mt-2">
                   {(editedGroup.systems || []).map((system) => {

@@ -14,7 +14,7 @@ const GroupDetail = () => {
   const navigate = useNavigate();
 
   const [groupDetails, setGroupDetails] = useState(null);
-  const [editedGroup, setEditedGroup] = useState(null);
+  const [editedGroupForm, setEditedGroupForm] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("about");
@@ -44,14 +44,22 @@ const GroupDetail = () => {
         setLoading(true);
         const data = await getSingleGroup(id);
         setGroupDetails(data);
-        setEditedGroup({
+        setEditedGroupForm({
           ...data,
-          playstyles: data.playstyles || [],
+          image: data.image || "",
+          address: data.address || {
+            street: "",
+            houseNumber: "",
+            postalCode: "",
+            city: "",
+          },
+          experience: data.experience || "",
           systems: data.systems || [],
+          weekdays: data.weekdays || [],
+          languages: data.languages || [],
+          playstyles: data.playstyles || [],
           likes: data.likes || [],
           dislikes: data.dislikes || [],
-          experience: data.experience || "",
-          weekdays: data.weekdays || [],
         });
       } catch (err) {
         console.error("Error fetching group:", err);
@@ -64,38 +72,79 @@ const GroupDetail = () => {
     fetchData();
   }, [id]);
 
-  const isAuthor =
-    user && groupDetails?.author && groupDetails.author._id === user._id;
+  const isAuthor = user && groupDetails?.author?._id === user._id;
 
-  const handleSave = async () => {
-    try {
-      const updateData = {
-        name: editedGroup.name,
-        tagline: editedGroup.tagline,
-        description: editedGroup.description,
-        experience: editedGroup.experience?.id || editedGroup.experience,
-        playingModes: editedGroup.playingModes?.id || editedGroup.playingModes,
-        systems: editedGroup.systems?.map((s) => s.id || s) ?? [],
-        playstyles: editedGroup.playstyles?.map((p) => p.id || p) ?? [],
-        likes: editedGroup.likes?.map((l) => l.id || l) ?? [],
-        dislikes: editedGroup.dislikes?.map((d) => d.id || d) ?? [],
-        frequencyPerMonth: editedGroup.frequencyPerMonth,
-        languages:
-          editedGroup.languages?.map((language) => language.id || language) ??
-          [],
-        weekdays: editedGroup.weekdays,
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (name.startsWith("address.")) {
+      const field = name.split(".")[1];
+      setEditedGroupForm((prev) => ({
+        ...prev,
         address: {
-          ...editedGroup.address,
+          ...prev.address,
+          [field]: value,
         },
-        image: editedGroup.image,
+      }));
+      return;
+    }
+
+    if (name === "weekdays") {
+      let newDays = [...groupForm.weekdays];
+      if (checked) {
+        if (!newDays.includes(value)) newDays.push(value);
+      } else {
+        newDays = newDays.filter((day) => day !== value);
+      }
+      setEditedGroupForm((prev) => ({ ...prev, weekdays: newDays }));
+    } else if (type === "number") {
+      setEditedGroupForm((prev) => ({ ...prev, [name]: Number(value) }));
+    } else {
+      setEditedGroupForm((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  // Cleaned up handleSave uses the editedGroupForm state
+  const handleSave = async () => {
+    if (!editedGroupForm) return;
+
+    try {
+      const payload = {
+        author: editedGroupForm.author,
+        name: editedGroupForm.name,
+        image: editedGroupForm.image,
+        address: {
+          ...editedGroupForm.address,
+        },
+        experience: editedGroupForm.experience,
+        systems: editedGroupForm.systems.map((s) =>
+          typeof s === "string" ? s : s.id
+        ),
+        weekdays: editedGroupForm.weekdays,
+        frequencyPerMonth: editedGroupForm.frequencyPerMonth,
+        playingModes: editedGroupForm.playingModes,
+        languages: editedGroupForm.languages.map((l) =>
+          typeof l === "string" ? l : l.id
+        ),
+        playstyles: editedGroupForm.playstyles.map((l) =>
+          typeof p === "string" ? p : p.id
+        ),
+        likes: editedGroupForm.likes.map((l) =>
+          typeof l === "string" ? l : l.id
+        ),
+        dislikes: editedGroupForm.dislikes.map((l) =>
+          typeof d === "string" ? d : d.id
+        ),
+        tagline: editedGroupForm.tagline,
+        description: editedGroupForm.description,
+        members: editedGroupForm.members,
+        maxMembers: editedGroupForm.maxMembers,
       };
 
-      const res = await updateGroup(id);
+      const res = await updateGroup(id, payload);
 
-      if (!res.ok) throw new Error("Failed to update group");
-      const updated = await res.json();
-      setGroupDetails(updated);
-      setEditedGroup(updated);
+      setGroupDetails(res);
+      setEditedGroupForm(res);
       setIsEditing(false);
       setPreviewImage(null);
     } catch (err) {
@@ -104,7 +153,7 @@ const GroupDetail = () => {
   };
 
   const handleCancel = () => {
-    setEditedGroup(groupDetails);
+    setEditedGroupForm(groupDetails);
     setIsEditing(false);
     setPreviewImage(null);
   };
@@ -118,7 +167,7 @@ const GroupDetail = () => {
     try {
       const data = await postGroupImage(formData);
       setPreviewImage(data.fileUrl);
-      setEditedGroup((prev) => ({ ...prev, image: data.fileUrl }));
+      setEditedGroupForm((prev) => ({ ...prev, image: data.fileUrl }));
     } catch (err) {
       console.error("Upload error:", err);
       alert("An error occurred during upload.");
@@ -148,10 +197,11 @@ const GroupDetail = () => {
             <Part1Left
               isEditing={isEditing}
               setIsEditing={setIsEditing}
-              editedGroup={editedGroup}
-              setEditedGroup={setEditedGroup}
+              editedGroup={editedGroupForm}
+              setEditedGroup={setEditedGroupForm}
               groupDetails={groupDetails}
               isAuthor={isAuthor}
+              onChange={handleChange}
               openInviteModal={openInviteModal}
               openChat={() => openChat(groupDetails.author._id)}
               previewImage={previewImage}
@@ -160,10 +210,11 @@ const GroupDetail = () => {
 
             <Part2Right
               isEditing={isEditing}
-              editedGroup={editedGroup}
-              setEditedGroup={setEditedGroup}
+              editedGroup={editedGroupForm}
+              setEditedGroup={setEditedGroupForm}
               groupDetails={groupDetails}
               isAuthor={isAuthor}
+              onChange={handleChange}
               activeTab={activeTab}
               setActiveTab={setActiveTab}
             />

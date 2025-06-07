@@ -6,6 +6,10 @@ import { useTagContext } from "../../context/TagsContextProvider";
 import PlayerCard from "../cards/PlayerCard";
 import PlayerCardSmall from "../cards/PlayerCardSmall";
 import send_icon from "../../assets/send_icon.png";
+import CharCountInput from "../edit-comp/CharCountInput";
+import TakeOverValues from "../group-comp/TakeOverValues";
+import GroupnameInput from "../edit-comp/GroupnameInput";
+import AiTextSuggest from "../group-comp/AiTextSuggest";
 
 const Part1Left = ({
   isEditing,
@@ -18,6 +22,7 @@ const Part1Left = ({
   openChat,
   previewImage,
   handleImageUpload,
+  onChange,
 }) => {
   const { groupExperience } = useTagContext();
 
@@ -72,17 +77,24 @@ const Part1Left = ({
                 <h3 className="font-semibold text-sm text-gray-700">
                   GROUP NAME
                 </h3>
-                <input
-                  type="text"
-                  value={editedGroup.name}
-                  onChange={(e) =>
-                    setEditedGroup({
-                      ...editedGroup,
-                      name: e.target.value,
-                    })
-                  }
-                  className="input capitalize"
-                />
+                <div className="flex gap-2 items-center w-[320px]">
+                  <div className="flex-grow relative">
+                    <GroupnameInput
+                      name="name"
+                      value={editedGroup.name}
+                      onChange={onChange}
+                      maxLength={50}
+                      placeholder="Your group name"
+                    />
+                  </div>
+                  <div className="self-center -mt-3">
+                    <AiTextSuggest
+                      onChange={onChange}
+                      prompt="very short pen&paper group name"
+                      name="name"
+                    />
+                  </div>
+                </div>
               </>
             ) : (
               <h3>{editedGroup.name}</h3>
@@ -93,40 +105,83 @@ const Part1Left = ({
                 <h3 className="font-semibold text-sm text-gray-700 mt-4">
                   TAGLINE
                 </h3>
-                <input
-                  type="text"
-                  placeholder="Tagline"
-                  value={editedGroup.tagline}
-                  onChange={(e) =>
-                    setEditedGroup({
-                      ...editedGroup,
-                      tagline: e.target.value,
-                    })
-                  }
-                  className="input"
-                />
+                <div className="flex gap-2 items-center w-[320px]">
+                  <div className="flex-grow relative">
+                    <CharCountInput
+                      name="tagline"
+                      value={editedGroup.tagline}
+                      onChange={onChange}
+                      maxLength={150}
+                      placeholder="A short tagline for your group"
+                    />
+                  </div>
+                  <div className="self-center -mt-3">
+                    {" "}
+                    <AiTextSuggest
+                      onChange={onChange}
+                      prompt="very short cool tagline"
+                      name="tagline"
+                    />
+                  </div>
+                </div>
               </>
             ) : (
               <small className="mt-2">{editedGroup.tagline}</small>
             )}
 
             {/* Groupcount, experience and Playing modes */}
-            <div className="mt-4">
+            <div>
               {isEditing ? (
                 <div className="w-[320px]">
-                  <h3 className="font-semibold text-sm text-gray-700">
+                  <div className="flex flex-row justify-between">
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      MAX MEMBERS
+                    </h3>
+                  </div>
+                  <div className="flex flex-row gap-2">
+                    <input
+                      type="number"
+                      name="maxMembers"
+                      className="input-bordered mb-0"
+                      value={editedGroup.maxMembers}
+                      onChange={onChange}
+                      max={30}
+                      min={1}
+                    />
+                    {editedGroup.maxMembers < 1 ||
+                    editedGroup.maxMembers > 30 ? (
+                      <p className="text-red-500 text-sm mt-1">
+                        Party members must be between 1 and 30.
+                      </p>
+                    ) : (
+                      <p className="text-gray-400 font-normal text-sm mt-1">
+                        Your ideal party size, excluding you. We recommend 4.
+                      </p>
+                    )}
+                  </div>
+                  <h3 className="font-semibold text-sm text-gray-700 mt-4">
                     EXPERIENCE
                   </h3>
-                  <SingleSelect
-                    category="experience"
-                    value={editedGroup.experience}
-                    onChange={(selected) =>
-                      setEditedGroup({
-                        ...editedGroup,
-                        experience: selected?.id,
-                      })
-                    }
-                  />
+                  <div className="flex gap-2 items-center">
+                    <div className="flex-grow relative">
+                      <select
+                        name="experience"
+                        value={editedGroup.experience}
+                        onChange={onChange}
+                        className="input-bordered-multi flex-grow !w-full px-2"
+                      >
+                        <option value="">Select experience</option>
+                        {groupExperience.map((level) => (
+                          <option key={level._id} value={level._id}>
+                            {level.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="self-center -mt-3">
+                      <TakeOverValues onChange={onChange} name={"experience"} />
+                    </div>
+                  </div>
                   <h3 className="font-semibold text-sm text-gray-700">
                     PLAYING MODES
                   </h3>
@@ -134,7 +189,7 @@ const Part1Left = ({
                     category="playingModes"
                     value={editedGroup.playingModes}
                     onChange={(selected) =>
-                      setEditedGroup({
+                      setEditedGroupForm({
                         ...editedGroup,
                         playingModes: selected?.id,
                       })
@@ -170,74 +225,74 @@ const Part1Left = ({
 
             {/* Address and open slots */}
             {isEditing ? (
-              <div className="flex flex-col w-full">
-                <h3 className="font-semibold text-sm text-gray-700">
-                  YOUR ADDRESS
-                </h3>
-                <div className="flex flex-col gap-4 w-full">
-                  <input
-                    type="text"
-                    value={editedGroup.address?.street || ""}
+              <>
+                <div className="flex flex-col w-full">
+                  <h3 className="font-semibold text-sm text-gray-700">
+                    ADDRESS
+                  </h3>
+                  <div className="flex gap-2 items-center">
+                    <div className="flex-grow relative">
+                      <CharCountInput
+                        name="street"
+                        value={editedGroup.address.street}
+                        onChange={(e) =>
+                          onChange({
+                            target: {
+                              name: "address.street",
+                              value: e.target.value,
+                            },
+                          })
+                        }
+                        placeholder="Street"
+                        maxLength={100}
+                      />
+                    </div>
+                    <div className="self-center -mt-3">
+                      <TakeOverValues name={"address"} onChange={onChange} />
+                    </div>
+                  </div>
+
+                  <CharCountInput
+                    name="houseNumber"
+                    value={editedGroup.address.houseNumber}
                     onChange={(e) =>
-                      setEditedGroup((prev) => ({
-                        ...prev,
-                        address: {
-                          ...prev.address,
-                          street: e.target.value,
+                      onChange({
+                        target: {
+                          name: "address.houseNumber",
+                          value: e.target.value,
                         },
-                      }))
-                    }
-                    placeholder="Street"
-                    className="input"
-                  />
-                  <input
-                    type="text"
-                    value={editedGroup.address?.houseNumber || ""}
-                    onChange={(e) =>
-                      setEditedGroup((prev) => ({
-                        ...prev,
-                        address: {
-                          ...prev.address,
-                          houseNumber: e.target.value,
-                        },
-                      }))
+                      })
                     }
                     placeholder="House Number"
-                    className="input"
+                    maxLength={10}
                   />
-                  <input
-                    type="text"
-                    value={editedGroup.address?.postalCode || ""}
+                  <CharCountInput
+                    name="postalCode"
+                    value={editedGroup.address.postalCode}
                     onChange={(e) =>
-                      setEditedGroup((prev) => ({
-                        ...prev,
-                        address: {
-                          ...prev.address,
-                          postalCode: e.target.value,
+                      onChange({
+                        target: {
+                          name: "address.postalCode",
+                          value: e.target.value,
                         },
-                      }))
+                      })
                     }
                     placeholder="Postal Code"
-                    className="input"
+                    maxLength={10}
                   />
-
-                  <input
-                    type="text"
-                    value={editedGroup.address?.city || ""}
+                  <CharCountInput
+                    name="city"
+                    value={editedGroup.address.city}
                     onChange={(e) =>
-                      setEditedGroup((prev) => ({
-                        ...prev,
-                        address: {
-                          ...prev.address,
-                          city: e.target.value,
-                        },
-                      }))
+                      onChange({
+                        target: { name: "address.city", value: e.target.value },
+                      })
                     }
                     placeholder="City"
-                    className="input"
+                    maxLength={200}
                   />
                 </div>
-              </div>
+              </>
             ) : (
               <small className="text-gray-700 mt-4">
                 {groupDetails.maxMembers - groupDetails.members.length} {""}{" "}
@@ -257,7 +312,7 @@ const Part1Left = ({
                     weekdays={editedGroup.weekdays || []}
                     onChange={(updatedDays) => {
                       if (!isEditing) return;
-                      setEditedGroup((prev) => ({
+                      setEditedGroupForm((prev) => ({
                         ...prev,
                         weekdays: updatedDays,
                       }));
@@ -276,7 +331,7 @@ const Part1Left = ({
                       className="input w-[70px]"
                       value={editedGroup.frequencyPerMonth || ""}
                       onChange={(e) =>
-                        setEditedGroup({
+                        setEditedGroupForm({
                           ...editedGroup,
                           frequencyPerMonth: e.target.value,
                         })
