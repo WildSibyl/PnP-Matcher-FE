@@ -59,17 +59,17 @@ const AvatarGrid = () => {
       <div className="absolute z-10 inset-0 bg-pnp-black opacity-70" />
 
       <div className="avatar-grid space-y-2">
-        <div className="flex justify-center space-x-2">
+        <div className="flex justify-start space-x-2 move-left-to-right">
           {row1.map((avatar, index) => (
             <PlayerAvatar key={`row1-${index}`} avatar={avatar} />
           ))}
         </div>
-        <div className="flex justify-center space-x-2">
+        <div className="flex justify-start space-x-2 move-right-to-left">
           {row2.map((avatar, index) => (
             <PlayerAvatar key={`row2-${index}`} avatar={avatar} />
           ))}
         </div>
-        <div className="flex justify-center space-x-2">
+        <div className="flex justify-start space-x-2 move-left-to-right">
           {row3.map((avatar, index) => (
             <PlayerAvatar key={`row3-${index}`} avatar={avatar} />
           ))}

@@ -10,7 +10,7 @@ const SystemList = () => {
 
   return (
     <div className="tag-grid space-y-2">
-      <div className="flex flex-nowrap justify-center gap-2 overflow-x-auto">
+      <div className="flex flex-nowrap justify-start gap-2 overflow-x-auto move-left-to-right">
         {row1.map((tag, index) => (
           <div
             className="bg-pnp-purple px-2 py-0.5 rounded-full font-semibold whitespace-nowrap"
@@ -20,7 +20,7 @@ const SystemList = () => {
           </div>
         ))}
       </div>
-      <div className="flex flex-nowrap justify-center gap-2 overflow-x-auto">
+      <div className="flex flex-nowrap justify-start move-right-to-left gap-2 overflow-x-auto">
         {row2.map((tag, index) => (
           <div
             className="bg-pnp-purple px-2 py-0.5 rounded-full font-semibold whitespace-nowrap"
