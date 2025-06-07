@@ -267,6 +267,19 @@
       transform: scale(1.2);
     }
   }
+  @keyframes bounceRen {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+
+  .ren-bounce {
+    animation: bounceRen 1s ease-in-out infinite;
+  }
 
   /* ANIMATION FOR HOMEPAGE */
   .move-left-to-right {

@@ -15,8 +15,10 @@ import { useState, useEffect } from "react";
 import { useInviteModal } from "../context/InviteModalContextProvider";
 import InviteToGroupModal from "../components/InviteToGroupModal";
 import { toast } from "react-toastify";
+import { useWelcomeModal } from "../context/WelcomeModalContextProvider";
 
 const Test = () => {
+  const { openWelcomeModal } = useWelcomeModal();
   const [guestUser, setGuestUser] = useState({
     systems: [],
     address: {
@@ -93,11 +95,11 @@ const Test = () => {
           placeholder="Select preferences"
           onChange={(values) => setUser((prev) => ({ ...prev, likes: values }))}
         />
-        <Confetti />
+        {/* <Confetti /> */}
         <RollForGroup />
 
-        <AiTextSuggest />
-
+        {/* WELCOME MODAL */}
+        <button onClick={openWelcomeModal}>Open Welcome modal</button>
         {/* Toastify testing */}
 
         <div className="flex flex-col items-center justify-center">
