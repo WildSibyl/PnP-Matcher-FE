@@ -159,3 +159,22 @@ export const getFilteredGroups = async (radius, filters = {}) => {
   const data = await res.json();
   return data;
 };
+
+export const postGroupImage = async (formData) => {
+  const res = await fetch(`${API_URL}/upload`, {
+    method: "POST",
+    body: formData,
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while uploading the image");
+    }
+    throw new Error(errorData.error);
+  }
+
+  const data = await res.json();
+  return data;
+};

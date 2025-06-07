@@ -128,8 +128,7 @@ const SearchedPlayer = () => {
           </button>
           {/* Left Section */}
           <div className="w-full lg:w-[45%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
-            {/* <div className="flex flex-col items-center text-center gap-4 lg:flex-row lg:items-start lg:text-left"> */}
-            <div className="flex flex-col lg:flex-row items-start gap-4">
+            <div className="flex flex-col items-center text-center gap-4 xl:flex-row lg:items-start lg:text-left">
               <div className="flex-shrink-0">
                 <label htmlFor="avatar-upload">
                   <img
@@ -264,7 +263,7 @@ const SearchedPlayer = () => {
                   {/* 📝 Description */}
                   <div className="mt-4">
                     <h3 className="font-semibold text-sm text-gray-700">
-                      ABOUT
+                      MORE ABOUT ME
                     </h3>
                     <>
                       <p className="text-sm text-gray-700 mt-2 whitespace-pre-wrap">
@@ -285,7 +284,7 @@ const SearchedPlayer = () => {
 
                   <div className="mt-4">
                     <h3 className="font-semibold text-sm text-gray-700">
-                      Language
+                      LANGUAGES
                     </h3>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {details.languages.map((level) => (
