@@ -43,14 +43,14 @@ const InviteToGroupModal = () => {
       onClose={closeInviteModal}
       className="relative z-50"
     >
-      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+      <div className="fixed inset-0 bg-pnp-black/30" aria-hidden="true" />
 
       {/* Modal-Panel */}
       <div className="fixed inset-0 flex items-center justify-center">
-        <Dialog.Panel className="bg-white relative z-[90] w-full max-w-md max-h-[80vh] rounded-2xl shadow-lg overflow-y-auto p-6 ">
+        <Dialog.Panel className="bg-pnp-white relative z-[90] w-full max-w-md max-h-[80vh] rounded-2xl shadow-lg overflow-y-auto p-6 ">
           <button
             onClick={closeInviteModal}
-            className="absolute top-3 right-4 text-gray-600 hover:text-black text-xl"
+            className="absolute top-3 right-4 text-gray-600 hover:text-pnp-black text-xl"
           >
             ✕
           </button>

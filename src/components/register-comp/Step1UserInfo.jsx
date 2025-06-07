@@ -13,7 +13,7 @@ const Step1UserInfo = ({ regForm, onChange }) => {
           </p>
           <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
         </div>
-        <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+        <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
           <UsernameInput
             name="userName"
             value={regForm.userName}

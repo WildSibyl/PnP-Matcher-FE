@@ -18,7 +18,7 @@ const GroupCard = ({
 }) => {
   return (
     <div className="card bg-base-100 shadow-xl">
-      <figure className="bg-white h-48">
+      <figure className="bg-pnp-white h-48">
         <img src={image} alt={name} className="object-cover h-full w-full" />
       </figure>
       <div className="card-body h-72 flex flex-col justify-between">

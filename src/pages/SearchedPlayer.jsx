@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getUserById } from "../data/user";
 import { useTagContext } from "../context/TagsContextProvider";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import calculateAge from "../utils/calculateAge";
 import ChatModal from "../components/chat-comp/ChatModal";
 import like from "../assets/like_icon.svg";
@@ -40,6 +40,7 @@ const SearchedPlayer = () => {
   const [chatUsername, setChatUsername] = useState(null);
   const [groups, setGroups] = useState([]);
   const toggleAboutText = () => setShowFullAbout((prev) => !prev);
+  const navigate = useNavigate();
 
   const MAX_LENGTH = 300;
 
@@ -118,13 +119,13 @@ const SearchedPlayer = () => {
   return (
     <>
       <div className="min-h-screen md:p-8 text-pnp-white">
-        <div className="relative max-w-7xl mx-auto bg-pnp-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
-          <Link
-            to="/search"
-            className="absolute top-5 right-6 text-gray-600 hover:text-black text-xl"
+        <div className="relative max-w-7xl mx-auto bg-pnp-white text-pnp-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
+          <button
+            onClick={() => navigate(-1)}
+            className="absolute top-5 right-6 text-gray-600 hover:text-pnp-black text-xl"
           >
             ✕
-          </Link>
+          </button>
           {/* Left Section */}
           <div className="w-full lg:w-[45%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
             {/* <div className="flex flex-col items-center text-center gap-4 lg:flex-row lg:items-start lg:text-left"> */}
@@ -134,7 +135,7 @@ const SearchedPlayer = () => {
                   <img
                     src={details.avatarUrl}
                     alt="Avatar"
-                    className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer"
+                    className="w-32 h-32 rounded-full border-4 border-pnp-white shadow-lg object-cover cursor-pointer"
                   />
                 </label>
               </div>
@@ -240,7 +241,7 @@ const SearchedPlayer = () => {
                   onClick={() => setActiveTab("about")}
                   className={`pb-2 cursor-pointer ${
                     activeTab === "about"
-                      ? "border-b-2 border-black"
+                      ? "border-b-2 border-pnp-black"
                       : "text-gray-400"
                   }`}
                 >
@@ -250,7 +251,7 @@ const SearchedPlayer = () => {
                   onClick={() => setActiveTab("groups")}
                   className={`pb-2 cursor-pointer ${
                     activeTab === "groups"
-                      ? "border-b-2 border-black"
+                      ? "border-b-2 border-pnp-black"
                       : "text-gray-400"
                   }`}
                 >

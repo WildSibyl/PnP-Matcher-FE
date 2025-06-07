@@ -12,6 +12,7 @@ import WeekdaySelector from "../components/WeekdaySelector";
 import Loader from "../components/Loader";
 import { getMyGroups } from "../data/user";
 import Groupcard from "../components/cards/Groupcard";
+import { useNavigate } from "react-router-dom";
 
 const PlayerDetail = () => {
   const [user, setUser] = useState(null);
@@ -21,6 +22,7 @@ const PlayerDetail = () => {
   const [editedUser, setEditedUser] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [groups, setGroups] = useState([]);
+  const navigate = useNavigate();
 
   const {
     systems: systemsOptions,
@@ -151,7 +153,7 @@ const PlayerDetail = () => {
   };
 
   if (!user) {
-    return <div className="text-white p-4">Loading user...</div>;
+    return <div className="text-pnp-white p-4">Loading user...</div>;
   }
 
   const displayedAbout =
@@ -191,7 +193,13 @@ const PlayerDetail = () => {
 
   return (
     <div className="min-h-screen md:p-8 text-pnp-white">
-      <div className="flex flex-col items-center justify-center max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden">
+      <div className="relative flex flex-col items-center justify-center max-w-7xl mx-auto bg-pnp-white text-pnp-black rounded-2xl shadow-xl overflow-hidden">
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute top-5 right-6 text-gray-600 hover:text-pnp-black text-xl cursor-pointer"
+        >
+          ✕
+        </button>
         <div className=" flex flex-col lg:flex-row">
           {/* Left Section */}
           <div className="w-full lg:w-[45%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
@@ -208,9 +216,9 @@ const PlayerDetail = () => {
                             "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
                           }
                           alt="Avatar"
-                          className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer"
+                          className="w-32 h-32 rounded-full border-4 border-pnp-white shadow-lg object-cover cursor-pointer"
                         />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-white opacity-70">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-pnp-white opacity-70">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -237,7 +245,7 @@ const PlayerDetail = () => {
                       "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
                     }
                     alt="Avatar"
-                    className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
+                    className="w-32 h-32 rounded-full border-4 border-pnp-white shadow-lg object-cover"
                   />
                 )}
               </div>
@@ -551,7 +559,7 @@ const PlayerDetail = () => {
                         />
 
                         <p className="text-sm text-gray-700 font-semibold w-[100px]">
-                          per Month
+                          times per month
                         </p>
                       </div>
                     </div>
@@ -562,8 +570,7 @@ const PlayerDetail = () => {
                           AVAILABILITY
                         </h3>
                         <p className="text-sm text-gray-700 font-semibold">
-                          {editedUser.frequencyPerMonth || "Not set"} sessions
-                          per Month
+                          {editedUser.frequencyPerMonth}x per month
                         </p>
                       </div>
                       <div className="mt-4 pointer-events-none">
@@ -602,7 +609,7 @@ const PlayerDetail = () => {
                   onClick={() => setActiveTab("about")}
                   className={`pb-2 cursor-pointer ${
                     activeTab === "about"
-                      ? "border-b-2 border-black"
+                      ? "border-b-2 border-pnp-black"
                       : "text-gray-400"
                   }`}
                 >
@@ -612,7 +619,7 @@ const PlayerDetail = () => {
                   onClick={() => setActiveTab("groups")}
                   className={`pb-2 cursor-pointer ${
                     activeTab === "groups"
-                      ? "border-b-2 border-black"
+                      ? "border-b-2 border-pnp-black"
                       : "text-gray-400"
                   }`}
                 >
@@ -863,7 +870,7 @@ const PlayerDetail = () => {
               </button>
               <button
                 onClick={handleCancel}
-                className="btn-primary-dark bg-gray-300 text-black hover:bg-gray-400"
+                className="btn-primary-dark bg-gray-300 text-pnp-black hover:bg-gray-400"
               >
                 Cancel
               </button>

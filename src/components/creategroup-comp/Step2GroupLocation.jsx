@@ -12,7 +12,7 @@ const Step2GroupLocation = ({ groupForm, onChange }) => (
         </p>
         <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
       </div>
-      <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+      <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
         <div className="flex gap-2 items-center">
           <div className="flex-grow relative">
             <CharCountInput

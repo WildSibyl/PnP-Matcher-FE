@@ -144,7 +144,7 @@ const AdminDashboard = () => {
       <h1 className="text-2xl font-bold mb-4">Admin User Registration</h1>
 
       {/* BASIC INFO */}
-      <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+      <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
         <UsernameInput
           name="userName"
           value={adminForm.userName}
@@ -187,7 +187,7 @@ const AdminDashboard = () => {
           helperText="Did you already forget it?!"
         />
       </div>
-      <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+      <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
         <div className="flex flex-row justify-between">
           <label className="label">BIRTHDAY</label>
           <p className="label-italic">We will only display your age</p>
@@ -247,7 +247,7 @@ const AdminDashboard = () => {
           maxLength={200}
         />
       </div>
-      <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+      <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
         {/* <h3 className="title">YOU AS A PLAYER</h3> */}
         <div className="flex flex-row justify-between">
           <label className="label">EXPERIENCE</label>
@@ -282,7 +282,7 @@ const AdminDashboard = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+      <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
         {/* <h3 className="title">WHEN ARE YOU AVAILABLE?</h3> */}
         <div className="flex flex-row justify-between">
           <label className="label">WEEKDAYS</label>
@@ -338,7 +338,7 @@ const AdminDashboard = () => {
             className="input-bordered ml-2"
           />
           <div className="label">TIMES</div>
-          <div className="text-black font-bold">per Month</div>
+          <div className="text-pnp-black font-bold">per Month</div>
         </div>
 
         <div className="mt-6 space-y-2 text-sm">
@@ -371,7 +371,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* EXTRA FIELDS */}
-      <div className="flex flex-col gap-1 rounded-3xl bg-white p-6">
+      <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
         <h2 className="mt-6 font-semibold">Additional Info</h2>
         <input
           name="avatarUrl"

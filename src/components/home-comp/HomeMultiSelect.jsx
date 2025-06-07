@@ -100,11 +100,11 @@ const HomeMultiSelect = ({
         {selected.map((opt) => (
           <span
             key={opt.value}
-            className="flex items-center bg-black text-white px-3 py-1 rounded-full mr-2 mb-2"
+            className="flex items-center bg-pnp-black text-pnp-white px-3 py-1 rounded-full mr-2 mb-2"
           >
             {opt.label}
             <button
-              className="ml-2 text-white"
+              className="ml-2 text-pnp-white"
               onClick={() => handleRemove(opt.value)}
               type="button"
             >
