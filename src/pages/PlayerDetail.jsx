@@ -12,6 +12,7 @@ import WeekdaySelector from "../components/WeekdaySelector";
 import Loader from "../components/Loader";
 import { getMyGroups } from "../data/user";
 import Groupcard from "../components/cards/Groupcard";
+import { useNavigate } from "react-router-dom";
 
 const PlayerDetail = () => {
   const [user, setUser] = useState(null);
@@ -21,6 +22,7 @@ const PlayerDetail = () => {
   const [editedUser, setEditedUser] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [groups, setGroups] = useState([]);
+  const navigate = useNavigate();
 
   const {
     systems: systemsOptions,
@@ -191,7 +193,13 @@ const PlayerDetail = () => {
 
   return (
     <div className="min-h-screen md:p-8 text-pnp-white">
-      <div className="flex flex-col items-center justify-center max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden">
+      <div className="relative flex flex-col items-center justify-center max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden">
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute top-5 right-6 text-gray-600 hover:text-black text-xl cursor-pointer"
+        >
+          ✕
+        </button>
         <div className=" flex flex-col lg:flex-row">
           {/* Left Section */}
           <div className="w-full lg:w-[45%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
@@ -551,7 +559,7 @@ const PlayerDetail = () => {
                         />
 
                         <p className="text-sm text-gray-700 font-semibold w-[100px]">
-                          per Month
+                          times per month
                         </p>
                       </div>
                     </div>
@@ -562,8 +570,7 @@ const PlayerDetail = () => {
                           AVAILABILITY
                         </h3>
                         <p className="text-sm text-gray-700 font-semibold">
-                          {editedUser.frequencyPerMonth || "Not set"} sessions
-                          per Month
+                          {editedUser.frequencyPerMonth}x per month
                         </p>
                       </div>
                       <div className="mt-4 pointer-events-none">

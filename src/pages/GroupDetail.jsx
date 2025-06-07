@@ -166,7 +166,13 @@ const GroupDetail = () => {
   return (
     <div className="min-h-screen md:p-8 text-pnp-white">
       {/* Main Card */}
-      <div className="max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col ">
+      <div className="relative max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col">
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute top-5 right-6 text-gray-600 hover:text-black text-xl cursor-pointer"
+        >
+          ✕
+        </button>
         <div className="flex flex-col lg:flex-row">
           {/* Left Content */}
           <div className="flex flex-col lg:w-[45%]">
@@ -437,7 +443,7 @@ const GroupDetail = () => {
                           />
 
                           <p className="text-sm text-gray-700 font-semibold w-[200px]">
-                            sessions per Month
+                            times per month
                           </p>
                         </div>
                       </div>
@@ -448,8 +454,7 @@ const GroupDetail = () => {
                             AVAILABILITY
                           </h3>
                           <p className="text-sm text-gray-700 font-semibold">
-                            {editedGroup.frequencyPerMonth || "Not set"}{" "}
-                            sessions per Month
+                            {editedGroup.frequencyPerMonth}x per month
                           </p>
                         </div>
                         <div className="mt-4 pointer-events-none">
