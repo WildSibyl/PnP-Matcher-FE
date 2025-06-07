@@ -9,6 +9,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MenuIcons from "../components/navbar-comp/MenuIcons";
 import InviteToGroupModal from "../components/InviteToGroupModal";
+import WelcomeModal from "../components/register-comp/WelcomeModal";
+import { WelcomeModalContextProvider } from "../context/WelcomeModalContextProvider";
 
 const MainLayout = () => {
   return (
@@ -20,12 +22,15 @@ const MainLayout = () => {
         <WSContextProvider>
           <TeleportContextProvider>
             <InviteModalContextProvider>
-              <Navbar />
-              <div className="flex-1 overflow-x-hidden">
-                <Outlet />
-              </div>
-              <Footer />
-              <InviteToGroupModal />
+              <WelcomeModalContextProvider>
+                <Navbar />
+                <div className="flex-1 overflow-x-hidden">
+                  <Outlet />
+                </div>
+                <Footer />
+                <InviteToGroupModal />
+                <WelcomeModal />
+              </WelcomeModalContextProvider>
             </InviteModalContextProvider>
           </TeleportContextProvider>
         </WSContextProvider>
