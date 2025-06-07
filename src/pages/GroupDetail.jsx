@@ -15,6 +15,7 @@ import { useTagContext } from "../context/TagsContextProvider";
 import Loader from "../components/Loader";
 import { useInviteModal } from "../context/InviteModalContextProvider";
 import PlayerCard from "../components/cards/PlayerCard";
+import PlayerCardSmall from "../components/cards/PlayerCardSmall";
 
 const GroupDetail = () => {
   const { user } = useAuth();
@@ -467,6 +468,11 @@ const GroupDetail = () => {
                     )}
                   </div>
                 </div>
+
+                {/* Game master card */}
+                {groupDetails?.author && (
+                  <PlayerCardSmall details={groupDetails?.author} />
+                )}
 
                 {isAuthor && (
                   <div className="flex gap-4 mt-4">
