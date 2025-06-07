@@ -189,675 +189,686 @@ const PlayerDetail = () => {
   };
   <Loader />;
 
-  // if (!editedUser) {
-  //   return <div>Loading...</div>;
-  // }
-
   return (
     <div className="min-h-screen md:p-8 text-pnp-white">
-      <div className="max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
-        {/* Left Section */}
-        <div className="w-full lg:w-[45%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
-          <div className="flex flex-col items-center text-center gap-4 lg:flex-row lg:items-start lg:text-left">
-            <div className="flex-shrink-0 ">
-              {isEditing ? (
-                <>
-                  <label htmlFor="avatar-upload">
-                    <img
-                      src={
-                        previewImage ||
-                        editedUser.avatarUrl ||
-                        "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
-                      }
-                      alt="Avatar"
-                      className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer"
+      <div className="flex flex-col items-center justify-center max-w-7xl mx-auto bg-white text-black rounded-2xl shadow-xl overflow-hidden">
+        <div className=" flex flex-col lg:flex-row">
+          {/* Left Section */}
+          <div className="w-full lg:w-[45%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
+            <div className="flex flex-col items-center text-center gap-4 xl:flex-row lg:items-start lg:text-left">
+              <div className="flex-shrink-0 ">
+                {isEditing ? (
+                  <>
+                    <label htmlFor="avatar-upload">
+                      <div className="relative">
+                        <img
+                          src={
+                            previewImage ||
+                            editedUser.avatarUrl ||
+                            "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
+                          }
+                          alt="Avatar"
+                          className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer"
+                        />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-white opacity-70">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="size-6"
+                          >
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </label>
+                    <input
+                      id="avatar-upload"
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleAvatarUpload}
                     />
-                  </label>
-                  <input
-                    id="avatar-upload"
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleAvatarUpload}
-                  />
-                </>
-              ) : (
-                <img
-                  src={
-                    editedUser.avatarUrl ||
-                    "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
-                  }
-                  alt="Avatar"
-                  className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
-                />
-              )}
-            </div>
-
-            <div className="flex flex-1 flex-col items-center lg:items-start">
-              {isEditing ? (
-                <>
-                  <h3 className="font-semibold text-sm text-gray-700">
-                    USERNAME
-                  </h3>
-                  <input
-                    type="text"
-                    value={editedUser.userName}
-                    onChange={(e) =>
-                      setEditedUser((prev) => ({
-                        ...prev,
-                        editedUserName: e.target.value,
-                      }))
+                  </>
+                ) : (
+                  <img
+                    src={
+                      editedUser.avatarUrl ||
+                      "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
                     }
-                    className="input capitalize"
+                    alt="Avatar"
+                    className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
                   />
-                </>
-              ) : (
-                <h3>{editedUser.userName}</h3>
-              )}
-              {isEditing ? (
-                <>
-                  <h3 className="font-semibold text-sm text-gray-700 mt-4">
-                    TAGLINE
-                  </h3>
-                  <input
-                    type="text"
-                    placeholder="Tagline"
-                    value={editedUser.tagline}
-                    onChange={(e) =>
-                      setEditedUser((prev) => ({
-                        ...prev,
-                        tagline: e.target.value,
-                      }))
-                    }
-                    className="input"
-                  />
-                </>
-              ) : (
-                <small className="mt-2">{editedUser.tagline}</small>
-              )}
+                )}
+              </div>
 
-              {isEditing ? (
-                <>
-                  <h3 className="font-semibold text-sm text-gray-700 mt-4">
-                    ADDRESS
-                  </h3>
-                  <div className="flex flex-wrap gap-4">
+              <div className="flex flex-1 flex-col items-center lg:items-start">
+                {isEditing ? (
+                  <>
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      USERNAME
+                    </h3>
                     <input
                       type="text"
-                      value={editedUser.address?.street || ""}
+                      value={editedUser.userName}
                       onChange={(e) =>
                         setEditedUser((prev) => ({
                           ...prev,
-                          address: {
-                            ...prev.address,
-                            street: e.target.value,
-                          },
+                          editedUserName: e.target.value,
                         }))
                       }
-                      placeholder="Street"
-                      className="input"
+                      className="input capitalize"
                     />
+                  </>
+                ) : (
+                  <h3>{editedUser.userName}</h3>
+                )}
+                {isEditing ? (
+                  <>
+                    <h3 className="font-semibold text-sm text-gray-700 mt-4">
+                      TAGLINE
+                    </h3>
                     <input
                       type="text"
-                      value={editedUser.address?.houseNumber || ""}
+                      placeholder="Tagline"
+                      value={editedUser.tagline}
                       onChange={(e) =>
                         setEditedUser((prev) => ({
                           ...prev,
-                          address: {
-                            ...prev.address,
-                            houseNumber: e.target.value,
-                          },
+                          tagline: e.target.value,
                         }))
                       }
-                      placeholder="House Number"
                       className="input"
                     />
-                    <input
-                      type="text"
-                      value={editedUser.address?.postalCode || ""}
-                      onChange={(e) =>
-                        setEditedUser((prev) => ({
-                          ...prev,
-                          address: {
-                            ...prev.address,
-                            postalCode: e.target.value,
-                          },
-                        }))
-                      }
-                      placeholder="Postal Code"
-                      className="input"
-                    />
+                  </>
+                ) : (
+                  <small className="mt-2">{editedUser.tagline}</small>
+                )}
 
-                    <input
-                      type="text"
-                      value={editedUser.address?.city || ""}
-                      onChange={(e) =>
-                        setEditedUser((prev) => ({
-                          ...prev,
-                          address: {
-                            ...prev.address,
-                            city: e.target.value,
-                          },
-                        }))
-                      }
-                      placeholder="City"
-                      className="input"
-                    />
-                    <div className=" w-full">
-                      <h3 className="font-semibold text-sm text-gray-700">
-                        BIRTHDAY
-                      </h3>
+                {isEditing ? (
+                  <>
+                    <h3 className="font-semibold text-sm text-gray-700 mt-4">
+                      ADDRESS
+                    </h3>
+                    <div className="flex flex-wrap gap-4">
                       <input
-                        type="date"
-                        className="input"
-                        value={editedUser.birthday?.slice(0, 10) || ""}
+                        type="text"
+                        value={editedUser.address?.street || ""}
                         onChange={(e) =>
                           setEditedUser((prev) => ({
                             ...prev,
-                            birthday: e.target.value,
+                            address: {
+                              ...prev.address,
+                              street: e.target.value,
+                            },
                           }))
                         }
+                        placeholder="Street"
+                        className="input"
                       />
+                      <input
+                        type="text"
+                        value={editedUser.address?.houseNumber || ""}
+                        onChange={(e) =>
+                          setEditedUser((prev) => ({
+                            ...prev,
+                            address: {
+                              ...prev.address,
+                              houseNumber: e.target.value,
+                            },
+                          }))
+                        }
+                        placeholder="House Number"
+                        className="input"
+                      />
+                      <input
+                        type="text"
+                        value={editedUser.address?.postalCode || ""}
+                        onChange={(e) =>
+                          setEditedUser((prev) => ({
+                            ...prev,
+                            address: {
+                              ...prev.address,
+                              postalCode: e.target.value,
+                            },
+                          }))
+                        }
+                        placeholder="Postal Code"
+                        className="input"
+                      />
+
+                      <input
+                        type="text"
+                        value={editedUser.address?.city || ""}
+                        onChange={(e) =>
+                          setEditedUser((prev) => ({
+                            ...prev,
+                            address: {
+                              ...prev.address,
+                              city: e.target.value,
+                            },
+                          }))
+                        }
+                        placeholder="City"
+                        className="input"
+                      />
+                      <div className=" w-full">
+                        <h3 className="font-semibold text-sm text-gray-700">
+                          BIRTHDAY
+                        </h3>
+                        <input
+                          type="date"
+                          className="input"
+                          value={editedUser.birthday?.slice(0, 10) || ""}
+                          onChange={(e) =>
+                            setEditedUser((prev) => ({
+                              ...prev,
+                              birthday: e.target.value,
+                            }))
+                          }
+                        />
+                      </div>
                     </div>
+                  </>
+                ) : (
+                  <div className="text-sm text-gray-700 mt-2">
+                    {(editedUser.address?.postalCode ||
+                      editedUser.address?.street) && (
+                      <span>
+                        {editedUser.address?.postalCode || ""},{" "}
+                        {editedUser.address?.city || ""}
+                      </span>
+                    )}
+                    {editedUser.birthday && <span className="mx-1">|</span>}
+                    {editedUser.birthday && (
+                      <span>{calculateAge(editedUser.birthday)} years old</span>
+                    )}
                   </div>
-                </>
-              ) : (
-                <div className="text-sm text-gray-700 mt-2">
-                  {(editedUser.address?.postalCode ||
-                    editedUser.address?.street) && (
-                    <span>
-                      {editedUser.address?.postalCode || ""},{" "}
-                      {editedUser.address?.city || ""}
-                    </span>
-                  )}
-                  {editedUser.birthday && <span className="mx-1">|</span>}
-                  {editedUser.birthday && (
-                    <span>{calculateAge(editedUser.birthday)} years old</span>
+                )}
+
+                <div className="mt-4">
+                  {isEditing ? (
+                    <div>
+                      {/* EXPERIENCE */}
+                      <div>
+                        <h3 className="font-semibold text-sm text-gray-700">
+                          EXPERIENCE
+                        </h3>
+                        <SingleSelect
+                          category="experience"
+                          value={editedUser.experience}
+                          //className="input"
+                          onChange={(selected) =>
+                            setEditedUser({
+                              ...editedUser,
+                              experience: selected?.id,
+                              // experience: selected,
+                            })
+                          }
+                        />
+                      </div>
+
+                      {/* PLAYING MODES */}
+                      <div>
+                        <h3 className="font-semibold text-sm text-gray-700">
+                          PLAYING MODES
+                        </h3>
+                        <SingleSelect
+                          category="playingModes"
+                          value={editedUser.playingModes}
+                          //className="input"
+                          onChange={(selected) =>
+                            setEditedUser({
+                              ...editedUser,
+                              //playingModes: selected,
+                              playingModes: selected?.id,
+                            })
+                          }
+                        />
+                      </div>
+
+                      {/* PLAYING ROLES */}
+                      <div className="w-[320px]">
+                        <h3 className="font-semibold text-sm text-gray-700">
+                          PLAYING ROLES
+                        </h3>
+                        <SingleSelect
+                          category="playingRoles"
+                          value={editedUser.playingRoles}
+                          className="input"
+                          onChange={(selected) =>
+                            setEditedUser({
+                              ...editedUser,
+                              // playingRoles: selected,
+                              playingRoles: selected?.id,
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-wrap items-center gap-2">
+                      {editedUser.experience && (
+                        <div className="pnp-badge-purple flex items-center gap-1">
+                          {getIcon("Experience")}
+                          {shortenExperienceLabel(
+                            experiencesOptions.find(
+                              (opt) =>
+                                opt._id === editedUser.experience ||
+                                opt._id === editedUser.experience?.id
+                            )?.label ||
+                              editedUser.experience?.label ||
+                              editedUser.experience
+                          )}
+                        </div>
+                      )}
+
+                      {/* PLAYING MODES */}
+
+                      {editedUser.playingModes && (
+                        <div className="pnp-badge-blue flex items-center gap-1">
+                          {(() => {
+                            const label =
+                              playingModesOptions.find(
+                                (opt) =>
+                                  opt._id === editedUser.playingModes ||
+                                  opt._id === editedUser.playingModes?.id
+                              )?.label ||
+                              editedUser.playingModes?.label ||
+                              editedUser.playingModes;
+
+                            if (label === "Both") {
+                              return (
+                                <>
+                                  {getIcon("On-site")}
+                                  {getIcon("Online")}
+                                </>
+                              );
+                            }
+
+                            return getIcon(label);
+                          })()}
+                          {playingModesOptions.find(
+                            (opt) =>
+                              opt._id === editedUser.playingModes ||
+                              opt._id === editedUser.playingModes?.id
+                          )?.label ||
+                            editedUser.playingModes?.label ||
+                            editedUser.playingModes}
+                        </div>
+                      )}
+
+                      {editedUser.playingRoles && (
+                        <div className="pnp-badge-green flex items-center gap-1">
+                          {getIcon("Dice")}
+                          {playingRolesOptions.find(
+                            (opt) =>
+                              opt._id === editedUser.playingRoles ||
+                              opt._id === editedUser.playingRoles?.id
+                          )?.label ||
+                            editedUser.playingRoles?.label ||
+                            editedUser.playingRoles}
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
-              )}
 
-              <div className="mt-4">
-                {isEditing ? (
-                  <div>
-                    {/* EXPERIENCE */}
-                    <div>
-                      <h3 className="font-semibold text-sm text-gray-700">
-                        EXPERIENCE
-                      </h3>
-                      <SingleSelect
-                        category="experience"
-                        value={editedUser.experience}
-                        //className="input"
-                        onChange={(selected) =>
-                          setEditedUser({
-                            ...editedUser,
-                            experience: selected?.id,
-                            // experience: selected,
-                          })
-                        }
-                      />
-                    </div>
-
-                    {/* PLAYING MODES */}
-                    <div>
-                      <h3 className="font-semibold text-sm text-gray-700">
-                        PLAYING MODES
-                      </h3>
-                      <SingleSelect
-                        category="playingModes"
-                        value={editedUser.playingModes}
-                        //className="input"
-                        onChange={(selected) =>
-                          setEditedUser({
-                            ...editedUser,
-                            //playingModes: selected,
-                            playingModes: selected?.id,
-                          })
-                        }
-                      />
-                    </div>
-
-                    {/* PLAYING ROLES */}
-                    <div className="w-[320px]">
-                      <h3 className="font-semibold text-sm text-gray-700">
-                        PLAYING ROLES
-                      </h3>
-                      <SingleSelect
-                        category="playingRoles"
-                        value={editedUser.playingRoles}
-                        className="input"
-                        onChange={(selected) =>
-                          setEditedUser({
-                            ...editedUser,
-                            // playingRoles: selected,
-                            playingRoles: selected?.id,
-                          })
-                        }
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-wrap items-center gap-2">
-                    {editedUser.experience && (
-                      <div className="pnp-badge-purple flex items-center gap-1">
-                        {getIcon("Experience")}
-                        {shortenExperienceLabel(
-                          experiencesOptions.find(
-                            (opt) =>
-                              opt._id === editedUser.experience ||
-                              opt._id === editedUser.experience?.id
-                          )?.label ||
-                            editedUser.experience?.label ||
-                            editedUser.experience
-                        )}
-                      </div>
-                    )}
-
-                    {/* PLAYING MODES */}
-
-                    {editedUser.playingModes && (
-                      <div className="pnp-badge-blue flex items-center gap-1">
-                        {(() => {
-                          const label =
-                            playingModesOptions.find(
-                              (opt) =>
-                                opt._id === editedUser.playingModes ||
-                                opt._id === editedUser.playingModes?.id
-                            )?.label ||
-                            editedUser.playingModes?.label ||
-                            editedUser.playingModes;
-
-                          if (label === "Both") {
-                            return (
-                              <>
-                                {getIcon("On-site")}
-                                {getIcon("Online")}
-                              </>
-                            );
-                          }
-
-                          return getIcon(label);
-                        })()}
-                        {playingModesOptions.find(
-                          (opt) =>
-                            opt._id === editedUser.playingModes ||
-                            opt._id === editedUser.playingModes?.id
-                        )?.label ||
-                          editedUser.playingModes?.label ||
-                          editedUser.playingModes}
-                      </div>
-                    )}
-
-                    {editedUser.playingRoles && (
-                      <div className="pnp-badge-green flex items-center gap-1">
-                        {getIcon("Dice")}
-                        {playingRolesOptions.find(
-                          (opt) =>
-                            opt._id === editedUser.playingRoles ||
-                            opt._id === editedUser.playingRoles?.id
-                        )?.label ||
-                          editedUser.playingRoles?.label ||
-                          editedUser.playingRoles}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-
-              <div>
-                {isEditing ? (
-                  <div className="">
-                    <h3 className="font-semibold text-sm text-gray-700 mb-2">
-                      AVAILABILITY
-                    </h3>
-                    <WeekdaySelector
-                      weekdays={editedUser.weekdays || []}
-                      onChange={(updatedDays) => {
-                        if (!isEditing) return;
-                        setEditedGroup((prev) => ({
-                          ...prev,
-                          weekdays: updatedDays,
-                        }));
-                      }}
-                      readOnly={!isEditing}
-                    />
-
-                    <h3 className="font-semibold text-sm text-gray-700">
-                      FREQUENCY
-                    </h3>
-                    <div className="flex flex-row items-center gap-2">
-                      <input
-                        type="number"
-                        min="1"
-                        max="31"
-                        className="input w-[70px]"
-                        value={editedUser.frequencyPerMonth || ""}
-                        onChange={(e) =>
-                          setEditedGroup({
-                            ...editedUser,
-                            frequencyPerMonth: e.target.value,
-                          })
-                        }
-                      />
-
-                      <p className="text-sm text-gray-700 font-semibold w-[100px]">
-                        per Month
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <div className="flex flex-row items-center text-center gap-2 mt-4">
-                      <h3 className="font-semibold text-sm text-gray-700">
+                <div>
+                  {isEditing ? (
+                    <div className="">
+                      <h3 className="font-semibold text-sm text-gray-700 mb-2">
                         AVAILABILITY
                       </h3>
-                      <p className="text-sm text-gray-700 font-semibold">
-                        {editedUser.frequencyPerMonth || "Not set"} sessions per
-                        Month
-                      </p>
-                    </div>
-                    <div className="mt-4 pointer-events-none">
                       <WeekdaySelector
-                        weekdays={editedUser.weekdays} // Pass the group's availability data
-                        readOnly={true} // Crucially, set to true for display-only
+                        weekdays={editedUser.weekdays || []}
+                        onChange={(updatedDays) => {
+                          if (!isEditing) return;
+                          setEditedGroup((prev) => ({
+                            ...prev,
+                            weekdays: updatedDays,
+                          }));
+                        }}
+                        readOnly={!isEditing}
                       />
+
+                      <h3 className="font-semibold text-sm text-gray-700">
+                        FREQUENCY
+                      </h3>
+                      <div className="flex flex-row items-center gap-2">
+                        <input
+                          type="number"
+                          min="1"
+                          max="31"
+                          className="input w-[70px]"
+                          value={editedUser.frequencyPerMonth || ""}
+                          onChange={(e) =>
+                            setEditedGroup({
+                              ...editedUser,
+                              frequencyPerMonth: e.target.value,
+                            })
+                          }
+                        />
+
+                        <p className="text-sm text-gray-700 font-semibold w-[100px]">
+                          per Month
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  ) : (
+                    <div>
+                      <div className="flex flex-row items-center text-center gap-2 mt-4">
+                        <h3 className="font-semibold text-sm text-gray-700">
+                          AVAILABILITY
+                        </h3>
+                        <p className="text-sm text-gray-700 font-semibold">
+                          {editedUser.frequencyPerMonth || "Not set"} sessions
+                          per Month
+                        </p>
+                      </div>
+                      <div className="mt-4 pointer-events-none">
+                        <WeekdaySelector
+                          weekdays={editedUser.weekdays} // Pass the group's availability data
+                          readOnly={true} // Crucially, set to true for display-only
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  {isEditing ? null : (
+                    // View mode: Send DM and Edit buttons in the same row
+                    <div className="flex gap-4">
+                      <button
+                        onClick={() => setIsEditing(true)}
+                        className="btn-primary-dark w-auto gap-2 flex"
+                      >
+                        Edit Profile
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Section */}
+
+          <div className="w-full lg:w-[55%] p-6 overflow-y-auto max-h-full">
+            <div className="mb-4">
+              <div className="flex gap-4 font-semibold text-sm justify-center lg:justify-start">
+                <button
+                  onClick={() => setActiveTab("about")}
+                  className={`pb-2 cursor-pointer ${
+                    activeTab === "about"
+                      ? "border-b-2 border-black"
+                      : "text-gray-400"
+                  }`}
+                >
+                  ABOUT
+                </button>
+                <button
+                  onClick={() => setActiveTab("groups")}
+                  className={`pb-2 cursor-pointer ${
+                    activeTab === "groups"
+                      ? "border-b-2 border-black"
+                      : "text-gray-400"
+                  }`}
+                >
+                  GROUPS ({groups?.length || 0})
+                </button>
               </div>
 
-              <div className="">
-                {isEditing ? (
-                  // Edit mode: Save and Cancel buttons in the same row
-                  <div className="flex gap-4 mt-4">
-                    <button onClick={handleSave} className="btn-primary-dark">
-                      Save
-                    </button>
-                    <button
-                      onClick={handleCancel}
-                      className="btn-primary-dark bg-gray-300 text-black hover:bg-gray-400"
-                    >
-                      Cancel
-                    </button>
+              {activeTab === "about" && (
+                <>
+                  {/* 📝 Description */}
+                  <div className="mt-4">
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      MORE ABOUT ME
+                    </h3>
+                    {isEditing ? (
+                      <textarea
+                        className="w-full border p-2 rounded"
+                        value={editedUser.description}
+                        onChange={(e) =>
+                          setEditedUser({
+                            ...editedUser,
+                            description: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <>
+                        <p className="text-sm text-gray-700 mt-2 whitespace-pre-wrap">
+                          {displayedAbout}
+                        </p>
+                        {editedUser.description.length > MAX_LENGTH && (
+                          <button
+                            onClick={toggleAboutText}
+                            className="mt-2 text-blue-600 font-semibold text-sm underline cursor-pointer"
+                          >
+                            {showFullAbout ? "Show less" : "Show more"}
+                          </button>
+                        )}
+                      </>
+                    )}
                   </div>
-                ) : (
-                  // View mode: Send DM and Edit buttons in the same row
-                  <div className="flex gap-4">
-                    <button className="btn-primary-dark w-auto gap-2 flex">
-                      <img src={send_icon} alt="" />
-                      Send DM
-                    </button>
-                    <button
-                      onClick={() => setIsEditing(true)}
-                      className="btn-primary-dark w-auto gap-2 flex"
-                    >
-                      Edit
-                    </button>
+
+                  {/* Languages */}
+
+                  <div className="mt-4">
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      LANGUAGES
+                    </h3>
+                    {isEditing ? (
+                      <TagMultiSelect
+                        category="languages"
+                        value={editedUser.languages}
+                        onChange={(values) =>
+                          setEditedUser({
+                            ...editedUser,
+                            languages: values.map((v) => v.id),
+                          })
+                        }
+                      />
+                    ) : (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {(editedUser.languages || []).map((langId) => {
+                          const languageOption = languagesOptions?.find(
+                            (opt) => opt._id === langId
+                          );
+                          return languageOption ? (
+                            <div className="pnp-badge-black" key={langId}>
+                              {languageOption.label}
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+
+                  {/* 🎮 Playstyles */}
+                  <div className="mt-4">
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      PLAYSTYLES
+                    </h3>
+                    {isEditing ? (
+                      <TagMultiSelect
+                        category="playstyles"
+                        value={editedUser.playstyles}
+                        onChange={(values) => {
+                          console.log(
+                            "PlayerDetail playstyles onChange values:",
+                            values
+                          );
+                          setEditedUser({
+                            ...editedUser,
+                            playstyles: values.map((v) => v.id),
+                          });
+                        }}
+                      />
+                    ) : (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {(editedUser.playstyles || []).map((style) => {
+                          const playstyleOption = playstylesOptions?.find(
+                            (opt) => opt._id === style
+                          );
+                          return playstyleOption ? (
+                            <div className="pnp-badge-black" key={style}>
+                              {playstyleOption.label}
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 📚 Game Systems */}
+                  <div className="mt-4">
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      GAME SYSTEMS
+                    </h3>
+                    {isEditing ? (
+                      <TagMultiSelect
+                        category="systems"
+                        value={editedUser.systems}
+                        onChange={(values) =>
+                          setEditedUser({
+                            ...editedUser,
+                            systems: values.map((v) => v.id),
+                          })
+                        }
+                      />
+                    ) : (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {(editedUser.systems || []).map((system) => {
+                          const systemOption = systemsOptions?.find(
+                            (opt) => opt._id === system
+                          );
+                          return systemOption ? (
+                            <div className="pnp-badge-black" key={system}>
+                              {systemOption.label}
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Likes */}
+
+                  <div className="mt-4">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold text-sm text-gray-700 flex gap-2">
+                        LIKES{" "}
+                      </h3>
+                      {/* <div className="flex items-start gap-2 mt-2"> */}
+                      <img src={like} alt="like icon" className="w-5 h-5 " />
+                    </div>
+
+                    {/* <div className="flex flex-wrap gap-2"> */}
+                    {isEditing ? (
+                      <TagMultiSelect
+                        category="likes"
+                        value={editedUser.likes}
+                        // selectedValues={editedUser.likes}
+                        onChange={(values) =>
+                          setEditedUser({
+                            ...editedUser,
+                            likes: values.map((v) => v.id),
+                          })
+                        }
+                      />
+                    ) : (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {(editedUser.likes || []).map((likes) => {
+                          const likeOption = likesOptions?.find(
+                            (opt) => opt._id === likes
+                          );
+                          return likeOption ? (
+                            <div className="pnp-badge-white" key={likes}>
+                              {likeOption.label}
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mt-4">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold text-sm text-gray-700 flex gap-2">
+                        DISLIKES
+                      </h3>
+
+                      <img
+                        src={dislike}
+                        alt="dislike icon"
+                        className="w-5 h-5 "
+                      />
+                    </div>
+
+                    {isEditing ? (
+                      <TagMultiSelect
+                        category="dislikes"
+                        value={editedUser.dislikes}
+                        onChange={(values) => {
+                          {
+                            console.log(
+                              "editedUser.dislikes on render:",
+                              editedUser.dislikes
+                            );
+                          }
+                          setEditedUser({
+                            ...editedUser,
+                            dislikes: values.map((v) => v.id),
+                          });
+                        }}
+                      />
+                    ) : (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {(editedUser.dislikes || []).map((dislikes) => {
+                          const dislikeOption = dislikesOptions?.find(
+                            (opt) => opt._id === dislikes
+                          );
+                          return dislikeOption ? (
+                            <div className="pnp-badge-white" key={dislikes}>
+                              {dislikeOption.label}
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+
+              {activeTab === "groups" && (
+                <div className="pt-4 flex flex-col justify-start items-start">
+                  {groups?.map((e) => (
+                    <Groupcard key={e._id} details={e} />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
-
-        {/* Right Section */}
-
-        <div className="w-full lg:w-[55%] p-6 overflow-y-auto max-h-full">
-          <div className="mb-4">
-            <div className="flex gap-4 font-semibold text-sm justify-center lg:justify-start">
-              <button
-                onClick={() => setActiveTab("about")}
-                className={`pb-2 cursor-pointer ${
-                  activeTab === "about"
-                    ? "border-b-2 border-black"
-                    : "text-gray-400"
-                }`}
-              >
-                MORE ABOUT ME
+        <div>
+          {isEditing ? (
+            // Edit mode: Save and Cancel buttons in the same row
+            <div className="flex w-full gap-4 m-4">
+              <button onClick={handleSave} className="btn-primary-dark">
+                Save
               </button>
               <button
-                onClick={() => setActiveTab("groups")}
-                className={`pb-2 cursor-pointer ${
-                  activeTab === "groups"
-                    ? "border-b-2 border-black"
-                    : "text-gray-400"
-                }`}
+                onClick={handleCancel}
+                className="btn-primary-dark bg-gray-300 text-black hover:bg-gray-400"
               >
-                GROUPS ({groups?.length || 0})
+                Cancel
               </button>
             </div>
-
-            {activeTab === "about" && (
-              <>
-                {/* 📝 Description */}
-                <div className="mt-4">
-                  <h3 className="font-semibold text-sm text-gray-700">ABOUT</h3>
-                  {isEditing ? (
-                    <textarea
-                      className="w-full border p-2 rounded"
-                      value={editedUser.description}
-                      onChange={(e) =>
-                        setEditedUser({
-                          ...editedUser,
-                          description: e.target.value,
-                        })
-                      }
-                    />
-                  ) : (
-                    <>
-                      <p className="text-sm text-gray-700 mt-2 whitespace-pre-wrap">
-                        {displayedAbout}
-                      </p>
-                      {editedUser.description.length > MAX_LENGTH && (
-                        <button
-                          onClick={toggleAboutText}
-                          className="mt-2 text-blue-600 font-semibold text-sm underline cursor-pointer"
-                        >
-                          {showFullAbout ? "Show less" : "Show more"}
-                        </button>
-                      )}
-                    </>
-                  )}
-                </div>
-
-                {/* Languages */}
-
-                <div className="mt-4">
-                  <h3 className="font-semibold text-sm text-gray-700">
-                    LANGUAGE
-                  </h3>
-                  {isEditing ? (
-                    <TagMultiSelect
-                      category="languages"
-                      value={editedUser.languages}
-                      onChange={(values) =>
-                        setEditedUser({
-                          ...editedUser,
-                          languages: values.map((v) => v.id),
-                        })
-                      }
-                    />
-                  ) : (
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {(editedUser.languages || []).map((langId) => {
-                        const languageOption = languagesOptions?.find(
-                          (opt) => opt._id === langId
-                        );
-                        return languageOption ? (
-                          <div className="pnp-badge-black" key={langId}>
-                            {languageOption.label}
-                          </div>
-                        ) : null;
-                      })}
-                    </div>
-                  )}
-                </div>
-
-                {/* 🎮 Playstyles */}
-                <div className="mt-4">
-                  <h3 className="font-semibold text-sm text-gray-700">
-                    PLAYSTYLES
-                  </h3>
-                  {isEditing ? (
-                    <TagMultiSelect
-                      category="playstyles"
-                      value={editedUser.playstyles}
-                      onChange={(values) => {
-                        console.log(
-                          "PlayerDetail playstyles onChange values:",
-                          values
-                        );
-                        setEditedUser({
-                          ...editedUser,
-                          playstyles: values.map((v) => v.id),
-                        });
-                      }}
-                    />
-                  ) : (
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {(editedUser.playstyles || []).map((style) => {
-                        const playstyleOption = playstylesOptions?.find(
-                          (opt) => opt._id === style
-                        );
-                        return playstyleOption ? (
-                          <div className="pnp-badge-black" key={style}>
-                            {playstyleOption.label}
-                          </div>
-                        ) : null;
-                      })}
-                    </div>
-                  )}
-                </div>
-
-                {/* 📚 Game Systems */}
-                <div className="mt-4">
-                  <h3 className="font-semibold text-sm text-gray-700">
-                    GAME SYSTEMS
-                  </h3>
-                  {isEditing ? (
-                    <TagMultiSelect
-                      category="systems"
-                      value={editedUser.systems}
-                      onChange={(values) =>
-                        setEditedUser({
-                          ...editedUser,
-                          systems: values.map((v) => v.id),
-                        })
-                      }
-                    />
-                  ) : (
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {(editedUser.systems || []).map((system) => {
-                        const systemOption = systemsOptions?.find(
-                          (opt) => opt._id === system
-                        );
-                        return systemOption ? (
-                          <div className="pnp-badge-black" key={system}>
-                            {systemOption.label}
-                          </div>
-                        ) : null;
-                      })}
-                    </div>
-                  )}
-                </div>
-
-                {/* Likes */}
-
-                <div className="mt-4">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-semibold text-sm text-gray-700 flex gap-2">
-                      LIKES{" "}
-                    </h3>
-                    {/* <div className="flex items-start gap-2 mt-2"> */}
-                    <img src={like} alt="like icon" className="w-5 h-5 " />
-                  </div>
-
-                  {/* <div className="flex flex-wrap gap-2"> */}
-                  {isEditing ? (
-                    <TagMultiSelect
-                      category="likes"
-                      value={editedUser.likes}
-                      // selectedValues={editedUser.likes}
-                      onChange={(values) =>
-                        setEditedUser({
-                          ...editedUser,
-                          likes: values.map((v) => v.id),
-                        })
-                      }
-                    />
-                  ) : (
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {(editedUser.likes || []).map((likes) => {
-                        const likeOption = likesOptions?.find(
-                          (opt) => opt._id === likes
-                        );
-                        return likeOption ? (
-                          <div className="pnp-badge-white" key={likes}>
-                            {likeOption.label}
-                          </div>
-                        ) : null;
-                      })}
-                    </div>
-                  )}
-                </div>
-
-                <div className="mt-4">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-semibold text-sm text-gray-700 flex gap-2">
-                      DISLIKES
-                    </h3>
-
-                    <img
-                      src={dislike}
-                      alt="dislike icon"
-                      className="w-5 h-5 "
-                    />
-                  </div>
-
-                  {isEditing ? (
-                    <TagMultiSelect
-                      category="dislikes"
-                      value={editedUser.dislikes}
-                      onChange={(values) => {
-                        {
-                          console.log(
-                            "editedUser.dislikes on render:",
-                            editedUser.dislikes
-                          );
-                        }
-                        setEditedUser({
-                          ...editedUser,
-                          dislikes: values.map((v) => v.id),
-                        });
-                      }}
-                    />
-                  ) : (
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {(editedUser.dislikes || []).map((dislikes) => {
-                        const dislikeOption = dislikesOptions?.find(
-                          (opt) => opt._id === dislikes
-                        );
-                        return dislikeOption ? (
-                          <div className="pnp-badge-white" key={dislikes}>
-                            {dislikeOption.label}
-                          </div>
-                        ) : null;
-                      })}
-                    </div>
-                  )}
-                </div>
-              </>
-            )}
-
-            {activeTab === "groups" && (
-              <div className="pt-4 flex flex-col justify-start items-start">
-                {groups?.map((e) => (
-                  <Groupcard key={e._id} details={e} />
-                ))}
-              </div>
-            )}
-          </div>
+          ) : null}
         </div>
       </div>
     </div>
