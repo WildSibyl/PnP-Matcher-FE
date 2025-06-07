@@ -451,8 +451,7 @@ const PlayerDetail = () => {
                           onChange={(selected) =>
                             setEditedUser({
                               ...editedUser,
-                              // playingRoles: selected,
-                              playingRoles: selected?.id,
+                              playingRoles: selected?.id ?? null,
                             })
                           }
                         />
