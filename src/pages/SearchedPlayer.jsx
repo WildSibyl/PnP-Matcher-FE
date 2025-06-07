@@ -222,7 +222,7 @@ const SearchedPlayer = () => {
                     {/* Invite to Group button */}
                     <button
                       onClick={() => openInviteModal({ userId: details })}
-                      className="btn-secondary-dark w-auto gap-2 flex"
+                      className="btn-primary-dark w-auto gap-2 flex"
                     >
                       Invite to Group
                     </button>
