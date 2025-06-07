@@ -246,13 +246,25 @@
     }
   }
 
+  @keyframes moveRightToLeftImage {
+    0% {
+      transform: translateX(100px) scale(1.1);
+    }
+    50% {
+      transform: translateX(-100px) scale(1.2);
+    }
+    100% {
+      transform: translateX(100px) scale(1.1);
+    }
+  }
+
   @keyframes zoomInOut {
     0%,
     100% {
-      transform: scale(1);
+      transform: scale(1.1);
     }
     50% {
-      transform: scale(1.1);
+      transform: scale(1.2);
     }
   }
 
@@ -263,6 +275,10 @@
 
   .move-right-to-left {
     animation: moveRightToLeft 200s ease-in-out infinite;
+  }
+
+  .move-right-to-left-image {
+    animation: moveRightToLeftImage 200s ease-in-out infinite;
   }
 
   .zoom-animation {
