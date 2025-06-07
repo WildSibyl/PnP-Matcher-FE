@@ -1,10 +1,9 @@
 import TagMultiSelect from "../edit-comp/TagMultiSelect";
-import SingleSelect from "../edit-comp/SingleSelect";
 import like from "../../assets/like_icon.svg";
 import dislike from "../../assets/dislike_icon.svg";
-import getIcon from "../../utils/getIcon";
-import shortenExperienceLabel from "../../utils/shortenExperience";
 import PlayerCard from "../cards/PlayerCard";
+import { useTagContext } from "../../context/TagsContextProvider";
+import { useState } from "react";
 
 const Part2Right = ({
   isEditing,
@@ -13,12 +12,24 @@ const Part2Right = ({
   groupDetails,
   activeTab,
   setActiveTab,
-  languagesOptions,
-  playstylesOptions,
-  systemsOptions,
-  likesOptions,
-  dislikesOptions,
 }) => {
+  const [showFullAbout, setShowFullAbout] = useState(false);
+  const {
+    systems: systemsOptions,
+    languages: languagesOptions,
+    playstyles: playstylesOptions,
+    likes: likesOptions,
+    dislikes: dislikesOptions,
+  } = useTagContext();
+
+  const MAX_LENGTH = 300;
+  const toggleAboutText = () => setShowFullAbout((prev) => !prev);
+
+  const displayedAbout =
+    showFullAbout || editedGroup.description?.length <= MAX_LENGTH
+      ? editedGroup.description
+      : `${editedGroup.description.slice(0, MAX_LENGTH)}...`;
+
   return (
     <div className="w-full lg:w-[55%] p-6 overflow-y-auto max-h-full lg:border-l lg:border-gray-100">
       <div className="mb-4">
@@ -65,7 +76,7 @@ const Part2Right = ({
               </>
             ) : (
               <p className="text-sm text-gray-700 mt-4 whitespace-pre-wrap">
-                {editedGroup.description || "...to be filled in!"}
+                {`${displayedAbout}` || "...to be filled in!"}
               </p>
             )}
 

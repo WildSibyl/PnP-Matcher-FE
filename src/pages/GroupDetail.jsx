@@ -2,18 +2,9 @@ import { useAuth } from "../hooks/useAuth";
 import { useParams, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { getSingleGroup } from "../data/groups";
-import calculateAge from "../utils/calculateAge";
-import like from "../assets/like_icon.svg";
-import dislike from "../assets/dislike_icon.svg";
-import getIcon from "../utils/getIcon";
-import shortenExperienceLabel from "../utils/shortenExperience";
-import { useTagContext } from "../context/TagsContextProvider";
 import Loader from "../components/Loader";
 import { useInviteModal } from "../context/InviteModalContextProvider";
-import PlayerCard from "../components/cards/PlayerCard";
-import PlayerCardSmall from "../components/cards/PlayerCardSmall";
 import ChatModal from "../components/chat-comp/ChatModal";
-import send_icon from "../assets/send_icon.png";
 import Part1Left from "../components/groupdetail-comp/Part1Left";
 import Part2Right from "../components/groupdetail-comp/Part2Right";
 
@@ -27,7 +18,6 @@ const GroupDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("about");
-  const [showFullAbout, setShowFullAbout] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
 
@@ -36,20 +26,7 @@ const GroupDetail = () => {
   const [selectedChatId, setSelectedChatId] = useState(null);
   const chatUsername = groupDetails?.author?.userName || "Unknown User";
 
-  const {
-    systems: systemsOptions,
-    languages: languagesOptions,
-    playstyles: playstylesOptions,
-    likes: likesOptions,
-    dislikes: dislikesOptions,
-    groupExperience: experiencesOptions,
-    playingModes: playingModesOptions,
-  } = useTagContext();
-
   const { openInviteModal } = useInviteModal();
-
-  const MAX_LENGTH = 300;
-  const toggleAboutText = () => setShowFullAbout((prev) => !prev);
 
   const openChat = (receiverId) => {
     setSelectedChatId(receiverId);
@@ -173,11 +150,6 @@ const GroupDetail = () => {
       </p>
     );
 
-  const displayedAbout =
-    showFullAbout || editedGroup.description?.length <= MAX_LENGTH
-      ? editedGroup.description
-      : `${editedGroup.description.slice(0, MAX_LENGTH)}...`;
-
   return (
     <>
       <div className="min-h-screen md:p-8 text-pnp-white">
@@ -209,11 +181,6 @@ const GroupDetail = () => {
               groupDetails={groupDetails}
               activeTab={activeTab}
               setActiveTab={setActiveTab}
-              systemsOptions={systemsOptions}
-              languagesOptions={languagesOptions}
-              playstylesOptions={playstylesOptions}
-              likesOptions={likesOptions}
-              dislikesOptions={dislikesOptions}
             />
           </div>
 

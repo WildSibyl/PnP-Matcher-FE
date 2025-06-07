@@ -1,12 +1,8 @@
 import WeekdaySelector from "../WeekdaySelector";
-import CardAvailability from "../cards/CardAvailability";
-import calculateAge from "../../utils/calculateAge";
 import SingleSelect from "../edit-comp/SingleSelect";
 import getIcon from "../../utils/getIcon";
 import shortenExperienceLabel from "../../utils/shortenExperience";
 import { useTagContext } from "../../context/TagsContextProvider";
-import Loader from "../Loader";
-import { useInviteModal } from "../../context/InviteModalContextProvider";
 import PlayerCard from "../cards/PlayerCard";
 import PlayerCardSmall from "../cards/PlayerCardSmall";
 import send_icon from "../../assets/send_icon.png";
@@ -23,6 +19,8 @@ const Part1Left = ({
   previewImage,
   handleImageUpload,
 }) => {
+  const { groupExperience } = useTagContext();
+
   return (
     <div className="flex flex-col lg:w-[45%]">
       {/* Group image */}
