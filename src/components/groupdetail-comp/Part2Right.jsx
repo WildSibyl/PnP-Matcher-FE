@@ -4,12 +4,14 @@ import dislike from "../../assets/dislike_icon.svg";
 import PlayerCard from "../cards/PlayerCard";
 import { useTagContext } from "../../context/TagsContextProvider";
 import { useState } from "react";
+import RollForGroup from "../group-comp/RollForGroup";
 
 const Part2Right = ({
   isEditing,
   editedGroup,
   setEditedGroup,
   groupDetails,
+  isAuthor,
   activeTab,
   setActiveTab,
 }) => {
@@ -247,7 +249,7 @@ const Part2Right = ({
           </>
         )}
         {activeTab === "members" && (
-          <div className="pt-4 flex flex-col justify-start items-start">
+          <div className="pt-4 flex flex-col justify-center items-center">
             {groupDetails?.author && (
               <PlayerCard details={groupDetails?.author} />
             )}
@@ -255,6 +257,9 @@ const Part2Right = ({
             {groupDetails?.members?.map((e) => (
               <PlayerCard key={e._id} details={e} />
             ))}
+            {isAuthor && groupDetails?.members?.length < 2 ? (
+              <RollForGroup />
+            ) : null}
           </div>
         )}
       </div>

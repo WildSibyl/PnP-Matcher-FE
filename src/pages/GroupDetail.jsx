@@ -163,6 +163,7 @@ const GroupDetail = () => {
               editedGroup={editedGroup}
               setEditedGroup={setEditedGroup}
               groupDetails={groupDetails}
+              isAuthor={isAuthor}
               activeTab={activeTab}
               setActiveTab={setActiveTab}
             />

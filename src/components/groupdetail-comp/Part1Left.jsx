@@ -340,7 +340,7 @@ const Part1Left = ({
               <div className="flex items-center justify-center w-full gap-4">
                 <button
                   onClick={openChat}
-                  className="btn-primary-dark w-auto gap-2 flex"
+                  className="btn-primary-dark w-auto gap-2 flex mt-4"
                 >
                   <img src={send_icon} alt="send icon" />
                   Send DM
