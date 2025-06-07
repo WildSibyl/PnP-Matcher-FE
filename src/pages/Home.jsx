@@ -20,7 +20,7 @@ const Home = () => {
               <img
                 src={dragonImage}
                 alt="an image of a battle between heroes and dragons"
-                className="w-full sm:h-auto object-cover"
+                className="w-full sm:h-auto object-cover zoom-animation"
               />
 
               {/* Gradient overlays */}

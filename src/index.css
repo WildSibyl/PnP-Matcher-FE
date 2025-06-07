@@ -221,6 +221,55 @@
       transform: translateY(0);
     }
   }
+
+  @keyframes moveLeftToRight {
+    0% {
+      transform: translateX(-200px);
+    }
+    50% {
+      transform: translateX(200px);
+    }
+    100% {
+      transform: translateX(-200px);
+    }
+  }
+
+  @keyframes moveRightToLeft {
+    0% {
+      transform: translateX(200px);
+    }
+    50% {
+      transform: translateX(-200px);
+    }
+    100% {
+      transform: translateX(200px);
+    }
+  }
+
+  @keyframes zoomInOut {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  /* ANIMATION FOR HOMEPAGE */
+  .move-left-to-right {
+    animation: moveLeftToRight 200s ease-in-out infinite;
+  }
+
+  .move-right-to-left {
+    animation: moveRightToLeft 200s ease-in-out infinite;
+  }
+
+  .zoom-animation {
+    animation: zoomInOut 20s ease-in-out infinite;
+    transform-origin: center center;
+  }
+
   /* LOADING ANIMATION END */
 
   @media (max-width: 1250px) {
