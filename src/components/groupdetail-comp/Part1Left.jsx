@@ -87,7 +87,7 @@ const Part1Left = ({
                       placeholder="Your group name"
                     />
                   </div>
-                  <div className="self-center -mt-3">
+                  <div className="self-center -translate-y-4.5">
                     <AiTextSuggest
                       onChange={onChange}
                       prompt="very short pen&paper group name"
@@ -115,7 +115,7 @@ const Part1Left = ({
                       placeholder="A short tagline for your group"
                     />
                   </div>
-                  <div className="self-center -mt-3">
+                  <div className="self-center -translate-y-4.5">
                     {" "}
                     <AiTextSuggest
                       onChange={onChange}
@@ -126,7 +126,7 @@ const Part1Left = ({
                 </div>
               </>
             ) : (
-              <small className="mt-2">{editedGroup.tagline}</small>
+              <small className="mt-2 mb-4">{editedGroup.tagline}</small>
             )}
 
             {/* Groupcount, experience and Playing modes */}
@@ -178,7 +178,7 @@ const Part1Left = ({
                         ))}
                       </select>
                     </div>
-                    <div className="self-center -mt-3">
+                    <div className="self-center -translate-y-2">
                       <TakeOverValues onChange={onChange} name={"experience"} />
                     </div>
                   </div>
@@ -189,7 +189,7 @@ const Part1Left = ({
                     category="playingModes"
                     value={editedGroup.playingModes}
                     onChange={(selected) =>
-                      setEditedGroupForm({
+                      setEditedGroup({
                         ...editedGroup,
                         playingModes: selected?.id,
                       })
@@ -247,7 +247,7 @@ const Part1Left = ({
                         maxLength={100}
                       />
                     </div>
-                    <div className="self-center -mt-3">
+                    <div className="self-center -translate-y-4.5">
                       <TakeOverValues name={"address"} onChange={onChange} />
                     </div>
                   </div>
@@ -312,7 +312,7 @@ const Part1Left = ({
                     weekdays={editedGroup.weekdays || []}
                     onChange={(updatedDays) => {
                       if (!isEditing) return;
-                      setEditedGroupForm((prev) => ({
+                      setEditedGroup((prev) => ({
                         ...prev,
                         weekdays: updatedDays,
                       }));
@@ -331,7 +331,7 @@ const Part1Left = ({
                       className="input w-[70px]"
                       value={editedGroup.frequencyPerMonth || ""}
                       onChange={(e) =>
-                        setEditedGroupForm({
+                        setEditedGroup({
                           ...editedGroup,
                           frequencyPerMonth: e.target.value,
                         })
@@ -376,17 +376,16 @@ const Part1Left = ({
                 {isEditing ? null : (
                   <>
                     <button
+                      onClick={() => setIsEditing(true)}
+                      className="btn-primary-light"
+                    >
+                      Edit Group
+                    </button>
+                    <button
                       className="btn-primary-dark"
                       onClick={openInviteModal}
                     >
                       Add Players
-                    </button>
-
-                    <button
-                      onClick={() => setIsEditing(true)}
-                      className="btn-primary-dark"
-                    >
-                      Edit Group
                     </button>
                   </>
                 )}

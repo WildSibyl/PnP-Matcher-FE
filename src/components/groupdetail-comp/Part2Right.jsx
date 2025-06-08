@@ -77,7 +77,7 @@ const Part2Right = ({
                     maxLength={500}
                   />
                 </div>
-                <div className="self-center -mt-3">
+                <div className="self-center -translate-y-4.5">
                   {" "}
                   <AiTextSuggest
                     onChange={onChange}
@@ -119,7 +119,7 @@ const Part2Right = ({
                       }
                     />
                   </div>
-                  <div className="self-start mt-4">
+                  <div className="self-start -translate-y-0.5">
                     <TakeOverValues onChange={onChange} name={"languages"} />
                   </div>
                 </div>
@@ -186,7 +186,7 @@ const Part2Right = ({
                       name="systems"
                       placeholder="Select preferences"
                       onChange={(values) =>
-                        setGroupForm((prev) => ({
+                        setEditedGroup((prev) => ({
                           ...prev,
                           systems: values.map((s) => s),
                         }))
@@ -194,18 +194,20 @@ const Part2Right = ({
                       value={editedGroup.systems}
                     />
                   </div>
-                  <div className="self-start mt-4">
+                  <div className="self-start -translate-y-0.5">
                     <TakeOverValues onChange={onChange} name={"systems"} />
                   </div>
                 </div>
               ) : (
                 <div className="flex flex-wrap gap-2 mt-2">
                   {(editedGroup.systems || []).map((system) => {
+                    const systemId =
+                      typeof system === "string" ? system : system._id;
                     const systemOption = systemsOptions?.find(
-                      (opt) => opt._id === system
+                      (opt) => opt._id === systemId
                     );
                     return systemOption ? (
-                      <div className="pnp-badge-black" key={system}>
+                      <div className="pnp-badge-black" key={systemId}>
                         {systemOption.label}
                       </div>
                     ) : null;
@@ -214,43 +216,55 @@ const Part2Right = ({
               )}
             </div>
 
-            <h3 className="font-semibold text-sm text-gray-700 mt-4 flex gap-2">
-              LIKES <img src={like} alt="like" className="w-5 h-5" />
-            </h3>
             {isEditing ? (
-              <TagMultiSelect
-                category="likes"
-                value={editedGroup.likes || []}
-                onChange={(values) =>
-                  setEditedGroup({
-                    ...editedGroup,
-                    likes: values.map((v) => v.id),
-                  })
-                }
-              />
+              <>
+                <h3 className="font-semibold text-sm text-gray-700 mt-4 flex gap-2">
+                  LIKES{" "}
+                  <img
+                    src={like}
+                    alt="like"
+                    className="w-5 h-5 -translate-y-1"
+                  />
+                </h3>
+                <TagMultiSelect
+                  category="likes"
+                  value={editedGroup.likes || []}
+                  onChange={(values) =>
+                    setEditedGroup({
+                      ...editedGroup,
+                      likes: values.map((v) => v.id),
+                    })
+                  }
+                />
+              </>
             ) : (
-              <div className="flex flex-wrap gap-2 mt-2">
-                {editedGroup.likes?.length > 0 ? (
-                  editedGroup.likes.map((d) => {
-                    const likeOption = likesOptions?.find(
-                      (opt) => opt._id === d
-                    );
-                    return (
-                      likeOption && (
-                        <div key={d} className="pnp-badge-white">
-                          {likeOption.label}
-                        </div>
-                      )
-                    );
-                  })
-                ) : (
-                  <div className="pnp-badge-white">None specified</div>
-                )}
-              </div>
+              <>
+                <h3 className="font-semibold text-sm text-gray-700 mt-4 flex gap-2">
+                  LIKES <img src={like} alt="like" className="w-5 h-5" />
+                </h3>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {editedGroup.likes?.length > 0 ? (
+                    editedGroup.likes.map((d) => {
+                      const likeOption = likesOptions?.find(
+                        (opt) => opt._id === d
+                      );
+                      return (
+                        likeOption && (
+                          <div key={d} className="pnp-badge-white">
+                            {likeOption.label}
+                          </div>
+                        )
+                      );
+                    })
+                  ) : (
+                    <div className="pnp-badge-white">None specified</div>
+                  )}
+                </div>
+              </>
             )}
 
             <h3 className="font-semibold text-sm text-gray-700 mt-4 flex gap-2">
-              DISLIKES <img src={dislike} alt="dislike" className="w-5 h-5" />
+              DISLIKES <img src={dislike} alt="dislike" className="w-[17px]" />
             </h3>
             {isEditing ? (
               <TagMultiSelect

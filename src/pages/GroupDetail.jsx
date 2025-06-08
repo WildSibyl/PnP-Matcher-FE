@@ -1,12 +1,19 @@
 import { useAuth } from "../hooks/useAuth";
 import { useParams, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
-import { getSingleGroup, updateGroup, postGroupImage } from "../data/groups";
+import {
+  getSingleGroup,
+  updateGroup,
+  postGroupImage,
+  deleteGroup,
+} from "../data/groups";
 import Loader from "../components/Loader";
 import { useInviteModal } from "../context/InviteModalContextProvider";
 import ChatModal from "../components/chat-comp/ChatModal";
 import Part1Left from "../components/groupdetail-comp/Part1Left";
 import Part2Right from "../components/groupdetail-comp/Part2Right";
+import GroupDeleteModal from "../components/groupdetail-comp/GroupDeleteModal";
+import { toast } from "react-toastify";
 
 const GroupDetail = () => {
   const { user } = useAuth();
@@ -26,6 +33,9 @@ const GroupDetail = () => {
   const [selectedChatId, setSelectedChatId] = useState(null);
   const chatUsername = groupDetails?.author?.userName || "Unknown User";
 
+  // Delete modal states
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const { openInviteModal } = useInviteModal();
 
   const openChat = (receiverId) => {
@@ -43,8 +53,9 @@ const GroupDetail = () => {
       try {
         setLoading(true);
         const data = await getSingleGroup(id);
+        console.log("Fetched group data:", data);
         setGroupDetails(data);
-        setEditedGroupForm({
+        const groupForm = {
           ...data,
           image: data.image || "",
           address: data.address || {
@@ -53,14 +64,17 @@ const GroupDetail = () => {
             postalCode: "",
             city: "",
           },
-          experience: data.experience || "",
-          systems: data.systems || [],
+          playingModes: data.playingModes || null,
+          experience: data.experience?._id || "", // normalizing fetched data
+          systems: data.systems?.map((s) => s._id) || [], //normalizing fetched data
           weekdays: data.weekdays || [],
           languages: data.languages || [],
           playstyles: data.playstyles || [],
-          likes: data.likes || [],
-          dislikes: data.dislikes || [],
-        });
+          likes: data.likes?.map((l) => l._id) || [], //normalizing fetched data
+          dislikes: data.dislikes?.map((d) => d._id) || [], //normalizing fetched data
+        };
+        setEditedGroupForm(groupForm);
+        console.log("Initial group form:", groupForm);
       } catch (err) {
         console.error("Error fetching group:", err);
         setError("Failed to load group details.");
@@ -108,13 +122,19 @@ const GroupDetail = () => {
   const handleSave = async () => {
     if (!editedGroupForm) return;
 
+    const { location, ...addressWithoutLocation } =
+      editedGroupForm.address || {};
+
     try {
       const payload = {
-        author: editedGroupForm.author,
+        author:
+          typeof editedGroupForm.author === "string"
+            ? editedGroupForm.author
+            : editedGroupForm.author?._id,
         name: editedGroupForm.name,
         image: editedGroupForm.image,
         address: {
-          ...editedGroupForm.address,
+          ...addressWithoutLocation,
         },
         experience: editedGroupForm.experience,
         systems: editedGroupForm.systems.map((s) =>
@@ -122,17 +142,20 @@ const GroupDetail = () => {
         ),
         weekdays: editedGroupForm.weekdays,
         frequencyPerMonth: editedGroupForm.frequencyPerMonth,
-        playingModes: editedGroupForm.playingModes,
+        playingModes:
+          typeof editedGroupForm.playingModes === "string"
+            ? editedGroupForm.playingModes
+            : editedGroupForm.playingModes?._id || null,
         languages: editedGroupForm.languages.map((l) =>
           typeof l === "string" ? l : l.id
         ),
-        playstyles: editedGroupForm.playstyles.map((l) =>
+        playstyles: editedGroupForm.playstyles.map((p) =>
           typeof p === "string" ? p : p.id
         ),
         likes: editedGroupForm.likes.map((l) =>
           typeof l === "string" ? l : l.id
         ),
-        dislikes: editedGroupForm.dislikes.map((l) =>
+        dislikes: editedGroupForm.dislikes.map((d) =>
           typeof d === "string" ? d : d.id
         ),
         tagline: editedGroupForm.tagline,
@@ -140,7 +163,7 @@ const GroupDetail = () => {
         members: editedGroupForm.members,
         maxMembers: editedGroupForm.maxMembers,
       };
-
+      console.log("Saving group with payload:", payload);
       const res = await updateGroup(id, payload);
 
       setGroupDetails(res);
@@ -156,6 +179,12 @@ const GroupDetail = () => {
     setEditedGroupForm(groupDetails);
     setIsEditing(false);
     setPreviewImage(null);
+  };
+
+  const handleDeleteSuccess = () => {
+    setShowDeleteModal(false);
+    toast.success("Group deleted. More time for the next adventure!");
+    navigate("/groups");
   };
 
   const handleImageUpload = async (e) => {
@@ -222,14 +251,20 @@ const GroupDetail = () => {
 
           {isAuthor && isEditing && (
             <div className="flex gap-4 m-4 self-center">
-              <button onClick={handleSave} className="btn-primary-dark">
-                Save
+              <button
+                onClick={() => setShowDeleteModal(true)}
+                className="btn-primary-dark bg-red-700"
+              >
+                Delete
               </button>
               <button
                 onClick={handleCancel}
-                className="btn-primary-dark bg-gray-300 text-pnp-black"
+                className="btn-secondary-dark text-pnp-black"
               >
                 Cancel
+              </button>
+              <button onClick={handleSave} className="btn-primary-light px-5">
+                Save
               </button>
             </div>
           )}
@@ -242,6 +277,13 @@ const GroupDetail = () => {
         receiverId={selectedChatId}
         username={chatUsername}
       />
+      {showDeleteModal && (
+        <GroupDeleteModal
+          groupId={id}
+          onClose={() => setShowDeleteModal(false)}
+          onDelete={handleDeleteSuccess}
+        />
+      )}
     </>
   );
 };
