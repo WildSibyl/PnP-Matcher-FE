@@ -280,8 +280,22 @@ const SearchedPlayer = () => {
                     </>
                   </div>
 
-                  {/* Languages */}
+                  {/* 📚 Game Systems */}
+                  <div className="mt-4">
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      GAME SYSTEMS
+                    </h3>
 
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {details.systems.map((level) => (
+                        <div className="pnp-badge-black" key={level._id}>
+                          {level.label}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Languages */}
                   <div className="mt-4">
                     <h3 className="font-semibold text-sm text-gray-700">
                       LANGUAGES
@@ -302,21 +316,6 @@ const SearchedPlayer = () => {
                     </h3>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {details.playstyles.map((level) => (
-                        <div className="pnp-badge-black" key={level._id}>
-                          {level.label}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* 📚 Game Systems */}
-                  <div className="mt-4">
-                    <h3 className="font-semibold text-sm text-gray-700">
-                      GAME SYSTEMS
-                    </h3>
-
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {details.systems.map((level) => (
                         <div className="pnp-badge-black" key={level._id}>
                           {level.label}
                         </div>

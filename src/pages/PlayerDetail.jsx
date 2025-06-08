@@ -666,8 +666,39 @@ const PlayerDetail = () => {
                     )}
                   </div>
 
-                  {/* Languages */}
+                  {/* 📚 Game Systems */}
+                  <div className="mt-4">
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      GAME SYSTEMS
+                    </h3>
+                    {isEditing ? (
+                      <TagMultiSelect
+                        category="systems"
+                        value={editedUser.systems}
+                        onChange={(values) =>
+                          setEditedUser({
+                            ...editedUser,
+                            systems: values.map((v) => v.id),
+                          })
+                        }
+                      />
+                    ) : (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {(editedUser.systems || []).map((system) => {
+                          const systemOption = systemsOptions?.find(
+                            (opt) => opt._id === system
+                          );
+                          return systemOption ? (
+                            <div className="pnp-badge-black" key={system}>
+                              {systemOption.label}
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    )}
+                  </div>
 
+                  {/* Languages */}
                   <div className="mt-4">
                     <h3 className="font-semibold text-sm text-gray-700">
                       LANGUAGES
@@ -729,38 +760,6 @@ const PlayerDetail = () => {
                             <div className="pnp-badge-black" key={style}>
                               {getIcon(playstyleOption.label)}
                               {playstyleOption.label}
-                            </div>
-                          ) : null;
-                        })}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* 📚 Game Systems */}
-                  <div className="mt-4">
-                    <h3 className="font-semibold text-sm text-gray-700">
-                      GAME SYSTEMS
-                    </h3>
-                    {isEditing ? (
-                      <TagMultiSelect
-                        category="systems"
-                        value={editedUser.systems}
-                        onChange={(values) =>
-                          setEditedUser({
-                            ...editedUser,
-                            systems: values.map((v) => v.id),
-                          })
-                        }
-                      />
-                    ) : (
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {(editedUser.systems || []).map((system) => {
-                          const systemOption = systemsOptions?.find(
-                            (opt) => opt._id === system
-                          );
-                          return systemOption ? (
-                            <div className="pnp-badge-black" key={system}>
-                              {systemOption.label}
                             </div>
                           ) : null;
                         })}

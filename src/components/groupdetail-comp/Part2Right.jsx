@@ -75,30 +75,91 @@ const Part2Right = ({
                     value={editedGroup.description}
                     onChange={onChange}
                     maxLength={500}
+                    placeholder="Describe your group!"
                   />
                 </div>
                 <div className="self-center -translate-y-4.5">
                   {" "}
                   <AiTextSuggest
                     onChange={onChange}
-                    prompt="a nice description for your group"
+                    prompt={`A nice description for the group "${
+                      editedGroup.name
+                    }" under 500 characters, from the point of view of the group. They play ${editedGroup.systems
+                      .map((s) => s.label)
+                      .join(", ")}, prefer to play in ${editedGroup.languages
+                      .map((l) => l.label)
+                      .join(
+                        ", "
+                      )}, and enjoy the following playstyles: ${editedGroup.playstyles
+                      .map((p) => p.label)
+                      .join(", ")}. They like ${editedGroup.likes
+                      .map((l) => l.label)
+                      .join(", ")} and dislike ${editedGroup.dislikes
+                      .map((d) => d.label)
+                      .join(", ")}. The group is about: ${
+                      editedGroup.description
+                    }`}
                     name="description"
                   />
                 </div>
               </div>
             ) : (
-              <p className="text-sm text-gray-700 mt-4 whitespace-pre-wrap">
-                {`${displayedAbout}` || "...to be filled in!"}
+              <>
+                <p className="text-sm text-gray-700 mt-4 whitespace-pre-wrap">
+                  {`${displayedAbout}` || "...to be filled in!"}
+                </p>
                 {!isEditing && editedGroup.description?.length > MAX_LENGTH && (
                   <button
                     onClick={toggleAboutText}
-                    className="text-sm text-blue-600 hover:underline mt-2"
+                    className="text-sm text-pnp-darkpurple hover:underline mt-2 font-semibold"
                   >
                     {showFullAbout ? "Show less" : "Show more"}
                   </button>
                 )}
-              </p>
+              </>
             )}
+
+            <div className="mt-4">
+              <h3 className="font-semibold text-sm text-gray-700">
+                GAME SYSTEMS
+              </h3>
+              {isEditing ? (
+                <div className="flex gap-2 items-center">
+                  <div className="flex-grow relative">
+                    <TagMultiSelect
+                      category="systems"
+                      name="systems"
+                      placeholder="Select preferences"
+                      onChange={(values) =>
+                        setEditedGroup((prev) => ({
+                          ...prev,
+                          systems: values.map((s) => s),
+                        }))
+                      }
+                      value={editedGroup.systems}
+                    />
+                  </div>
+                  <div className="self-start -translate-y-0.5">
+                    <TakeOverValues onChange={onChange} name={"systems"} />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {(editedGroup.systems || []).map((system) => {
+                    const systemId =
+                      typeof system === "string" ? system : system._id;
+                    const systemOption = systemsOptions?.find(
+                      (opt) => opt._id === systemId
+                    );
+                    return systemOption ? (
+                      <div className="pnp-badge-black" key={systemId}>
+                        {systemOption.label}
+                      </div>
+                    ) : null;
+                  })}
+                </div>
+              )}
+            </div>
 
             <div className="mt-4">
               <h3 className="font-semibold text-sm text-gray-700">LANGUAGES</h3>
@@ -173,48 +234,6 @@ const Part2Right = ({
                 )}
               </div>
             )}
-
-            <div className="mt-4">
-              <h3 className="font-semibold text-sm text-gray-700">
-                GAME SYSTEMS
-              </h3>
-              {isEditing ? (
-                <div className="flex gap-2 items-center">
-                  <div className="flex-grow relative">
-                    <TagMultiSelect
-                      category="systems"
-                      name="systems"
-                      placeholder="Select preferences"
-                      onChange={(values) =>
-                        setEditedGroup((prev) => ({
-                          ...prev,
-                          systems: values.map((s) => s),
-                        }))
-                      }
-                      value={editedGroup.systems}
-                    />
-                  </div>
-                  <div className="self-start -translate-y-0.5">
-                    <TakeOverValues onChange={onChange} name={"systems"} />
-                  </div>
-                </div>
-              ) : (
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {(editedGroup.systems || []).map((system) => {
-                    const systemId =
-                      typeof system === "string" ? system : system._id;
-                    const systemOption = systemsOptions?.find(
-                      (opt) => opt._id === systemId
-                    );
-                    return systemOption ? (
-                      <div className="pnp-badge-black" key={systemId}>
-                        {systemOption.label}
-                      </div>
-                    ) : null;
-                  })}
-                </div>
-              )}
-            </div>
 
             {isEditing ? (
               <>
