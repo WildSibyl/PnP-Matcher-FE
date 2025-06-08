@@ -186,7 +186,7 @@ const Part2Right = ({
                       name="systems"
                       placeholder="Select preferences"
                       onChange={(values) =>
-                        setGroupForm((prev) => ({
+                        setEditedGroup((prev) => ({
                           ...prev,
                           systems: values.map((s) => s),
                         }))
@@ -201,11 +201,13 @@ const Part2Right = ({
               ) : (
                 <div className="flex flex-wrap gap-2 mt-2">
                   {(editedGroup.systems || []).map((system) => {
+                    const systemId =
+                      typeof system === "string" ? system : system._id;
                     const systemOption = systemsOptions?.find(
-                      (opt) => opt._id === system
+                      (opt) => opt._id === systemId
                     );
                     return systemOption ? (
-                      <div className="pnp-badge-black" key={system}>
+                      <div className="pnp-badge-black" key={systemId}>
                         {systemOption.label}
                       </div>
                     ) : null;

@@ -43,8 +43,9 @@ const GroupDetail = () => {
       try {
         setLoading(true);
         const data = await getSingleGroup(id);
+        console.log("Fetched group data:", data);
         setGroupDetails(data);
-        setEditedGroupForm({
+        const groupForm = {
           ...data,
           image: data.image || "",
           address: data.address || {
@@ -53,14 +54,16 @@ const GroupDetail = () => {
             postalCode: "",
             city: "",
           },
-          experience: data.experience || "",
-          systems: data.systems || [],
+          experience: data.experience?._id || "", // normalizing fetched data
+          systems: data.systems?.map((s) => s._id) || [], //normalizing fetched data
           weekdays: data.weekdays || [],
           languages: data.languages || [],
           playstyles: data.playstyles || [],
           likes: data.likes || [],
           dislikes: data.dislikes || [],
-        });
+        };
+        setEditedGroupForm(groupForm);
+        console.log("Initial group form:", groupForm);
       } catch (err) {
         console.error("Error fetching group:", err);
         setError("Failed to load group details.");
@@ -126,13 +129,13 @@ const GroupDetail = () => {
         languages: editedGroupForm.languages.map((l) =>
           typeof l === "string" ? l : l.id
         ),
-        playstyles: editedGroupForm.playstyles.map((l) =>
+        playstyles: editedGroupForm.playstyles.map((p) =>
           typeof p === "string" ? p : p.id
         ),
         likes: editedGroupForm.likes.map((l) =>
           typeof l === "string" ? l : l.id
         ),
-        dislikes: editedGroupForm.dislikes.map((l) =>
+        dislikes: editedGroupForm.dislikes.map((d) =>
           typeof d === "string" ? d : d.id
         ),
         tagline: editedGroupForm.tagline,
@@ -140,7 +143,7 @@ const GroupDetail = () => {
         members: editedGroupForm.members,
         maxMembers: editedGroupForm.maxMembers,
       };
-
+      console.log("Saving group with payload:", payload);
       const res = await updateGroup(id, payload);
 
       setGroupDetails(res);

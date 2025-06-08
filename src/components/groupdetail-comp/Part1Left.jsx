@@ -189,7 +189,7 @@ const Part1Left = ({
                     category="playingModes"
                     value={editedGroup.playingModes}
                     onChange={(selected) =>
-                      setEditedGroupForm({
+                      setEditedGroup({
                         ...editedGroup,
                         playingModes: selected?.id,
                       })
@@ -312,7 +312,7 @@ const Part1Left = ({
                     weekdays={editedGroup.weekdays || []}
                     onChange={(updatedDays) => {
                       if (!isEditing) return;
-                      setEditedGroupForm((prev) => ({
+                      setEditedGroup((prev) => ({
                         ...prev,
                         weekdays: updatedDays,
                       }));
@@ -331,7 +331,7 @@ const Part1Left = ({
                       className="input w-[70px]"
                       value={editedGroup.frequencyPerMonth || ""}
                       onChange={(e) =>
-                        setEditedGroupForm({
+                        setEditedGroup({
                           ...editedGroup,
                           frequencyPerMonth: e.target.value,
                         })
