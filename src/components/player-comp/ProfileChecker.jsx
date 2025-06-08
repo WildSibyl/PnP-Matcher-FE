@@ -51,10 +51,10 @@ const ProfileChecker = ({ user }) => {
   if (perc >= 100) return;
 
   return (
-    <div className="flex flex-col mx-auto w-[100%] min-w-[350px] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl mb-4">
+    <div className="flex flex-col mx-auto w-[100%] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl mb-4">
       <div className="flex">
         <div>
-          <h2 className="text-pnp-white pt-4 px-4 lg:text-2xl">
+          <h2 className="text-pnp-white pt-4 px-4 md:text-2xl">
             Profile is{" "}
             <span className="font-extrabold text-[#FCFC3B]"> {perc}% </span>{" "}
             completed
