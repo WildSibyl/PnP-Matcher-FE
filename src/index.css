@@ -105,11 +105,11 @@
   }
 
   .btn-secondary-light {
-    @apply flex items-center gap-2 justify-center px-[16px] bg-none box-border text-pnp-white text-base border-[2px] translate-y-[2px] font-extrabold h-[54px] xl:h-[44px]  rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
+    @apply flex items-center gap-2 justify-center px-[16px] bg-none box-border text-pnp-white text-base border-[2px] font-extrabold h-[54px] xl:h-[44px]  rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
   }
 
   .btn-secondary-dark {
-    @apply flex items-center gap-2 justify-center px-[16px] bg-none box-border text-pnp-black text-base border-[2px] translate-y-[2px] font-extrabold h-[54px] xl:h-[44px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
+    @apply flex items-center gap-2 justify-center px-[16px] bg-none box-border text-pnp-black text-base border-[2px] font-extrabold h-[54px] xl:h-[44px] rounded-[7px] cursor-pointer pnp-shadow hover:scale-98  ease-in-out duration-200 m-1;
   }
 
   .btn-navi {

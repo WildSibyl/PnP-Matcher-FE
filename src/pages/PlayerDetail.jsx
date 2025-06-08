@@ -870,14 +870,14 @@ const PlayerDetail = () => {
           {isEditing ? (
             // Edit mode: Save and Cancel buttons in the same row
             <div className="flex w-full gap-4 m-4">
-              <button onClick={handleSave} className="btn-primary-dark">
-                Save
-              </button>
               <button
                 onClick={handleCancel}
-                className="btn-primary-dark bg-gray-300 text-pnp-black hover:bg-gray-400"
+                className="btn-secondary-dark text-pnp-black"
               >
                 Cancel
+              </button>
+              <button onClick={handleSave} className="btn-primary-dark">
+                Save
               </button>
             </div>
           ) : null}

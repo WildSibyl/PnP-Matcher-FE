@@ -104,7 +104,7 @@ export const TeleportContextProvider = ({ children }) => {
                       Cancel
                     </button>
                     <button
-                      className="btn-primary-light px-5 mt-1.5"
+                      className="btn-primary-light px-5"
                       onClick={handleConfirm}
                     >
                       Log In

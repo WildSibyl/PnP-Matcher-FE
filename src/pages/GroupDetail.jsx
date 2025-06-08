@@ -1,12 +1,19 @@
 import { useAuth } from "../hooks/useAuth";
 import { useParams, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
-import { getSingleGroup, updateGroup, postGroupImage } from "../data/groups";
+import {
+  getSingleGroup,
+  updateGroup,
+  postGroupImage,
+  deleteGroup,
+} from "../data/groups";
 import Loader from "../components/Loader";
 import { useInviteModal } from "../context/InviteModalContextProvider";
 import ChatModal from "../components/chat-comp/ChatModal";
 import Part1Left from "../components/groupdetail-comp/Part1Left";
 import Part2Right from "../components/groupdetail-comp/Part2Right";
+import GroupDeleteModal from "../components/groupdetail-comp/GroupDeleteModal";
+import { toast } from "react-toastify";
 
 const GroupDetail = () => {
   const { user } = useAuth();
@@ -25,6 +32,9 @@ const GroupDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState(null);
   const chatUsername = groupDetails?.author?.userName || "Unknown User";
+
+  // Delete modal states
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { openInviteModal } = useInviteModal();
 
@@ -171,6 +181,12 @@ const GroupDetail = () => {
     setPreviewImage(null);
   };
 
+  const handleDeleteSuccess = () => {
+    setShowDeleteModal(false);
+    toast.success("Group deleted. More time for the next adventure!");
+    navigate("/groups");
+  };
+
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -235,14 +251,20 @@ const GroupDetail = () => {
 
           {isAuthor && isEditing && (
             <div className="flex gap-4 m-4 self-center">
-              <button onClick={handleSave} className="btn-primary-dark">
-                Save
+              <button
+                onClick={() => setShowDeleteModal(true)}
+                className="btn-primary-dark bg-red-700"
+              >
+                Delete
               </button>
               <button
                 onClick={handleCancel}
-                className="btn-primary-dark bg-gray-300 text-pnp-black"
+                className="btn-secondary-dark text-pnp-black"
               >
                 Cancel
+              </button>
+              <button onClick={handleSave} className="btn-primary-dark">
+                Save
               </button>
             </div>
           )}
@@ -255,6 +277,13 @@ const GroupDetail = () => {
         receiverId={selectedChatId}
         username={chatUsername}
       />
+      {showDeleteModal && (
+        <GroupDeleteModal
+          groupId={id}
+          onClose={() => setShowDeleteModal(false)}
+          onDelete={handleDeleteSuccess}
+        />
+      )}
     </>
   );
 };
