@@ -263,7 +263,7 @@ const GroupDetail = () => {
               >
                 Cancel
               </button>
-              <button onClick={handleSave} className="btn-primary-dark">
+              <button onClick={handleSave} className="btn-primary-light px-5">
                 Save
               </button>
             </div>

@@ -593,7 +593,7 @@ const PlayerDetail = () => {
                     <div className="flex gap-4 justify-center lg:justify-start">
                       <button
                         onClick={() => setIsEditing(true)}
-                        className="btn-primary-dark w-auto gap-2 flex"
+                        className="btn-primary-light w-auto gap-2 flex"
                       >
                         Edit Profile
                       </button>
@@ -876,7 +876,7 @@ const PlayerDetail = () => {
               >
                 Cancel
               </button>
-              <button onClick={handleSave} className="btn-primary-dark">
+              <button onClick={handleSave} className="btn-primary-light px-5">
                 Save
               </button>
             </div>

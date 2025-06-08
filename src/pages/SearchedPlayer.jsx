@@ -213,7 +213,7 @@ const SearchedPlayer = () => {
                   <div className="flex gap-4">
                     <button
                       onClick={() => openChat(details._id)}
-                      className="btn-primary-dark w-auto gap-2 flex"
+                      className="btn-primary-light w-auto gap-2 flex"
                     >
                       <img src={send_icon} alt="send icon" />
                       Send DM

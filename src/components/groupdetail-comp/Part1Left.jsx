@@ -376,17 +376,16 @@ const Part1Left = ({
                 {isEditing ? null : (
                   <>
                     <button
+                      onClick={() => setIsEditing(true)}
+                      className="btn-primary-light"
+                    >
+                      Edit Group
+                    </button>
+                    <button
                       className="btn-primary-dark"
                       onClick={openInviteModal}
                     >
                       Add Players
-                    </button>
-
-                    <button
-                      onClick={() => setIsEditing(true)}
-                      className="btn-primary-dark"
-                    >
-                      Edit Group
                     </button>
                   </>
                 )}
