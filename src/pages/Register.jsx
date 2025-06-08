@@ -9,6 +9,7 @@ import Step2AgeAndLocation from "../components/register-comp/Step2AgeAndLocation
 import Step3ExperienceAndSystem from "../components/register-comp/Step3ExperienceAndSystem";
 import Step4Schedule from "../components/register-comp/Step4Schedule";
 import ProgressBar from "../components/register-comp/ProgressBar";
+import { useWelcomeModal } from "../context/WelcomeModalContextProvider";
 
 const Register = () => {
   const [regForm, setRegForm] = useState({
@@ -43,6 +44,7 @@ const Register = () => {
 
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { openWelcomeModal } = useWelcomeModal();
 
   if (user) return <Navigate to="/" />;
 
@@ -184,6 +186,7 @@ const Register = () => {
 
       await signUp(payload);
       toast.success("One of us! You can now log in!");
+      openWelcomeModal();
       navigate("/login");
     } catch (error) {
       toast.error(error.message);
