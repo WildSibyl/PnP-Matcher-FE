@@ -27,6 +27,7 @@ const Error = lazy(() => import("./pages/Error"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const PlayerDetail = lazy(() => import("./pages/PlayerDetail"));
 const SearchedPlayer = lazy(() => import("./pages/SearchedPlayer"));
+import WelcomeModal from "./components/register-comp/WelcomeModal";
 
 const Test = lazy(() => import("./pages/Test"));
 
