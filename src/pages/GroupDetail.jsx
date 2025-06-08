@@ -54,6 +54,7 @@ const GroupDetail = () => {
             postalCode: "",
             city: "",
           },
+          playingModes: data.playingModes || null,
           experience: data.experience?._id || "", // normalizing fetched data
           systems: data.systems?.map((s) => s._id) || [], //normalizing fetched data
           weekdays: data.weekdays || [],
@@ -111,13 +112,19 @@ const GroupDetail = () => {
   const handleSave = async () => {
     if (!editedGroupForm) return;
 
+    const { location, ...addressWithoutLocation } =
+      editedGroupForm.address || {};
+
     try {
       const payload = {
-        author: editedGroupForm.author,
+        author:
+          typeof editedGroupForm.author === "string"
+            ? editedGroupForm.author
+            : editedGroupForm.author?._id,
         name: editedGroupForm.name,
         image: editedGroupForm.image,
         address: {
-          ...editedGroupForm.address,
+          ...addressWithoutLocation,
         },
         experience: editedGroupForm.experience,
         systems: editedGroupForm.systems.map((s) =>
@@ -125,7 +132,10 @@ const GroupDetail = () => {
         ),
         weekdays: editedGroupForm.weekdays,
         frequencyPerMonth: editedGroupForm.frequencyPerMonth,
-        playingModes: editedGroupForm.playingModes,
+        playingModes:
+          typeof editedGroupForm.playingModes === "string"
+            ? editedGroupForm.playingModes
+            : editedGroupForm.playingModes?._id || null,
         languages: editedGroupForm.languages.map((l) =>
           typeof l === "string" ? l : l.id
         ),
