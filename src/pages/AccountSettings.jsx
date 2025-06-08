@@ -149,7 +149,7 @@ const AccountSettings = () => {
             <p>{maskEmail(emailForm.email)}</p>
             <button
               onClick={() => setIsEditingEmail(true)}
-              className="text-pnp-darkpurple font-semibold"
+              className="btn-primary-light px-5"
             >
               Edit
             </button>
@@ -185,16 +185,16 @@ const AccountSettings = () => {
             />
             <div className="flex gap-4 mt-4">
               <button
-                onClick={handleUpdateEmail}
-                className="bg-pnp-darkpurple text-pnp-white px-4 py-2 rounded-xl"
-              >
-                Save
-              </button>
-              <button
                 onClick={handleCancelEmail}
-                className="text-gray-500 font-medium"
+                className="btn-secondary-dark"
               >
                 Cancel
+              </button>
+              <button
+                onClick={handleUpdateEmail}
+                className="btn-primary-light px-5"
+              >
+                Save
               </button>
             </div>
           </>
@@ -209,7 +209,7 @@ const AccountSettings = () => {
             <p>•••••••••••••••</p>
             <button
               onClick={() => setIsEditingPassword(true)}
-              className="text-pnp-darkpurple font-semibold"
+              className="btn-primary-light px-5"
             >
               Edit
             </button>
@@ -245,16 +245,16 @@ const AccountSettings = () => {
             />
             <div className="flex gap-4 mt-4">
               <button
-                onClick={handleUpdatePassword}
-                className="bg-pnp-darkpurple text-pnp-white px-4 py-2 rounded-xl"
-              >
-                Save
-              </button>
-              <button
                 onClick={handleCancelPassword}
-                className="text-gray-500 font-medium"
+                className="btn-secondary-dark"
               >
                 Cancel
+              </button>
+              <button
+                onClick={handleUpdatePassword}
+                className="btn-primary-light px-5"
+              >
+                Save
               </button>
             </div>
           </>
@@ -274,7 +274,7 @@ const AccountSettings = () => {
             <p className="text-red-700">Permanently remove your account</p>
             <button
               onClick={() => setIsDeletingAccount(true)}
-              className="text-red-700 font-semibold"
+              className="btn-primary-dark bg-red-700 px-5"
             >
               Delete
             </button>
@@ -305,16 +305,16 @@ const AccountSettings = () => {
             </p>
             <div className="flex gap-4 mt-4">
               <button
-                onClick={handleDeleteAccount}
-                className="bg-red-600 text-pnp-white px-4 py-2 rounded-xl"
-              >
-                Confirm Account Deletion
-              </button>
-              <button
                 onClick={handleCancelDelete}
-                className="text-gray-500 font-medium"
+                className="btn-secondary-dark"
               >
                 Cancel
+              </button>
+              <button
+                onClick={handleDeleteAccount}
+                className="btn-primary-dark bg-red-700 px-5"
+              >
+                Confirm Account Deletion
               </button>
             </div>
           </>
