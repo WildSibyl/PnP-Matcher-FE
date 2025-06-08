@@ -77,7 +77,7 @@ const Part1Left = ({
                 <h3 className="font-semibold text-sm text-gray-700">
                   GROUP NAME
                 </h3>
-                <div className="flex gap-2 items-center w-[320px]">
+                <div className="flex gap-2 items-center w-[340px]">
                   <div className="flex-grow relative">
                     <GroupnameInput
                       name="name"
@@ -105,7 +105,7 @@ const Part1Left = ({
                 <h3 className="font-semibold text-sm text-gray-700 mt-4">
                   TAGLINE
                 </h3>
-                <div className="flex gap-2 items-center w-[320px]">
+                <div className="flex gap-2 items-center w-[340px]">
                   <div className="flex-grow relative">
                     <CharCountInput
                       name="tagline"
@@ -132,7 +132,7 @@ const Part1Left = ({
             {/* Groupcount, experience and Playing modes */}
             <div>
               {isEditing ? (
-                <div className="w-[320px]">
+                <div className="w-[340px]">
                   <div className="flex flex-row justify-between">
                     <h3 className="font-semibold text-sm text-gray-700">
                       MAX MEMBERS
@@ -328,7 +328,7 @@ const Part1Left = ({
                       type="number"
                       min="1"
                       max="31"
-                      className="input w-[70px]"
+                      className="input-bordered mb-0 w-[70px]"
                       value={editedGroup.frequencyPerMonth || ""}
                       onChange={(e) =>
                         setEditedGroup({
