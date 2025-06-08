@@ -183,13 +183,12 @@ const SearchedPlayer = () => {
                   </div>
                 </div>
 
-                <div className="mt-4">
+                <div className="flex flex-row items-center text-center gap-2 mt-4">
                   <h3 className="font-semibold text-sm text-gray-700">
-                    Frequency
+                    AVAILABILITY
                   </h3>
-
-                  <p className="text-sm text-gray-700 mt-2">
-                    {details.frequencyPerMonth || "Not set"}
+                  <p className="text-sm text-gray-700 font-semibold">
+                    {details.frequencyPerMonth}x per month
                   </p>
                 </div>
                 <div className="mt-4">
