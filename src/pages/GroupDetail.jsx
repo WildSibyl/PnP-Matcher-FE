@@ -60,8 +60,8 @@ const GroupDetail = () => {
           weekdays: data.weekdays || [],
           languages: data.languages || [],
           playstyles: data.playstyles || [],
-          likes: data.likes || [],
-          dislikes: data.dislikes || [],
+          likes: data.likes?.map((l) => l._id) || [], //normalizing fetched data
+          dislikes: data.dislikes?.map((d) => d._id) || [], //normalizing fetched data
         };
         setEditedGroupForm(groupForm);
         console.log("Initial group form:", groupForm);

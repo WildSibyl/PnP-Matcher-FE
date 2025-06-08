@@ -216,43 +216,55 @@ const Part2Right = ({
               )}
             </div>
 
-            <h3 className="font-semibold text-sm text-gray-700 mt-4 flex gap-2">
-              LIKES <img src={like} alt="like" className="w-5 h-5" />
-            </h3>
             {isEditing ? (
-              <TagMultiSelect
-                category="likes"
-                value={editedGroup.likes || []}
-                onChange={(values) =>
-                  setEditedGroup({
-                    ...editedGroup,
-                    likes: values.map((v) => v.id),
-                  })
-                }
-              />
+              <>
+                <h3 className="font-semibold text-sm text-gray-700 mt-4 flex gap-2">
+                  LIKES{" "}
+                  <img
+                    src={like}
+                    alt="like"
+                    className="w-5 h-5 -translate-y-1"
+                  />
+                </h3>
+                <TagMultiSelect
+                  category="likes"
+                  value={editedGroup.likes || []}
+                  onChange={(values) =>
+                    setEditedGroup({
+                      ...editedGroup,
+                      likes: values.map((v) => v.id),
+                    })
+                  }
+                />
+              </>
             ) : (
-              <div className="flex flex-wrap gap-2 mt-2">
-                {editedGroup.likes?.length > 0 ? (
-                  editedGroup.likes.map((d) => {
-                    const likeOption = likesOptions?.find(
-                      (opt) => opt._id === d
-                    );
-                    return (
-                      likeOption && (
-                        <div key={d} className="pnp-badge-white">
-                          {likeOption.label}
-                        </div>
-                      )
-                    );
-                  })
-                ) : (
-                  <div className="pnp-badge-white">None specified</div>
-                )}
-              </div>
+              <>
+                <h3 className="font-semibold text-sm text-gray-700 mt-4 flex gap-2">
+                  LIKES <img src={like} alt="like" className="w-5 h-5" />
+                </h3>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {editedGroup.likes?.length > 0 ? (
+                    editedGroup.likes.map((d) => {
+                      const likeOption = likesOptions?.find(
+                        (opt) => opt._id === d
+                      );
+                      return (
+                        likeOption && (
+                          <div key={d} className="pnp-badge-white">
+                            {likeOption.label}
+                          </div>
+                        )
+                      );
+                    })
+                  ) : (
+                    <div className="pnp-badge-white">None specified</div>
+                  )}
+                </div>
+              </>
             )}
 
             <h3 className="font-semibold text-sm text-gray-700 mt-4 flex gap-2">
-              DISLIKES <img src={dislike} alt="dislike" className="w-5 h-5" />
+              DISLIKES <img src={dislike} alt="dislike" className="w-[17px]" />
             </h3>
             {isEditing ? (
               <TagMultiSelect

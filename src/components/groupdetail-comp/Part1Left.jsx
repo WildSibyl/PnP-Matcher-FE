@@ -126,7 +126,7 @@ const Part1Left = ({
                 </div>
               </>
             ) : (
-              <small className="mt-2">{editedGroup.tagline}</small>
+              <small className="mt-2 mb-4">{editedGroup.tagline}</small>
             )}
 
             {/* Groupcount, experience and Playing modes */}

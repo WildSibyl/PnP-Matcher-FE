@@ -353,7 +353,7 @@ const SearchedPlayer = () => {
                       <img
                         src={dislike}
                         alt="dislike icon"
-                        className="w-5 h-5 "
+                        className="w-[17px]"
                       />
                     </div>
 
