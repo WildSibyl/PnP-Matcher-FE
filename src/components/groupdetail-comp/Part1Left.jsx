@@ -87,7 +87,7 @@ const Part1Left = ({
                       placeholder="Your group name"
                     />
                   </div>
-                  <div className="self-center -mt-3">
+                  <div className="self-center -translate-y-4.5">
                     <AiTextSuggest
                       onChange={onChange}
                       prompt="very short pen&paper group name"
@@ -115,7 +115,7 @@ const Part1Left = ({
                       placeholder="A short tagline for your group"
                     />
                   </div>
-                  <div className="self-center -mt-3">
+                  <div className="self-center -translate-y-4.5">
                     {" "}
                     <AiTextSuggest
                       onChange={onChange}
@@ -178,7 +178,7 @@ const Part1Left = ({
                         ))}
                       </select>
                     </div>
-                    <div className="self-center -mt-3">
+                    <div className="self-center -translate-y-2">
                       <TakeOverValues onChange={onChange} name={"experience"} />
                     </div>
                   </div>
@@ -247,7 +247,7 @@ const Part1Left = ({
                         maxLength={100}
                       />
                     </div>
-                    <div className="self-center -mt-3">
+                    <div className="self-center -translate-y-4.5">
                       <TakeOverValues name={"address"} onChange={onChange} />
                     </div>
                   </div>

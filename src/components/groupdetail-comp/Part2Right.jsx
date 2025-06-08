@@ -77,7 +77,7 @@ const Part2Right = ({
                     maxLength={500}
                   />
                 </div>
-                <div className="self-center -mt-3">
+                <div className="self-center -translate-y-4.5">
                   {" "}
                   <AiTextSuggest
                     onChange={onChange}
@@ -119,7 +119,7 @@ const Part2Right = ({
                       }
                     />
                   </div>
-                  <div className="self-start mt-4">
+                  <div className="self-start -translate-y-0.5">
                     <TakeOverValues onChange={onChange} name={"languages"} />
                   </div>
                 </div>
@@ -194,7 +194,7 @@ const Part2Right = ({
                       value={editedGroup.systems}
                     />
                   </div>
-                  <div className="self-start mt-4">
+                  <div className="self-start -translate-y-0.5">
                     <TakeOverValues onChange={onChange} name={"systems"} />
                   </div>
                 </div>
