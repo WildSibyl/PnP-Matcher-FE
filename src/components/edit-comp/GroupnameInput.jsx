@@ -10,6 +10,7 @@ const GroupnameInput = ({
   label,
   helperText,
   validation,
+  previousName,
 }) => {
   const [isGroupnameAvailable, setIsGroupnameAvailable] = useState(null);
   const [checkingGroupname, setCheckingGroupname] = useState(false);
@@ -59,7 +60,9 @@ const GroupnameInput = ({
     <p className="text-xs text-red-500">{validationError}</p>
   ) : checkingGroupname ? (
     <p className="text-xs text-gray-400">Checking availability...</p>
-  ) : isGroupnameAvailable === false ? (
+  ) : isGroupnameAvailable === false && previousName === value ? (
+    <p className="text-xs text-transparent">no changes</p>
+  ) : isGroupnameAvailable === false && previousName !== value ? (
     <p className="text-xs text-red-500">Groupname is taken</p>
   ) : isGroupnameAvailable === true ? (
     <p className="text-xs text-green-500">Groupname is available!</p>

@@ -81,6 +81,7 @@ const Part1Left = ({
                   <div className="flex-grow relative">
                     <GroupnameInput
                       name="name"
+                      previousName={groupDetails.name}
                       value={editedGroup.name}
                       onChange={onChange}
                       maxLength={50}
