@@ -69,7 +69,7 @@ const PlayerCard = ({ details }) => {
         </div>
 
         {/* PLAYER OPTIONS */}
-        <div className="flex flex-wrap pb-3 ">
+        <div className="flex flex-wrap gap-1 pb-3 ">
           {details.playingRoles && (
             <div className="pnp-badge-green">
               {getIcon("Dice")} {details.playingRoles?.value}
