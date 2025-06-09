@@ -69,7 +69,7 @@ const GroupDetail = () => {
           systems: data.systems?.map((s) => s._id) || [], //normalizing fetched data
           weekdays: data.weekdays || [],
           languages: data.languages || [],
-          playstyles: data.playstyles || [],
+          playstyles: data.playstyles?.map((p) => p._id) || [],
           likes: data.likes?.map((l) => l._id) || [], //normalizing fetched data
           dislikes: data.dislikes?.map((d) => d._id) || [], //normalizing fetched data
         };

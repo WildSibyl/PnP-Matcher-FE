@@ -20,7 +20,9 @@ const PlayerCard = ({ details }) => {
   if (!details) return <p>LOADING</p>;
 
   const handleClick = () => {
-    if (user) {
+    if (user._id === details._id) {
+      navigate("/profile");
+    } else if (user) {
       navigate(`/player/${details._id}`);
     } else {
       startTeleport("/login");

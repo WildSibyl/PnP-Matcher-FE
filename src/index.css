@@ -85,10 +85,10 @@
     @apply text-sm text-gray-600 font-medium italic;
   }
   .input-bordered {
-    @apply input-md border-2 border-pnp-black rounded-md min-h-[40px] mb-4 px-3;
+    @apply input-md border-2 border-pnp-black bg-white rounded-md min-h-[40px] mb-4 px-3; /*bg-white to make all inputs the same color of the ones we can't easily change */
   }
   .input-bordered-multi {
-    @apply input-md border-2 border-pnp-black rounded-md min-h-[40px] mb-4;
+    @apply input-md border-2 border-pnp-black bg-white rounded-md min-h-[40px] mb-4;
   }
   .tag-field {
     @apply mb-4 flex flex-wrap gap-2;

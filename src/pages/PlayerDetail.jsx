@@ -204,7 +204,7 @@ const PlayerDetail = () => {
         >
           ✕
         </button>
-        <div className=" flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row w-full">
           {/* Left Section */}
           <div className="w-full lg:w-[45%] p-6 border-b border-gray-100 lg:border-b-0 lg:border-r lg:border-gray-100">
             <div className="flex flex-col items-center text-center gap-4 xl:flex-row lg:items-start lg:text-left">
@@ -222,7 +222,7 @@ const PlayerDetail = () => {
                           alt="Avatar"
                           className="w-32 h-32 rounded-full border-4 border-pnp-white shadow-lg object-cover cursor-pointer"
                         />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-pnp-white opacity-70">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] text-pnp-white opacity-80">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -269,7 +269,7 @@ const PlayerDetail = () => {
                           editedUserName: e.target.value,
                         }))
                       }
-                      className="input capitalize"
+                      className="input-bordered w-[320px] capitalize"
                     />
                   </>
                 ) : (
@@ -290,7 +290,7 @@ const PlayerDetail = () => {
                           tagline: e.target.value,
                         }))
                       }
-                      className="input"
+                      className="input-bordered w-[320px]"
                     />
                   </>
                 ) : (
@@ -316,7 +316,7 @@ const PlayerDetail = () => {
                           }))
                         }
                         placeholder="Street"
-                        className="input"
+                        className="input-bordered w-[320px] mb-0"
                       />
                       <input
                         type="text"
@@ -331,7 +331,7 @@ const PlayerDetail = () => {
                           }))
                         }
                         placeholder="House Number"
-                        className="input"
+                        className="input-bordered w-[320px] mb-0"
                       />
                       <input
                         type="text"
@@ -346,7 +346,7 @@ const PlayerDetail = () => {
                           }))
                         }
                         placeholder="Postal Code"
-                        className="input"
+                        className="input-bordered w-[320px] mb-0"
                       />
 
                       <input
@@ -362,7 +362,7 @@ const PlayerDetail = () => {
                           }))
                         }
                         placeholder="City"
-                        className="input"
+                        className="input-bordered w-[320px]"
                       />
                       <div className=" w-full">
                         <h3 className="font-semibold text-sm text-gray-700">
@@ -370,7 +370,7 @@ const PlayerDetail = () => {
                         </h3>
                         <input
                           type="date"
-                          className="input"
+                          className="input-bordered w-[320px]"
                           value={editedUser.birthday?.slice(0, 10) || ""}
                           onChange={(e) =>
                             setEditedUser((prev) => ({
@@ -421,7 +421,7 @@ const PlayerDetail = () => {
                       </div>
 
                       {/* PLAYING MODES */}
-                      <div>
+                      <div className="mt-8">
                         <h3 className="font-semibold text-sm text-gray-700">
                           PLAYING MODES
                         </h3>
@@ -440,7 +440,7 @@ const PlayerDetail = () => {
                       </div>
 
                       {/* PLAYING ROLES */}
-                      <div className="w-[320px]">
+                      <div className="w-[320px] mt-8">
                         <h3 className="font-semibold text-sm text-gray-700">
                           PLAYING ROLES
                         </h3>
@@ -458,7 +458,7 @@ const PlayerDetail = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-wrap  text-center justify-center lg:justify-start items-center gap-2">
+                    <div className="flex flex-wrap text-center justify-center lg:justify-start items-center gap-2">
                       {editedUser.experience && (
                         <div className="pnp-badge-purple flex items-center gap-1">
                           {getIcon("Experience")}
@@ -527,7 +527,7 @@ const PlayerDetail = () => {
 
                 <div>
                   {isEditing ? (
-                    <div className="">
+                    <div className="mt-4">
                       <h3 className="font-semibold text-sm text-gray-700 mb-2">
                         AVAILABILITY
                       </h3>
@@ -535,7 +535,7 @@ const PlayerDetail = () => {
                         weekdays={editedUser.weekdays || []}
                         onChange={(updatedDays) => {
                           if (!isEditing) return;
-                          setEditedGroup((prev) => ({
+                          setEditedUser((prev) => ({
                             ...prev,
                             weekdays: updatedDays,
                           }));
@@ -543,7 +543,7 @@ const PlayerDetail = () => {
                         readOnly={!isEditing}
                       />
 
-                      <h3 className="font-semibold text-sm text-gray-700">
+                      <h3 className="font-semibold text-sm text-gray-700 mt-8">
                         FREQUENCY
                       </h3>
                       <div className="flex flex-row items-center gap-2">
@@ -551,17 +551,17 @@ const PlayerDetail = () => {
                           type="number"
                           min="1"
                           max="31"
-                          className="input w-[70px]"
+                          className="input-bordered mb-0 w-[70px]"
                           value={editedUser.frequencyPerMonth || ""}
                           onChange={(e) =>
-                            setEditedGroup({
+                            setEditedUser({
                               ...editedUser,
                               frequencyPerMonth: e.target.value,
                             })
                           }
                         />
 
-                        <p className="text-sm text-gray-700 font-semibold w-[100px]">
+                        <p className="text-sm text-gray-700 font-semibold w-[150px]">
                           times per month
                         </p>
                       </div>
@@ -640,7 +640,7 @@ const PlayerDetail = () => {
                     </h3>
                     {isEditing ? (
                       <textarea
-                        className="w-full border p-2 rounded"
+                        className="w-full input-bordered mb-0"
                         value={editedUser.description}
                         onChange={(e) =>
                           setEditedUser({
@@ -666,8 +666,39 @@ const PlayerDetail = () => {
                     )}
                   </div>
 
-                  {/* Languages */}
+                  {/* 📚 Game Systems */}
+                  <div className="mt-4">
+                    <h3 className="font-semibold text-sm text-gray-700">
+                      GAME SYSTEMS
+                    </h3>
+                    {isEditing ? (
+                      <TagMultiSelect
+                        category="systems"
+                        value={editedUser.systems}
+                        onChange={(values) =>
+                          setEditedUser({
+                            ...editedUser,
+                            systems: values.map((v) => v.id),
+                          })
+                        }
+                      />
+                    ) : (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {(editedUser.systems || []).map((system) => {
+                          const systemOption = systemsOptions?.find(
+                            (opt) => opt._id === system
+                          );
+                          return systemOption ? (
+                            <div className="pnp-badge-black" key={system}>
+                              {systemOption.label}
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    )}
+                  </div>
 
+                  {/* Languages */}
                   <div className="mt-4">
                     <h3 className="font-semibold text-sm text-gray-700">
                       LANGUAGES
@@ -729,38 +760,6 @@ const PlayerDetail = () => {
                             <div className="pnp-badge-black" key={style}>
                               {getIcon(playstyleOption.label)}
                               {playstyleOption.label}
-                            </div>
-                          ) : null;
-                        })}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* 📚 Game Systems */}
-                  <div className="mt-4">
-                    <h3 className="font-semibold text-sm text-gray-700">
-                      GAME SYSTEMS
-                    </h3>
-                    {isEditing ? (
-                      <TagMultiSelect
-                        category="systems"
-                        value={editedUser.systems}
-                        onChange={(values) =>
-                          setEditedUser({
-                            ...editedUser,
-                            systems: values.map((v) => v.id),
-                          })
-                        }
-                      />
-                    ) : (
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {(editedUser.systems || []).map((system) => {
-                          const systemOption = systemsOptions?.find(
-                            (opt) => opt._id === system
-                          );
-                          return systemOption ? (
-                            <div className="pnp-badge-black" key={system}>
-                              {systemOption.label}
                             </div>
                           ) : null;
                         })}
