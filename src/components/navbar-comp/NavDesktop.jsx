@@ -37,13 +37,19 @@ const NavDesktop = ({ logo, user, logOut }) => {
               </Link>
             </>
           ) : null}
-          <Link
-            to="/search"
-            className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200"
-          >
-            <CrossedSwordssvg className="max-h-[1rem]" />
-            Find players!
-          </Link>
+          <div className="tooltip tooltip-bottom group">
+            <div className="tooltip-content opacity-0 group-hover:opacity-100 pointer-events-none absolute bottom-full mb-2 px-3 py-1 rounded-xl text-pnp-white text-sm font-semibold bg-pnp-blue shadow-lg animate-none group-hover:animate-tooltip-pop transition-all">
+              SEARCH
+            </div>
+            <Link
+              to="/search"
+              // className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200"
+            >
+              {/* <CrossedSwordssvg className="max-h-[1rem]" />  */}
+              {/* Find players! */}
+              <CrossedSwordssvg className={`btn-desktopnavi max-h-[1.2rem]`} />
+            </Link>
+          </div>
           <div className="tooltip tooltip-bottom group">
             <div className="tooltip-content opacity-0 group-hover:opacity-100 pointer-events-none absolute bottom-full mb-2 px-3 py-1 rounded-xl text-pnp-white text-sm font-semibold bg-pnp-blue shadow-lg animate-none group-hover:animate-tooltip-pop transition-all">
               CHAT
