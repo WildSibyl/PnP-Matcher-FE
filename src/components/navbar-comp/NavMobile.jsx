@@ -68,7 +68,7 @@ const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
           </button>
         ) : (
           <button onClick={() => setMenuOpen(!menuOpen)}>
-            <div className="relative translate-y-[3px]">
+            <div className="relative">
               <Burgermenuesvg
                 className={`fill-current cursor-pointer text-pnp-white`}
               />
