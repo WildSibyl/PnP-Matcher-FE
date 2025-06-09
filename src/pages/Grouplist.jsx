@@ -118,7 +118,7 @@ const Grouplist = () => {
               </div>
               <div className="w-2/5 relative flex justify-end items-end overflow-hidden">
                 <img
-                  src={renimg}
+                  src={RenDie}
                   alt="Ren, our mascot"
                   className="absolute mx-auto w-auto max-h-[100%] bottom-0 translate-y-2"
                 />
