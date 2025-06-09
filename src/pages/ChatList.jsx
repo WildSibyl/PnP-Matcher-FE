@@ -98,6 +98,10 @@ const ChatList = () => {
         />
 
         <p className="text-pnp-white">Start a conversation with someone!</p>
+
+        <p className="text-pnp-white">
+          ✨ Hint: you can find players and groups in the search page! ✨
+        </p>
       </div>
     );
   }
