@@ -19,17 +19,17 @@ const NavMobile = ({ user, menuOpen, setMenuOpen }) => {
       </Link>
       <div className="flex gap-6">
         {user ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-6">
             {user.permission === "admin" ? (
               <>
                 {/* Test Link for debugging */}
                 <Link to="/test">
-                  <div className="btn-secondary-light btn-icon p-3 h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
+                  <div className="btn-desktopnavi text-xl h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200 mb-1">
                     🛠
                   </div>
                 </Link>
                 <Link to="/admin">
-                  <div className="btn-secondary-light btn-icon p-2 h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
+                  <div className="btn-desktopnavi text-xl h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200 mb-1">
                     👑
                   </div>
                 </Link>

@@ -26,12 +26,12 @@ const NavDesktop = ({ logo, user, logOut }) => {
             <>
               {/* Test Link for debugging */}
               <Link to="/test">
-                <div className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
+                <div className="btn-desktopnavi text-pnp-white text-2xl h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200 mb-2">
                   🛠
                 </div>
               </Link>
               <Link to="/admin">
-                <div className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
+                <div className="btn-desktopnavi text-2xl h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200 mb-2 -translate-x-1">
                   👑
                 </div>
               </Link>
