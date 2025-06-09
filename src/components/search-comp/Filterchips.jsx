@@ -47,7 +47,7 @@ const Filterchips = ({
       <div
         ref={scrollRef}
         className={`flex overflow-scroll items-center overflow-x-auto whitespace-nowrap no-scrollbar w-full px-4 ${
-          filterCount === 0 ? "justify-center" : "ml-8"
+          filterCount === 0 ? "justify-center" : "pl-8"
         }`}
       >
         <div

@@ -71,7 +71,11 @@ const Register = () => {
       }
       setRegForm((prev) => ({ ...prev, weekdays: newDays }));
     } else if (type === "number") {
-      setRegForm((prev) => ({ ...prev, [name]: Number(value) }));
+      const parsed = parseInt(value, 10);
+      setRegForm((prev) => ({
+        ...prev,
+        [name]: isNaN(parsed) ? "" : parsed,
+      }));
     } else if (name === "terms") {
       // Handle single checkbox boolean here (like 'terms')
       setRegForm((prev) => ({ ...prev, [name]: checked }));

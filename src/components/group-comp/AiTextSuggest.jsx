@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import Wizardhat from "../../assets/wizardhat.svg?react";
+import { fetchAiSuggestion } from "../../data/ai.js";
 
-const AiTextSuggest = ({ onChange, prompt, name }) => {
+const AiTextSuggest = ({ onChange, prompt, name, length }) => {
   const [suggestion, setSuggestion] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -9,21 +10,20 @@ const AiTextSuggest = ({ onChange, prompt, name }) => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/suggest", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          prompt: `${prompt}`,
-        }),
-      });
+      const result = await fetchAiSuggestion(prompt);
+      let newSuggestion;
 
-      const data = await response.json(); // Convert to JSON
-      console.log("AI data", data);
-      const result = data.suggestion;
-      setSuggestion(result);
+      if (typeof length === "number" && length > 0) {
+        if (result.length > length) {
+          newSuggestion = result.slice(0, length - 3) + "...";
+        } else {
+          newSuggestion = result;
+        }
+      } else {
+        newSuggestion = result;
+      }
+
+      setSuggestion(newSuggestion);
       onChange({
         target: {
           name: name,

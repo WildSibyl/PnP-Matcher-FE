@@ -32,6 +32,7 @@ const Step1GroupDetails = ({ groupForm, onChange }) => {
                 onChange={onChange}
                 prompt="very short pen&paper group name"
                 name="name"
+                length={50}
               />
             </div>
           </div>
@@ -53,6 +54,7 @@ const Step1GroupDetails = ({ groupForm, onChange }) => {
                 onChange={onChange}
                 prompt="very short cool tagline"
                 name="tagline"
+                length={150}
               />
             </div>
           </div>

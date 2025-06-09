@@ -182,68 +182,77 @@ const Search = () => {
         {activeTab === "players" && (
           <div className="mt-2 flex flex-col items-center">
             <div className="my-8 text-pnp-white font-normal text-center ">
-              {results.length > 0 ? (
+              {loading ? (
+                <div className="h-[80vh]">
+                  <Loader />
+                </div>
+              ) : results.length > 0 ? (
                 <h3>{results.length} results</h3>
               ) : (
                 <>
-                  <h3>No users found!</h3> <p>Please change your filters.</p>
+                  <h3>No users found!</h3>
+                  <p>Please change your filters.</p>
                 </>
               )}
             </div>
 
-            <div>
-              {results.map((e, index) => {
-                if (index === 2) {
-                  return (
-                    <div key={e._id}>
-                      {!user && (
-                        <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl mb-4">
-                          <h2 className="text-pnp-white pt-4 px-4">
-                            Get the most out of it
-                          </h2>
-                          <div className="flex">
-                            <div className="flex flex-col pl-4 py-4">
-                              <p className="text-pnp-white pb-2">
-                                Register to find players near you and see how
-                                good they match your playstyle!
-                              </p>
-                              <button
-                                onClick={() => {
-                                  navigate("/register");
-                                }}
-                                disabled={loading}
-                                className="btn-primary-light self-start"
-                              >
-                                {getIcon("Sword")}
-                                Sign Up!
-                              </button>
-                            </div>
-                            <div className="flex justify-end overflow-hidden h-auto min-w-[150px] w-[50%] relative">
-                              <img
-                                src={renimg}
-                                alt="Ren, our mascot"
-                                className="absolute mx-auto w-auto max-h-[100%] bottom-0 translate-y-2"
-                              ></img>
+            {!loading && results.length > 0 && (
+              <div>
+                {results.map((e, index) => {
+                  if (index === 2) {
+                    return (
+                      <div key={e._id}>
+                        {!user && (
+                          <div className="flex flex-col mx-auto w-[95vw] min-w-[350px] max-w-[500px] bg-linear-165 from-pnp-darkpurple to-pnp-darkblue rounded-2xl mb-4">
+                            <h2 className="text-pnp-white pt-4 px-4">
+                              Get the most out of it
+                            </h2>
+                            <div className="flex">
+                              <div className="flex flex-col pl-4 py-4">
+                                <p className="text-pnp-white pb-2">
+                                  Register to find players near you and see how
+                                  good they match your playstyle!
+                                </p>
+                                <button
+                                  onClick={() => {
+                                    navigate("/register");
+                                  }}
+                                  disabled={loading}
+                                  className="btn-primary-light self-start"
+                                >
+                                  {getIcon("Sword")}
+                                  Sign Up!
+                                </button>
+                              </div>
+                              <div className="flex justify-end overflow-hidden h-auto min-w-[150px] w-[50%] relative">
+                                <img
+                                  src={renimg}
+                                  alt="Ren, our mascot"
+                                  className="absolute mx-auto w-auto max-h-[100%] bottom-0 translate-y-2"
+                                ></img>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )}
+                        )}
 
-                      <PlayerCard key={e._id} details={e} />
-                    </div>
-                  );
-                }
+                        <PlayerCard key={e._id} details={e} />
+                      </div>
+                    );
+                  }
 
-                return <PlayerCard key={e._id} details={e} />;
-              })}
-            </div>
+                  return <PlayerCard key={e._id} details={e} />;
+                })}
+              </div>
+            )}
           </div>
         )}
 
         {activeTab === "groups" && (
           <div className="mt-2 flex flex-col items-center">
             {groupLoading ? (
-              <Loader />
+              <div className="h-[80vh]">
+                <Loader />
+              </div>
             ) : (
               <>
                 <div className="my-8 text-pnp-white font-normal text-center">

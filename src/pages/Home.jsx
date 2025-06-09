@@ -30,10 +30,10 @@ const Home = () => {
             <div className="absolute top-5 z-10 flex flex-col items-center justify-center">
               <div className="flex flex-col items-center justify-center mb-5">
                 <h2 className="text-pnp-white normal-case font-semibold">
-                  Match players.
+                  Find your party
                 </h2>
                 <h1 className="text-pnp-white normal-case font-semibold">
-                  Start playing!
+                  And start playing!
                 </h1>
               </div>
               <p className="text-pnp-white text-lg mb-3">
@@ -58,7 +58,7 @@ const Home = () => {
               </button>
             </div>
             <p className="text-pnp-white text-lg z-10">
-              Match with players near you
+              Find matching players near you
             </p>
           </div>
 
@@ -73,7 +73,7 @@ const Home = () => {
 
           <div className="flex flex-col items-center justify-center mb-5 w-full">
             <p className="text-pnp-white mb-5 px-5 text-center">
-              Get to know PlotHook!
+              Want to get into Pen&Paper Games?
             </p>
 
             <div className="w-[380px] sm:w-full max-w-screen-md px-5 mb-5">
