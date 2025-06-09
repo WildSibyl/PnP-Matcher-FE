@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createGroup } from "../data/groups";
 import { useAuth } from "../hooks/useAuth";
+import { me } from "../data/auth";
 import Step1GroupDetails from "../components/creategroup-comp/Step1GroupDetails";
 import Step2GroupLocation from "../components/creategroup-comp/Step2GroupLocation";
 import Step3GroupXPAndSystem from "../components/creategroup-comp/Step3GroupXPAndSystem";
@@ -14,7 +15,7 @@ const CreateGroup = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
 
   const [groupForm, setGroupForm] = useState({
     author: user._id,
@@ -156,6 +157,9 @@ const CreateGroup = () => {
 
       console.log("Submitting group:", payload);
       await createGroup(payload); // Your custom API call
+      //Update user in authContext
+      const updatedUser = await me();
+      setUser(updatedUser);
       toast.success("Group created. Have fun!");
       navigate("/grouplist");
     } catch (err) {
