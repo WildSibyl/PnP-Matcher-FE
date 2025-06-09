@@ -224,49 +224,28 @@
 
   @keyframes moveLeftToRight {
     0% {
-      transform: translateX(-200px);
+      transform: translateX(-50px);
     }
     50% {
-      transform: translateX(200px);
+      transform: translateX(50px);
     }
     100% {
-      transform: translateX(-200px);
+      transform: translateX(-50px);
     }
   }
 
   @keyframes moveRightToLeft {
     0% {
-      transform: translateX(200px);
+      transform: translateX(50px);
     }
     50% {
-      transform: translateX(-200px);
+      transform: translateX(-50px);
     }
     100% {
-      transform: translateX(200px);
+      transform: translateX(50px);
     }
   }
 
-  @keyframes moveRightToLeftImage {
-    0% {
-      transform: translateX(100px) scale(1.1);
-    }
-    50% {
-      transform: translateX(-100px) scale(1.2);
-    }
-    100% {
-      transform: translateX(100px) scale(1.1);
-    }
-  }
-
-  @keyframes zoomInOut {
-    0%,
-    100% {
-      transform: scale(1.1);
-    }
-    50% {
-      transform: scale(1.2);
-    }
-  }
   @keyframes bounceRen {
     0%,
     100% {
@@ -283,15 +262,15 @@
 
   /* ANIMATION FOR HOMEPAGE */
   .move-left-to-right {
-    animation: moveLeftToRight 200s ease-in-out infinite;
+    animation: moveLeftToRight 60s ease-in-out infinite;
   }
 
   .move-right-to-left {
-    animation: moveRightToLeft 200s ease-in-out infinite;
+    animation: moveRightToLeft 60s ease-in-out infinite;
   }
 
   .move-right-to-left-image {
-    animation: moveRightToLeftImage 200s ease-in-out infinite;
+    animation: moveRightToLeftImage 60s ease-in-out infinite;
   }
 
   .zoom-animation {
@@ -302,6 +281,39 @@
   /* LOADING ANIMATION END */
 
   @media (max-width: 1250px) {
+    @keyframes moveLeftToRight {
+      0% {
+        transform: translateX(-200px);
+      }
+      50% {
+        transform: translateX(200px);
+      }
+      100% {
+        transform: translateX(-200px);
+      }
+    }
+
+    @keyframes moveRightToLeft {
+      0% {
+        transform: translateX(200px);
+      }
+      50% {
+        transform: translateX(-200px);
+      }
+      100% {
+        transform: translateX(200px);
+      }
+    }
+
+    /* ANIMATION FOR HOMEPAGE */
+    .move-left-to-right {
+      animation: moveLeftToRight 200s ease-in-out infinite;
+    }
+
+    .move-right-to-left {
+      animation: moveRightToLeft 200s ease-in-out infinite;
+    }
+
     body {
       @apply bg-[#02080D];
     }
