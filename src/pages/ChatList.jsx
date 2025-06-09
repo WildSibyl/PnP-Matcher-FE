@@ -90,18 +90,20 @@ const ChatList = () => {
   if (recentChatIds.length === 0) {
     return (
       <div className="flex flex-col self-center items-center justify-center space-y-4 w-full h-[50vh]">
-        <p className="text-pnp-white">No magical correspondance yet...</p>
-        <img
-          src={RenChat}
-          alt="Ren Chat"
-          className="w-[200px] h-[200px] object-contain"
-        />
+        <div className="flex flex-col self-center items-center justify-center space-y-4 w-full p-5">
+          <p className="text-pnp-white">No magical correspondance yet...</p>
+          <img
+            src={RenChat}
+            alt="Ren Chat"
+            className="w-[200px] h-[200px] object-contain"
+          />
 
-        <p className="text-pnp-white">Start a conversation with someone!</p>
+          <p className="text-pnp-white">Start a conversation with someone!</p>
 
-        <p className="text-pnp-white">
-          ✨ Hint: you can find players and groups in the search page! ✨
-        </p>
+          <p className="text-pnp-white text-center italic">
+            ✨ Hint: you can find players and groups in the search page! ✨
+          </p>
+        </div>
       </div>
     );
   }
