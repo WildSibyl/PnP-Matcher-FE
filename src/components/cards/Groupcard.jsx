@@ -1,22 +1,35 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CardAvailability from "./CardAvailability";
 import MatchingValue from "./MatchingValue";
 import CardBadges from "./CardBadges";
-
+import { useTeleport } from "../../context/TeleportContextProvider";
+import { useAuth } from "../../hooks/useAuth";
 import getIcon from "../../utils/getIcon";
 import shortenExperienceLabel from "../../utils/shortenExperience";
 
 const GroupCard = ({ details }) => {
   const [currGroup, setCurrGroup] = useState(null);
+  const { user } = useAuth();
+  const { startTeleport } = useTeleport();
+  const navigate = useNavigate();
+
   console.log("Group Details", details);
 
   useEffect(() => setCurrGroup(details), []);
 
   if (!currGroup) return <p>LOADING</p>;
 
+  const handleClick = () => {
+    if (user) {
+      navigate(`/group/${details._id}`);
+    } else {
+      startTeleport("/login");
+    }
+  };
+
   return (
-    <Link to={`/group/${details._id}`}>
+    <div onClick={handleClick} className="cursor-pointer">
       <div
         className="bg-pnp-white pnp-shadow rounded-xl w-[95vw] min-w-[350px] max-w-[500px]
     mx-auto pb-6 mb-5"
@@ -67,7 +80,7 @@ const GroupCard = ({ details }) => {
           <CardBadges details={details} />
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
