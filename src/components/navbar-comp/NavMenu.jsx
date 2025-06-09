@@ -39,7 +39,7 @@ const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
           className="bg-center bg-cover rounded-2xl items-center justify-center h-[18vh] text-pnp-white col-span-2 flex gap-2"
         >
           <CrossedSwordssvg />
-          <h3>START MATCHING!</h3>
+          <h3>FIND PLAYERS!</h3>
         </Link>
 
         {user ? (

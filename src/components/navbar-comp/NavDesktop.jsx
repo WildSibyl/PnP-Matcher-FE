@@ -19,29 +19,37 @@ const NavDesktop = ({ logo, user, logOut }) => {
           alt="plothook logo"
         ></img>
       </Link>
-      {/* Test Link for debugging */}
-      <Link to="/test">
-        <div className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
-          🛠
-        </div>
-      </Link>
       {/* Navigation Links */}
       {user ? (
         <div className="flex items-center gap-8 xl:gap-10 mr-2">
           {user.permission === "admin" ? (
-            <Link to="/admin">
-              <div className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
-                👑
-              </div>
-            </Link>
+            <>
+              {/* Test Link for debugging */}
+              <Link to="/test">
+                <div className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
+                  🛠
+                </div>
+              </Link>
+              <Link to="/admin">
+                <div className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200">
+                  👑
+                </div>
+              </Link>
+            </>
           ) : null}
-          <Link
-            to="/search"
-            className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200"
-          >
-            <CrossedSwordssvg className="max-h-[1rem]" />
-            Find players!
-          </Link>
+          <div className="tooltip tooltip-bottom group">
+            <div className="tooltip-content opacity-0 group-hover:opacity-100 pointer-events-none absolute bottom-full mb-2 px-3 py-1 rounded-xl text-pnp-white text-sm font-semibold bg-pnp-blue shadow-lg animate-none group-hover:animate-tooltip-pop transition-all">
+              SEARCH
+            </div>
+            <Link
+              to="/search"
+              // className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200"
+            >
+              {/* <CrossedSwordssvg className="max-h-[1rem]" />  */}
+              {/* Find players! */}
+              <CrossedSwordssvg className={`btn-desktopnavi max-h-[1.2rem]`} />
+            </Link>
+          </div>
           <div className="tooltip tooltip-bottom group">
             <div className="tooltip-content opacity-0 group-hover:opacity-100 pointer-events-none absolute bottom-full mb-2 px-3 py-1 rounded-xl text-pnp-white text-sm font-semibold bg-pnp-blue shadow-lg animate-none group-hover:animate-tooltip-pop transition-all">
               CHAT
@@ -116,7 +124,7 @@ const NavDesktop = ({ logo, user, logOut }) => {
         <div className="flex items-center gap-4">
           <Link
             to="/search"
-            className="btn-secondary-light btn-icon border-none h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200"
+            className="btn-secondary-light btn-icon h-[44px] cursor-pointer hover:scale-98 *:ease-in-out duration-200"
           >
             <CrossedSwordssvg className="max-h-[1rem]" />
             Find players!

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { sendChat } from "../../data/chat";
 import { useAuth } from "../../hooks/useAuth";
 import send_icon from "../../assets/send_icon.png";
-import RenChat from "../../assets/ren/Ren-chat.png"; // Assuming this is the image you want to use
+import RenChat from "../../assets/ren/Ren-chat.png";
 
 const ChatModal = ({ isOpen, onClose, receiverId, username }) => {
   const { messages, sendMessage } = useWebSocketContext();

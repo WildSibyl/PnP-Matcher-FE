@@ -15,12 +15,6 @@ const AccountSettings = () => {
 
   const userEmail = user?.email || "";
 
-  const maskEmail = (email) => {
-    const [user, domain] = email.split("@");
-    if (!user || !domain) return "";
-    return `${user[0]}***@${domain}`;
-  };
-
   const [emailForm, setEmailForm] = useState({
     email: userEmail,
     newEmail: "",
@@ -87,8 +81,11 @@ const AccountSettings = () => {
       await updateEmail({ newEmail, confirmNewEmail, currentPassword });
       toast.success("Email updated!");
 
+      setUser((prev) => ({ ...prev, email: newEmail }));
+
       // Reset fields
       setEmailForm({
+        email: newEmail,
         newEmail: "",
         confirmNewEmail: "",
         currentPassword: "",
@@ -98,6 +95,12 @@ const AccountSettings = () => {
     } catch (err) {
       toast.error(err.message);
     }
+  };
+
+  const maskEmail = (email) => {
+    const [user, domain] = email.split("@");
+    if (!user || !domain) return "";
+    return `${user[0]}***@${domain}`;
   };
 
   const handleUpdatePassword = async () => {

@@ -5,8 +5,7 @@ import { useAuth } from "../hooks/useAuth";
 import GroupCard from "../components/cards/Groupcard";
 import { getMyGroups, acceptInvite, rejectInvite } from "../data/user";
 import { useEffect, useState } from "react";
-import renimg from "../assets/ren/Ren-die.png";
-import D20svg from "../assets/d20.svg?react";
+import RenDie from "../assets/ren/Ren-die.png";
 import { getSingleGroup } from "../data/groups";
 import { toast } from "react-toastify";
 
@@ -170,7 +169,12 @@ const Grouplist = () => {
       ) : (
         <>
           <h3 className="text-pnp-white mt-6">You currently have no groups!</h3>
-          <p className="text-pnp-white">
+          <img
+            src={RenDie}
+            alt="Ren Chat"
+            className="w-[200px] h-[200px] object-contain mb-1"
+          />
+          <p className="text-pnp-white text-center">
             {" "}
             Find players or create your own group to start adventuring!
           </p>

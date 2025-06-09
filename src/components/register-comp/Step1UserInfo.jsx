@@ -16,6 +16,7 @@ const Step1UserInfo = ({ regForm, onChange }) => {
         <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
           <UsernameInput
             name="userName"
+            previousUsername={""}
             value={regForm.userName}
             onChange={onChange}
             maxLength={30}

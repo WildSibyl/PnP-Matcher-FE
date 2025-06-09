@@ -87,6 +87,7 @@ const GroupDetail = () => {
   }, [id]);
 
   const isAuthor = user && groupDetails?.author?._id === user._id;
+  // || user?.permission === "admin";  // this line can be uncommented if admin permission is needed, but also the calls to the API should be updated to allow admins to edit groups
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

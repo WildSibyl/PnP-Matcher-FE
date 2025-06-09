@@ -10,6 +10,7 @@ const UsernameInput = ({
   label,
   helperText,
   validation,
+  previousUsername,
 }) => {
   const [isUsernameAvailable, setIsUsernameAvailable] = useState(null);
   const [checkingUsername, setCheckingUsername] = useState(false);
@@ -56,7 +57,9 @@ const UsernameInput = ({
     <p className="text-xs text-red-500">{validationError}</p>
   ) : checkingUsername ? (
     <p className="text-xs text-gray-400">Checking availability...</p>
-  ) : isUsernameAvailable === false ? (
+  ) : isUsernameAvailable === false && previousUsername === value ? (
+    <p className="text-xs text-transparent">no changes</p>
+  ) : isUsernameAvailable === false && previousUsername !== value ? (
     <p className="text-xs text-red-500">Username is taken</p>
   ) : isUsernameAvailable === true ? (
     <p className="text-xs text-green-500">Username is available!</p>

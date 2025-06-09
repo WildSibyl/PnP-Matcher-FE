@@ -3,6 +3,7 @@ import ChatModal from "../components/chat-comp/ChatModal";
 import { useWebSocketContext } from "../context/WSContextProvider";
 import { getUserById } from "../data/user";
 import { useAuth } from "../hooks/useAuth";
+import RenChat from "../assets/ren/Ren-chat.png";
 
 const ChatList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -85,6 +86,27 @@ const ChatList = () => {
 
   if (loading) return <p className="text-pnp-white">Loading chats…</p>;
   if (!user) return <p className="text-pnp-white">User data is incomplete.</p>;
+
+  if (recentChatIds.length === 0) {
+    return (
+      <div className="flex flex-col self-center items-center justify-center space-y-4 w-full h-[50vh]">
+        <div className="flex flex-col self-center items-center justify-center space-y-4 w-full p-5">
+          <p className="text-pnp-white">No magical correspondance yet...</p>
+          <img
+            src={RenChat}
+            alt="Ren Chat"
+            className="w-[200px] h-[200px] object-contain"
+          />
+
+          <p className="text-pnp-white">Start a conversation with someone!</p>
+
+          <p className="text-pnp-white text-center italic">
+            ✨ Hint: you can find players and groups in the search page! ✨
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const openChat = (chatId) => {
     setActiveChatId(chatId);

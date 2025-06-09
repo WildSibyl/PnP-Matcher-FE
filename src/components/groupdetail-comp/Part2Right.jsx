@@ -173,7 +173,7 @@ const Part2Right = ({
                       placeholder="Select preferences"
                       value={editedGroup.languages}
                       onChange={(values) =>
-                        setGroupForm({
+                        setEditedGroup({
                           ...editedGroup,
                           languages: values.map((l) => l),
                         })
