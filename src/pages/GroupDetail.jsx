@@ -86,7 +86,9 @@ const GroupDetail = () => {
     fetchData();
   }, [id]);
 
-  const isAuthor = user && groupDetails?.author?._id === user._id;
+  const isAuthor =
+    (user && groupDetails?.author?._id === user._id) ||
+    user?.permission === "admin";
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
