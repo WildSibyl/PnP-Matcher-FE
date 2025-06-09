@@ -178,3 +178,27 @@ export const postGroupImage = async (formData) => {
   const data = await res.json();
   return data;
 };
+
+export const fetchAiSuggestion = async (prompt) => {
+  const res = await fetch("http://localhost:8000/ai/suggest", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({
+      prompt: `${prompt}`,
+    }),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    if (!errorData.error) {
+      throw new Error("An error occurred while generating an AI suggestion");
+    }
+    throw new Error(errorData.error);
+  }
+
+  const data = await res.json();
+  return data;
+};
