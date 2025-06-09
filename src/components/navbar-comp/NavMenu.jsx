@@ -24,7 +24,7 @@ const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
           <div className="flex col-span-2 text-pnp-white justify-center items-center gap-4">
             <img
               className="rounded-full h-[8vh] border-pnp-white border-1"
-              src={profilePic}
+              src={user.avatarUrl}
               alt="username"
             ></img>
             <h3 className="font-semibold normal-case">{`Hi, ${user.userName}!`}</h3>
