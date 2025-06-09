@@ -30,7 +30,7 @@ const Home = () => {
             <div className="absolute top-5 z-10 flex flex-col items-center justify-center">
               <div className="flex flex-col items-center justify-center mb-5">
                 <h2 className="text-pnp-white normal-case font-semibold">
-                  Find new friends
+                  Find your party
                 </h2>
                 <h1 className="text-pnp-white normal-case font-semibold">
                   And start playing!
