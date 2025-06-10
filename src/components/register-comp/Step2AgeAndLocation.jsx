@@ -1,4 +1,4 @@
-import RenBook from "../../assets/ren/Ren-book.png";
+import RenExpl2 from "../../assets/ren/Ren-explain2.png";
 import CharCountInput from "../edit-comp/CharCountInput";
 
 const Step2AgeAndLocation = ({ regForm, onChange }) => (
@@ -8,7 +8,7 @@ const Step2AgeAndLocation = ({ regForm, onChange }) => (
         <p className="label-italic text-pnp-white bg-pnp-darkpurple/50 rounded-2xl p-2 px-3 mx-2">
           How many seasons have you seen pass, and where do you take your rest?
         </p>
-        <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
+        <img src={RenExpl2} alt="Ren explaining" className="h-[150px]" />
       </div>
       <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
         <div className="flex flex-row justify-between">

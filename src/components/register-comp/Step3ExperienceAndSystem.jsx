@@ -1,6 +1,6 @@
 import TagMultiSelect from "../edit-comp/TagMultiSelect";
 import { useTagContext } from "../../context/TagsContextProvider";
-import RenBook from "../../assets/ren/Ren-book.png";
+import RenExpl1 from "../../assets/ren/Ren-explain1.png";
 
 const Step3ExperienceAndSystem = ({ regForm, setRegForm, onChange }) => {
   const { experienceLevel } = useTagContext();
@@ -13,7 +13,7 @@ const Step3ExperienceAndSystem = ({ regForm, setRegForm, onChange }) => {
             To cast my matchmaking magic I need to know a bit more about youre
             previous experience.
           </p>
-          <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
+          <img src={RenExpl1} alt="Ren explaining" className="h-[150px]" />
         </div>
         <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
           {/* <h3 className="title">YOU AS A PLAYER</h3> */}

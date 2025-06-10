@@ -1,6 +1,6 @@
 import TagMultiSelect from "../edit-comp/TagMultiSelect";
 import { useTagContext } from "../../context/TagsContextProvider";
-import RenBook from "../../assets/ren/Ren-book.png";
+import RenExpl2 from "../../assets/ren/Ren-explain2.png";
 import TakeOverValues from "../group-comp/TakeOverValues";
 
 const Step3GroupXPAndSystem = ({ groupForm, setGroupForm, onChange }) => {
@@ -14,7 +14,7 @@ const Step3GroupXPAndSystem = ({ groupForm, setGroupForm, onChange }) => {
             How experienced do you expect your adventurers to be? And in what
             worlds do you want to embark on your quests?
           </p>
-          <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
+          <img src={RenExpl2} alt="Ren explaining" className="h-[150px]" />
         </div>
         <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
           {/* <h3 className="title">YOU AS A PLAYER</h3> */}

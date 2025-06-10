@@ -1,5 +1,5 @@
 import TagMultiSelect from "../edit-comp/TagMultiSelect";
-import RenBook from "../../assets/ren/Ren-book.png";
+import RenHappy from "../../assets/ren/Ren-happy.png";
 import TakeOverValues from "../group-comp/TakeOverValues";
 
 const daysOfWeek = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
@@ -13,7 +13,7 @@ const Step4GroupSchedule = ({ groupForm, setGroupForm, onChange }) => {
             We are nearly finished! But now for the real endboss of all P&P
             groups: Availability and communication!
           </p>
-          <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
+          <img src={RenHappy} alt="Ren happy" className="h-[150px]" />
         </div>
         <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
           <div className="flex flex-row justify-between">

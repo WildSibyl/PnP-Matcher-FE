@@ -9,9 +9,14 @@ const Step1GroupDetails = ({ groupForm, onChange }) => {
     <>
       <div>
         <div className="flex items-center justify-center mx-4">
-          <p className="label-italic text-pnp-white bg-pnp-darkpurple/50 rounded-2xl p-2 px-3 mx-2">
-            Let’s summon a group to go on adventures with!
-          </p>
+          <div className="bg-pnp-darkpurple/50 rounded-2xl p-2 px-3 mx-2">
+            <p className="label-italic text-pnp-white">
+              Let’s summon a group to go on adventures with.
+            </p>
+            <p className="label-italic text-pnp-white">
+              Use the magic hats to help you come up with ideas!
+            </p>
+          </div>
           <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
         </div>
         <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
