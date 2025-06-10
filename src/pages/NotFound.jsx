@@ -27,7 +27,7 @@ const NotFound = () => {
       </p>
 
       <p className="text-pnp-white text-center italic">
-        ✨ Let's travel back to the search page! ✨
+        ✨ Let's go back to the search page! ✨
       </p>
       <button onClick={() => handleBack()} className="btn-primary-light">
         Take me back!

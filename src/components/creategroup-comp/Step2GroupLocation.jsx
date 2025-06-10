@@ -1,4 +1,4 @@
-import RenBook from "../../assets/ren/Ren-book.png";
+import RenExpl1 from "../../assets/ren/Ren-explain1.png";
 import CharCountInput from "../edit-comp/CharCountInput";
 import TakeOverValues from "../group-comp/TakeOverValues";
 
@@ -6,11 +6,16 @@ const Step2GroupLocation = ({ groupForm, onChange }) => (
   <>
     <div>
       <div className="flex items-center justify-center mx-4">
-        <p className="label-italic text-pnp-white bg-pnp-darkpurple/50 rounded-2xl p-2 px-3 mx-2">
-          Splendid! Next, let's talk logistics, so adventurers can find you
-          easily!
-        </p>
-        <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
+        <div className="bg-pnp-darkpurple/50 rounded-2xl p-2 px-3 mx-2">
+          <p className="label-italic text-pnp-white">
+            Splendid! Next, let's talk logistics, so adventurers can find you
+            easily!
+          </p>
+          <p className="label-italic text-pnp-white">
+            You can also use magic to go fasteeerrrr...
+          </p>
+        </div>
+        <img src={RenExpl1} alt="Ren explaining" className="h-[150px]" />
       </div>
       <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
         <div className="flex gap-2 items-center">
@@ -25,7 +30,7 @@ const Step2GroupLocation = ({ groupForm, onChange }) => (
               }
               placeholder="Street"
               label="ADDRESS"
-              helperText="We will only show your postal code and city."
+              helperText="Only postal code and city are shown."
               maxLength={100}
             />
           </div>

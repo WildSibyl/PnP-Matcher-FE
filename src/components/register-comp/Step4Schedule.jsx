@@ -1,6 +1,6 @@
 import TermsModal from "./TermsModal";
 import React, { useState } from "react";
-import RenBook from "../../assets/ren/Ren-book.png";
+import RenHappy from "../../assets/ren/Ren-happy.png";
 
 const daysOfWeek = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 
@@ -15,7 +15,7 @@ const Step4Schedule = ({ regForm, onChange }) => {
             We are nearly finished! But now for the real endboss of all P&P
             groups: Availability!
           </p>
-          <img src={RenBook} alt="Ren holding a book" className="h-[150px]" />
+          <img src={RenHappy} alt="Ren happy" className="h-[150px]" />
         </div>
         <div className="flex flex-col gap-1 rounded-3xl bg-pnp-white p-6">
           {/* <h3 className="title">WHEN ARE YOU AVAILABLE?</h3> */}
