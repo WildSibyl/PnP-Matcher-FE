@@ -54,7 +54,10 @@ const Privacy = () => {
 
       <p className="mt-6 font-semibold">
         If you have any questions about this policy, please feel free to{" "}
-        <Link to="/contact" className="underline hover:text-pnp-purple">
+        <Link
+          to="/contact"
+          className="text-pnp-purple hover:underline hover:text-pnp-darkpurple"
+        >
           contact us!
         </Link>
       </p>
