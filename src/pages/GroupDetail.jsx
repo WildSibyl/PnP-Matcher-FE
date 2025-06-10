@@ -169,10 +169,22 @@ const GroupDetail = () => {
       console.log("Saving group with payload:", payload);
       const res = await updateGroup(id, payload);
 
-      setGroupDetails(res);
+      //setGroupDetails(res);
+      const currentMembers = groupDetails.members || [];
+      const authorData = groupDetails.author || {};
+
+      setGroupDetails({
+        ...res,
+        members: currentMembers,
+        author: authorData,
+      });
+
       setEditedGroupForm(res);
       setIsEditing(false);
       setPreviewImage(null);
+      //console.log("Group updated successfully:", res);
+      //console.log("members still in memory", groupDetails.members);
+      toast.success("Your group looks great now!");
     } catch (err) {
       console.error("Save error:", err);
     }

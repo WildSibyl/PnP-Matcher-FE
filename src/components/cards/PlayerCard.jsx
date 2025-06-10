@@ -64,7 +64,7 @@ const PlayerCard = ({ details }) => {
               details.address.postalCode
             } ${details.address.city} | ${calculateAge(
               details.birthday
-            )} years`}</p>
+            )} years old`}</p>
           </div>
         </div>
 
