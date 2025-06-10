@@ -34,6 +34,11 @@ const Grouplist = () => {
   };
 
   useEffect(() => {
+    // Get new user info on page mount
+    refreshUser();
+  }, []);
+
+  useEffect(() => {
     const fetchGroups = async () => {
       if (!user || !Array.isArray(user.groups) || user.groups.length === 0) {
         console.log("User not logged in");
@@ -66,7 +71,15 @@ const Grouplist = () => {
     };
 
     fetchGroups();
-    Promise.all((user?.invites || []).map((e) => fetchInvite(e)));
+
+    //Await invites
+    (async () => {
+      if (user.invites?.length > 0) {
+        for (const inviteId of user.invites) {
+          await fetchInvite(inviteId);
+        }
+      }
+    })();
   }, [user]);
 
   const handleAccept = async (id) => {
@@ -177,7 +190,9 @@ const Grouplist = () => {
       {user?.groups?.length > 0 ? (
         <div className="flex flex-col items-center justify-center gap-4 mx-auto">
           {Array.isArray(groups) &&
-            groups.map((e) => <GroupCard key={e._id} details={e} />)}
+            [...groups]
+              .reverse()
+              .map((e) => <GroupCard key={e._id} details={e} />)}
         </div>
       ) : (
         <>
@@ -188,7 +203,6 @@ const Grouplist = () => {
             className="w-[200px] h-[200px] object-contain mb-1"
           />
           <p className="text-pnp-white text-center">
-            {" "}
             Find players or create your own group to start adventuring!
           </p>
         </>
