@@ -140,7 +140,7 @@ const RollForGroup = () => {
               e.avatarUrl ? (
                 <img
                   key={e._id}
-                  className="rounded-full h-auto w-[80px] border-2 my-4"
+                  className="rounded-full h-[80px] w-[80px] object-cover border-2 my-4"
                   style={{
                     animationName: "fadeIn",
                     animationDuration: "0.5s",
