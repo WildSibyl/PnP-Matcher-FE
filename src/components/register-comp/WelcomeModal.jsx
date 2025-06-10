@@ -31,7 +31,7 @@ const WelcomeModal = () => {
       >
         <img
           src={renimg}
-          className="h-auto w-[18vh] min-w-[100px]  lg:w-[18vh] mx-auto ren-bounce"
+          className="h-auto w-[18vh] min-w-[100px] mt-6  lg:w-[18vh] mx-auto ren-bounce"
           alt="Our mascot, Ren, celebrating"
         />
         <div className="flex flex-col relative px-8 -mt-10 items-center w-full bg-pnp-white p-2 rounded-b-2xl">
