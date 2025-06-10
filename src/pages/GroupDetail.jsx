@@ -151,26 +151,40 @@ const GroupDetail = () => {
           typeof l === "string" ? l : l.id
         ),
         playstyles: editedGroupForm.playstyles.map((p) =>
-          typeof p === "string" ? p : p.id
+          typeof p === "string" ? p : p._id
         ),
         likes: editedGroupForm.likes.map((l) =>
-          typeof l === "string" ? l : l.id
+          typeof l === "string" ? l : l._id
         ),
         dislikes: editedGroupForm.dislikes.map((d) =>
-          typeof d === "string" ? d : d.id
+          typeof d === "string" ? d : d._id
         ),
         tagline: editedGroupForm.tagline,
         description: editedGroupForm.description,
-        members: editedGroupForm.members,
+        members: editedGroupForm.members.map((l) =>
+          typeof l === "string" ? l : l._id
+        ),
         maxMembers: editedGroupForm.maxMembers,
       };
       console.log("Saving group with payload:", payload);
       const res = await updateGroup(id, payload);
 
-      setGroupDetails(res);
+      //setGroupDetails(res);
+      const currentMembers = groupDetails.members || [];
+      const authorData = groupDetails.author || {};
+
+      setGroupDetails({
+        ...res,
+        members: currentMembers,
+        author: authorData,
+      });
+
       setEditedGroupForm(res);
       setIsEditing(false);
       setPreviewImage(null);
+      //console.log("Group updated successfully:", res);
+      //console.log("members still in memory", groupDetails.members);
+      toast.success("Your group looks great now!");
     } catch (err) {
       console.error("Save error:", err);
     }

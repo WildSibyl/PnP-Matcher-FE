@@ -321,12 +321,16 @@ const Part2Right = ({
         {activeTab === "members" && (
           <div className="pt-4 flex flex-col justify-center items-center">
             {groupDetails?.author && (
-              <PlayerCard details={groupDetails?.author} />
+              <PlayerCard
+                key={groupDetails?.author?._id}
+                details={groupDetails?.author}
+              />
             )}
 
             {groupDetails?.members?.map((e) => (
               <PlayerCard key={e._id} details={e} />
             ))}
+
             {isAuthor && groupDetails?.members?.length < 2 ? (
               <RollForGroup />
             ) : null}
