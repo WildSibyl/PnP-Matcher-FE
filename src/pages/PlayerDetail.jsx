@@ -105,8 +105,8 @@ const PlayerDetail = () => {
 
       experience: editedUser.experience?.id || editedUser.experience,
 
-      playingModes: editedUser.playingModes?.id || editedUser.playingModes,
-      playingRoles: editedUser.playingRoles?.id || editedUser.playingRoles,
+      playingModes: editedUser.playingModes?.id,
+      playingRoles: editedUser.playingRoles?.id,
 
       systems: editedUser.systems?.map((system) => system.id || system) ?? [],
       weekdays: editedUser.weekdays,
@@ -433,7 +433,7 @@ const PlayerDetail = () => {
                             setEditedUser({
                               ...editedUser,
                               //playingModes: selected,
-                              playingModes: selected?.id,
+                              playingModes: selected?.id ?? null,
                             })
                           }
                         />

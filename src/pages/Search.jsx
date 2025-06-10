@@ -102,7 +102,7 @@ const Search = () => {
     } else if (activeTab === "groups") {
       fetchGroups();
     }
-  }, [filterCount, filter.search, filter.sortBy, activeTab]);
+  }, [filterCount, filter.search, filter.sortBy, filter.radius, activeTab]);
 
   useEffect(() => {
     const currFilterCount = countActiveFilters(filter);

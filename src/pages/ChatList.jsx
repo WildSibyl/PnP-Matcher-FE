@@ -128,7 +128,7 @@ const ChatList = () => {
   return (
     <div className="flex flex-col items-start justify-center space-y-4 w-full">
       <div className="flex flex-col items-center justify-center space-y-4 w-full lg:w-[47%] lg:justify-end mt-4 lg:ml-4 xl:w-[40%] xl:ml-15 2xl:ml-20">
-        {recentChatIds.map((chatId) => {
+        {[...recentChatIds].reverse().map((chatId) => {
           const otherUserId = getOtherUserId(chatId, currentUserId);
           const user = otherUsers[otherUserId];
           const userName = user?.username || "Loading...";
