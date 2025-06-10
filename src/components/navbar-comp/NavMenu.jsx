@@ -108,7 +108,7 @@ const NavMenu = ({ menuOpen, setMenuOpen, user, logOut }) => {
         <div className="flex flex-col col-span-2 gap-4 mt-5 justify-center text-center">
           <button
             className="btn-secondary-light font-semibold normal-case cursor-pointer mx-auto"
-            onClick={logOut}
+            onClick={() => logOut()}
           >
             <h3 className="font-semibold normal-case">Log out</h3>
           </button>
