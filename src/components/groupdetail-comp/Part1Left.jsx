@@ -24,7 +24,7 @@ const Part1Left = ({
   handleImageUpload,
   onChange,
 }) => {
-  const { groupExperience } = useTagContext();
+  const { groupExperience, playingModes } = useTagContext();
 
   return (
     <div className="flex flex-col lg:w-[45%]">
@@ -211,14 +211,53 @@ const Part1Left = ({
                       {groupDetails.maxMembers + 1} {/* +1 for the author */}
                     </div>
 
-                    <div className="pnp-badge-purple">
-                      {getIcon("Experience")}{" "}
-                      {shortenExperienceLabel(groupDetails.experience.value)}
-                    </div>
+                    {editedGroup.experience && (
+                      <div className="pnp-badge-purple flex items-center gap-1">
+                        {getIcon("Experience")}
+                        {shortenExperienceLabel(
+                          groupExperience.find(
+                            (opt) =>
+                              opt._id === editedGroup.experience ||
+                              opt._id === editedGroup.experience?.id
+                          )?.label ||
+                            editedGroup.experience?.label ||
+                            editedGroup.experience
+                        )}
+                      </div>
+                    )}
 
-                    <div className="pnp-badge-blue">
-                      {getIcon("On-site")} On-site
-                    </div>
+                    {editedGroup.playingModes && (
+                      <div className="pnp-badge-blue flex items-center gap-1">
+                        {(() => {
+                          const label =
+                            playingModes.find(
+                              (opt) =>
+                                opt._id === editedGroup.playingModes ||
+                                opt._id === editedGroup.playingModes?.id
+                            )?.label ||
+                            editedGroup.playingModes?.label ||
+                            editedGroup.playingModes;
+
+                          if (label === "Both") {
+                            return (
+                              <>
+                                {getIcon("On-site")}
+                                {getIcon("Online")}
+                              </>
+                            );
+                          }
+
+                          return getIcon(label);
+                        })()}
+                        {playingModes.find(
+                          (opt) =>
+                            opt._id === editedGroup.playingModes ||
+                            opt._id === editedGroup.playingModes?.id
+                        )?.label ||
+                          editedGroup.playingModes?.label ||
+                          editedGroup.playingModes}
+                      </div>
+                    )}
                   </div>
                 </>
               )}
