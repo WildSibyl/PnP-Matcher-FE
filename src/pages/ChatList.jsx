@@ -61,13 +61,23 @@ const ChatList = () => {
 
       try {
         const results = await Promise.all(
-          usersToFetch.map((id) =>
-            getUserById(id).then((user) => ({
-              id,
-              username: user.userName,
-              avatar: user.avatarUrl,
-            }))
-          )
+          usersToFetch.map(async (id) => {
+            try {
+              const user = await getUserById(id);
+              return {
+                id,
+                username: user.userName,
+                avatar: user.avatarUrl,
+              };
+            } catch (error) {
+              console.log(`User with ID ${id} not found or deleted.`);
+              return {
+                id,
+                username: "Deleted User",
+                avatar: "https://i.imgur.com/VkN1IwQ.jpeg",
+              };
+            }
+          })
         );
 
         const newUsers = {};
@@ -122,7 +132,8 @@ const ChatList = () => {
           const otherUserId = getOtherUserId(chatId, currentUserId);
           const user = otherUsers[otherUserId];
           const userName = user?.username || "Loading...";
-          const avatarUrl = user?.avatar || "/default-avatar.png";
+          const avatarUrl =
+            user?.avatar || "https://i.ibb.co/F4MD88Lt/Ren-avatar.png";
           const lastMsg = lastMessagesByChat[chatId]?.text || "";
 
           // Check if this chat has unread notifications
@@ -139,7 +150,11 @@ const ChatList = () => {
                 alt="avatar"
                 className="h-[40px] w-[40px] rounded-full"
               />
-              <div className="flex flex-col items-start ml-4 flex-grow">
+              <div
+                className={`flex flex-col items-start ml-4 flex-grow ${
+                  userName === "Deleted User" ? "text-gray-400" : ""
+                }`}
+              >
                 {userName}
                 <div className="text-xs text-pnp-black mt-1 truncate max-w-[70vw]">
                   {lastMsg.length > 30 ? lastMsg.slice(0, 30) + "…" : lastMsg}

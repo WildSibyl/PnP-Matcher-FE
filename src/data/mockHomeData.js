@@ -1,5 +1,5 @@
 export const avatarUrls = Array.from(
-  { length: 85 },
+  { length: 70 },
   (_, i) => `https://i.pravatar.cc/200?img=${i + 1}`
 );
 

@@ -8,9 +8,10 @@ import { useEffect, useState } from "react";
 import RenDie from "../assets/ren/Ren-die.png";
 import { getSingleGroup } from "../data/groups";
 import { toast } from "react-toastify";
+import { me } from "../data/auth";
 
 const Grouplist = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [groups, setGroups] = useState([]);
   const [invites, setInvites] = useState([]);
 
@@ -20,6 +21,15 @@ const Grouplist = () => {
       setGroups(data);
     } catch (error) {
       console.log("Error refreshing groups", error.message);
+    }
+  };
+
+  const refreshUser = async () => {
+    try {
+      const updatedUser = await me();
+      setUser(updatedUser);
+    } catch (error) {
+      console.log("Couldn't update user");
     }
   };
 
@@ -68,10 +78,12 @@ const Grouplist = () => {
     try {
       await acceptInvite(id);
       setInvites((prev) => prev.filter((g) => g._id !== id));
+
       toast("Invite accepted!", {
         theme: "light",
       });
       await refreshGroups();
+      await refreshUser();
     } catch (error) {
       console.log("Couldn't accept invite");
     }
@@ -90,6 +102,7 @@ const Grouplist = () => {
         theme: "light",
       });
       await refreshGroups();
+      await refreshUser();
     } catch (error) {
       console.log("Couldn't reject invite");
     }

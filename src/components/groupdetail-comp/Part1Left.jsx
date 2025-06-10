@@ -384,7 +384,9 @@ const Part1Left = ({
                     </button>
                     <button
                       className="btn-primary-dark"
-                      onClick={openInviteModal}
+                      onClick={() =>
+                        openInviteModal({ groupId: groupDetails._id })
+                      }
                     >
                       Add Players
                     </button>
