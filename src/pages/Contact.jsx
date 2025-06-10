@@ -7,27 +7,14 @@ const Contact = () => {
 
       <p className="text-lg">
         Have a question, bug to report, or want to share your epic campaign
-        story? We’d love to hear from you!
+        story?
       </p>
-
-      <p className="font-semibold">
-        ✉️ Email us anytime at:{" "}
-        <a
-          href="mailto:support@plothook.com"
-          className="text-pnp-purple underline flex my-4 items-center justify-center"
-        >
-          support
-          <span className="h-[20px] w-[20px]">
-            <img src={purpleAt} alt="at" />
-          </span>
-          plothook.com
-        </a>
-      </p>
+      <p className="text-lg">We’d love to hear from you!</p>
 
       <p className="font-semibold">
         💬 Join our community on Discord:{" "}
         <a
-          href="https://discord.gg/your-invite-code"
+          href="https://discord.gg/GnMhu7jyUQ"
           target="_blank"
           rel="noopener noreferrer"
           className="text-pnp-purple underline"
@@ -35,18 +22,18 @@ const Contact = () => {
           discord.gg/plothook
         </a>
       </p>
-
+      <p className="font-semibold">✉️ Email us anytime at: </p>
       <p className="font-semibold">
-        🛠 For bug reports and feature suggestions, visit our{" "}
         <a
-          href="https://github.com/your-project/issues"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-pnp-purple underline"
+          href="mailto:contact.plothook@gmail.com"
+          className="text-pnp-purple underline flex items-center justify-center"
         >
-          GitHub Issues page
+          contact.plothook
+          <span className="h-[20px] w-[20px]">
+            <img src={purpleAt} alt="at" />
+          </span>
+          gmail.com
         </a>
-        .
       </p>
     </div>
   );
