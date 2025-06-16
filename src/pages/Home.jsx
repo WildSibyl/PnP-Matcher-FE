@@ -3,12 +3,29 @@ import CrossedColoredSwords from "../assets/crossedColoredSwords.svg";
 import dragonImage from "../assets/dragonimage.png";
 import AvatarGrid from "../components/home-comp/AvatarGrid";
 import SystemList from "../components/home-comp/SystemList";
+import renimg from "../assets/ren/Ren-explain2.png";
+import tavern from "../assets/tavern.png";
 import { useNavigate } from "react-router-dom";
 import { useTagContext } from "../context/TagsContextProvider";
+import { useState, useEffect } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
   const { homeSearch, setHomeSearch } = useTagContext();
+  const [infoModalOpen, setInfoModalOpen] = useState(true);
+  const [acceptedInfo, setAcceptedInfo] = useState(false);
+
+  useEffect(() => {
+    const hasAccepted = localStorage.getItem("acceptTerms");
+    if (hasAccepted === "true") {
+      setInfoModalOpen(false);
+    }
+  }, []);
+
+  const handleCloseModal = () => {
+    setInfoModalOpen(false);
+    localStorage.setItem("acceptTerms", "true");
+  };
 
   return (
     <>
@@ -130,6 +147,59 @@ const Home = () => {
           </button>
         </div>
       </div>
+      {infoModalOpen && (
+        <div
+          className={`fixed bg-clip-padding  top-0 left-0 h-full flex text-center items-center w-full justify-center  z-[99] backdrop-blur-sm bg-[rgba(8,11,31,0.80)] ease-in-out duration-200
+            opacity-100 visible `}
+        >
+          <div
+            style={{ backgroundImage: `url(${tavern})` }}
+            className="flex flex-col mx-2 overflow-hidden *:items-center lg:mx-auto max-w-[500px] lg:max-w-[50vw] xl:max-w-[40vw] my-auto rounded-2xl bg-center bg-cover border-pnp-white"
+          >
+            <img
+              src={renimg}
+              className="h-auto w-[18vh] min-w-[100px] mt-6  lg:w-[18vh] mx-auto"
+              alt="Our mascot, Ren, celebrating"
+            />
+            <div className="flex flex-col relative px-8 -mt-10 items-center w-full bg-pnp-white p-2 rounded-b-2xl">
+              <h2 className="uppercase text-transparent bg-clip-text bg-gradient-to-r from-pnp-darkpurple to-pnp-darkblue my-4">
+                HEADS UP!
+              </h2>
+
+              <p className="text-base font-normal">
+                <b>
+                  Plothook is a student project currently in development and
+                  intended for invited users only:
+                </b>{" "}
+                Please avoid entering personal data, as we are still working
+                toward full GDPR (DSGVO) compliance. The platform is hosted on
+                Render.com and does not use analytics tools to track user data.
+              </p>
+
+              <form className="flex flex-col justify-center mt-4">
+                <label className="flex gap-4">
+                  <input
+                    type="checkbox"
+                    onChange={(e) => setAcceptedInfo(e.target.checked)}
+                    className="cursor-pointer"
+                  />
+                  <p className="font-semibold">I understand and accept</p>
+                </label>
+
+                <button
+                  onClick={() => handleCloseModal()}
+                  disabled={!acceptedInfo}
+                  className={`btn-primary-light mt-6 ${
+                    acceptedInfo ? "" : "opacity-50 cursor-not-allowed"
+                  }`}
+                >
+                  CONTINUE
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
