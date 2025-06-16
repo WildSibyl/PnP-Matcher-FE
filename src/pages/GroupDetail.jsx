@@ -119,9 +119,54 @@ const GroupDetail = () => {
     }
   };
 
+  const validateStep = () => {
+    if (!editedGroupForm.name) {
+      return "Please fill in your group's name.";
+    }
+    if (!editedGroupForm.tagline) {
+      return "Please fill in your group's tagline.";
+    }
+    if (!editedGroupForm.maxMembers) {
+      return "Please fill in your group's max members.";
+    }
+
+    if (
+      !editedGroupForm.address.street ||
+      !editedGroupForm.address.houseNumber ||
+      !editedGroupForm.address.postalCode ||
+      !editedGroupForm.address.city
+    ) {
+      return "Please complete the address correctly.";
+    }
+
+    if (!editedGroupForm.experience) {
+      return "Please select your group's system(s).";
+    }
+
+    if (editedGroupForm.systems.length === 0) {
+      return "Please select your group's experience level.";
+    }
+
+    if (editedGroupForm.weekdays.length === 0) {
+      return "Select at least one weekday.";
+    }
+
+    if (editedGroupForm.languages.length === 0) {
+      return "Please choose at least one language.";
+    }
+
+    return null;
+  };
+
   // Cleaned up handleSave uses the editedGroupForm state
   const handleSave = async () => {
     if (!editedGroupForm) return;
+
+    const error = validateStep();
+    if (error) {
+      toast.error(error);
+      return;
+    }
 
     const { location, ...addressWithoutLocation } =
       editedGroupForm.address || {};

@@ -21,10 +21,7 @@ export const getFilteredUsers = async (radius, filters = {}) => {
     },
     body: JSON.stringify(cleanFilters),
   });
-  //console.log(
-    `Fetching users with radius: ${radius} m and filters:`,
-    cleanFilters
-  );
+  //console.log(`Fetching users with radius: ${radius} m and filters:`,cleanFilters);
 
   if (!res.ok) {
     const errorData = await res.json();
