@@ -22,24 +22,24 @@ const ProfileChecker = ({ user }) => {
       let value = 0;
       toCheck.map((e) => {
         if (Array.isArray(user[e]) && user[e].length > 0) {
-          //   console.log(`${e} arr adds 1`);
+          //   //console.log(`${e} arr adds 1`);
           value++;
         }
         if (
           e === "avatarURL" &&
           user[e] !== "https://i.ibb.co/F4MD88Lt/Ren-avatar.png"
         ) {
-          //   console.log(`${e} arr adds 1`);
+          //   //console.log(`${e} arr adds 1`);
           value++;
         } else if (typeof user[e] === "string" && user[e] !== "") {
-          //   console.log(`${e} txt adds 1`);
+          //   //console.log(`${e} txt adds 1`);
           value++;
         }
       });
 
-      console.log(`${value} points of ${toCheck.length}`);
+      //console.log(`${value} points of ${toCheck.length}`);
       const percentage = Math.round((toCheck.length / 100) * value * 100);
-      console.log(percentage);
+      //console.log(percentage);
       setPerc(percentage);
     };
 

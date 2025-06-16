@@ -51,8 +51,8 @@ export const WSContextProvider = ({ children }) => {
         const msgs = await getChatMessages();
         setMessages(msgs);
         setFetched(true);
-        console.log("Initial messages fetched:", msgs);
-        console.log(user, "WebSocket connection established");
+        //console.log("Initial messages fetched:", msgs);
+        //console.log(user, "WebSocket connection established");
       } catch (err) {
         console.error("Failed to fetch initial messages:", err);
         setFetched(true);
@@ -65,7 +65,7 @@ export const WSContextProvider = ({ children }) => {
       try {
         const text = await event.data.text();
         const data = JSON.parse(text);
-        console.log("WebSocket received:", data);
+        //console.log("WebSocket received:", data);
 
         // Add message to state
         setMessages((prev) => [...prev, data]);

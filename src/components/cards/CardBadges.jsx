@@ -61,10 +61,10 @@ const CardBadges = ({ details }) => {
 
     //set the selected badges
     setDispBadges(badgeSelection);
-    console.log("badge", badgeSelection);
+    //console.log("badge", badgeSelection);
   }, []);
 
-  // console.log("Details ", details);
+  // //console.log("Details ", details);
 
   return (
     <div className="text-left">

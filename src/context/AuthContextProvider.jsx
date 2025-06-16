@@ -13,14 +13,14 @@ export const AuthContextProvider = ({ children }) => {
       try {
         const userData = await me();
         setUser(userData);
-        console.log("User data fetched:", userData);
+        //console.log("User data fetched:", userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
         console.error("User not logged in or session expired.");
       } finally {
         setLoading(false);
         const end = performance.now();
-        console.log(`/me took ${Math.round(end - start)}ms`);
+        //console.log(`/me took ${Math.round(end - start)}ms`);
       }
     };
 
@@ -43,7 +43,7 @@ export const AuthContextProvider = ({ children }) => {
     loading,
   };
 
-  console.log("AuthContextProvider values:", values);
+  //console.log("AuthContextProvider values:", values);
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

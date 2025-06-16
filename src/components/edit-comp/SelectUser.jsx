@@ -10,10 +10,10 @@ const SelectUser = ({ selected, onChange, setSelected }) => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      console.log("Fetching users with filter:", inputTimer);
+      //console.log("Fetching users with filter:", inputTimer);
       const data = await getFilteredUsers(0, inputTimer);
       setResults(data);
-      console.log("Name results ", data);
+      //console.log("Name results ", data);
     } catch (error) {
       console.error("Error fetching users:", error.message);
       setResults([]);
