@@ -266,7 +266,7 @@ const PlayerDetail = () => {
                       onChange={(e) =>
                         setEditedUser((prev) => ({
                           ...prev,
-                          editedUserName: e.target.value,
+                          userName: e.target.value,
                         }))
                       }
                       className="input-bordered w-[320px] capitalize"
