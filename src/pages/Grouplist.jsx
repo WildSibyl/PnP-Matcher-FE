@@ -20,7 +20,7 @@ const Grouplist = () => {
       const data = await getMyGroups();
       setGroups(data);
     } catch (error) {
-      console.log("Error refreshing groups", error.message);
+      //console.log("Error refreshing groups", error.message);
     }
   };
 
@@ -29,7 +29,7 @@ const Grouplist = () => {
       const updatedUser = await me();
       setUser(updatedUser);
     } catch (error) {
-      console.log("Couldn't update user");
+      //console.log("Couldn't update user");
     }
   };
 
@@ -41,20 +41,20 @@ const Grouplist = () => {
   useEffect(() => {
     const fetchGroups = async () => {
       if (!user || !Array.isArray(user.groups) || user.groups.length === 0) {
-        console.log("User not logged in");
+        //console.log("User not logged in");
         return;
       }
       try {
         const data = await getMyGroups();
         setGroups(data);
       } catch (error) {
-        console.log("Error fetching groups ", error.message);
+        //console.log("Error fetching groups ", error.message);
       }
     };
 
     const fetchInvite = async (id) => {
       if (!id) {
-        console.log("Group not found");
+        //console.log("Group not found");
         return;
       }
       try {
@@ -64,9 +64,9 @@ const Grouplist = () => {
           if (prev.find((g) => g._id === data._id)) return prev;
           return [...prev, data];
         });
-        console.log("Fetched invite: ", data);
+        //console.log("Fetched invite: ", data);
       } catch (error) {
-        console.log("Error fetching groups ", error.message);
+        //console.log("Error fetching groups ", error.message);
       }
     };
 
@@ -84,7 +84,7 @@ const Grouplist = () => {
 
   const handleAccept = async (id) => {
     if (!id) {
-      console.log("Not a valid id");
+      //console.log("Not a valid id");
       return;
     }
 
@@ -98,13 +98,13 @@ const Grouplist = () => {
       await refreshGroups();
       await refreshUser();
     } catch (error) {
-      console.log("Couldn't accept invite");
+      //console.log("Couldn't accept invite");
     }
   };
 
   const handleDecline = async (id) => {
     if (!id) {
-      console.log("Not a valid id");
+      //console.log("Not a valid id");
       return;
     }
 
@@ -117,7 +117,7 @@ const Grouplist = () => {
       await refreshGroups();
       await refreshUser();
     } catch (error) {
-      console.log("Couldn't reject invite");
+      //console.log("Couldn't reject invite");
     }
   };
 

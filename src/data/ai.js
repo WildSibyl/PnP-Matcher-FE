@@ -7,7 +7,7 @@ if (!API_URL)
 const baseURL = `${API_URL}/ai`;
 
 export const fetchAiSuggestion = async (prompt) => {
-  console.log(`Start fetching on ${API_URL}/suggest`);
+  //console.log(`Start fetching on ${API_URL}/suggest`);
   const res = await fetch(`${baseURL}/suggest`, {
     method: "POST",
     headers: {
@@ -21,7 +21,7 @@ export const fetchAiSuggestion = async (prompt) => {
 
   if (!res.ok) {
     const errorData = await res.json();
-    console.log("AI error response:", errorData);
+    //console.log("AI error response:", errorData);
 
     if (!errorData.error) {
       throw new Error("An error occurred while generating an AI suggestion");
@@ -31,6 +31,6 @@ export const fetchAiSuggestion = async (prompt) => {
   }
 
   const data = await res.json();
-  console.log("Ai data:", data);
+  //console.log("Ai data:", data);
   return data.suggestion;
 };

@@ -55,11 +55,11 @@ const PlayerDetail = () => {
         if (!res.ok) throw new Error("Failed to fetch user");
 
         data = await res.json();
-        console.log("Fetched user data:", data);
+        //console.log("Fetched user data:", data);
 
         setUser(data);
-        console.log("Initial editedUser.experience:", data.experience);
-        console.log("Data from /auth/me:", data);
+        //console.log("Initial editedUser.experience:", data.experience);
+        //console.log("Data from /auth/me:", data);
 
         setEditedUser({
           ...data,
@@ -75,7 +75,7 @@ const PlayerDetail = () => {
 
         const dataGroups = await getMyGroups();
         setGroups(dataGroups);
-        console.log("User Groups", dataGroups);
+        //console.log("User Groups", dataGroups);
       } catch (err) {
         console.error("Error loading user:", err);
       }
@@ -85,7 +85,7 @@ const PlayerDetail = () => {
   }, []);
 
   const handleSave = async () => {
-    console.log("editedUser.playstyles:", editedUser.playstyles);
+    //console.log("editedUser.playstyles:", editedUser.playstyles);
     const updateData = {
       userName: editedUser.userName,
       birthday: editedUser.birthday,
@@ -124,10 +124,7 @@ const PlayerDetail = () => {
       description: editedUser.description,
     };
 
-    console.log(
-      "Data being sent for update:",
-      JSON.stringify(updateData, null, 2)
-    ); // Log the data being sent
+    //console.log("Data being sent for update:",JSON.stringify(updateData, null, 2)); // Log the data being sent
 
     try {
       const res = await fetch(`${API_URL}/users/${editedUser._id}`, {
@@ -740,10 +737,7 @@ const PlayerDetail = () => {
                         category="playstyles"
                         value={editedUser.playstyles}
                         onChange={(values) => {
-                          console.log(
-                            "PlayerDetail playstyles onChange values:",
-                            values
-                          );
+                          // console.log("PlayerDetail playstyles onChange values:",values);
                           setEditedUser({
                             ...editedUser,
                             playstyles: values.map((v) => v.id),
@@ -826,10 +820,7 @@ const PlayerDetail = () => {
                         value={editedUser.dislikes}
                         onChange={(values) => {
                           {
-                            console.log(
-                              "editedUser.dislikes on render:",
-                              editedUser.dislikes
-                            );
+                            //console.log("editedUser.dislikes on render:",editedUser.dislikes);
                           }
                           setEditedUser({
                             ...editedUser,

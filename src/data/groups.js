@@ -67,7 +67,7 @@ export const createGroup = async (formData) => {
 };
 
 export const updateGroup = async (id, formData) => {
-  console.log(id, formData);
+  //console.log(id, formData);
   const res = await fetch(`${baseURL}/${id}`, {
     method: "PUT",
     headers: {
@@ -142,7 +142,7 @@ export const getFilteredGroups = async (radius, filters = {}) => {
     },
     body: JSON.stringify(cleanFilters),
   });
-  console.log(
+  //console.log(
     `Fetching groups with radius: ${radius} m and filters:`,
     cleanFilters
   );

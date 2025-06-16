@@ -73,7 +73,7 @@ export const sendChat = async (chatData) => {
     credentials: "include",
   });
 
-  console.log("Sending chat data:", chatData);
+  //console.log("Sending chat data:", chatData);
 
   if (!res.ok) {
     const errorData = await res.json();
@@ -89,7 +89,7 @@ export const sendChat = async (chatData) => {
 };
 
 export const updateChat = async (id, chatData) => {
-  console.log(id, chatData);
+  //console.log(id, chatData);
   const res = await fetch(`${baseURL}/${id}`, {
     method: "PUT",
     headers: {

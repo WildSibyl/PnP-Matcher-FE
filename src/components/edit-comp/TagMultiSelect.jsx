@@ -24,7 +24,7 @@ const TagMultiSelect = ({
     const fetchOptions = async () => {
       try {
         const data = await getOptionsByCategory(category);
-        console.log(`Options for ${category}:`, data);
+        //console.log(`Options for ${category}:`, data);
         setOptions(
           data.map((opt) => ({
             id: opt._id,
@@ -73,7 +73,7 @@ const TagMultiSelect = ({
       }
     });
 
-    console.log("handleSelectChange - updatedSelections:", updatedSelections);
+    //console.log("handleSelectChange - updatedSelections:", updatedSelections);
     setSelected(updatedSelections);
     onChange(updatedSelections.map((o) => ({ ...o })));
   };
@@ -82,7 +82,7 @@ const TagMultiSelect = ({
     const updatedSelections = selected.filter(
       (opt) => opt.value !== valToRemove
     );
-    console.log("handleRemove - updatedSelections:", updatedSelections);
+    //console.log("handleRemove - updatedSelections:", updatedSelections);
     setSelected(updatedSelections);
     onChange(updatedSelections.map((o) => ({ ...o })));
   };

@@ -32,7 +32,7 @@ const RollForGroup = () => {
           if (!rolledUsers || rolledUsers.length === 0) {
             throw new Error("No users rolled");
           }
-          console.log("Rolled ", rolledUsers);
+          //console.log("Rolled ", rolledUsers);
           hasRolled.current = true;
 
           // Start Intervall, nachdem Daten da sind

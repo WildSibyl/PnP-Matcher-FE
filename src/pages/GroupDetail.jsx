@@ -53,7 +53,7 @@ const GroupDetail = () => {
       try {
         setLoading(true);
         const data = await getSingleGroup(id);
-        console.log("Fetched group data:", data);
+        //console.log("Fetched group data:", data);
         setGroupDetails(data);
         const groupForm = {
           ...data,
@@ -74,7 +74,7 @@ const GroupDetail = () => {
           dislikes: data.dislikes?.map((d) => d._id) || [], //normalizing fetched data
         };
         setEditedGroupForm(groupForm);
-        console.log("Initial group form:", groupForm);
+        //console.log("Initial group form:", groupForm);
       } catch (err) {
         console.error("Error fetching group:", err);
         setError("Failed to load group details.");
@@ -166,7 +166,7 @@ const GroupDetail = () => {
         ),
         maxMembers: editedGroupForm.maxMembers,
       };
-      console.log("Saving group with payload:", payload);
+      //console.log("Saving group with payload:", payload);
       const res = await updateGroup(id, payload);
 
       //setGroupDetails(res);

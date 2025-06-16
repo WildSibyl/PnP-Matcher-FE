@@ -20,9 +20,9 @@ const SingleSelect = ({
 
   //Error handling
   useEffect(() => {
-    console.log("value in parent:", value);
-    console.log("label in parent:", label);
-    console.log("mapped options:", options);
+    //console.log("value in parent:", value);
+    //console.log("label in parent:", label);
+    //console.log("mapped options:", options);
   }, [value, options]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const SingleSelect = ({
             value: opt._id,
           }))
         );
-        console.log("Fetched raw data:", data);
+        //console.log("Fetched raw data:", data);
       } catch (err) {
         console.error(`Failed to load options for ${category}:`, err.message);
       }

@@ -14,7 +14,7 @@ const GroupCard = ({ details }) => {
   const { startTeleport } = useTeleport();
   const navigate = useNavigate();
 
-  console.log("Group Details", details);
+  //console.log("Group Details", details);
 
   useEffect(() => setCurrGroup(details), []);
 

@@ -21,7 +21,7 @@ export const getFilteredUsers = async (radius, filters = {}) => {
     },
     body: JSON.stringify(cleanFilters),
   });
-  console.log(
+  //console.log(
     `Fetching users with radius: ${radius} m and filters:`,
     cleanFilters
   );
@@ -48,7 +48,7 @@ export const getRollMatches = async (radius) => {
       "Content-Type": "application/json",
     },
   });
-  console.log(`Rolling users with radius: ${radius} m`);
+  //console.log(`Rolling users with radius: ${radius} m`);
 
   if (!res.ok) {
     const errorData = await res.json();

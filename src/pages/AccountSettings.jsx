@@ -119,7 +119,7 @@ const AccountSettings = () => {
     } catch (err) {
       toast.error(err.message);
     }
-    console.log("Updating password", passwordForm);
+    //console.log("Updating password", passwordForm);
     setIsEditingPassword(false);
   };
 
