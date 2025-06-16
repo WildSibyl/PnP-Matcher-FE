@@ -15,6 +15,7 @@ import Groupcard from "../components/cards/Groupcard";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContextProvider";
 import ProfileChecker from "../components/player-comp/ProfileChecker";
+import { toast } from "react-toastify";
 
 const PlayerDetail = () => {
   const [user, setUser] = useState(null);
@@ -82,10 +83,45 @@ const PlayerDetail = () => {
     };
 
     fetchUser();
-  }, []);
+  }, [isEditing]);
+
+  const validateInput = () => {
+    if (!editedUser.userName) {
+      return "Please fill in your username.";
+    }
+    if (
+      !editedUser.address.street ||
+      !editedUser.address.houseNumber ||
+      !editedUser.address.postalCode ||
+      !editedUser.address.city
+    )
+      return "Please complete the address correctly.";
+
+    if (!editedUser.birthday) return "Please fill in your birthday.";
+
+    if (!editedUser.experience) return "Please select your experience.";
+
+    if (editedUser.weekdays.length === 0)
+      return "Please select at least one weekday.";
+
+    if (editedUser.frequencyPerMonth < 1)
+      return "Frequency per month must be at least 1.";
+
+    if (editedUser.systems.length === 0)
+      return "Please select at least one game system.";
+
+    return null;
+  };
 
   const handleSave = async () => {
     //console.log("editedUser.playstyles:", editedUser.playstyles);
+
+    const error = validateInput();
+    if (error) {
+      toast.error(error);
+      return;
+    }
+
     const updateData = {
       userName: editedUser.userName,
       birthday: editedUser.birthday,

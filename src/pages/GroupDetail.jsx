@@ -74,7 +74,7 @@ const GroupDetail = () => {
           dislikes: data.dislikes?.map((d) => d._id) || [], //normalizing fetched data
         };
         setEditedGroupForm(groupForm);
-        console.log("Initial group form:", groupForm);
+        //console.log("Initial group form:", groupForm);
       } catch (err) {
         console.error("Error fetching group:", err);
         setError("Failed to load group details.");
@@ -119,7 +119,7 @@ const GroupDetail = () => {
     }
   };
 
-  const validateStep = () => {
+  const validateInput = () => {
     if (!editedGroupForm.name) {
       return "Please fill in your group's name.";
     }
@@ -143,16 +143,16 @@ const GroupDetail = () => {
       return "Please select your group's experience level.";
     }
 
-    if (editedGroupForm.systems.length === 0) {
-      return "Please select your group's system(s).";
-    }
-
     if (editedGroupForm.weekdays.length === 0) {
       return "Please select at least one weekday.";
     }
 
     if (editedGroupForm.frequencyPerMonth < 1) {
-      return "Please select at least 1 time per month.";
+      return "Frequency per month must be at least 1.";
+    }
+
+    if (editedGroupForm.systems.length === 0) {
+      return "Please select your group's system(s).";
     }
 
     if (editedGroupForm.languages.length === 0) {
@@ -166,7 +166,7 @@ const GroupDetail = () => {
   const handleSave = async () => {
     if (!editedGroupForm) return;
 
-    const error = validateStep();
+    const error = validateInput();
     if (error) {
       toast.error(error);
       return;
@@ -215,7 +215,7 @@ const GroupDetail = () => {
         ),
         maxMembers: editedGroupForm.maxMembers,
       };
-      console.log("Saving group with payload:", payload);
+      //console.log("Saving group with payload:", payload);
       const res = await updateGroup(id, payload);
 
       //setGroupDetails(res);
