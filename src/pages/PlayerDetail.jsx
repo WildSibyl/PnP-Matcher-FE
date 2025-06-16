@@ -141,8 +141,7 @@ const PlayerDetail = () => {
 
       experience: editedUser.experience?.id || editedUser.experience,
 
-      playingModes: editedUser.playingModes?.id,
-      playingRoles: editedUser.playingRoles?.id,
+      playingModes: editedUser.playingModes?.id || editedUser.playingModes,
 
       systems: editedUser.systems?.map((system) => system.id || system) ?? [],
       weekdays: editedUser.weekdays,
@@ -159,6 +158,14 @@ const PlayerDetail = () => {
       tagline: editedUser.tagline,
       description: editedUser.description,
     };
+
+    const playingRoleId =
+      editedUser.playingRoles?.id || editedUser.playingRoles;
+    if (playingRoleId !== undefined && playingRoleId !== null) {
+      updateData.playingRoles = playingRoleId;
+    } else {
+      updateData.playingRoles = null;
+    }
 
     //console.log("Data being sent for update:",JSON.stringify(updateData, null, 2)); // Log the data being sent
 
