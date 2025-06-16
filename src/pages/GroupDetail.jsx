@@ -74,7 +74,7 @@ const GroupDetail = () => {
           dislikes: data.dislikes?.map((d) => d._id) || [], //normalizing fetched data
         };
         setEditedGroupForm(groupForm);
-        //console.log("Initial group form:", groupForm);
+        console.log("Initial group form:", groupForm);
       } catch (err) {
         console.error("Error fetching group:", err);
         setError("Failed to load group details.");
@@ -84,7 +84,7 @@ const GroupDetail = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, isEditing]);
 
   const isAuthor = user && groupDetails?.author?._id === user._id;
   // || user?.permission === "admin";  // this line can be uncommented if admin permission is needed, but also the calls to the API should be updated to allow admins to edit groups
@@ -140,15 +140,19 @@ const GroupDetail = () => {
     }
 
     if (!editedGroupForm.experience) {
-      return "Please select your group's system(s).";
-    }
-
-    if (editedGroupForm.systems.length === 0) {
       return "Please select your group's experience level.";
     }
 
+    if (editedGroupForm.systems.length === 0) {
+      return "Please select your group's system(s).";
+    }
+
     if (editedGroupForm.weekdays.length === 0) {
-      return "Select at least one weekday.";
+      return "Please select at least one weekday.";
+    }
+
+    if (editedGroupForm.frequencyPerMonth < 1) {
+      return "Please select at least 1 time per month.";
     }
 
     if (editedGroupForm.languages.length === 0) {
@@ -211,7 +215,7 @@ const GroupDetail = () => {
         ),
         maxMembers: editedGroupForm.maxMembers,
       };
-      //console.log("Saving group with payload:", payload);
+      console.log("Saving group with payload:", payload);
       const res = await updateGroup(id, payload);
 
       //setGroupDetails(res);
