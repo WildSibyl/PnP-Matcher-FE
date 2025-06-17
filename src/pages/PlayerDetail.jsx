@@ -187,6 +187,21 @@ const PlayerDetail = () => {
 
       setIsEditing(false);
     } catch (err) {
+      const message = err.message || "";
+      if (
+        message.includes("Cast to ObjectId failed") &&
+        message.includes("playingModes")
+      ) {
+        toast.error("Please set a playing mode");
+      } else if (
+        message.includes("Cast to ObjectId failed") &&
+        message.includes("playingRole")
+      ) {
+        toast.error("Please set a playing role");
+      } else {
+        toast.error(message || "Please make sure all fields are filled out");
+      }
+
       console.error(err);
     }
   };
