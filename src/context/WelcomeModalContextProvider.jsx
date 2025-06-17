@@ -8,7 +8,7 @@ export const WelcomeModalContextProvider = ({ children }) => {
 
   const openWelcomeModal = () => {
     // if (userId) setActiveUser(userId);
-    console.log("Welcome Modal opens!");
+    //console.log("Welcome Modal opens!");
     setIsWelcomeModalOpen(true);
   };
 

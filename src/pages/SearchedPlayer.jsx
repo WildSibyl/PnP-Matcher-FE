@@ -53,7 +53,7 @@ const SearchedPlayer = () => {
     // const fetchGroups = async (id) => {
     //   try {
     //     const data = await getSingleGroup(id);
-    //     console.log("Groupdata: ", data);
+    //     //console.log("Groupdata: ", data);
     //     //set Groups and make sure each group is only displayed once
     //     setGroups((prev) => {
     //       const safeGroups = prev || [];
@@ -61,14 +61,14 @@ const SearchedPlayer = () => {
     //       return [...safeGroups, data];
     //     });
     //   } catch (error) {
-    //     console.log("User group could not be fetched ", error);
+    //     //console.log("User group could not be fetched ", error);
     //   }
     // };
 
     const fetchData = async () => {
       try {
         const user = await getUserById(id);
-        console.log("User ", user);
+        //console.log("User ", user);
         setDetails(user);
         setChatUsername(user.userName);
         // await Promise.all(
@@ -114,7 +114,7 @@ const SearchedPlayer = () => {
     margin: "2px",
   });
 
-  console.log("Details weekdays:", details.weekdays);
+  //console.log("Details weekdays:", details.weekdays);
 
   return (
     <>

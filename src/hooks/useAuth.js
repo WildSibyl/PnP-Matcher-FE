@@ -9,6 +9,6 @@ export const useAuth = () => {
       "useAuth context not available, itmust be used within an AuthProvider"
     );
   }
-  console.log("useAuth context:", context);
+  //console.log("useAuth context:", context);
   return context;
 };

@@ -11,12 +11,12 @@ const TakeOverValues = ({ onChange, name }) => {
 
   useEffect(() => {
     if (!user) {
-      console.log("Group Suggestion error: No user logged in");
+      //console.log("Group Suggestion error: No user logged in");
       return;
     }
 
     if (!name) {
-      console.log("Group Suggestion error: No field name passed");
+      //console.log("Group Suggestion error: No field name passed");
       return;
     }
 
@@ -25,7 +25,7 @@ const TakeOverValues = ({ onChange, name }) => {
         const currUser = await me();
         setUserData(currUser);
       } catch (error) {
-        console.log("Error fetching current user");
+        //console.log("Error fetching current user");
       }
     };
 

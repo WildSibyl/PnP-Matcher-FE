@@ -186,7 +186,7 @@ const Register = () => {
         groups: [],
       };
 
-      console.log("Payload being sent to backend:", payload);
+      //console.log("Payload being sent to backend:", payload);
 
       await signUp(payload);
       toast.success("One of us! You can now log in!");
@@ -197,7 +197,7 @@ const Register = () => {
     } finally {
       setLoading(false);
     }
-    console.log("Form submitted:", regForm);
+    //console.log("Form submitted:", regForm);
   };
 
   return (

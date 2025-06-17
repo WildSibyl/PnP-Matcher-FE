@@ -21,18 +21,18 @@ const InviteToGroupModal = () => {
 
   const handleInvite = async () => {
     if (!selectedUser || !selectedGroup) {
-      console.log("User or group not selected.");
+      //console.log("User or group not selected.");
       return;
     }
 
-    console.log("Selected User", selectedUser);
-    console.log("Selected Group", selectedGroup);
+    //console.log("Selected User", selectedUser);
+    //console.log("Selected Group", selectedGroup);
     try {
       await sendInvite(selectedUser._id, selectedGroup);
       toast.success(`You've invited ${selectedUser.userName}!`);
       closeInviteModal();
     } catch (error) {
-      console.log("Error sending invite", error.message);
+      //console.log("Error sending invite", error.message);
       toast.error(`${error.message}`);
     }
   };

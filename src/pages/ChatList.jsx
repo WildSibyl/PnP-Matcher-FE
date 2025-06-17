@@ -70,7 +70,7 @@ const ChatList = () => {
                 avatar: user.avatarUrl,
               };
             } catch (error) {
-              console.log(`User with ID ${id} not found or deleted.`);
+              //console.log(`User with ID ${id} not found or deleted.`);
               return {
                 id,
                 username: "Deleted User",

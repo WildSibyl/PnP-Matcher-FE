@@ -155,7 +155,7 @@ const CreateGroup = () => {
         maxMembers: groupForm.maxMembers,
       };
 
-      console.log("Submitting group:", payload);
+      //console.log("Submitting group:", payload);
       await createGroup(payload); // Your custom API call
       //Update user in authContext
       const updatedUser = await me();

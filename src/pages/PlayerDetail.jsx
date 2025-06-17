@@ -15,6 +15,7 @@ import Groupcard from "../components/cards/Groupcard";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContextProvider";
 import ProfileChecker from "../components/player-comp/ProfileChecker";
+import { toast } from "react-toastify";
 
 const PlayerDetail = () => {
   const [user, setUser] = useState(null);
@@ -55,11 +56,11 @@ const PlayerDetail = () => {
         if (!res.ok) throw new Error("Failed to fetch user");
 
         data = await res.json();
-        console.log("Fetched user data:", data);
+        //console.log("Fetched user data:", data);
 
         setUser(data);
-        console.log("Initial editedUser.experience:", data.experience);
-        console.log("Data from /auth/me:", data);
+        //console.log("Initial editedUser.experience:", data.experience);
+        //console.log("Data from /auth/me:", data);
 
         setEditedUser({
           ...data,
@@ -75,17 +76,52 @@ const PlayerDetail = () => {
 
         const dataGroups = await getMyGroups();
         setGroups(dataGroups);
-        console.log("User Groups", dataGroups);
+        //console.log("User Groups", dataGroups);
       } catch (err) {
         console.error("Error loading user:", err);
       }
     };
 
     fetchUser();
-  }, []);
+  }, [isEditing]);
+
+  const validateInput = () => {
+    if (!editedUser.userName) {
+      return "Please fill in your username.";
+    }
+    if (
+      !editedUser.address.street ||
+      !editedUser.address.houseNumber ||
+      !editedUser.address.postalCode ||
+      !editedUser.address.city
+    )
+      return "Please complete the address correctly.";
+
+    if (!editedUser.birthday) return "Please fill in your birthday.";
+
+    if (!editedUser.experience) return "Please select your experience.";
+
+    if (editedUser.weekdays.length === 0)
+      return "Please select at least one weekday.";
+
+    if (editedUser.frequencyPerMonth < 1)
+      return "Frequency per month must be at least 1.";
+
+    if (editedUser.systems.length === 0)
+      return "Please select at least one game system.";
+
+    return null;
+  };
 
   const handleSave = async () => {
-    console.log("editedUser.playstyles:", editedUser.playstyles);
+    //console.log("editedUser.playstyles:", editedUser.playstyles);
+
+    const error = validateInput();
+    if (error) {
+      toast.error(error);
+      return;
+    }
+
     const updateData = {
       userName: editedUser.userName,
       birthday: editedUser.birthday,
@@ -131,10 +167,7 @@ const PlayerDetail = () => {
       updateData.playingRoles = null;
     }
 
-    console.log(
-      "Data being sent for update:",
-      JSON.stringify(updateData, null, 2)
-    ); // Log the data being sent
+    //console.log("Data being sent for update:",JSON.stringify(updateData, null, 2)); // Log the data being sent
 
     try {
       const res = await fetch(`${API_URL}/users/${editedUser._id}`, {
@@ -273,7 +306,7 @@ const PlayerDetail = () => {
                       onChange={(e) =>
                         setEditedUser((prev) => ({
                           ...prev,
-                          editedUserName: e.target.value,
+                          userName: e.target.value,
                         }))
                       }
                       className="input-bordered w-[320px] capitalize"
@@ -747,10 +780,7 @@ const PlayerDetail = () => {
                         category="playstyles"
                         value={editedUser.playstyles}
                         onChange={(values) => {
-                          console.log(
-                            "PlayerDetail playstyles onChange values:",
-                            values
-                          );
+                          // console.log("PlayerDetail playstyles onChange values:",values);
                           setEditedUser({
                             ...editedUser,
                             playstyles: values.map((v) => v.id),
@@ -833,10 +863,7 @@ const PlayerDetail = () => {
                         value={editedUser.dislikes}
                         onChange={(values) => {
                           {
-                            console.log(
-                              "editedUser.dislikes on render:",
-                              editedUser.dislikes
-                            );
+                            //console.log("editedUser.dislikes on render:",editedUser.dislikes);
                           }
                           setEditedUser({
                             ...editedUser,

@@ -70,7 +70,7 @@ export const getOptionsByCategory = async (category) => {
 // };
 
 // export const updateOption = async (id, formData) => {
-//   console.log(id, formData);
+//   //console.log(id, formData);
 //   const res = await fetch(`${baseURL}/${id}`, {
 //     method: "PUT",
 //     headers: {
