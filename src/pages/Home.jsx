@@ -12,13 +12,13 @@ import { useState, useEffect } from "react";
 const Home = () => {
   const navigate = useNavigate();
   const { homeSearch, setHomeSearch } = useTagContext();
-  const [infoModalOpen, setInfoModalOpen] = useState(true);
+  const [infoModalOpen, setInfoModalOpen] = useState(false);
   const [acceptedInfo, setAcceptedInfo] = useState(false);
 
   useEffect(() => {
     const hasAccepted = localStorage.getItem("acceptTerms");
-    if (hasAccepted === "true") {
-      setInfoModalOpen(false);
+    if (hasAccepted !== "true") {
+      setInfoModalOpen(true);
     }
   }, []);
 
