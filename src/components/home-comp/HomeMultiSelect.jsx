@@ -13,6 +13,7 @@ const HomeMultiSelect = ({
 }) => {
   const [options, setOptions] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const customStyles = {
     menuPortal: (base) => ({ ...base, zIndex: 9999 }),
@@ -27,6 +28,7 @@ const HomeMultiSelect = ({
     if (!category) return;
 
     const fetchOptions = async () => {
+      setLoading(true);
       try {
         const data = await getOptionsByCategory(category);
         setOptions(
@@ -38,6 +40,8 @@ const HomeMultiSelect = ({
         );
       } catch (err) {
         console.error(`Failed to load options for ${category}:`, err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -94,6 +98,9 @@ const HomeMultiSelect = ({
         name={name}
         styles={customStyles}
         menuPortalTarget={document.body} //renders the menu in the body independent from the select field
+        noOptionsMessage={() =>
+          loading ? "Waking up server..." : "No options available"
+        }
       />
 
       <div className="tag-field mt-2">
