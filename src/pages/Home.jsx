@@ -176,6 +176,13 @@ const Home = () => {
                 Render.com and does not use analytics tools to track user data.
               </p>
 
+              <p className="text-base font-normal border border-red-200 bg-red-100 rounded-2xl p-2 mt-4">
+                Render's free tier goes to sleep after 15 minutes of inactivity,
+                so you may experience a short delay in server response when
+                loading the page for the first time. Please give it a minute,
+                and it will be ready to use!
+              </p>
+
               <form className="flex flex-col justify-center mt-4">
                 <label className="flex gap-4">
                   <input
@@ -189,7 +196,7 @@ const Home = () => {
                 <button
                   onClick={() => handleCloseModal()}
                   disabled={!acceptedInfo}
-                  className={`btn-primary-light mt-6 ${
+                  className={`btn-primary-light my-5 ${
                     acceptedInfo ? "" : "opacity-50 cursor-not-allowed"
                   }`}
                 >
